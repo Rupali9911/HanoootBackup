@@ -1,18 +1,12 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, Alert } from 'react-native'
 import React from 'react';
 import Images from '../../constant/Images';
-import { Searchbar } from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/Ionicons';
-
-// import Icon from 'react-native-vector-icons/MaterialIcons';
-
 
 
 export default function AppHeader(props) {
   return (
     <>
     <View style={[styles.container, props.containerStyle]}>
-      {/* <View style={{ flex: 1 }}> */}
         {props.showBackButton ? (
           <TouchableOpacity
             style={styles.backContainer}
