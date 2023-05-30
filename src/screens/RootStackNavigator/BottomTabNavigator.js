@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import images from '../../res/images';
+import Images from '../../constant/Images';
 import Colors from '../../constant/Colors';
 import HomeScreen from '../HomeScreen';
 
@@ -34,41 +34,52 @@ export default function TabComponent() {
     return (
         <Tab.Navigator
             initialRouteName="Home"
-            tabBarOptions={{
-                labelStyle: {
+            // tabBarOptions={{
+            //     labelStyle: {
+            //         fontSize: 12,
+            //         // fontFamily: fonts.SegoeUIRegular,
+            //         // paddingTop: 2,
+            //     },
+            //     tabStyle: {
+            //         // paddingVertical: 5,
+            //     },
+            //     activeTintColor: Colors.themeColor,
+            // }}
+            detachInactiveScreens={true}
+            //lazy={true}
+
+
+            screenOptions={({ route }) => ({
+                tabBarShowLabel: false,
+                headerShown: false,
+                lazy: true,
+                // tabBarVisible: true,
+                tabBarLabelStyle: {
                     fontSize: 12,
                     // fontFamily: fonts.SegoeUIRegular,
                     // paddingTop: 2,
                 },
-                tabStyle: {
+                tabBarStyle: {
                     // paddingVertical: 5,
                 },
-                activeTintColor: Colors.themeColor,
-            }}
-            detachInactiveScreens={true}
-            lazy={true}
-
-
-            screenOptions={({ route }) => ({
-                // tabBarVisible: true,
+                tabBarActiveTintColor: Colors.themeColor,
                 tabBarIcon: ({ focused, color }) => {
                     console.log('Route Name : ', route.name)
                     let iconName;
 
-                    if (route.name === 'Home') {
-                        iconName = focused ? images.icons.homeA : images.icons.homeD;
+                    if (route.name === 'H') {
+                        iconName = focused ? Images.homeSelected : Images.home;
                     }
                      else if (route.name === 'Categories') {
-                        iconName = focused ? images.icons.homeA : images.icons.categoriesD;
+                        iconName = focused ? Images.homeSelected : Images.categories;
                     }
                     else if (route.name === 'Cart') {
-                        iconName = focused ? images.icons.cartA : images.icons.cartD;
+                        iconName = focused ? Images.cartSelected : Images.cart;
                     }
                     else if (route.name === 'Profile') {
-                        iconName = focused ? images.icons.homeA : images.icons.profileD;
+                        iconName = focused ? Images.homeSelected : Images.profile;
                     }
                     return (
-                    
                         <Image
                             source={iconName}
                             resizeMode="contain"
@@ -78,7 +89,7 @@ export default function TabComponent() {
                 },
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="H" component={HomeScreen} />
             <Tab.Screen name="Categories" component={B} />
             <Tab.Screen name="Cart" component={C} />
             <Tab.Screen name="Profile" component={D} />
