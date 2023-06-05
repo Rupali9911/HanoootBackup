@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import Colors from '../../constant/Colors';
 // import Colors from '../constants/Colors';
 // import FetchingIndicator from './fetchingIndicator';
 
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
   backgroundContainer: {
     flex: 1,
     overflow: 'hidden',
-    backgroundColor: 'white',
+    backgroundColor: Colors.LightGray,
   },
   safeArea: {
     backgroundColor: 'white',

@@ -4,6 +4,22 @@
     {
       "path": "src/assets/fonts/Kanit-Black.ttf",
       "sha1": "0e538d85b0e75d5b9d034d095fecc82d37a65b91"
+    },
+    {
+      "path": "src/assets/fonts/VisbyCF-Bold.otf",
+      "sha1": "054e219709ab51e4c438a19f30be655d51bd6ba8"
+    },
+    {
+      "path": "src/assets/fonts/VisbyCF-Demibold.otf",
+      "sha1": "48bf97452e3219f3652f69141b47c047367b31c8"
+    },
+    {
+      "path": "src/assets/fonts/VisbyCF-Medium.otf",
+      "sha1": "5c4e0cef18b44c2f4c5d9fb2d8493f942fb5f0cb"
+    },
+    {
+      "path": "src/assets/fonts/VisbyCF-Regular.otf",
+      "sha1": "5ca2afd6efd07457011d69824d34820fa2076978"
     }
   ]
 }

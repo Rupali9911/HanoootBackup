@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Images from '../../constant/Images';
 import Colors from '../../constant/Colors';
 import HomeScreen from '../HomeScreen';
+import ProductDetail from '../ProductDetail';
 
 
 
@@ -90,7 +91,7 @@ export default function TabComponent() {
             })}
         >
             <Tab.Screen name="H" component={HomeScreen} />
-            <Tab.Screen name="Categories" component={B} />
+            <Tab.Screen name="Categories" component={ProductDetail} />
             <Tab.Screen name="Cart" component={C} />
             <Tab.Screen name="Profile" component={D} />
 

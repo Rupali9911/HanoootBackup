@@ -37,6 +37,14 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Kanit-Black.ttf</string>
+		<string>VisbyCF-Regular.otf</string>
+		<string>VisbyCF-Bold.otf</string>
+		<string>VisbyCF-Demibold.otf</string>
+		<string>VisbyCF-Medium.otf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -55,9 +63,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Kanit-Black.ttf</string>
-	</array>
 </dict>
 </plist>
