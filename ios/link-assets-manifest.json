@@ -7,15 +7,19 @@
     },
     {
       "path": "src/assets/fonts/VisbyCF-Bold.otf",
-      "sha1": "054e219709ab51e4c438a19f30be655d51bd6ba8"
+      "sha1": "948de8b5c4681a63fb3ce23fbfe7fa3a5d8d87af"
     },
     {
-      "path": "src/assets/fonts/VisbyCF-Demibold.otf",
-      "sha1": "48bf97452e3219f3652f69141b47c047367b31c8"
+      "path": "src/assets/fonts/VisbyCF-DemiBold.otf",
+      "sha1": "484b987ee1ce9e262c6b9f5023f1c850ecf7430a"
+    },
+    {
+      "path": "src/assets/fonts/VisbyCF-DemiBoldOblique.otf",
+      "sha1": "fd9fea24efb05214ba8bd7ffd57a0f25efc209b2"
     },
     {
       "path": "src/assets/fonts/VisbyCF-Medium.otf",
-      "sha1": "5c4e0cef18b44c2f4c5d9fb2d8493f942fb5f0cb"
+      "sha1": "ac33edb8338fe877d6a94ce9d0068c7c63085e6f"
     },
     {
       "path": "src/assets/fonts/VisbyCF-Regular.otf",

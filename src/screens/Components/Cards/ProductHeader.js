@@ -8,8 +8,8 @@ const ProductHeader = (props) => {
     return (
         <View style={[styles.container, props.ContainerStyle]}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={styles.title}>{props.title}</Text>
-                <Text style={styles.seeAllTxt}>See All</Text>
+                <Text style={[styles.title, props.TitleStyle]}>{props.title}</Text>
+                <Text style={styles.seeAllTxt}>{props.RightText}</Text>
             </View>
             {props.isSale ? <Text style={styles.isSale}>{props.isSale}</Text> : null}
 

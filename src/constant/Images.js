@@ -41,4 +41,10 @@ export default {
     shoping: require(`../assets/images/shoping.png`),
     Logo: require(`../assets/images/Logo.png`),
     ProductImage: require(`../assets/images/Product_Images.png`),
+    ProfileReview: require(`../assets/images/ProfileReview.png`),
+    iPad: require(`../assets/images/iPad.jpg`),
+    iPad2: require(`../assets/images/iPad2.jpg`),
+    ProductPerformance: require(`../assets/images/ProductPerformance.jpg`),
+    OfferKey: require(`../assets/images/OfferKey.png`),
+    ForwardIcon: require(`../assets/images/forwardIcon.png`),
 }

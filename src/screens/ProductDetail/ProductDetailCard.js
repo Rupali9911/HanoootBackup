@@ -7,7 +7,7 @@ import Rating from './rating';
 import Images from '../../constant/Images';
 import ProductImageCarousel from './ProductImageCarousel';
 import WishList from './WishList';
-import ExpressView from '../../constant/ExpressView';
+import { ExpressView } from '../../constant/ListConstant';
 
 const ProductDetailCard = () => {
     return (
@@ -44,7 +44,7 @@ const ProductDetailCard = () => {
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                     
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5}}>
-                        <Text style={{ fontFamily: fonts.VisbyCF_Bold, lineHeight: 23, letterSpacing: 0.5, fontWeight: 400, fontSize: 18 }}>$5,00.00</Text>
+                        <Text style={{ fontFamily: fonts.VisbyCF_Bold, lineHeight: 23, letterSpacing: 0.5, fontWeight: 700, fontSize: 18 }}>$ 5,00.00</Text>
                     <Text style={{ fontFamily: fonts.VisbyCF_Medium, lineHeight: 23, letterSpacing: 0.5, fontWeight: 400, fontSize: 10 , color: Colors.PRICEGRAY}}>(Inclusive of VAT)</Text>
                     </View>
                     <ExpressView />
@@ -77,9 +77,10 @@ export default ProductDetailCard;
 
 const styles = StyleSheet.create({
     mainContainer: {
-        width: wp(100),
+        // width: '100%',
         backgroundColor: Colors.WHITE,
-        padding: 10,
+        // backgroundColor: 'red',
+        padding: 20,
         paddingBottom: 20,
         borderBottomRightRadius: 20,
         borderBottomLeftRadius: 20
@@ -129,7 +130,10 @@ const styles = StyleSheet.create({
     },
     forTextStyle: {
         alignSelf: 'center',
-        left: 10
+        left: 10,
+        fontFamily: fonts.VisbyCF_Medium,
+        fontSize: 10,
+        fontWeight: 500
     },
     separator: {
         backgroundColor: Colors.GRAY,

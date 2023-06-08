@@ -40,14 +40,23 @@ export default function HomeScreen() {
             <BannerCarousel />
             <FourImageCarousel title={'Smart Phones'} priceOff={'Up to 30% off'} />
 
-            <ProductHeader title={'New Arrivals'} />
+            <ProductHeader title={'New Arrivals'} RightText={'See All'}/>
 
-            <ProductList isBrand isExpress={'EXPRESS'} isLike isRating Data={productCollection} priceWithDiscount price/>
+            <ProductList 
+            Data={productCollection}
+            isExpress
+            isLike
+            TotalPrice
+            DisCountPrice
+            isDiscountPercent
+            isRating 
+            isBrand 
+            />
 
             {/* {renderImages(Images.urdu)} */}
             <Banner Image={Images.urdu}/>
 
-            <ProductHeader title={'This weeks deals'} isSale={'End in 04: 10:24'}/>
+            <ProductHeader title={'This weeks deals'} isSale={'End in 04: 10:24'} RightText={'See All'}/>
 
             <ProductList isPriceOff isLike  Data={productCollection}/>
 

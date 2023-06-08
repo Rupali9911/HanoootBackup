@@ -42,7 +42,8 @@
 		<string>Kanit-Black.ttf</string>
 		<string>VisbyCF-Regular.otf</string>
 		<string>VisbyCF-Bold.otf</string>
-		<string>VisbyCF-Demibold.otf</string>
+		<string>VisbyCF-DemiBold.otf</string>
+		<string>VisbyCF-DemiBoldOblique.otf</string>
 		<string>VisbyCF-Medium.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

@@ -13,6 +13,7 @@ const ProductwithTitle = (props) => {
       <View style={styles.Container}>
         <Image source={item.image} style={styles.image} />
         <Text style={styles.name} numberOfLines={2}>{item.name}</Text>
+        
       </View>
     );
   }

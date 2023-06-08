@@ -8,17 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* HanoootAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HanoootAppTests.m */; };
+		0913B44210144A728D4C6AC0 /* VisbyCF-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C6289B6C047A1B5F6038F /* VisbyCF-Bold.otf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-HanoootApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-HanoootApp.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2CFA25B49F8944A09B6E13E0 /* VisbyCF-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = AABF79FEE36948BAA37A2F52 /* VisbyCF-Bold.otf */; };
+		3500AC6BE8E94BDAA07CEC47 /* VisbyCF-DemiBoldOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07138721ECB84719A8785DD4 /* VisbyCF-DemiBoldOblique.otf */; };
 		40D2AD5D0FBE45C1AB1ECDB9 /* Kanit-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0B6FBCBDD042B385F2EA15 /* Kanit-Black.ttf */; };
-		4C7943A5AB754030A20CA044 /* VisbyCF-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8AA4E10CC6B244829D48FDF8 /* VisbyCF-Medium.otf */; };
+		663558526345428A92C2C564 /* VisbyCF-DemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7193ACF8D6D7449AAE38F2D7 /* VisbyCF-DemiBold.otf */; };
 		7699B88040F8A987B510C191 /* libPods-HanoootApp-HanoootAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-HanoootApp-HanoootAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		95A07F2D16854D03AE4BDE14 /* VisbyCF-Demibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F11483E186542ECB08CDF45 /* VisbyCF-Demibold.otf */; };
 		B08F2D6F20F74288AEB2F9E1 /* VisbyCF-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6E757FF051534149BC08508E /* VisbyCF-Regular.otf */; };
+		F6F76BB5809245A9A53B2538 /* VisbyCF-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 516A38EB5FB145968A1EB59C /* VisbyCF-Medium.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		00E356EE1AD99517003FC87E /* HanoootAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HanoootAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* HanoootAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HanoootAppTests.m; sourceTree = "<group>"; };
+		07138721ECB84719A8785DD4 /* VisbyCF-DemiBoldOblique.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "VisbyCF-DemiBoldOblique.otf"; path = "../src/assets/fonts/VisbyCF-DemiBoldOblique.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* HanoootApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HanoootApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HanoootApp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = HanoootApp/AppDelegate.mm; sourceTree = "<group>"; };
@@ -42,16 +44,16 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HanoootApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = HanoootApp/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-HanoootApp-HanoootAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HanoootApp-HanoootAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1F11483E186542ECB08CDF45 /* VisbyCF-Demibold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "VisbyCF-Demibold.otf"; path = "../src/assets/fonts/VisbyCF-Demibold.otf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-HanoootApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanoootApp.debug.xcconfig"; path = "Target Support Files/Pods-HanoootApp/Pods-HanoootApp.debug.xcconfig"; sourceTree = "<group>"; };
+		516A38EB5FB145968A1EB59C /* VisbyCF-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "VisbyCF-Medium.otf"; path = "../src/assets/fonts/VisbyCF-Medium.otf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-HanoootApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanoootApp.release.xcconfig"; path = "Target Support Files/Pods-HanoootApp/Pods-HanoootApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-HanoootApp-HanoootAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanoootApp-HanoootAppTests.debug.xcconfig"; path = "Target Support Files/Pods-HanoootApp-HanoootAppTests/Pods-HanoootApp-HanoootAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-HanoootApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HanoootApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E757FF051534149BC08508E /* VisbyCF-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "VisbyCF-Regular.otf"; path = "../src/assets/fonts/VisbyCF-Regular.otf"; sourceTree = "<group>"; };
+		7193ACF8D6D7449AAE38F2D7 /* VisbyCF-DemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "VisbyCF-DemiBold.otf"; path = "../src/assets/fonts/VisbyCF-DemiBold.otf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HanoootApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-HanoootApp-HanoootAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanoootApp-HanoootAppTests.release.xcconfig"; path = "Target Support Files/Pods-HanoootApp-HanoootAppTests/Pods-HanoootApp-HanoootAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		8AA4E10CC6B244829D48FDF8 /* VisbyCF-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "VisbyCF-Medium.otf"; path = "../src/assets/fonts/VisbyCF-Medium.otf"; sourceTree = "<group>"; };
-		AABF79FEE36948BAA37A2F52 /* VisbyCF-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "VisbyCF-Bold.otf"; path = "../src/assets/fonts/VisbyCF-Bold.otf"; sourceTree = "<group>"; };
+		BF8C6289B6C047A1B5F6038F /* VisbyCF-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "VisbyCF-Bold.otf"; path = "../src/assets/fonts/VisbyCF-Bold.otf"; sourceTree = "<group>"; };
 		CF0B6FBCBDD042B385F2EA15 /* Kanit-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Kanit-Black.ttf"; path = "../src/assets/fonts/Kanit-Black.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -121,9 +123,10 @@
 			children = (
 				CF0B6FBCBDD042B385F2EA15 /* Kanit-Black.ttf */,
 				6E757FF051534149BC08508E /* VisbyCF-Regular.otf */,
-				AABF79FEE36948BAA37A2F52 /* VisbyCF-Bold.otf */,
-				1F11483E186542ECB08CDF45 /* VisbyCF-Demibold.otf */,
-				8AA4E10CC6B244829D48FDF8 /* VisbyCF-Medium.otf */,
+				BF8C6289B6C047A1B5F6038F /* VisbyCF-Bold.otf */,
+				7193ACF8D6D7449AAE38F2D7 /* VisbyCF-DemiBold.otf */,
+				07138721ECB84719A8785DD4 /* VisbyCF-DemiBoldOblique.otf */,
+				516A38EB5FB145968A1EB59C /* VisbyCF-Medium.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -269,9 +272,10 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				40D2AD5D0FBE45C1AB1ECDB9 /* Kanit-Black.ttf in Resources */,
 				B08F2D6F20F74288AEB2F9E1 /* VisbyCF-Regular.otf in Resources */,
-				2CFA25B49F8944A09B6E13E0 /* VisbyCF-Bold.otf in Resources */,
-				95A07F2D16854D03AE4BDE14 /* VisbyCF-Demibold.otf in Resources */,
-				4C7943A5AB754030A20CA044 /* VisbyCF-Medium.otf in Resources */,
+				0913B44210144A728D4C6AC0 /* VisbyCF-Bold.otf in Resources */,
+				663558526345428A92C2C564 /* VisbyCF-DemiBold.otf in Resources */,
+				3500AC6BE8E94BDAA07CEC47 /* VisbyCF-DemiBoldOblique.otf in Resources */,
+				F6F76BB5809245A9A53B2538 /* VisbyCF-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
