@@ -61,7 +61,8 @@ export default BrandProductCarousal;
 const styles = StyleSheet.create({
     BGImage: {
         height: hp(38),
-        width: wp(100)
+        width: wp(100),
+        marginVertical: 0
     },
     container: {
         width: wp(100),

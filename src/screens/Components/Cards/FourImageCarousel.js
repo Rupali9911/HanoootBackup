@@ -55,7 +55,7 @@ const FourImageCarousel = (props) => {
         <View style={styles.mainContainer}>
             <Text style={styles.title}>{props.title}</Text>
             {
-                props.priceOff ? <Text style={styles.priceOff}>{props.priceOff}</Text> : null
+                props.priceOff && <Text style={styles.priceOff}>{props.priceOff}</Text>
             }
 
             <Carousels
@@ -75,14 +75,14 @@ const styles = StyleSheet.create({
         paddingTop: 25,
         backgroundColor: Colors.WHITE,
         borderRadius: 4,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.10,
-        elevation: 7,
-        width: wp(100),
+        // shadowColor: "#000",
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 3,
+        // },
+        // shadowOpacity: 0.10,
+        // elevation: 7,
+        // width: wp(100),
         justifyContent: 'center',
         alignItems: 'center'
 
@@ -105,16 +105,20 @@ const styles = StyleSheet.create({
         color: Colors.themeColor,
     },
     container: {
-        margin: 10,
-        width: wp(40),
+        margin: '2%',
+        // width: wp(40),
+        width: '44%',
+        // justifyContent: 'center',
+        // alignItems: 'center'
     },
     imageContainer: {
-        width: wp(40),
-        height: hp(13),
+        // width: wp(40),
+        // height: hp(13),
         borderRadius: 10,
         backgroundColor: Colors.lightBlue,
-        paddingVertical: 15,
-        paddingHorizontal: 50,
+        // paddingVertical: '20%',
+        // paddingHorizontal: '20%',
+        padding: '20%',
         justifyContent: 'center',
         alignItems: 'center'
     },

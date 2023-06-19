@@ -1,19 +1,31 @@
 import { StyleSheet, Text, View, FlatList, Image } from 'react-native'
 import React from 'react'
 import Colors from '../../../constant/Colors';
-import { productCollection } from '../../../constant/DemoArray';
+import { productCollection, ProductListData } from '../../../constant/DemoArray';
 import fonts from '../../../constant/fonts';
 import ProductList from './ProductList';
 
 const HanoootProducts = (props) => {
 
-  return (
-    <View style={[styles.mainContainer, props.mainContStyle]}>
+    return (
+        <View style={[styles.mainContainer, props.mainContStyle]}>
             <Text style={styles.title}>{props.title}</Text>
-            <ProductList  Data={productCollection} imgContStyle={{padding: 5}} TextViewStyle={{ alignItems: 'center'}}/>
-            <ProductList  Data={productCollection}  imgContStyle={{padding: 5}} TextViewStyle={{ alignItems: 'center'}}/>
+            <ProductList
+                Data={ProductListData}
+                imgContStyle={{ padding: 5 }}
+                TextViewStyle={{ alignItems: 'center' }}
+                DisCountPrice
+                PriceInGreen
+            />
+            <ProductList
+                Data={ProductListData}
+                imgContStyle={{ padding: 5 }}
+                TextViewStyle={{ alignItems: 'center' }}
+                DisCountPrice
+                PriceInGreen
+            />
         </View>
-  )
+    )
 }
 
 export default HanoootProducts;

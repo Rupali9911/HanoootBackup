@@ -4,7 +4,7 @@ import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import { wp } from '../../../constant/responsiveFunc'
 import ProductList from './ProductList'
-import { productCollection } from '../../../constant/DemoArray';
+import { productCollection, ProductListData } from '../../../constant/DemoArray';
 
 const MultiProductList = (props) => {
 
@@ -12,13 +12,16 @@ const MultiProductList = (props) => {
         <View style={styles.mainContainer}>
             <Text style={styles.title}>{props.title}</Text>
             <ProductList
-                Data={productCollection}
+                Data={ProductListData}
                 imgContStyle={styles.productImgCont}
+                DisCountPrice
+                PriceInGreen
             />
             <ProductList
-                Data={productCollection}
+                Data={ProductListData}
                 imgContStyle={styles.productImgCont}
-                priceStyle={{ color: Colors.GREEN }}
+                DisCountPrice
+                PriceInGreen
             />
         </View>
     )
@@ -33,17 +36,17 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.WHITE,
         borderRadius: 4,
 
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.10,
-        elevation: 7,
+        // shadowColor: "#000",
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 3,
+        // },
+        // shadowOpacity: 0.10,
+        // elevation: 7,
         width: wp(100),
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 10
+        marginVertical: '2%'
     },
     title: {
         fontSize: 20,
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start'
     },
     productImgCont: {
-        lignSelf: 'center',
+        alignSelf: 'center',
         padding: 22,
         borderWidth: 1,
         borderColor: Colors.GRAYRGBA,

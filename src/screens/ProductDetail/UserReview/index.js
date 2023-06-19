@@ -1,5 +1,5 @@
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import Images from '../../../constant/Images'
 import Rating from '../rating'
 import Separator from '../../../constant/Separator'
@@ -7,58 +7,21 @@ import { ReviewList } from '../../../constant/DemoArray'
 import fonts from '../../../constant/fonts'
 import { hp } from '../../../constant/responsiveFunc'
 import Colors from '../../../constant/Colors'
-
-const UserReview = () => {
-    const starArr = [1, 2, 3, 4, 5]
-
-    const keyExtractor = (item, index) => {
-        return `_${index}`;
-    };
-
-    const renderProfileWithName = (item) => {
-        return (
-            <View style={styles.profileContainer}>
-                {item.image ? <Image source={item.image && item.image} style={styles.userProfile} />
-                    : <View style={styles.circleImgView}><Text style={styles.circleImgText}>{item.name[0]}</Text></View>}
-                <View>
-                    <Text style={styles.userName}>{item.name}</Text>
-                    <Rating />
-                </View>
-            </View>
-        );
-    }
-
-    const renderTimeStamp = (item) => {
-        return (
-            <View>
-
-                <Text style={styles.timeStamp}>6/6/2023</Text>
-                <Text style={styles.timeStamp}>45 Days Ago</Text>
-            </View>
-        );
-    }
+import { useNavigation } from '@react-navigation/native';
+import ListReview from './ReviewList'
 
 
-    const UserReviewList = ({ item, index }) => {
-        return (
-            <View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    {renderProfileWithName(item)}
-                    {renderTimeStamp(item)}
-                </View>
-                <View style={{ marginVertical: hp('1%') }}>
-                    <Text style={styles.userComment}>{item.comment}</Text>
-                </View>
-                <Separator />
-            </View>
-        );
-    }
+const UserReview = (props) => {
+   
+    const navigation = useNavigation();
+
+
 
     return (
 
         <>
             <View style={styles.mainContainer}>
-                <Separator />
+                {/* <Separator /> */}
                 <Text style={styles.Heading}>User Reviews</Text>
                 <Rating
                     RatingReview
@@ -66,16 +29,21 @@ const UserReview = () => {
                     ImageStyle={{ height: 15, width: 15 }}
                 />
                 <Separator />
-                <FlatList
+                {/* <FlatList
                     data={ReviewList}
                     renderItem={UserReviewList}
                     keyExtractor={keyExtractor}
-                />
-                <TouchableOpacity>
+                    initialNumToRender={2}
+                /> */}
+                <ListReview List={ReviewList.slice(0,5)} />
+                <TouchableOpacity onPress={() => 
+                    navigation.navigate('UserReview', {Product: props.Item})
+                }>
                     <Text style={styles.ButtonText}>See More</Text>
                 </TouchableOpacity>
-                <Separator />
+                {/* <Separator /> */}
             </View>
+           
         </>
     )
 }
@@ -85,11 +53,14 @@ export default UserReview;
 const styles = StyleSheet.create({
     mainContainer: {
         padding: 20,
+        borderTopColor: Colors.GRAY,
+        borderBottomColor: Colors.GRAY,
+        borderWidth: 1
 
     },
     Heading: {
         fontWeight: 700,
-        fontStyle: fonts.VisbyCF_Demibold,
+        fontFamily: fonts.VisbyCF_Demibold,
         fontSize: 16,
         lineHeight: 21,
         letterSpacing: 0.5,

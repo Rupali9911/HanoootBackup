@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { hp, wp } from '../../constant/responsiveFunc';
 import Colors from '../../constant/Colors';
@@ -6,8 +6,12 @@ import { DataTable } from 'react-native-paper';
 import fonts from '../../constant/fonts';
 import Separator from '../../constant/Separator';
 import Images from '../../constant/Images';
+import { useNavigation } from '@react-navigation/native';
 
-const ProductSpecCard = () => {
+
+const ProductSpecCard = (props) => {
+    const navigation = useNavigation();
+
     const rows = [
         ['Brand', 'Apple'],
         ['Modal Name', 'm344tkdf'],
@@ -56,7 +60,12 @@ const ProductSpecCard = () => {
                         <Text style={[styles.offerContent, { color: Colors.GREEN }]}>$ 4,82.00</Text>
 
                     </View>
-                    <Image source={Images.ForwardIcon} style={styles.offerFwdIcon} />
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('OtherSellers', {Product: props.Item})}
+                        style={{position: 'absolute', right: 15}}
+                    >
+                        <Image source={Images.ForwardIcon} style={styles.offerFwdIcon} />
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -68,23 +77,25 @@ const ProductSpecCard = () => {
     return (
         <>
 
-        <View style={styles.mainCont}>
+            <View style={styles.mainCont}>
 
-            <View style={{ flexDirection: 'row',  }}>
-                <View style={{ width: '30%', gap: 10 }}>
-                    <Text style={styles.cardDetails}>Fulfilled by</Text>
-                    <Text style={styles.cardDetails}>Sort by</Text>
+                <View style={{ flexDirection: 'row', }}>
+                    <View style={{ width: '30%', gap: 10 }}>
+                        <Text style={styles.cardDetails}>Fulfilled by</Text>
+                        <Text style={styles.cardDetails}>Sort by</Text>
+                    </View>
+                    <View style={{ width: '60%', gap: 10 }}>
+                        <Text style={styles.cardDetails}>Hanooot</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('SellerReview')}>
+                            <Text style={[styles.cardDetails, { color: Colors.themeColor }]}>Ecom Natio</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={{ width: '60%' , gap: 10}}>
-                    <Text style={styles.cardDetails}>Hanooot</Text>
-                    <Text style={[styles.cardDetails, {color: Colors.themeColor}]}>Ecom Natio</Text>
-                </View>
+                <Separator />
+                {BestOffers()}
+                {ProductInfo()}
+
             </View>
-            <Separator />
-            {BestOffers()}
-            {ProductInfo()}
-
-        </View>
 
         </>
     )

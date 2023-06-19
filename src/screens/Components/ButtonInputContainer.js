@@ -12,8 +12,8 @@ const ButtonInputContainer = (props) => {
             style={[
                 styles.container,
                 {
-                    backgroundColor: props.isYellow
-                        ? Colors.YELLOW
+                    backgroundColor: props.isEmptyBG
+                        ? Colors.GRAY
                         : Colors.themeColor,
                 },
                 props.containerStyle,

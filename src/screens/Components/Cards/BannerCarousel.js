@@ -20,11 +20,12 @@ const BannerCarousel = () => {
 
     return (
         <View style={{ backgroundColor: Colors.LightGray }}>
-            <Carousels Data={BannerData} 
-            renderItem={rendeBannerImages}
-            dotsLength={4} 
-            loop={true}
-            autoplay={true}
+            <Carousels
+                Data={BannerData}
+                renderItem={rendeBannerImages}
+                dotsLength={4}
+                loop={true}
+                autoplay={true}
             />
         </View>
     )
@@ -34,7 +35,7 @@ export default BannerCarousel;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#F5F5F5',
+        backgroundColor: Colors.LightGray,
     },
     image: {
         height: hp(22),

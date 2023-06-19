@@ -25,7 +25,7 @@ const ProductCollection = () => {
     }
 
     return (
-        <View style={{ marginHorizontal: 10 }}>
+        <View style={{ marginHorizontal: '2%' }}>
             <View style={styles.container}>
                 <View style={styles.ImageContainer}>
                     {renderImageView(Images.smartWatchBG, 11, 'Smart Watch', 20)}

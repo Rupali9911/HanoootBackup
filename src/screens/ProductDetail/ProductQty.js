@@ -4,6 +4,16 @@ import Colors from '../../constant/Colors';
 import { hp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
 
+// export default function ButtonView() {
+
+//     return(<TouchableOpacity
+//                 style={styles.buttonView}
+//                 onPress={decrementCounter}
+//             >
+//                 <Text style={styles.buttonContent}>-</Text>
+//             </TouchableOpacity>)
+//   }
+
 const ProductQuantity = () => {
     const [counter, setCounter] = useState(0);
 
@@ -39,6 +49,8 @@ const ProductQuantity = () => {
             </TouchableOpacity>
         );
     }
+
+    
 
     return (
         <View style={styles.container}>

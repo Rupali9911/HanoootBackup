@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, ScrollView, Image, FlatList } from 'react-native';
 import React from 'react';
 import AppHeader from '../Components/AppHeader';
 import AppBackground from '../Components/AppBackground';
@@ -9,7 +9,7 @@ import ProductList from '../Components/Cards/ProductList';
 import FourImageCarousel from '../Components/Cards/FourImageCarousel';
 import Images from '../../constant/Images';
 import ProductwithTitle from '../Components/Cards/ProductWithTitle';
-import { electronicsArr, homeAppliances, productCollection } from '../../constant/DemoArray';
+import { ProductListData } from '../../constant/DemoArray';
 import ProductCollection from '../Components/Cards/ProductCollection';
 import HanoootProducts from '../Components/Cards/HanoootProducts';
 import DiscountCard from '../Components/Cards/DiscountProduct';
@@ -19,46 +19,96 @@ import ProductCategory from '../Components/Cards/ProductCategory';
 import ProductHeader from '../Components/Cards/ProductHeader';
 import Banner from '../Components/Cards/Banner';
 import { hp, wp } from '../../constant/responsiveFunc';
+import ListView from '../../Components/ListView';
 
 export default function HomeScreen() {
 
-   const renderImages = (image) => {
-      return (<View style={{}}>
-         <Image
-            source={image}
-            style={{ width: '100%', height: 200, resizeMode: 'contain' }}
-         />
-      </View>
+   const renderProductList =({item, index}) => {
+      return(
+         <ListView
+         item={item}
+               isExpress
+               isLike
+               TotalPrice
+               DisCountPrice
+               isDiscountPercent
+               isRating
+            />
       );
    }
 
+   const renderWeekDealList =({item, index}) => {
+      return(
+         <ListView
+         item={item}
+         isLike
+         isPriceButton
+         DisCountPrice
+         PriceInGreen
+            />
+      );
+   }
+
+
+
+   const keyExtractor = (item, index) => {
+      return `_${index}`;
+  };
+
+
    return (
       <AppBackground >
-         <AppHeader placeholderText={'Search'} />
-
-         <ScrollView style={{}}>
+         <AppHeader Search placeholderText={'Search'} />
+         <ScrollView showsVerticalScrollIndicator={false}
+            nestedScrollEnabled={true}
+            style={{ flex: 1 }}>
             <BannerCarousel />
             <FourImageCarousel title={'Smart Phones'} priceOff={'Up to 30% off'} />
 
-            <ProductHeader title={'New Arrivals'} RightText={'See All'}/>
+            <ProductHeader title={'New Arrivals'} RightText={'See All'} />
 
-            <ProductList 
-            Data={productCollection}
-            isExpress
-            isLike
-            TotalPrice
-            DisCountPrice
-            isDiscountPercent
-            isRating 
-            isBrand 
+            {/* <ProductList
+               Data={ProductListData}
+               isExpress
+               isLike
+               TotalPrice
+               DisCountPrice
+               isDiscountPercent
+               isRating
+               isBrand
+               numColumns={2}
+            /> */}
+
+            <FlatList
+               data={ProductListData}
+               renderItem={renderProductList}
+               keyExtractor={keyExtractor}
+               horizontal
+               showsHorizontalScrollIndicator={false}
+               style={{margin: '2%'}}
+
             />
 
-            {/* {renderImages(Images.urdu)} */}
-            <Banner Image={Images.urdu}/>
+            <Banner Image={Images.urdu} />
 
-            <ProductHeader title={'This weeks deals'} isSale={'End in 04: 10:24'} RightText={'See All'}/>
+            <ProductHeader title={'This weeks deals'} isSale={'End in 04: 10:24'} RightText={'See All'} />
 
-            <ProductList isPriceOff isLike  Data={productCollection}/>
+            {/* <ProductList
+               Data={ProductListData}
+               isLike
+               isPriceButton
+               DisCountPrice
+               PriceInGreen
+            /> */}
+             <FlatList
+               data={ProductListData}
+               renderItem={renderWeekDealList}
+               keyExtractor={keyExtractor}
+               horizontal
+               showsHorizontalScrollIndicator={false}
+               style={{margin: '2%'}}
+
+            />
 
             <ProductCollection />
 
@@ -71,10 +121,10 @@ export default function HomeScreen() {
 
             <FourImageCarousel title={'Popular in Home'} imgContStyle={styles.circleImgView} />
 
-            <Banner Image={Images.appleProduct}/>
+            <Banner Image={Images.appleProduct} />
 
             <ProductCategoryWithBG image={Images.BlueBGImg} title={'Best Home Appliences'} />
-            <ProductCategoryWithBG image={Images.YellowBGImg} title={'Best Products'} ImgViewStyle={{borderColor: Colors.RED, borderWidth: 1}}/>
+            <ProductCategoryWithBG image={Images.YellowBGImg} title={'Best Products'} ImgViewStyle={{ borderColor: Colors.RED, borderWidth: 1 }} />
 
             <BrandProductCarousal />
 
@@ -89,8 +139,6 @@ export default function HomeScreen() {
             <HanoootProducts title={'Only at Hanooot'} />
             <HanoootProducts title={'Only at Hanooot'} mainContStyle={{ backgroundColor: '#F8E6C4' }} />
 
-
-
          </ScrollView>
       </AppBackground>
    )
@@ -99,12 +147,13 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
    circleImgView: {
       backgroundColor: Colors.YELLOWRGBA,
-      justifyContent: 'center',
+      // justifyContent: 'center',
       height: hp(13),
       width: wp(28),
       borderRadius: 100,
-      alignItems: 'center',
-      paddingVertical: 15,
-      paddingHorizontal: 50,
+      left: 10
+      // alignItems: 'center',
+      // paddingVertical: 15,
+      // paddingHorizontal: 50,
    }
 })

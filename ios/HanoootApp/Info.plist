@@ -36,7 +36,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string>For precise address allocation</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Kanit-Black.ttf</string>

@@ -1,21 +1,29 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { hp, RF } from '../../constant/responsiveFunc'
 import ButtonInputContainer from './ButtonInputContainer'
 import fonts from '../../constant/fonts'
 import Colors from '../../constant/Colors'
+import Images from '../../constant/Images'
 
 const AppButton = (props) => {
     return (
+    
         <ButtonInputContainer
             onPress={props.onPress}
             containerStyle={[
                 styles.container,
                 props.containerStyle,
                 props.view && styles.inActive,
+                props.isEmptyBG && styles.isEmptyBG,
+                // props.bottomAlignButton && styles.bottomAlignButton
             ]}
-            view={props.view}>
-            <Text style={[styles.label, props.labelStyle]}>{props.label}</Text>
+            view={props.view}
+            >
+                {
+                    props.leftSideImg ? <Image source={props.ImgURI} style={{height: 15, width: 15, resizeMode: 'contain' , right: 10}}/> : null
+                }
+            <Text style={[styles.label, props.labelStyle, props.isEmptyBG && styles.isEmptyBtnText]}>{props.label}</Text>
         </ButtonInputContainer>
     )
 }
@@ -38,4 +46,20 @@ const styles = StyleSheet.create({
     inActive: {
         opacity: 0.4,
     },
+    isEmptyBG: {
+        backgroundColor: Colors.LightGray
+    },
+    isEmptyBtnText: {
+        color: Colors.themeColor
+    },
+    bottomAlignButton: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Colors.WHITE,
+        paddingVertical: '2%'
+    }
 })

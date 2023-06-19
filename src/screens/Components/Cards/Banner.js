@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   image: {
     width: wp(100), 
     height: hp(19), 
-    resizeMode: 'contain'
+    resizeMode: 'stretch',
+    marginVertical: '5%'
   }
 })

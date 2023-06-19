@@ -119,6 +119,10 @@ export default function AppSearch(props) {
     return `_${index}`;
   };
 
+  const handleSearchList = (text) => {
+      let developers = Arr.filter(member => member.name.toLowerCase() === text.toLowerCase())
+    console.log(developers)
+  }
 
   return (
     <>
@@ -133,7 +137,7 @@ export default function AppSearch(props) {
             // setTimeout(() => {
             //   setLoading(true);
             // }, 2000);
-            setSearchTxt(searchString);
+            handleSearchList(searchString);
             // setLoading(false);
 
           }}
@@ -171,6 +175,8 @@ export default function AppSearch(props) {
 
 const styles = StyleSheet.create({
   searchSection: {
+    // flex: 1,
+    // width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -180,7 +186,9 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     margin: 10,
     borderWidth: 1,
-    borderColor: Colors.GRAY
+    borderColor: Colors.GRAY,
+    
+    // width: '100%'
 
     // marginHorizontal: 10
 

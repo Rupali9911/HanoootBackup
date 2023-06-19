@@ -4,9 +4,9 @@ import Colors from './Colors'
 import fonts from './fonts'
 import Images from './Images'
 
-export const ExpressView = () => {
+export const ExpressView = (props) => {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, props.containerStyle]}>
             <Text style={styles.name}>{'EXPRESS'}</Text>
         </View>
     )
@@ -29,7 +29,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 8,
-        padding: 2,
+        paddingVertical: 2,
+        paddingHorizontal: 5,
+        height: 20
         
 
     },

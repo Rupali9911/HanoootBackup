@@ -23,7 +23,7 @@ const ProductwithTitle = (props) => {
   };
 
   return (
-    <>
+    <View  style={{margin: '2%'}}>
       <ProductHeader title={props.title} />
       <FlatList
         data={electronicsArr}
@@ -32,7 +32,7 @@ const ProductwithTitle = (props) => {
         horizontal
         showsHorizontalScrollIndicator={false}
       />
-    </>
+    </View>
   )
 }
 
@@ -41,11 +41,11 @@ export default ProductwithTitle;
 const styles = StyleSheet.create({
 
   Container: {
-    width: 100,
+    // width: 100,
     height: hp(16),
     padding: 20,
     backgroundColor: Colors.WHITE,
-    margin: 10,
+    marginRight: 8,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center'

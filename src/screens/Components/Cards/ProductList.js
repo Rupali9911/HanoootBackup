@@ -1,75 +1,82 @@
-import { StyleSheet, Text, View, Image, FlatList } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import Colors from '../../../constant/Colors';
 import Images from '../../../constant/Images';
 import ProductHeader from './ProductHeader';
 import { hp, wp } from '../../../constant/responsiveFunc';
 import fonts from '../../../constant/fonts';
 import { LikeImage, ExpressView } from '../../../constant/ListConstant'
+import { useNavigation } from '@react-navigation/native';
+import ProductDetail from '../../ProductDetail';
+import CheckBox from 'react-native-check-box'
+
+
+
 
 const ProductList = (props) => {
+    const navigation = useNavigation();
+    const [ids, setIds] = useState([]);
 
-    const Data = [
-        {
-            name: 'One Plus 5',
-            price: '$ 5,52.00',
-            offerPrice: '$ 5,00.00',
-            image: Images.mobile
 
-        },
-        {
-            name: 'One Plus 5',
-            price: '$ 5,52.00',
-            offerPrice: '$ 5,00.00',
-            image: Images.mobile2
-
-        },
-        {
-            name: 'One Plus 5',
-            price: '$ 5,52.00',
-            offerPrice: '$ 5,00.00',
-            image: Images.mobile3
-
-        },
-        {
-            name: 'One Plus 5',
-            price: '$ 5,52.00',
-            offerPrice: '$ 5,00.00',
-            image: Images.mobile4
-
-        },
-        {
-            name: 'One Plus 5',
-            price: '$ 5,52.00',
-            offerPrice: '$ 5,00.00',
-            image: Images.mobile5
-
-        }
-
-    ];
 
     const Arr2 = [
-        {
-            image: Images.hp
-        },
+        { image: Images.hp },
         { image: Images.huawei },
         { image: Images.iPhone },
         { image: Images.hp },
 
     ]
 
+    const isChecked = (itemId) => {
+        const isThere = ids.includes(itemId);
+        return isThere;
+    };
+
+    const toggleChecked = (itemId) => {
+        const ids = [...ids, itemId];
+
+        // setIds(ids);
+
+        if (isChecked(itemId)) {
+            //   this.setState({
+            //     ...this.state,
+            //     ids: this.state.ids.filter((id) => id !== itemId),
+            //   });
+            setIds(() => ids.filter((id) => id !== itemId))
+        } else {
+            //   this.setState({
+            //     ...this.state,
+            //     ids,
+            //   });
+            setIds(ids)
+        }
+    };
+
 
     const renderProductCollection = ({ item, index }) => {
 
         return (
 
-            <View style={[styles.container1, props.ViewContStyle]}>
+            <TouchableOpacity
+                style={[styles.ProductListContainer, props.ViewContStyle]}
+                onPress={() => navigation.navigate('ProductDetail', { item: item })}
+            >
                 <View style={styles.topLine}>
                     {
                         props.isExpress && <ExpressView />
                     }
                     {
-                        props.isLike && <LikeImage />
+                        props.isLike ?
+                        <LikeImage /> :
+                        props.isCheckBox ?
+                        <CheckBox
+                            onClick={() => {
+                                toggleChecked(item.id);
+                            }}
+                            isChecked={isChecked(item.id)}
+                            checkBoxColor={Colors.themeColor}
+                            uncheckedCheckBoxColor={Colors.GRAY}
+                        /> : null
                     }
                 </View>
                 <View style={[styles.imageContainer, props.imgContStyle]}>
@@ -79,72 +86,36 @@ const ProductList = (props) => {
                     />
                 </View>
                 <View style={[styles.textView, props.TextViewStyle]}>
-                    {/* {
-                        props.isPriceOff ?
+                    {
+                        props.isPriceButton &&
 
-                            <View style={{ paddingVertical: 2, paddingHorizontal: 10, backgroundColor: Colors.RED, width: 60, borderRadius: 10, marginVertical: 5 }}>
-                                <Text style={{
-                                    // fontFamily: fonts.VisbyCF_Demibold
-                                    fontFamily: fonts.VISBY_CF_REGULAR,
-                                    fontSize: 10,
-                                    fontWeight: '600',
-                                    color: Colors.WHITE
+                        <View style={styles.priceBtnView}>
+                            <Text style={styles.priceBtnText}>{'50% Off'}</Text>
+                        </View>
 
-                                }}>{'50% Off'}</Text>
-                            </View>
-                             :
-                              null
-                    } */}
-                    <Text style={styles.productName} numberOfLines={2}>{'Apple iPad  10.2 - inch Bionic chip '}</Text>
+                    }
+                    <Text style={styles.productName} numberOfLines={2}>{item.name}</Text>
 
-                    {/* {props.price ? <Text style={[styles.price, { color: Colors.BLACK }]}>{'$ 5,00.00'}</Text> : null} */}
 
 
                     {
-                        props.TotalPrice && <Text style={[styles.price, props.TotalPriceStyle]}>{'$ 5,00.00'}</Text>
+                        props.TotalPrice && <Text style={[styles.price, props.TotalPriceStyle]}>{item.price}</Text>
                     }
 
 
                     {
                         props.DisCountPrice &&
                         <View style={{ flexDirection: 'row' }}>
-                            <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{item.price} </Text>
-                            {props.isDiscountPercent && <Text style={styles.ProductDiscPercent} numberOfLines={1}>{'%15 Off'}</Text>}
+                            <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{item.discountPrice} </Text>
+                            {props.isDiscountPercent && <Text style={styles.ProductDiscPercent} numberOfLines={1}>{item.pricePercentOff}</Text>}
                         </View>
                     }
 
                     {
-                        props.PriceInGreen && <Text style={[styles.price, {color: Colors.PRICEGREEN}]}>{'$ 5,00.00'}</Text>
+                        props.PriceInGreen && <Text style={[styles.price, { color: Colors.PRICEGREEN }]}>{item.price}</Text>
                     }
 
-                    {/* {
-                        props.priceWithDiscount ?
 
-                            <View style={{ flexDirection: 'row' }}>
-
-                                <Text style={{
-                                    fontFamily: fonts.VISBY_CF_REGULAR,
-                                    lineHeight: 19,
-                                    letterSpacing: 0.5,
-                                    fontWeight: 700,
-                                    color: Colors.PRICEGRAY,
-                                    textDecorationLine: 'line-through',
-                                    textDecorationStyle: 'solid',
-
-                                }}>{item.price} </Text>
-                                <Text style={{
-                                    fontFamily: fonts.VISBY_CF_REGULAR,
-                                    lineHeight: 19,
-                                    letterSpacing: 0.5,
-                                    fontWeight: 700,
-                                    color: Colors.PRICEGREEN
-                                }} numberOfLines={1}>{'%15 Off'}</Text>
-                            </View> : <View>
-                                <Text style={[styles.discountPrice, props.discountPriceStyle]}>{'$ 5,00.00'}</Text>
-                                <Text style={[styles.price, props.priceStyle]}>{'$ 5,00.00'}</Text>
-
-                            </View>
-                    } */}
                     {
                         props.isRating &&
 
@@ -155,7 +126,7 @@ const ProductList = (props) => {
                         </View>
                     }
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -169,16 +140,11 @@ const ProductList = (props) => {
     const renderBrandList = ({ item, index }) => {
 
         return (
-            // <View style={{ backgroundColor: Colors.WHITE, padding: 20, margin: 10, borderRadius: 5 }}>
-            //     <Image
-            //         source={item.image}
-            //         style={{ height: 80, width: 80, resizeMode: 'contain' }}
-            //     />
-            // </View>
-            <View style={{ height: hp(12), width: wp(26), backgroundColor: Colors.WHITE, margin: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}>
+
+            <View style={styles.productBrandView}>
                 <Image
                     source={item.image}
-                    style={{ height: 80, width: 80, resizeMode: 'contain' }}
+                    style={styles.brandImage}
                 />
             </View>
         );
@@ -188,21 +154,6 @@ const ProductList = (props) => {
     const keyExtractor2 = (item, index) => {
         return `_${index}`;
     };
-
-
-    // const ProductHeader = () => {
-    //     return(
-    //         <View style={{ padding: 20 }}>
-    //             <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
-    //                 <Text style={styles.heading}>{props.heading}</Text>
-    //                 <Text style={styles.seeAllTxt}>See All</Text>
-    //             </View>
-    //             {props.endTime ? <Text style={styles.endTime}>{props.endTime}</Text> : null}
-
-    //         </View>
-    //     );
-    // }
-
 
     const renderBrandProducts = () => {
         return (
@@ -216,81 +167,54 @@ const ProductList = (props) => {
     }
 
     return (
-        <>
-            <FlatList
+        <FlatList
                 data={props.Data}
                 renderItem={renderProductCollection}
                 keyExtractor={keyExtractor1}
+                
                 horizontal
                 showsHorizontalScrollIndicator={false}
+                {...props}
+                // numColumns={2}
+                
             />
-            {
-                props.isBrand && renderBrandProducts()
-            }
-        </>
+        // <>
+        //     <FlatList
+        //         data={props.Data}
+        //         renderItem={renderProductCollection}
+        //         keyExtractor={keyExtractor1}
+                
+        //         horizontal
+        //         showsHorizontalScrollIndicator={false}
+        //         {...props}
+        //         // numColumns={2}
+                
+        //     />
+        //     {
+        //         props.isBrand && renderBrandProducts()
+        //     }
+        // </>
     )
 }
 
 export default ProductList;
 
 const styles = StyleSheet.create({
-    container1: {
+    ProductListContainer: {
         backgroundColor: Colors.WHITE,
         width: wp(33),
         padding: 15,
         borderRadius: 10,
         margin: 10
     },
-
-    container: {
-        justifyContent: 'center',
-        marginHorizontal: 15,
-        backgroundColor: Colors.WHITE,
-        padding: 15,
-        borderRadius: 15,
-        marginBottom: 10
-
-    },
-    listView: {
-        alignItems: 'center',
-
-    },
-    listItemImage: {
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    image: {
-        height: 100, width: 100, resizeMode: 'contain',
-
-    },
     textView: {
         top: 10
-    },
-    textContainer: {
-        alignItems: 'flex-start', padding: 5,
-    },
-    name: {
-        fontWeight: 700, lineHeight: 19, letterSpacing: 0.5, lineHeight: 20
-    },
-    priceLineThrough: {
-        color: Colors.GRAYDARK, textDecorationLine: 'line-through', textDecorationStyle: 'solid', lineHeight: 20
     },
     price: {
         fontFamily: fonts.VISBY_CF_REGULAR,
         lineHeight: 19,
         letterSpacing: 0.5,
         fontWeight: 700,
-        // color: Colors.GREEN
-    },
-    heading: {
-        fontSize: 20, fontWeight: 'bold', letterSpacing: 0.5
-    },
-    seeAllTxt: {
-        fontSize: 20, fontWeight: 'bold', letterSpacing: 0.5, color: Colors.themeColor
-    },
-    endTime: {
-        color: '#DA3250', fontWeight: 'bold', paddingVertical: 5
     },
     imageContainer: {
         alignSelf: 'center',
@@ -354,6 +278,22 @@ const styles = StyleSheet.create({
     },
     ratingView: {
         flexDirection: 'row', alignItems: 'center', gap: 3
+    },
+    priceBtnView: {
+        paddingVertical: 2, paddingHorizontal: 10, backgroundColor: Colors.RED, width: 60, borderRadius: 10, marginVertical: 5
+    },
+    priceBtnText: {
+        fontFamily: fonts.VisbyCF_Demibold,
+        fontSize: 10,
+        fontWeight: '600',
+        color: Colors.WHITE
+    },
+    productBrandView: {
+        height: hp(12), width: wp(26), backgroundColor: Colors.WHITE, margin: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 10
+    },
+    brandImage: {
+        height: 80,
+        width: 80,
+        resizeMode: 'contain'
     }
-
 })

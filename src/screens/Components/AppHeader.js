@@ -3,85 +3,142 @@ import React from 'react';
 import Images from '../../constant/Images';
 import AppSearch from '../Components/AppSearch';
 import Colors from '../../constant/Colors';
-
+import { useNavigation } from '@react-navigation/native';
+import fonts from '../../constant/fonts';
+import { hp, wp } from '../../constant/responsiveFunc';
 
 
 export default function AppHeader(props) {
+  const navigation = useNavigation();
+
   return (
-    <>
-      <View style={[styles.container, props.containerStyle]}>
+    
+    <View style={styles.container}>
+      <View style={{ flex: 1 }}>
         {props.showBackButton ? (
           <TouchableOpacity
             style={styles.backContainer}
             onPress={() =>
-              // props.onPressBack ? props.onPressBack() : navigation.goBack()
-              Alert.alert('Pressed!')
+              props.onPressBack ? props.onPressBack : navigation.goBack()
             }>
             {
               <Image
                 style={[
                   styles.backIcon,
-                  //   {tintColor: props.isWhite ? Colors.white : Colors.black},
                 ]}
                 source={Images.backIcon}
               />
             }
           </TouchableOpacity>
         ) : null}
-        <AppSearch placeholderText={props.placeholderText} />
       </View>
-      <View style={styles.separator} />
-    </>
+
+      {props.Search &&
+        <View style={{ width: props.showBackButton ? wp(90) : wp(100) }}>
+          <AppSearch placeholderText={props.placeholderText} />
+        </View>
+      }
+
+      {
+        props.title &&
+        <View style={[styles.titleContainer, { justifyContent: props.showRightComponent ? 'space-between' : 'center', width: props.showBackButton ? wp(90) : wp(100), }]}>
+          <Text style={[styles.title, props.titleStyle]} numberOfLines={1}>{props.title}</Text>
+          {props.showRightComponent &&
+            <TouchableOpacity
+            onPress={props.onPressRight}>
+            {
+              props.isWishlist ?
+                <Image
+                  style={[
+                    styles.likeIcon,
+                  ]}
+                  source={Images.like}
+                />
+                :
+                <Text
+                  style={[styles.title, { color: Colors.themeColor }]}
+                >Cancel</Text>
+            }
+          </TouchableOpacity>
+          }
+        </View>
+      }
+
+
+      {/* {props.showRightIcon &&
+        <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
+
+          <TouchableOpacity
+            style={styles.backContainer}
+
+            onPress={props.onPressRight}>
+            {
+              props.isWishlist ?
+                <Image
+                  style={[
+                    styles.likeIcon,
+                  ]}
+                  source={Images.like}
+                />
+                :
+                <Text
+                  style={[styles.title, { color: Colors.themeColor }]}
+                >Cancel</Text>
+            }
+          </TouchableOpacity>
+
+        </View>
+      } */}
+
+    </View>
+
+
 
   )
 }
 
 const styles = StyleSheet.create({
+  
   container: {
-    height: 90,
+    height: hp('8%'),
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    // paddingHorizontal: '1%',
-    width: '100%',
-    padding: 20,
-    backgroundColor: Colors.WHITE
-    // marginHorizontal: 10,
-    // padding: 22,
-    // backgroundColor: 'red',
+    backgroundColor: Colors.WHITE,
+    borderBottomColor: Colors.GRAY,
+    borderBottomWidth: 1
   },
+  titleContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    height: '100%',
+    paddingHorizontal: '2%'
+  },
+  
   backContainer: {
-
-    // margin: 10
-    // padding: 10
-    // marginHorizontal: 5
-    // height: '100%',
-    // paddingHorizontal: 10,
-    // justifyContent: 'center',
-    // width: '10%'
-    // backgroundColor: 'green'
-    // width: '15%',
-    // backgroundColor: 'red'
-    // padding: 5
-
-    // flexDirection: 'row',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // borderRadius: 10,
-    // backgroundColor: Colors.GRAYRGBA(0.3),
-    // paddingLeft: 15,
-    // marginHorizontal: 10
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: wp('10%'),
+   
   },
   backIcon: {
     height: 15,
     width: 15,
     resizeMode: 'contain',
   },
-  separator: {
-    backgroundColor: Colors.GRAY,
-    height: 1,
-    alignSelf: 'flex-end',
-    width: '100%'
-    // width: '100%'
+  title: {
+    fontFamily: fonts.VisbyCF_Bold,
+    fontSize: 16,
+    letterSpacing: 0.5,
+    lineHeight: 21,
+    fontWeight: 700,
+    
+  },
+  likeIcon: {
+    height: 22,
+    width: 24,
+    resizeMode: 'contain',
+    tintColor: Colors.BLACK
   }
 })

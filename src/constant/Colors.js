@@ -12,6 +12,7 @@ export default {
     lightBlue: 'rgba(55, 119, 188, 0.2)',
     YELLOWRGBA: 'rgba(254, 195, 80, 0.3)',
     YELLOW: '#FFCD1A',
+    YELLOWLIGHT: '#FFF7DD',
     PRICEGRAY: '#78828A',
     PRICEGREEN: '#50B848',
     RED: '#DA3250',
@@ -19,6 +20,7 @@ export default {
     GRAYRGBA: 'rgba(231, 229, 229, 0.5)',
     LightBlue: '#CBE1F0',
     YELLOW1: '#FEC350',
-    BLUE: '#216DFF'
+    BLUE: '#216DFF',
+    LIGHTBLUE1: '#52C6DB'
     
 }
