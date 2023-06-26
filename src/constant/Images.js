@@ -60,4 +60,5 @@ export default {
     OrderSuccess: require(`../assets/images/OrderSuccess.png`),
     cashOnDelivery: require(`../assets/images/cashOnDelivery.png`),
     ZainCash: require(`../assets/images/ZainCash.png`),
+    ShareIcon: require(`../assets/images/shareIcon.png`),
 }

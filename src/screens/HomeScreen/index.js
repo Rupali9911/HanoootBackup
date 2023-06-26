@@ -61,7 +61,7 @@ export default function HomeScreen() {
          <AppHeader Search placeholderText={'Search'} />
          <ScrollView showsVerticalScrollIndicator={false}
             nestedScrollEnabled={true}
-            style={{ flex: 1 }}>
+            style={{ flex: 1, zIndex: -1 }}>
             <BannerCarousel />
             <FourImageCarousel title={'Smart Phones'} priceOff={'Up to 30% off'} />
 
@@ -85,8 +85,7 @@ export default function HomeScreen() {
                keyExtractor={keyExtractor}
                horizontal
                showsHorizontalScrollIndicator={false}
-               style={{margin: '2%'}}
-
+               style={{marginHorizontal: '5%', marginVertical: '2%'}}
             />
 
             <Banner Image={Images.urdu} />
@@ -106,7 +105,7 @@ export default function HomeScreen() {
                keyExtractor={keyExtractor}
                horizontal
                showsHorizontalScrollIndicator={false}
-               style={{margin: '2%'}}
+               style={{marginHorizontal: '5%', marginVertical: '2%'}}
 
             />
 
@@ -157,3 +156,104 @@ const styles = StyleSheet.create({
       // paddingHorizontal: 50,
    }
 })
+
+
+
+
+
+// import React, { Component, useState } from 'react';
+// import { StyleSheet, View, TextInput, Button, FlatList, TouchableOpacity, Text } from 'react-native';
+// import { addPlace } from '../Store/actions/placeAction';
+// import {useSelector, useDispatch} from 'react-redux';
+// export default function HomeScreen() {
+//    const {places} = useSelector(state => state.placeReducer)
+//    console.log('array return from reducer : ', places)
+
+//    const dispatch = useDispatch();
+
+//    const[placeName, setPlaceName] = useState('')
+
+
+
+//    state = {
+//       placeName: '',
+//       places: []
+//    }
+
+//    placeSubmitHandler = () => {
+//       if (placeName.trim() === '') {
+//          return;
+//       }
+//       // this.props.add(this.state.placeName);
+//       dispatch(addPlace(placeName))
+//    }
+
+//    placeNameChangeHandler = (value) => {
+//       // this.setState({
+//       //    placeName: value
+//       // });
+//       setPlaceName(value)
+//    }
+
+//    placesOutput = () => {
+//       return (
+//          <FlatList style={styles.listContainer}
+//             data={places}
+//             keyExtractor={(item, index) => index.toString()}
+//             renderItem={info => (
+//                // <ListItem
+//                //    placeName={info.item.value}
+//                // />
+//                <TouchableOpacity>
+//                <View style = { styles.listItem }>
+//                  <Text>{ info.item.value }</Text>
+//                </View>
+//              </TouchableOpacity>
+//             )}
+//          />
+//       )
+//    }
+
+//    return (
+//       <View style={styles.container}>
+//          <View style={styles.inputContainer}>
+//             <TextInput
+//                placeholder="Seach Places"
+//                style={styles.placeInput}
+//                value={placeName}
+//                onChangeText={this.placeNameChangeHandler}
+//             ></TextInput>
+//             <Button title='Add'
+//                style={styles.placeButton}
+//                onPress={this.placeSubmitHandler}
+//             />
+//          </View>
+//          <View style={styles.listContainer}>
+//             {this.placesOutput()}
+//          </View>
+//       </View>
+//    );
+// }
+// const styles = StyleSheet.create({
+//     container: {
+//       flex: 1,
+//     paddingTop: 30,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   inputContainer: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//     width: '100%'
+//   },
+//   placeInput: {
+//     width: '70%'
+//   },
+//   placeButton: {
+//     width: '30%'
+//   },
+//   listContainer: {
+//     width: '100%'
+//   }
+// });

@@ -13,16 +13,19 @@ import Separator from '../../../constant/Separator'
 import { useNavigation } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
-
+// import DropdownPicker from '../../../constant/DropdownPicker'
+import { useDispatch } from 'react-redux'
+import { setAddressDetails, updateAddress } from '../../Store/actions/checkoutAction'
+import DropdownPicker from '../../../constant/DropdownPicker'
 
 
 
 const AddAddress = (props) => {
     const { route } = props;
-    const Edit = route?.params?.EditData?.item;
-    console.log('Check Edit Data : ', route?.params?.EditData)
+    const EDIT = route?.params?.EDIT;
     const navigation = useNavigation();
     const isFocused = useIsFocused();
+    const dispatch = useDispatch();
 
 
 
@@ -33,21 +36,27 @@ const AddAddress = (props) => {
         nearByLandMark: '',
         name: '',
         phoneNo: '',
-        // deliveryAdd: ''
+        saveAddAs: 'Home',
+        countryName: '',
     });
-    const [saveAddAs, setSaveAddAs] = useState('Home');
+    const [errorMsg, setErrorMsg] = useState('')
+    const [countryValue, setCountryValue] = useState()
+
 
     useEffect(() => {
-
-        if (Edit) {
+        console.log('useeffect : ', EDIT?.Value)
+        if (EDIT) {
             setInputFields({
-                streetName: Edit.streetName,
-                buildingType: Edit.buildingType,
-                houseFlatNo: Edit.houseFlatNo,
-                nearByLandMark: Edit.nearByLandMark,
-                name: Edit.name,
-                phoneNo: Edit.phoneNo,
+                streetName: EDIT.Value.streetName,
+                buildingType: EDIT.Value.buildingType,
+                houseFlatNo: EDIT.Value.houseFlatNo,
+                nearByLandMark: EDIT.Value.nearByLandMark,
+                name: EDIT.Value.name,
+                phoneNo: EDIT.Value.phoneNo,
+                saveAddAs: EDIT.Value.saveAddAs,
+                countryName: EDIT?.Value?.countryName?.name
             });
+            setCountryValue(EDIT?.Value?.country?.name)
         }
         else {
             setInputFields({
@@ -57,7 +66,10 @@ const AddAddress = (props) => {
                 nearByLandMark: '',
                 name: '',
                 phoneNo: '',
+                saveAddAs: 'Home',
+                country: ''
             });
+            // setCountryValue('')
         }
     }, [isFocused]);
 
@@ -67,57 +79,73 @@ const AddAddress = (props) => {
     };
 
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
+
         const { streetName,
             buildingType,
             houseFlatNo,
             nearByLandMark,
             name,
             phoneNo,
-            // deliveryAdd
+            saveAddAs,
+            country
         } = inputFields;
 
         if (streetName && buildingType && houseFlatNo && nearByLandMark && name && phoneNo) {
             // Navigate to another screen and pass the input field values
-
-
-            navigation.navigate('CheckoutScreen', {
-                AddressDetail: {
-                    streetName,
-                    buildingType,
-                    houseFlatNo,
-                    nearByLandMark,
-                    name,
-                    phoneNo,
-                    saveAddAs
-                },
-                EDIT: Edit ? true : false
-
-            });
+            if(EDIT){
+                dispatch(updateAddress({editData: inputFields, editId: EDIT.id}))
+            }
+            else{
+                dispatch(setAddressDetails(inputFields));
+            }
+            navigation.navigate('CheckoutScreen');
         } else {
             alert('Please fill all the fields');
         }
+
+       
     };
+
+    const handleError = (value) => {
+        const errorMsg = (`Please fill ${value} field`);
+        return errorMsg;
+    }
+
+    console.log('get Country value : ', inputFields.countryName, countryValue)
 
     return (
         <AppBackground>
-            <AppHeader showBackButton heading={'Add Address'} />
+            <AppHeader showBackButton title={'Add Address'} />
             <ScrollView>
                 <ProductHeader title={'Address Detail'} />
-                <View style={{ zIndex: 2 }}>
+                {/* <View style={{ zIndex: 2 }}>
                     <AppInput
                         label="Town/City"
                         isDropDown
                         required
                     />
-                </View>
+                </View> */}
+                <View style={{ zIndex: 1 }}>
+                    <DropdownPicker
+                    onSetCountry={(country) => 
+                        {
+                            console.log('country value : ', country);
+                            // setCountryValue(country.name)
+                            handleInputChange('countryName', country)
+                        }}
 
+                    SetValue={setCountryValue}
+                    Value={countryValue}
+                    />
+                </View>
                 <AppInput
                     label="Street Name"
                     placeholder={'Enter Street Name'}
                     required
                     value={inputFields.streetName}
                     onChangeText={text => handleInputChange('streetName', text)}
+                    // error={handleError('Street Name')}
                 />
                 <AppInput
                     label="Building Type"
@@ -168,11 +196,9 @@ const AddAddress = (props) => {
 
                 <ProductHeader title={'Save as'} />
                 <View style={{ flexDirection: 'row', alignItems: "flex-start" }}>
-                    <ToggleButtons Image={Images.HomeButton} Title={'Home'}
-                    // onPress={() => setSaveAddAs('Home')}
-                    />
-                    <ToggleButtons Image={Images.HomeButton} Title={'Office'}
-                    // onPress={() => setSaveAddAs('Office')} 
+                    <ToggleButtons
+                    Value={inputFields.streetName}
+                    onPress={(val) => setInputFields({...inputFields, saveAddAs: val})}
                     />
                 </View>
                 <AppButton label={'Save Address'} containerStyle={{ marginVertical: '5%' }} onPress={handleSubmit} />
@@ -181,7 +207,7 @@ const AddAddress = (props) => {
     )
 }
 
-export default AddAddress
+export default AddAddress;
 
 const styles = StyleSheet.create({
 

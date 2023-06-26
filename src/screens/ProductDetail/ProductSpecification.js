@@ -16,6 +16,9 @@ const ProductSpecification = (props) => {
     { spec: 'Finger print sensor - No' }
 
   ]
+  const keyExtractor = (item, index) => {
+    return `_${index}`;
+};
   return (
     <>
       <ProductHeader TitleStyle={{ fontSize: 18 }} title={props.Heading} />
@@ -34,6 +37,7 @@ const ProductSpecification = (props) => {
                   </View>
                 );
               }}
+              keyExtractor={keyExtractor}
             />)
             :
             (

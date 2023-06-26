@@ -167,19 +167,7 @@ const ProductList = (props) => {
     }
 
     return (
-        <FlatList
-                data={props.Data}
-                renderItem={renderProductCollection}
-                keyExtractor={keyExtractor1}
-                
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                {...props}
-                // numColumns={2}
-                
-            />
-        // <>
-        //     <FlatList
+        // <FlatList
         //         data={props.Data}
         //         renderItem={renderProductCollection}
         //         keyExtractor={keyExtractor1}
@@ -190,10 +178,22 @@ const ProductList = (props) => {
         //         // numColumns={2}
                 
         //     />
-        //     {
-        //         props.isBrand && renderBrandProducts()
-        //     }
-        // </>
+        <>
+            <FlatList
+                data={props.Data}
+                renderItem={renderProductCollection}
+                keyExtractor={keyExtractor1}
+                
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                {...props}
+                // numColumns={2}
+                
+            />
+            {
+                props.isBrand && renderBrandProducts()
+            }
+        </>
     )
 }
 

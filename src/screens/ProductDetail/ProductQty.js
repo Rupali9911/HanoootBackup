@@ -14,7 +14,7 @@ import fonts from '../../constant/fonts';
 //             </TouchableOpacity>)
 //   }
 
-const ProductQuantity = () => {
+const ProductQuantity = (props) => {
     const [counter, setCounter] = useState(0);
 
     const incrementCounter = () => {
@@ -50,15 +50,35 @@ const ProductQuantity = () => {
         );
     }
 
-    
+    const Quantity = (props) => {
+        return (
+            <TouchableOpacity
+                style={styles.buttonView}
+                // onPress={decrementCounter}
+                onPress={
+                    props.onPress
+                }
+            >
+                <Text style={styles.buttonContent}>{props.label}</Text>
+            </TouchableOpacity>
+        );
+    }
+
+
 
     return (
         <View style={styles.container}>
             <Text style={styles.qtyText}>Qty : </Text>
             <View style={styles.buttonWithCounter}>
-                {Decrement()}
-                <Text style={styles.counter}>{counter}</Text>
-                {Increment()}
+                {/* {Decrement()}
+                 */}
+                <Quantity onPress={() => decrementCounter()} label={'-'} />
+                <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={styles.counter}>{counter}</Text>
+                </View>
+                {/* {Increment()} */}
+                <Quantity onPress={() => incrementCounter()} label={'+'} />
+
             </View>
         </View>
     )
@@ -70,6 +90,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
         borderWidth: 1,
         borderColor: Colors.GRAY,
         padding: 11,
@@ -78,9 +99,9 @@ const styles = StyleSheet.create({
         marginVertical: hp('1%')
     },
     buttonView: {
-        height: 25,
-        width: 25,
-        borderRadius: 25 / 2,
+        height: 24,
+        width: 24,
+        borderRadius: 24 / 2,
         backgroundColor: Colors.themeColor,
         justifyContent: 'center',
         alignItems: 'center'
@@ -91,13 +112,25 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     counter: {
-        fontSize: 16, fontWeight: 'bold'
+        fontSize: 16,
+        fontWeight: 'bold',
+        // width: '20%',
+        // alignSelf: 'center',
+        // justifyContent: 'center',
+        // flex: 1,
+        // backgroundColor: 'red'
     },
     qtyText: {
         fontWeight: 500,
         fontFamily: fonts.VisbyCF_Medium
     },
     buttonWithCounter: {
-        flexDirection: 'row', alignItems: 'center', gap: 12
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 10,
+        //  backgroundColor: 'green',
+
+        //  right: 0
     }
 })

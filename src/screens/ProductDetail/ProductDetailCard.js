@@ -76,7 +76,8 @@ const ProductDetailCard = (props) => {
 
 
             <View style={styles.wishListCotainer}>
-                <WishList />
+                <WishList Image={Images.like}/>
+                <WishList Image={Images.ShareIcon}/>
             </View>
 
             <View style={{paddingHorizontal: 20}}>
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
     },
     wishListCotainer: {
-        right: 50, position: 'absolute', top: 200 
+        right: 10, position: 'absolute', top: 200 
     },
     firstLineView: {
         flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'

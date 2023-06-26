@@ -1,9 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { FlatList, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import fonts from '../../constant/fonts';
 import Colors from '../../constant/Colors';
 
 const ProductVariation = (props) => {
+    const [selectedIndex, setSelectedIndex] = useState(0)
 
     const BGText = props => {
         const { borderColor, color } = props;
@@ -18,11 +19,25 @@ const ProductVariation = (props) => {
         return `_${index}`;
     };
 
+    const ColorChange = () => {
+        var BorderColor;
+        var TextColor;
+
+        if (index === 1) {
+            BorderColor = Colors.themeColor;
+            TextColor = Colors.themeColor
+        }
+        else {
+            BorderColor = Colors.GRAY;
+            TextColor = Colors.BLACK;
+        }
+    }
+
     const renderData = ({ item, index }) => {
         var BorderColor;
         var TextColor;
 
-        if (index === 0) {
+        if (index === selectedIndex) {
             BorderColor = Colors.themeColor;
             TextColor = Colors.themeColor
         }
@@ -32,11 +47,19 @@ const ProductVariation = (props) => {
         }
 
         return (
-            <View style={styles.container}>
+            <TouchableOpacity style={styles.container}
+                onPress={() => {
+                    setSelectedIndex(index);
+                    // checkindex();
+                    props.getValue(item.val)
+                }
+                }>
                 <BGText borderColor={BorderColor} color={TextColor} >{item.val}</BGText>
-            </View>
+            </TouchableOpacity>
         );
     }
+
+    console.log('check index : ', selectedIndex)
 
     return (
         <View style={styles.mainCont}>
@@ -54,9 +77,12 @@ const ProductVariation = (props) => {
 
 export default ProductVariation;
 
+
 const styles = StyleSheet.create({
     mainCont: {
-        marginHorizontal: 20, marginVertical: 10, rowGap: 8
+        marginHorizontal: '5%', 
+        marginVertical: '2%', 
+        rowGap: 5
     },
     heading: {
         fontSize: 700,
@@ -67,7 +93,7 @@ const styles = StyleSheet.create({
     },
     container: {
         // flex: 1, flexDirection: 'row',
-         margin: 5
+        margin: 5
     },
     item: {
         fontWeight: 500,

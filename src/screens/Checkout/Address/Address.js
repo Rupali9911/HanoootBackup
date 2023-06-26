@@ -14,7 +14,10 @@ import { useIsFocused } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import { hp, wp } from '../../../constant/responsiveFunc';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector, useDispatch } from 'react-redux';
+import { setAddressDetails, removeAddress } from '../../Store/actions/checkoutAction'
+
 
 
 
@@ -24,39 +27,42 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 const Address = (props) => {
-    const { ADDRESS, EDIT } = props;
-
-
     const isFocused = useIsFocused();
     const navigation = useNavigation();
 
     const [modalVisible, setModalVisible] = useState(false);
     const [checked, setChecked] = useState(0)
-    const [AddressList, setAddressList] = useState([])
+    const [id, setId] = useState()
     const [index, setIndex] = useState(0)
+    const dispatch = useDispatch()
+    const { ADDRESS_DETAIL } = useSelector(state => state.checkoutReducer);
 
-    useEffect(() => {
-
-        if (ADDRESS) {
-            // const newData = [...Address, getData]
-            setAddressList((prevData) => [...prevData, ADDRESS]);
-            // showToast(Images.ToastSuccess, 'New Address Added Successfully')
-            showToast('Added')
-        }
-
-        else if (EDIT) {
-            const newData = AddressList.map((item, i) => {
-                if (i === index) {
-                    return item
-                    // setAddressList(item)
-                }
-                return item
-            })
-            setAddressList(newData)
-        }
+    console.log('Address details show from reducers : ', ADDRESS_DETAIL, );
 
 
-    }, [isFocused])
+
+    // useEffect(() => {
+
+    //     if (ADDRESS) {
+    //         // const newData = [...Address, getData]
+    //         setAddressList((prevData) => [...prevData, ADDRESS]);
+    //         // showToast(Images.ToastSuccess, 'New Address Added Successfully')
+    //         showToast('Added')
+    //     }
+
+    //     else if (EDIT) {
+    //         const newData = AddressList.map((item, i) => {
+    //             if (i === index) {
+    //                 return item
+    //                 // setAddressList(item)
+    //             }
+    //             return item
+    //         })
+    //         setAddressList(newData)
+    //     }
+
+
+    // }, [isFocused])
 
 
     const toastConfig = {
@@ -80,30 +86,25 @@ const Address = (props) => {
     }
 
 
-
-
-
     const EditRemoveButton = (item, index) => {
         return (
             <View style={styles.buttonView}>
                 <TouchableOpacity style={styles.ButtonTouchable}
                     onPress={() => {
                         setIndex(index)
-                        navigation.navigate('AddAddressDetail', { EditData: { item: item, index: index } })
+                        navigation.navigate('AddAddressDetail', { EDIT: item })
                     }}>
                     <Text style={styles.buttonText}>EDIT</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.ButtonTouchable}
                     onPress={() => {
-                        setIndex(index)
+                        setIndex(index);
+                        setId(item);
                         setModalVisible(true);
-
                     }}
                 >
                     <Text style={styles.buttonText}>REMOVE</Text>
                 </TouchableOpacity>
-
-
             </View>
         );
     }
@@ -111,8 +112,6 @@ const Address = (props) => {
     const onPress = (index) => {
         setChecked(index);
     }
-
-
 
     const renderItem = ({ item, index }) => {
         return (
@@ -128,14 +127,14 @@ const Address = (props) => {
                                 onPress={() => { onPress(index) }}
                                 size={10}
                             />
-                            <Text style={styles.deliverUserName}>{item.name}</Text>
+                            <Text style={styles.deliverUserName} numberOfLines={2}>{item.Value.name}</Text>
                         </View>
                         <View style={styles.deliveryLocation}>
-                            <Text style={styles.deliveryType}>{'Home'}</Text>
+                            <Text style={styles.deliveryType}>{item.Value.saveAddAs}</Text>
                         </View>
                     </View>
-                    <Text style={styles.deliverUserAdd}>{'717 Mills Gardens, Anbar-iraq'}</Text>
-                    <Text style={styles.deliverUserAdd}>{'9713380901'}</Text>
+                    <Text style={styles.deliverUserAdd}>{`${item.Value.houseFlatNo} ${item.Value.buildingType}, ${item.Value.nearByLandMark}`}</Text>
+                    <Text style={styles.deliverUserAdd}>{item.Value.phoneNo}</Text>
                 </View>
 
                 <View style={{ backgroundColor: Colors.WHITE }} >
@@ -143,31 +142,23 @@ const Address = (props) => {
                 </View>
 
             </View>
-
-
         );
     }
-
 
     const keyExtractor = (item, index) => {
         return `_${index}`;
     };
 
     return (
-
-        // <Text>Hello</Text>
-
-
-
         <>
             <ProductHeader title={'Select a delivery Address'} />
             {
-                AddressList.length > 0
+                ADDRESS_DETAIL.length > 0
                     ?
                     <>
                         <View style={{ height: '50%' }}>
                             <FlatList
-                                data={AddressList}
+                                data={ADDRESS_DETAIL}
                                 renderItem={renderItem}
                                 keyExtractor={keyExtractor}
                             />
@@ -186,7 +177,7 @@ const Address = (props) => {
 
             <View style={styles.bottomButtonContainer}>
                 <AppButton label={'Deliver to this Address'}
-                    view={AddressList.length ? false : true}
+                    view={ADDRESS_DETAIL.length ? false : true}
                     onPress={() => {
                         const storeUser = async () => {
                             try {
@@ -197,16 +188,16 @@ const Address = (props) => {
                             }
                         };
                         storeUser();
-                       props.setScreenType('PAYMENT')
+                        props.setScreenType('PAYMENT')
                     }}
                 />
             </View>
 
-            <Toast
+            {/* <Toast
                 config={toastConfig}
                 position="bottom"
                 visibilityTime={2000}
-                autoHide={true} />
+                autoHide={true} /> */}
 
             <Modal
                 visible={modalVisible}
@@ -234,11 +225,12 @@ const Address = (props) => {
 
                             <TouchableOpacity
                                 onPress={() => {
-                                    const newAddressList = AddressList.filter((item, i) => i !== index);
-                                    setAddressList(newAddressList);
+                                    // const newAddressList = ADDRESS_DETAIL.filter((item, i) => i !== index);
+                                    // setAddressList(newAddressList);
+                                    dispatch(removeAddress(id));
                                     setModalVisible(false);
                                     // showToast(Images.deleteIcon, 'Address Removed Successfully')
-                                    showToast('Remove')
+                                    // showToast('Remove')
                                 }}
                                 style={[styles.btnViewCont, { backgroundColor: Colors.themeColor }]}
                             >
@@ -376,7 +368,8 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VisbyCF_Demibold,
         fontWeight: 600,
         fontSize: 16,
-        letterSpacing: 0.5
+        letterSpacing: 0.5,
+        // maxWidth: '80%'
     },
     deliveryLocation: {
         backgroundColor: Colors.LIGHTBLUE1,

@@ -12,11 +12,17 @@ const EmptyCart = () => {
     const navigation = useNavigation();
 
     return (
+        // <View style={styles.container}>
+        //     <Image source={Images.CartImage} style={styles.cartImg} />
+        //     <Text style={styles.emptyText}>Your Hanooot Cart is empty</Text>
+        //     <Text style={styles.addItemText}>Start adding items you love to your wishlist by tapping on the heart icon</Text>
+        //     <AppButton containerStyle={{ width: '70%' }} label={'Start Shopping'} onPress={() => navigation.navigate('Home')}/>
+        // </View>
         <View style={styles.container}>
             <Image source={Images.CartImage} style={styles.cartImg} />
             <Text style={styles.emptyText}>Your Hanooot Cart is empty</Text>
             <Text style={styles.addItemText}>Start adding items you love to your wishlist by tapping on the heart icon</Text>
-            <AppButton containerStyle={{ width: '70%' }} label={'Start Shopping'} onPress={() => navigation.navigate('Home')}/>
+            <AppButton containerStyle={{ width: '70%' }} label={'Start Shopping'} onPress={() => navigation.navigate('Home')} />
         </View>
     )
 }
@@ -25,15 +31,15 @@ export default EmptyCart;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
-        justifyContent: 'center', 
-        alignItems: 'center', 
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         gap: 15
     },
     cartImg: {
-        height: hp(20), 
-        width: wp(42), 
-        resizeMode: 'contain', 
+        height: hp(20),
+        width: wp(42),
+        resizeMode: 'contain',
         marginBottom: 20
     },
     emptyText: {

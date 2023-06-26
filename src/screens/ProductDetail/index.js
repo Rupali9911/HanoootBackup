@@ -1,14 +1,10 @@
 import {
     ScrollView, StyleSheet, Text, View, TouchableHighlight, Modal, ToastAndroid,
-    Platform,
-    AlertIOS,
-    Alert,
-    Button,
+    TouchableOpacity,
     Image,
-    TouchableOpacity
-    // Toast
+    Dimensions,
 } from 'react-native'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import AppBackground from '../Components/AppBackground';
 import AppHeader from '../Components/AppHeader';
 import AppButton from '../Components/AppButton';
@@ -30,94 +26,174 @@ import ProductSpecCard from './ProductSpecCard';
 import ProductDelivery from './ProductDeliveryOptn';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Toast from 'react-native-toast-message';
+// import Toast from 'react-native-toast-message';
 import fonts from '../../constant/fonts';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart, setCartLabel } from '../Store/actions/cartAction';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 
 
 
-// import Svgs from '../../constant/Svgs';
-
-// const { StarIcon } = Svgs;
 const ProductDetail = (props) => {
     const { route } = props;
     const { item } = route.params;
+    const dispatch = useDispatch();
     const navigation = useNavigation();
-    const myArray = ['one', 'two', 'three'];
+    const { cartLabel, cartItems } = useSelector(state => state.cartReducer);
 
-
-
-
-    const [modalVisible, setModalVisible] = useState(false);
-    const [cartButtonLabel, setCartButtonLabel] = useState('Add to Cart');
-    const [btnCounter, setBtnCounter] = useState(1);
     const [scrollBtn, setScrollBtn] = useState(false);
-    const toastRef = useRef(null);
-    const CartData = [];
+    const [lastContentOffset, setLastContentOffset] = useState(Dimensions.get('window').height)
+    const [specifications, setSpecifications] = useState({
+        version: 'Physical Dual Sim Version',
+        memory: '128GB',
+        color: 'Dual Purple'
+    });
 
-
-
-    const setDatatoStorage = async (obj) => {
-        CartData.push(obj)
-        try {
-            console.log('Data saved to async storage : ', CartData);
-            await AsyncStorage.setItem('CARTITEMS', JSON.stringify(obj));
-        } catch (error) {
-            // Error saving data
-            console.log('Error while set data to async-storage');
+    useEffect(() => {
+        if (cartItems && cartItems.includes(item)) {
+            dispatch(setCartLabel('View Cart'))
         }
+        else{
+            dispatch(setCartLabel('Add to Cart'))
+        }
+    }, [])
+
+    const AddToCart = (obj) => {
+        obj.specifications = specifications;
+        dispatch(addToCart(obj));
     }
 
 
     const updateButtonText = () => {
-        // Update the text of the button here
-        console.log('Data saved to kflsflsfdljsldfjlsjdflksjfdlsjdlk storage : ', item);
-
-        setCartButtonLabel('View Cart')
+        dispatch(setCartLabel('View Cart'));
     }
 
+    // const toastConfig = {
+    //     info: ({ text1, text2 }) => (
+    //         <View style={styles.toastMsgContainer}>
+    //             <Image source={Images.ToastSuccess} style={{ height: 20, width: 20 }} />
+    //             <View>
+    //                 <Text
+    //                     style={styles.toastMsgText}
+    //                 >{text1}</Text>
+    //                 <Text style={styles.toastMsgText}>{text2}</Text>
+    //             </View>
+    //         </View>
+    //     )
+    // };
 
     const toastConfig = {
+        /*
+          Overwrite 'success' type,
+          by modifying the existing `BaseToast` component
+        */
+        success: (props) => (
+          <BaseToast
+            {...props}
+            style={{ borderLeftColor: 'pink' }}
+            contentContainerStyle={{ paddingHorizontal: 15 }}
+            text1Style={{
+              fontSize: 15,
+              fontWeight: '400'
+            }}
+          />
+        ),
+        /*
+          Overwrite 'error' type,
+          by modifying the existing `ErrorToast` component
+        */
+        error: (props) => (
+          <ErrorToast
+            {...props}
+            text1Style={{
+              fontSize: 17
+            }}
+            text2Style={{
+              fontSize: 15
+            }}
+          />
+        ),
+        /*
+          Or create a completely new type - `tomatoToast`,
+          building the layout from scratch.
+      
+          I can consume any custom `props` I want.
+          They will be passed when calling the `show` method (see below)
+        */
+        info: ({ text1, props }) => (
+        //   <View style={{ height: 60, width: '100%', backgroundColor: 'tomato' }}>
+        //     <Text>{text1}</Text>
+        //     <Text>{props.uuid}</Text>
+        //   </View>
 
-        info: ({ text1, text2 }) => (
-            <View style={styles.toastMsgContainer}>
-                <Image source={Images.ToastSuccess} style={{ height: 20, width: 20 }} />
+                  <View style={styles.toastMsgContainer}>
+                <Image source={props.image} style={{ height: 20, width: 20 }} />
                 <View>
                     <Text
                         style={styles.toastMsgText}
-                    >{text1}</Text>
-                    <Text style={styles.toastMsgText}>{text2}</Text>
+                    >{props.msg1}</Text>
+                    <Text style={styles.toastMsgText}>{props.msg2}</Text>
                 </View>
             </View>
         )
-    };
+      };
 
-    const showToast = (message, message2) => {
+    const showToast = (message) => {
+        // Toast.show({
+        //     type: 'info',
+        //     text1: message,
+        //     text2: message2
+
+        // });
         Toast.show({
             type: 'info',
-            text1: message,
-            text2: message2
-
-        });
+            
+            // And I can pass any custom props I want
+            props: { 
+                image: Images.ToastSuccess,
+                msg1: message,
+                msg2: 'Add to cart'
+             }
+          });
     }
 
+   
 
-    onScroll = event => {
+    const onScroll = event => {
         const scrollY = event.nativeEvent.contentOffset.y;
-        const showButton = scrollY > 50;
-        setScrollBtn(showButton);
+        console.log('Y Axis Scroll : ', scrollY, lastContentOffset)
+        const showButton = scrollY > lastContentOffset;
+        // if(cartLabel != 'View Cart' || showButton){
+        //     setScrollBtn(showButton);
+        // }
+        // else{
+        //     setScrollBtn(showButton)
+        // }
+        if(cartLabel != 'View Cart'){
+            setScrollBtn(showButton)
+            // setLastContentOffset(scrollY)
+        }
+        
+        // lastContentOffset.value = event.contentOffset.y;
+        // setLastContentOffset(scrollY);
+
     };
+
+
+    const getSpacification = (value, type) => {
+        const newSpecifications = { ...specifications, [type]: value };
+        setSpecifications(newSpecifications);
+    }
 
 
     return (
         <AppBackground>
-
-
             <AppHeader placeholderText={'What are you looking for?'} showBackButton Search />
             <ScrollView
-                // style={{ flex: 1 }}
-                // onScroll={this.onScroll}
-                // scrollEventThrottle={16}
-
+                onScroll={onScroll}
+                scrollEventThrottle={0}
+                
+                
             >
                 <ProductDetailCard
                     ProductName={item.name}
@@ -126,27 +202,24 @@ const ProductDetail = (props) => {
                     DiscountPrice={item.discountPrice}
                     PricePercentOff={item.pricePercentOff}
                 />
-                <ProductVariation Data={productVersionVariation} title={'Version'} />
-                <ProductVariation Data={productMemoryVariation} title={'Memory'} />
-                <ProductVariation Data={productColorVariation} title={'Color'} />
+                <ProductVariation Data={productVersionVariation} title={'Version'} getValue={(spec) => getSpacification(spec, 'version')} />
+                <ProductVariation Data={productMemoryVariation} title={'Memory'} getValue={(spec) => getSpacification(spec, 'memory')} />
+                <ProductVariation Data={productColorVariation} title={'Color'} getValue={(spec) => getSpacification(spec, 'color')} />
                 <ProductDelivery />
                 <ProductQuantity />
-
-                <AppButton label={cartButtonLabel}
-
+                <AppButton label={cartLabel}
                     onPress={() => {
-
-                        if (cartButtonLabel === 'View Cart') {
+                        if (cartLabel === 'View Cart') {
                             navigation.navigate('CartScreen')
                         }
                         else {
-                            updateButtonText();
-                            setDatatoStorage(item);
+                            updateButtonText(item);
+                            AddToCart(item);
                             showToast(item.name, 'Add to Cart');
+                            showToast(item.name);
                         }
                     }}
                 />
-
 
                 <AppButton label={'Buy Now'} containerStyle={styles.outLineButton} />
                 <ProductSpecCard Item={item} />
@@ -154,9 +227,9 @@ const ProductDetail = (props) => {
                 <Separator />
                 <ProductSpecification Heading={'Description'} data={Description} />
 
-                <Banner Image={Images.iPad} imgStyle={{ width: wp(100), height: hp(52.71) }} />
-                <Banner Image={Images.ProductPerformance} imgStyle={{ width: wp(100), height: hp(65) }} />
-                <Banner Image={Images.iPad2} imgStyle={{ width: wp(100), height: hp(67) }} />
+                <Banner Image={Images.iPad} imgStyle={{ height: hp(52.71) }} />
+                <Banner Image={Images.ProductPerformance} imgStyle={{ height: hp(65) }} />
+                <Banner Image={Images.iPad2} imgStyle={{ height: hp(67) }} />
                 <ProductHeader title={'Frequently Bought Together'} />
                 <ProductList
                     Data={productCollection}
@@ -171,7 +244,6 @@ const ProductDetail = (props) => {
                     </View>
                     <Text style={[styles.infoMsg, { margin: 10 }]}>{`Total Price : $ 5,00,000`}</Text>
                 </View>
-
                 <AppButton containerStyle={{ backgroundColor: Colors.LightGray }} label={'Add Items to Cart'} labelStyle={{ color: Colors.themeColor }} />
                 <UserReview Item={item} />
                 {/* <ProductwithTitle title={'More from Apple'} /> */}
@@ -181,18 +253,25 @@ const ProductDetail = (props) => {
                     TotalPrice
                 />
             </ScrollView>
-            <Toast
+            {/* <Toast
                 config={toastConfig}
                 position="bottom"
                 visibilityTime={2000}
-                autoHide={true} />
+                autoHide={true} /> */}
+                 <Toast config={toastConfig} 
+                 position="bottom"
+                 visibilityTime={2000}
+                 autoHide={true} 
+                 />
 
-            {/* {scrollBtn && (
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.scrollBtnText}>Add to Cart</Text>
+            {scrollBtn && (
+                <TouchableOpacity style={{backgroundColor: 'red', bottom: 10, left: 0, right: 0, justifyContent: 'center', alignItems: 'center',  flex: 1, position: 'absolute',backgroundColor: Colors.YELLOW1, padding: '3%', marginHorizontal: '35%', borderRadius: 100}}>
+                     <Text style={styles.scrollBtnText}>Add to Cart</Text>
                 </TouchableOpacity>
-            )} */}
-
+                // <TouchableOpacity style={styles.button}>
+                //     <Text style={styles.scrollBtnText}>Add to Cart</Text>
+                // </TouchableOpacity>
+            )}
         </AppBackground>
     )
 }
@@ -244,33 +323,22 @@ const styles = StyleSheet.create({
         flexDirection: 'row', gap: 2
     },
     button: {
-        // position: 'absolute',
-        // bottom: 0,
-        // right: 0,
-        // left: 0,
-
-        // padding: 10,
-        // backgroundColor: Colors.YELLOW1,
-        // borderRadius: 5,
-        // alignItems: 'center',
-        // // justifyContent: 'center',
-        // flex: 1,
-        // width: 100,
-        // borderRadius: 24
-
+        flex: 1,
         position: 'absolute',
         left: 0,
         right: 0,
-        bottom: 0,
+        bottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: Colors.YELLOW1,
-        // padding: 10,
         borderRadius: 24,
-        // width: 100,
+        backgroundColor: 'red'
     },
     scrollBtnText: {
-        backgroundColor: Colors.YELLOW1, padding: 10, borderRadius: 24, color: Colors.WHITE
+        // backgroundColor: Colors.YELLOW1,
+        // adding: 10, borderRadius: 24, 
+        color: Colors.WHITE,
+        fontFamily: fonts.VisbyCF_Demibold,
+        letterSpacing: 0.5
     }
 })
 

@@ -7,12 +7,14 @@ import ProductCounter from '../../constant/ProductCounter';
 import fonts from '../../constant/fonts';
 
 
-const CartItemQuantity = () => {
+const CartItemQuantity = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.Text}>Qty : </Text>
       <ProductCounter />
-      <TouchableOpacity >
+      <TouchableOpacity 
+      onPress={props.onRemove}
+      >
         <Text style={[styles.Text, { color: Colors.themeColor }]}>Remove</Text>
       </TouchableOpacity>
     </View>
@@ -25,7 +27,8 @@ const styles = StyleSheet.create({
   container: {
     borderTopColor: Colors.GRAY,
     borderBottomColor: Colors.GRAY,
-    borderWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
     width: wp(100),
     flexDirection: 'row',
     // justifyContent: 'center'

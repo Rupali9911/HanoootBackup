@@ -40,14 +40,15 @@ const ListReview = (props) => {
     const UserReviewList = ({ item, index }) => {
         return (
             <View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Separator />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '5%',  }}>
                     {renderProfileWithName(item)}
                     {renderTimeStamp(item)}
                 </View>
-                <View style={{ marginVertical: hp('1%') }}>
+                <View style={{ marginVertical: hp('1%'),  paddingHorizontal: '5%' }}>
                     <Text style={styles.userComment}>{item.comment}</Text>
                 </View>
-                <Separator />
+                
             </View>
         );
     }

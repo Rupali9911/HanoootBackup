@@ -54,7 +54,7 @@ export default function TabComponent() {
                 },
                 tabBarActiveTintColor: Colors.themeColor,
                 tabBarIcon: ({ focused, color }) => {
-                    console.log('Route Name : ', route.name)
+                    // console.log('Route Name : ', route.name)
                     let iconName;
 
                     if (route.name === 'Home') {

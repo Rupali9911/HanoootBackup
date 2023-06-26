@@ -12,81 +12,81 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const ListView = (props) => {
-    const {item} = props;
+    const { item } = props;
     const navigation = useNavigation();
 
-  return (
-   <TouchableOpacity
-                style={[styles.ProductListContainer, props.ViewContStyle]}
-                onPress={() => navigation.navigate('ProductDetail', { item: item })}
-            >
-                <View style={styles.topLine}>
-                    {
-                        props.isExpress && <ExpressView />
-                    }
-                    {
-                        props.isLike ?
+    return (
+        <TouchableOpacity
+            style={[styles.ProductListContainer, props.ViewContStyle]}
+            onPress={() => navigation.navigate('ProductDetail', { item: item })}
+        >
+            <View style={styles.topLine}>
+                {
+                    props.isExpress && <ExpressView />
+                }
+                {
+                    props.isLike ?
                         <LikeImage /> :
                         props.isCheckBox ?
-                        <CheckBox
-                            onClick={() => {
-                                toggleChecked(item.id);
-                            }}
-                            isChecked={isChecked(item.id)}
-                            checkBoxColor={Colors.themeColor}
-                            uncheckedCheckBoxColor={Colors.GRAY}
-                        /> : null
-                    }
-                </View>
-                <View style={[styles.imageContainer, props.imgContStyle]}>
-                    <Image
-                        source={item.image}
-                        style={[styles.productImg, props.imgStyle]}
-                    />
-                </View>
-                <View style={[styles.textView, props.TextViewStyle]}>
-                    {
-                        props.isPriceButton &&
+                            <CheckBox
+                                onClick={() => {
+                                    toggleChecked(item.id);
+                                }}
+                                isChecked={isChecked(item.id)}
+                                checkBoxColor={Colors.themeColor}
+                                uncheckedCheckBoxColor={Colors.GRAY}
+                            /> : null
+                }
+            </View>
+            <View style={[styles.imageContainer, props.imgContStyle]}>
+                <Image
+                    source={item.image}
+                    style={[styles.productImg, props.imgStyle]}
+                />
+            </View>
+            <View style={[styles.textView, props.TextViewStyle]}>
+                {
+                    props.isPriceButton &&
 
-                        <View style={styles.priceBtnView}>
-                            <Text style={styles.priceBtnText}>{'50% Off'}</Text>
-                        </View>
+                    <View style={styles.priceBtnView}>
+                        <Text style={styles.priceBtnText}>{'50% Off'}</Text>
+                    </View>
 
-                    }
-                    <Text style={styles.productName} numberOfLines={2}>{item.name}</Text>
-
-
-
-                    {
-                        props.TotalPrice && <Text style={[styles.price, props.TotalPriceStyle]}>{item.price}</Text>
-                    }
+                }
+                <Text style={styles.productName} numberOfLines={2}>{item.name}</Text>
 
 
-                    {
-                        props.DisCountPrice &&
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{item.discountPrice} </Text>
-                            {props.isDiscountPercent && <Text style={styles.ProductDiscPercent} numberOfLines={1}>{item.pricePercentOff}</Text>}
-                        </View>
-                    }
 
-                    {
-                        props.PriceInGreen && <Text style={[styles.price, { color: Colors.PRICEGREEN }]}>{item.price}</Text>
-                    }
+                {
+                    props.TotalPrice && <Text style={[styles.price, props.TotalPriceStyle]}>{item.price}</Text>
+                }
 
 
-                    {
-                        props.isRating &&
+                {
+                    props.DisCountPrice &&
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{item.discountPrice} </Text>
+                        {props.isDiscountPercent && <Text style={styles.ProductDiscPercent} numberOfLines={1}>{item.pricePercentOff}</Text>}
+                    </View>
+                }
 
-                        <View style={styles.ratingView}>
-                            <Text style={styles.rating}>{'4.0'}</Text>
-                            <Image source={Images.star} style={styles.ratingImg} />
-                            <Text style={styles.ratingVal}>{'(79)'}</Text>
-                        </View>
-                    }
-                </View>
-            </TouchableOpacity>
-  )
+                {
+                    props.PriceInGreen && <Text style={[styles.price, { color: Colors.PRICEGREEN }]}>{item.price}</Text>
+                }
+
+
+                {
+                    props.isRating &&
+
+                    <View style={styles.ratingView}>
+                        <Text style={styles.rating}>{'4.0'}</Text>
+                        <Image source={Images.star} style={styles.ratingImg} />
+                        <Text style={styles.ratingVal}>{'(79)'}</Text>
+                    </View>
+                }
+            </View>
+        </TouchableOpacity>
+    )
 }
 
 export default ListView
@@ -94,11 +94,12 @@ export default ListView
 const styles = StyleSheet.create({
     ProductListContainer: {
         backgroundColor: Colors.WHITE,
-        width: wp(33),
-        padding: 15,
+        width: wp(35),
+        paddingHorizontal: 10,
+        paddingVertical: 20,
         borderRadius: 10,
         // margin: 10
-        marginRight: 8
+        marginRight: 15
     },
     textView: {
         top: 10
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         alignSelf: 'center',
-        padding: 20
+        padding: 10
     },
     discountPrice: {
         fontFamily: fonts.VISBY_CF_REGULAR,
@@ -127,7 +128,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     productImg: {
-        height: 70, width: 70, resizeMode: 'contain'
+        height: 70,
+        width: 70,
+        resizeMode: 'contain'
     },
     productName: {
         fontFamily: fonts.VisbyCF_Medium,
@@ -135,6 +138,7 @@ const styles = StyleSheet.create({
         lineHeight: 15,
         letterSpacing: 0.5,
         fontWeight: 500,
+        // maxWidth: wp(35)
     },
     productDiscountPrice: {
         fontFamily: fonts.VisbyCF_Medium,

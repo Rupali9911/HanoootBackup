@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
         // marginHorizontal: 20,
 
         // marginVertical: 10
-        margin: '2%'
+        marginHorizontal: '5%',
+        marginVertical: '2%'
     },
 
     title: {

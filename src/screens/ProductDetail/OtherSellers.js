@@ -15,23 +15,30 @@ const OtherSellers = (props) => {
     const ProductDetail = () => {
         return (
             <View style={styles.ProductView}>
-                <Image source={route.params.Product.image} style={{ height: 65, width: 65 }} />
-                <View style={{}} >
-                    {/* <View style={{flexDirection :'row', justifyContent: 'space-between', backgroundColor: 'red', }}> */}
-                    <Text
-                        style={[styles.productName, {
-                            color: Colors.PRICEGRAY,
-                            fontSize: 12
-                        }]}
-                    >{'Apple'}</Text>
 
-                    {/* <View  style={{flexDirection :'row'}}>
-                        <Text>3</Text>
-                        <Image source={Images.star} style={{height: 10, width: 10}}/>
-                        <Text>(79 Rating)</Text>
-                        </View>
-                    </View> */}
-                    
+                <View style={{ width: '20%' }}>
+                    <Image source={route.params.Product.image} style={{ height: 65, width: 65, resizeMode: 'contain' }} />
+                </View>
+                <View style={{ width: '80%' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }} >
+                        {/* <View style={{flexDirection :'row', justifyContent: 'space-between', backgroundColor: 'red', }}> */}
+                        <Text
+                            style={[styles.productName, {
+                                color: Colors.PRICEGRAY,
+                                fontSize: 12
+                            }]}
+                        >{'Apple'}</Text>
+                        {
+                            props.RightSideComponent &&
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 2 }}>
+                                <Text>3</Text>
+                                <Image source={Images.star} style={{ height: 10, width: 10 }} />
+                                <Text>(79 Rating)</Text>
+                            </View>
+                        }
+
+                    </View>
+
                     <Text style={styles.productName} numberOfLines={2} >{route.params.Product.name}</Text>
                 </View>
             </View>
@@ -107,7 +114,7 @@ const OtherSellers = (props) => {
 
     return (
         <AppBackground>
-            <AppHeader placeholderText={'What are you looking for?'} showBackButton Search/>
+            <AppHeader placeholderText={'What are you looking for?'} showBackButton Search />
             <Text style={styles.offerAvail}>2 offers available</Text>
             {ProductDetail()}
             <FlatList
@@ -135,11 +142,13 @@ const styles = StyleSheet.create({
     ProductView: {
         backgroundColor: Colors.WHITE,
         flexDirection: 'row',
-        alignItems: 'center', gap: 10,
-        padding: 20,
+        // alignItems: 'center',
+        // gap: 10,
+        padding: '5%',
         borderBottomColor: Colors.GRAY,
         borderTopColor: Colors.GRAY,
-        borderWidth: 1,
+        borderTopWidth: 1,
+        borderBottomWidth: 1
         // width: wp(100)
         // backgroundColor: 'green'
     },

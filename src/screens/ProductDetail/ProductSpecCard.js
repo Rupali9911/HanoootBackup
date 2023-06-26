@@ -105,14 +105,16 @@ export default ProductSpecCard;
 
 const styles = StyleSheet.create({
     mainCont: {
-        width: wp(100),
+        // width: wp(100),
         // height: hp(50),
         backgroundColor: Colors.WHITE,
         alignItems: 'center',
         paddingVertical: hp('2%'),
         borderTopColor: Colors.GRAY,
         borderBottomColor: Colors.GRAY,
-        borderWidth: 1
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        marginVertical: '2%'
     },
     tableRowData: {
         justifyContent: 'flex-start', fontFamily: fonts.VisbyCF_Medium, fontSize: 12, fontWeight: 500

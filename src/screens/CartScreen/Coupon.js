@@ -8,6 +8,7 @@ const Coupon = () => {
     const [btnText, setBtnText] = useState('Apply');
     const [couponClr, setCouponClr] = useState(Colors.WHITE);
     const [infoMsg, setInfoMsg] = useState(Colors.themeColor);
+    const [placeholder, setPlaceholder] = useState('Enter Coupon Code');
     const [msg, setMsg] = useState('');
 
     const handleChange = (val) => {
@@ -31,25 +32,34 @@ const Coupon = () => {
 
     const handleSubmit = () => {
         var color;
-
         if (couponCode != '') {
-            if (couponCode === '15%') {
+            if (couponCode === '15%' && btnText != 'Change') {
                 setCouponClr(Colors.themeColor);
-                setInfoMsg(Colors.GREEN)
-                setBtnText('Change')
-                setMsg('hanoot 15% off is Applied');
+                // setInfoMsg(Colors.GREEN)
+                setBtnText('Change');
+                setMsg('');
+                setCouponCode('hanoot 15% off is Applied')
 
-            } else {
+                // setMsg('hanoot 15% off is Applied');
+
+            } 
+            else if(btnText === 'Change'){
+                setCouponClr(Colors.WHITE)
+                setBtnText('Apply')
+                setCouponCode('')
+                setMsg('');
+            }
+            else {
                 setCouponClr(Colors.WHITE)
                 setInfoMsg(Colors.RED)
                 setBtnText('Apply')
                 setMsg('Oops! Coupon code invalid');
             }
         }
-        else {
-            setInfoMsg(Colors.themeColor)
-            setMsg('Please Enter Coupon Code...');
-        }
+        // else {
+        //     setInfoMsg(Colors.themeColor)
+        //     setMsg('Please Enter Coupon Code...');
+        // }
     };
 
 
@@ -60,7 +70,7 @@ const Coupon = () => {
                 <TextInput
                     value={couponCode}
                     onChangeText={handleChange}
-                    style={styles.Text}
+                    style={[styles.Text, {color : couponCode === 'hanoot 15% off is Applied' ? Colors.GREEN : Colors.PRICEGRAY}]}
                     placeholder={'Enter Coupon Code'}
                 />
                 <TouchableOpacity style={styles.TouchableOpacity} onPress={handleSubmit}>
@@ -83,7 +93,8 @@ const styles = StyleSheet.create({
         padding: 20,
         borderTopColor: Colors.GRAY,
         borderBottomColor: Colors.GRAY,
-        borderWidth: 1
+        borderTopWidth: 1,
+        borderBottomWidth: 1
     },
     container: {
         borderWidth: 1,

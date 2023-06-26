@@ -10,6 +10,8 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import RootStackScreen from './src/screens/RootStackNavigator/RootStackScreen';
 import SplashScreen from 'react-native-splash-screen';
+import { Provider } from 'react-redux';
+import Store from './src/screens/Store';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -22,9 +24,11 @@ function App(): JSX.Element {
   }, []);
 
   return (
+    <Provider store = { Store }>
     <NavigationContainer>
       <RootStackScreen />
     </NavigationContainer>
+    </Provider>
   );
 }
 

@@ -148,24 +148,39 @@ const ReviewMainPage = (props) => {
 
         <View style={styles.mainContainer}>
           {/* <Separator /> */}
+          <View style={{marginHorizontal: '5%', marginVertical: '2%'}}>
           <Text style={styles.Heading}>User Reviews</Text>
           <Rating
             RatingReview
             isBottomLine
             ImageStyle={{ height: 15, width: 15 }}
           />
-
+           </View>
+         <View style={{
+          paddingVertical: '5%', paddingHorizontal: '5%', borderTopColor: Colors.GRAY,
+                        borderBottomColor: Colors.GRAY,
+                        borderTopWidth: 1,
+                        borderBottomWidth: 1,
+                        justifyContent: 'center'}}>
           <UserProgress />
+          </View>
+         
 
-
-          <Separator />
+          {/* <View style={{paddingVertical: '4%', paddingHorizontal: '5%', borderTopColor: Colors.GRAY,
+                        borderBottomColor: Colors.GRAY,
+                        borderTopWidth: 1,
+                        borderBottomWidth: 1,
+                        justifyContent: 'center'}}> */}
           <Text style={{
             fontFamily: fonts.VisbyCF_Bold,
             lineHeight: 19,
             fontWeight: 700,
             letterSpacing: 0.5,
-            marginBottom: '3%'
-          }}>{`${ReviewList.length} Reviews`}</Text>
+            marginHorizontal: '5%',
+            marginVertical: '2%'
+          }}>{`${ReviewList.length} Reviews`}
+          </Text>
+          {/* </View> */}
           {/* <FlatList
           data={arrtemp}
           renderItem={UserReviewList}
@@ -202,7 +217,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   mainContainer: {
-    padding: 20,
+    // padding: 20,
     // borderTopColor: Colors.GRAY,
     // borderBottomColor: Colors.GRAY,
     // borderWidth: 1
@@ -257,6 +272,10 @@ const styles = StyleSheet.create({
     color: Colors.GRAY1
   },
   progressViewCont: {
-    flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: '1%'
+    flexDirection: 'row',
+     justifyContent: 'space-between', 
+     alignItems: 'center', 
+     marginVertical: '1%'
+    
   }
 })

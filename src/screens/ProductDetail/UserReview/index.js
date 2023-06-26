@@ -12,7 +12,7 @@ import ListReview from './ReviewList'
 
 
 const UserReview = (props) => {
-   
+
     const navigation = useNavigation();
 
 
@@ -22,27 +22,61 @@ const UserReview = (props) => {
         <>
             <View style={styles.mainContainer}>
                 {/* <Separator /> */}
-                <Text style={styles.Heading}>User Reviews</Text>
-                <Rating
-                    RatingReview
-                    isBottomLine
-                    ImageStyle={{ height: 15, width: 15 }}
-                />
-                <Separator />
+                <View style={{ paddingHorizontal: '5%', paddingVertical: '2%' }}>
+                    <Text style={styles.Heading}>User Reviews</Text>
+                    <Rating
+                        RatingReview
+                        isBottomLine
+                        ImageStyle={{ height: 15, width: 15 }}
+                    />
+                </View>
+                {/* <Separator /> */}
                 {/* <FlatList
                     data={ReviewList}
                     renderItem={UserReviewList}
                     keyExtractor={keyExtractor}
                     initialNumToRender={2}
                 /> */}
-                <ListReview List={ReviewList.slice(0,5)} />
-                <TouchableOpacity onPress={() => 
-                    navigation.navigate('UserReview', {Product: props.Item})
-                }>
+                <ListReview List={ReviewList.slice(0, 5)} />
+
+                {/* <View
+                    style={{
+                        backgroundColor: 'red',
+                        marginHorizontal: '5%',
+                        marginVertical: '2%'
+                    }}
+                > */}
+                    <TouchableOpacity onPress={() =>
+                        navigation.navigate('UserReview', { Product: props.Item })
+                        
+                    }
+                    style={{
+                        paddingVertical: '2%',
+                        borderTopColor: Colors.GRAY,
+                        borderBottomColor: Colors.GRAY,
+                        borderTopWidth: 1,
+                        borderBottomWidth: 1
+                    }}
+                    >
                     <Text style={styles.ButtonText}>See More</Text>
                 </TouchableOpacity>
-                {/* <Separator /> */}
-            </View>
+            {/* </View > */}
+
+            {/* <View styles={{
+                        marginVertical: '2%',
+                        marginHorizontal: '5%',
+                        borderWidth: 1,
+                        backgroundColor: 'red'
+                }}>
+                <TouchableOpacity onPress={() => 
+                    navigation.navigate('UserReview', {Product: props.Item})   
+                }
+                >
+                    <Text style={styles.ButtonText}>See More</Text>
+                </TouchableOpacity>
+                </View> */}
+            {/* <Separator /> */}
+        </View >
            
         </>
     )
@@ -52,10 +86,11 @@ export default UserReview;
 
 const styles = StyleSheet.create({
     mainContainer: {
-        padding: 20,
-        borderTopColor: Colors.GRAY,
-        borderBottomColor: Colors.GRAY,
-        borderWidth: 1
+        // padding: 20,
+        // borderTopColor: Colors.GRAY,
+        // borderBottomColor: Colors.GRAY,
+        // borderTopWidth: 1,
+        // borderBottomWidth: 1
 
     },
     Heading: {
@@ -113,6 +148,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
         color: Colors.themeColor,
         textAlign: 'right',
-        fontSize: 16
+        fontSize: 16,
+        marginHorizontal: '5%'
     }
 })
