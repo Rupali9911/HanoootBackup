@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { wp } from '../../constant/responsiveFunc';
+import { hp, wp } from '../../constant/responsiveFunc';
 import Colors from '../../constant/Colors';
 import fonts from '../../constant/fonts';
 import Rating from './rating';
@@ -76,7 +76,7 @@ const ProductDetailCard = (props) => {
 
 
             <View style={styles.wishListCotainer}>
-                <WishList Image={Images.like}/>
+                <WishList Image={Images.Wishlist}/>
                 <WishList Image={Images.ShareIcon}/>
             </View>
 
@@ -128,26 +128,27 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     yellowLineView: {
-        height: 30,
+        height: hp('5%'),
         width: '100%',
         backgroundColor: 'rgba(255, 205, 26, 0.15)',
         flexDirection: 'row',
-        marginVertical: 10
+        marginVertical: hp('2%')
     },
     logoView: {
         backgroundColor: Colors.themeColor,
-        height: 30,
-        width: '20%',
+        height: hp('5%'),
+        // width: '20%',
         flexDirection: 'row',
-        gap: 10,
+        gap: 5,
         alignItems: 'center',
         borderTopRightRadius: 50,
-        borderBottomRightRadius: 50
+        borderBottomRightRadius: 50,
+        paddingHorizontal: '1%'
     },
     logoStyle: {
         height: 15,
         width: 15,
-        left: 5,
+        // left: 5,
         resizeMode: 'contain'
     },
     choiceTextStyle: {

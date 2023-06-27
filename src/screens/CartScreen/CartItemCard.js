@@ -36,7 +36,7 @@ const CartItemCard = (props) => {
                         <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Order Within  <Text style={{ color: Colors.BLACK }}>{'8hr 40 mins.'}</Text></Text>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={styles.itemDetail}>Fullfilled by <Text>Hanooot </Text></Text>
-                            <ExpressView containerStyle={{ width: '20%', marginHorizontal: '1%' }} />
+                            <ExpressView />
                         </View>
                         <Text style={styles.itemDetail} >Sold by <Text style={{ color: Colors.themeColor }}>Ecom Nation</Text></Text>
                         <Text style={styles.itemName} >{item.price}</Text>
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
         backgroundColor: Colors.YELLOWLIGHT,
         paddingHorizontal: 20,
-        paddingVertical: 10
+        paddingVertical: 10,
+        color: Colors.BLACK
     },
 })

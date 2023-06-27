@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-nativ
 import React, { useState } from 'react'
 import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
+import { hp } from '../../constant/responsiveFunc'
 
 const Coupon = () => {
     const [couponCode, setCouponCode] = useState('');
@@ -12,12 +13,12 @@ const Coupon = () => {
     const [msg, setMsg] = useState('');
 
     const handleChange = (val) => {
-        if(val === ''){
+        if (val === '') {
             setMsg('');
             setBtnText('Apply');
             setCouponClr(Colors.WHITE)
         }
-        else if(val === '15%'){
+        else if (val === '15%') {
             setCouponCode('');
         }
         setCouponCode(val);
@@ -42,8 +43,8 @@ const Coupon = () => {
 
                 // setMsg('hanoot 15% off is Applied');
 
-            } 
-            else if(btnText === 'Change'){
+            }
+            else if (btnText === 'Change') {
                 setCouponClr(Colors.WHITE)
                 setBtnText('Apply')
                 setCouponCode('')
@@ -70,11 +71,11 @@ const Coupon = () => {
                 <TextInput
                     value={couponCode}
                     onChangeText={handleChange}
-                    style={[styles.Text, {color : couponCode === 'hanoot 15% off is Applied' ? Colors.GREEN : Colors.PRICEGRAY}]}
+                    style={[styles.Text, { color: couponCode === 'hanoot 15% off is Applied' ? Colors.GREEN : Colors.PRICEGRAY }]}
                     placeholder={'Enter Coupon Code'}
                 />
                 <TouchableOpacity style={styles.TouchableOpacity} onPress={handleSubmit}>
-                    
+
                     <View style={btnText === 'Change' ? styles.ChangeBtnView : styles.ApplyBtnView}>
                         <ButtonText color={couponClr} >{btnText}</ButtonText>
                     </View>
@@ -97,10 +98,11 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1
     },
     container: {
-        borderWidth: 1,
-        borderColor: Colors.GRAY,
-        borderRadius: 25,
-        padding: 10
+        // borderWidth: 1,
+        // borderColor: Colors.GRAY,
+        // borderRadius: 25,
+        // padding: 10,
+        height: hp('6%')
     },
     ApplyBtnView: {
         backgroundColor: Colors.themeColor,
@@ -108,8 +110,10 @@ const styles = StyleSheet.create({
 
 
         width: 100,
-        padding: 10,
-        alignItems: 'center'
+        // padding: 10,
+        height: hp('6%'),
+        alignItems: 'center',
+        justifyContent: 'center'
 
 
 
@@ -132,10 +136,24 @@ const styles = StyleSheet.create({
         color: Colors.themeColor
     },
     Text: {
+        // fontFamily: fonts.VisbyCF_Demibold,
+        // letterSpacing: 0.5,
+        // color: Colors.PRICEGRAY,
+        // left: 10,
+        // height: hp('6%')
+
+        borderWidth: 1,
+        borderColor: Colors.GRAY,
+        // paddingVertical: Platform.OS === 'ios' ? 15 : 8,
+        // paddingHorizontal: 20,
+        paddingHorizontal: 20,
+        // fontSize: 16,
+        borderRadius: 100,
+        // backgroundColor: Colors.WHITE,
         fontFamily: fonts.VisbyCF_Demibold,
+        fontWeight: '500',
         letterSpacing: 0.5,
-        color: Colors.PRICEGRAY,
-        left: 10
+        height: hp('6%')
     },
     infoMsg: {
         // color : infoMsg

@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.LightGray,
   },
   safeArea: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.WHITE,
   },
 });
 

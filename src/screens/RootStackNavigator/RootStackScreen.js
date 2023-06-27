@@ -14,7 +14,10 @@ import Payment from '../Checkout/Payment';
 import ReviewOrder from '../Checkout/Review/ReviewOrder';
 import OrderSuccessScreen from '../Checkout/SucessFull';
 import Checkout from '../Checkout';
-
+import ProfileScreen from '../ProfileScreen';
+import MyOrderList from '../ProfileScreen/MyOrders';
+import OrderDetails from '../ProfileScreen/MyOrders/OrderDetails';
+import Notification from '../ProfileScreen/Notifications';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +41,10 @@ export default function RootStackScreen() {
             <Stack.Screen name="ReviewOrder" component={ReviewOrder}  options={{ headerMode: 'none' }}/>
             <Stack.Screen name="SuccessScreen" component={OrderSuccessScreen}  options={{ headerMode: 'none' }}/>
             <Stack.Screen name="CheckoutScreen" component={Checkout}  options={{ headerMode: 'none' }}/>
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen}  options={{ headerMode: 'none' }}/>
+            <Stack.Screen name="OrderList" component={MyOrderList}  options={{ headerMode: 'none' }}/>
+            <Stack.Screen name="OrderDetail" component={OrderDetails}  options={{ headerMode: 'none' }}/>
+            <Stack.Screen name="NotificationScreen" component={Notification}  options={{ headerMode: 'none' }}/>
             
         </Stack.Navigator>
     );

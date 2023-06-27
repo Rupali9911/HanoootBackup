@@ -16,7 +16,7 @@ export default function AppHeader(props) {
 
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
-        {props.showBackButton && !isSearch ? (
+        {props.showBackButton ? (
           <TouchableOpacity
             style={styles.backContainer}
             onPress={() =>
@@ -43,7 +43,7 @@ export default function AppHeader(props) {
 
       {
         props.title &&
-        <View style={[styles.titleContainer, { justifyContent: props.showRightComponent ? 'space-between' : 'center', width: props.showBackButton ? wp(90) : wp(100), }]}>
+        <View style={[styles.titleContainer, { justifyContent: props.showRightComponent ? 'space-between' : 'center', width: props.showBackButton && props.showRightComponent ? wp(90) : wp(100), }]}>
           <Text style={[styles.title, props.titleStyle]} numberOfLines={1}>{props.title}</Text>
           {props.showRightComponent &&
             <TouchableOpacity
@@ -54,7 +54,7 @@ export default function AppHeader(props) {
                     style={[
                       styles.likeIcon,
                     ]}
-                    source={Images.like}
+                    source={Images.Wishlist}
                   />
                   :
                   <Text
@@ -114,7 +114,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     height: '100%',
-    paddingHorizontal: '2%'
+    // backgroundColor: 'green',
+    zIndex: -1
+    // paddingHorizontal: '2%'
   },
 
   backContainer: {
@@ -122,6 +124,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: wp('10%'),
+    zIndex: 1,
+    // backgroundColor: 'red'
 
   },
   backIcon: {
@@ -135,6 +139,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     lineHeight: 21,
     fontWeight: 700,
+    color: Colors.BLACK
 
   },
   likeIcon: {

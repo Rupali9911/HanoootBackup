@@ -3,6 +3,7 @@ import React from 'react'
 import Colors from './Colors'
 import fonts from './fonts'
 import Images from './Images'
+import { hp, wp } from './responsiveFunc'
 
 export const ExpressView = (props) => {
     return (
@@ -14,7 +15,7 @@ export const ExpressView = (props) => {
 
 export const LikeImage = () => {
     return (
-        <Image source={Images.like} style={styles.like} />
+        <Image source={Images.Wishlist} style={styles.like} />
 
     )
 }
@@ -29,9 +30,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 8,
-        paddingVertical: 2,
-        paddingHorizontal: 5,
-        height: 20
+        // paddingVertical: 2,
+        paddingHorizontal: wp('1%'),
+        height: hp('2%')
         
 
     },

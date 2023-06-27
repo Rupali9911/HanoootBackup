@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Platform } from 'react-native'
 import React, { useState, useRef } from 'react'
 import fonts from './fonts';
 import Colors from './Colors';
 import { Picker } from '@react-native-picker/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { hp } from './responsiveFunc';
 
 
 
@@ -196,7 +197,7 @@ const AppInput = (props) => {
                 />
                 // </View>
                  : 
-                // <View style={open ? {zIndex: -1} : {}}>
+                <View style={{ height: hp('6%'),}}>
                 <TextInput
                     style={[styles.input, props.textInputStyle]}
                     placeholder={props.placeholder}
@@ -206,7 +207,7 @@ const AppInput = (props) => {
                     placeholderTextColor={Colors.GRAYDARK}
                     required={props.required}
                 />
-                // </View>
+                 </View>
 
             }
             {props.error && <Text style={styles.errorMessage}>{props.error}</Text>}
@@ -297,12 +298,13 @@ const styles = StyleSheet.create({
         lineHeight: 19,
         letterSpacing: 0.5,
         marginBottom: 5,
-        fontWeight: '500'
+        fontWeight: '500',
+        color: Colors.BLACK
     },
     input: {
         borderWidth: 1,
         borderColor: Colors.GRAY,
-        paddingVertical: 15,
+        // paddingVertical: Platform.OS === 'ios' ? 15 : 8,
         // paddingHorizontal: 20,
         paddingHorizontal: 20,
         // fontSize: 16,
@@ -310,7 +312,8 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.WHITE,
         fontFamily: fonts.VisbyCF_Medium,
         fontWeight: '500',
-        letterSpacing: 0.5
+        letterSpacing: 0.5,
+        height: hp('6%')
     },
     errorMessage: {
         fontSize: 14,

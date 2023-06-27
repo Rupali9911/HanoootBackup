@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
         fontFamily: fonts.VisbyCF_Demibold,
         lineHeight: 21,
-        maxWidth: wp(61)
+        maxWidth: wp(61),
+        color: Colors.BLACK
     },
     RightText: {
         fontSize: 16,

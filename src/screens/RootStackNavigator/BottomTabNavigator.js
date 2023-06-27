@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Images from '../../constant/Images';
@@ -6,11 +6,17 @@ import Colors from '../../constant/Colors';
 import HomeScreen from '../HomeScreen';
 import CartScreen from '../CartScreen';
 import Checkout from '../Checkout';
+import ProfileScreen from '../ProfileScreen';
+import { useNavigation } from '@react-navigation/native';
+import EmptyDetailScreen from '../../Components/EmptyDetailScreen';
+
 
 const Tab = createBottomTabNavigator();
 
 
 export default function TabComponent() {
+    const navigation = useNavigation();
+
     const B = () => {
         return (
             <Text>BBBBB</Text>
@@ -18,7 +24,15 @@ export default function TabComponent() {
     }
     const D = () => {
         return (
-            <Text>DDDDD</Text>
+            <View style={{flex: 1, justifyContent:'center', alignItems: 'center'}}>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('ProfileScreen', {LoggedIn: true})}
+            >
+                <Text>Show Logged in Profile</Text>
+            </TouchableOpacity>
+            
+            </View>
+            // <EmptyDetailScreen />
         );
     }
     return (
@@ -67,7 +81,7 @@ export default function TabComponent() {
                         iconName = focused ? Images.cartSelected : Images.cart;
                     }
                     else if (route.name === 'Profile') {
-                        iconName = focused ? Images.homeSelected : Images.profile;
+                        iconName = focused ? Images.profileIcon : Images.profile;
                     }
                     return (
                         <Image
@@ -80,9 +94,9 @@ export default function TabComponent() {
             })}
         >
             <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Categories" component={B} />
+            <Tab.Screen name="Categories" component={D} />
             <Tab.Screen name="Cart" component={CartScreen}/>
-            <Tab.Screen name="Profile" component={Checkout} />
+            <Tab.Screen name="Profile" component={ProfileScreen} />
 
         </Tab.Navigator>
     )

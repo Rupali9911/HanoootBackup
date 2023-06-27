@@ -177,7 +177,8 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 10
+        gap: 10,
+        // backgroundColor: 'red'
     },
     // container: {
     //     flexDirection: 'row',
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
         width: 24,
         borderRadius: 24 / 2,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     buttonContent: {
         fontSize: 20,

@@ -22,7 +22,7 @@ const EmptyCart = () => {
             <Image source={Images.CartImage} style={styles.cartImg} />
             <Text style={styles.emptyText}>Your Hanooot Cart is empty</Text>
             <Text style={styles.addItemText}>Start adding items you love to your wishlist by tapping on the heart icon</Text>
-            <AppButton containerStyle={{ width: '70%' }} label={'Start Shopping'} onPress={() => navigation.navigate('Home')} />
+            <AppButton containerStyle={{ width: '100%'}} label={'Start Shopping'} onPress={() => navigation.navigate('Home')} />
         </View>
     )
 }
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 15
+        gap: 10,
+        marginHorizontal: '10%'
     },
     cartImg: {
         height: hp(20),
@@ -47,7 +48,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 25,
-        letterSpacing: 0.5
+        letterSpacing: 0.5,
+        color: Colors.BLACK
     },
     addItemText: {
         fontWeight: 500,
@@ -55,7 +57,8 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VisbyCF_Medium,
         lineHeight: 21,
         letterSpacing: 0.5,
-        maxWidth: '70%',
-        color: Colors.PRICEGRAY
+        // maxWidth: '70%',
+        color: Colors.PRICEGRAY,
+        textAlign: 'center'
     }
 })

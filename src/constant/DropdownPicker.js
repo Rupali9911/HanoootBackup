@@ -49,7 +49,7 @@
 
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Colors from './Colors';
 import fonts from './fonts';
@@ -152,7 +152,8 @@ const styles = StyleSheet.create({
         // backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        marginHorizontal: '5%'
+        marginHorizontal: '5%',
+        height: hp('6%'),
     },
     input: {
         borderWidth: 1,
@@ -175,12 +176,15 @@ const styles = StyleSheet.create({
 
         borderWidth: 1,
         borderColor: Colors.GRAY,
-        paddingVertical: 15,
-        paddingHorizontal: 20,
+        // paddingVertical: Platform.OS === 'ios' ? 15 : 8,
+        // height: hp('6%'),
         // paddingHorizontal: 20,
+        paddingHorizontal: 20,
         // fontSize: 16,
         // borderRadius: 100,
         backgroundColor: Colors.WHITE,
+        minHeight: hp('6%')
+        // height: hp('6%')
         // fontFamily: fonts.VisbyCF_Medium,
         // fontWeight: '500',
         // letterSpacing: 0.5,

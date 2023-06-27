@@ -21,6 +21,8 @@ export default {
     LightBlue: '#CBE1F0',
     YELLOW1: '#FEC350',
     BLUE: '#216DFF',
-    LIGHTBLUE1: '#52C6DB'
+    LIGHTBLUE1: '#52C6DB',
+    GRAY2: '#6C6C6C',
+    GRAY3: '#78828A'
     
 }
