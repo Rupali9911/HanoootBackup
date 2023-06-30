@@ -30,9 +30,9 @@ const ProductSpecification = (props) => {
           props.Heading != 'Description' ?
             (<FlatList
               data={data}
-              renderItem={({ item }) => {
+              renderItem={({ item, i }) => {
                 return (
-                  <View style={{ marginBottom: 5 }}>
+                  <View style={{ marginBottom: 5 }} key={i}>
                     <Text style={styles.items}>{`\u25CF ${item.spec}`}</Text>
                   </View>
                 );
@@ -45,12 +45,13 @@ const ProductSpecification = (props) => {
                 {
                   (props.data).map((para, index) => {
                     return (
-                      <View style={{ marginVertical: 5 }}>
+                      <View style={{ marginVertical: 5 }} key={index}>
                         <Text style={[
                           styles.items,
                           { textAlign: 'justify' }
                         ]}>{para}</Text>
                       </View>
+                     
                     );
                   })
                 }

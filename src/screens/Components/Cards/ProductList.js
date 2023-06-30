@@ -163,6 +163,9 @@ const ProductList = (props) => {
                 keyExtractor={keyExtractor2}
                 horizontal
                 showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{
+                    marginHorizontal: '5%'
+                }}
             />);
     }
 
@@ -187,6 +190,9 @@ const ProductList = (props) => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 {...props}
+                contentContainerStyle={{
+                    marginHorizontal: '5%'
+                }}
                 // numColumns={2}
                 
             />

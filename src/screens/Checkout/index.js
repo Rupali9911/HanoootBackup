@@ -60,7 +60,9 @@ const Checkout = (props) => {
     <>
       <AppBackground>
 
-        <AppHeader title={'Checkout'} showRightComponent />
+        <AppHeader title={'Checkout'} showRightComponent titleContainerStyle={{marginLeft: '2%'}}/>
+
+
         <View style={styles.container}>
           <View style={styles.row}>
             <TouchableOpacity style={styles.circle} >

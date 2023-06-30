@@ -19,18 +19,19 @@ const ProductwithTitle = (props) => {
   }
 
   const keyExtractor = (item, index) => {
-    return `_${index}`;
-  };
+    return index;
+};
 
   return (
-    <View  style={{margin: '2%'}}>
-      <ProductHeader title={props.title} />
+    <View  style={{}}>
+      <ProductHeader title={props.title} RightText={'See All'}/>
       <FlatList
         data={electronicsArr}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         horizontal
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{marginHorizontal: '5%', marginVertical: '2%'}}
       />
     </View>
   )
@@ -45,10 +46,11 @@ const styles = StyleSheet.create({
     height: hp(16),
     padding: 20,
     backgroundColor: Colors.WHITE,
-    marginRight: 8,
+    marginRight: 15,
     borderRadius: 10,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    // margin: '2%'
   },
   name: {
     fontSize: 11,

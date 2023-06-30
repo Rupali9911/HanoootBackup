@@ -26,7 +26,7 @@ const BrandProductCarousal = () => {
     )
 
     const keyExtractor = (item, index) => {
-        return `_${index}`;
+        return index;
     };
 
     return (

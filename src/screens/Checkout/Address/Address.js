@@ -11,7 +11,7 @@ import AppButton from '../../Components/AppButton'
 import RadioButton from 'react-native-radio-button'
 import EmptyAddress from './EmptyAddress'
 import { useIsFocused } from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import { hp, wp } from '../../../constant/responsiveFunc';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -37,51 +37,99 @@ const Address = (props) => {
     const dispatch = useDispatch()
     const { ADDRESS_DETAIL } = useSelector(state => state.checkoutReducer);
 
-    console.log('Address details show from reducers : ', ADDRESS_DETAIL, );
+    console.log('Address details show from reducers : ', ADDRESS_DETAIL,);
 
 
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     if (ADDRESS) {
-    //         // const newData = [...Address, getData]
-    //         setAddressList((prevData) => [...prevData, ADDRESS]);
-    //         // showToast(Images.ToastSuccess, 'New Address Added Successfully')
-    //         showToast('Added')
-    //     }
+        // if (ADDRESS) {
+        //     // const newData = [...Address, getData]
+        //     setAddressList((prevData) => [...prevData, ADDRESS]);
+        //     // showToast(Images.ToastSuccess, 'New Address Added Successfully')
+        //     showToast('Added')
+        // }
 
-    //     else if (EDIT) {
-    //         const newData = AddressList.map((item, i) => {
-    //             if (i === index) {
-    //                 return item
-    //                 // setAddressList(item)
-    //             }
-    //             return item
-    //         })
-    //         setAddressList(newData)
-    //     }
+        // else if (EDIT) {
+        //     const newData = AddressList.map((item, i) => {
+        //         if (i === index) {
+        //             return item
+        //             // setAddressList(item)
+        //         }
+        //         return item
+        //     })
+        //     setAddressList(newData)
+        // }
+        ADDRESS_DETAIL.length &&
+            showToast(Images.ToastSuccess,  'New Address Added Successfully!');
 
-
-    // }, [isFocused])
+    }, [isFocused])
 
 
     const toastConfig = {
-        info: (text1, text2) => (
+        /*
+          Overwrite 'success' type,
+          by modifying the existing `BaseToast` component
+        */
+        success: (props) => (
+            <BaseToast
+                {...props}
+                style={{ borderLeftColor: 'pink' }}
+                contentContainerStyle={{ paddingHorizontal: 15 }}
+                text1Style={{
+                    fontSize: 15,
+                    fontWeight: '400'
+                }}
+            />
+        ),
+        /*
+          Overwrite 'error' type,
+          by modifying the existing `ErrorToast` component
+        */
+        error: (props) => (
+            <ErrorToast
+                {...props}
+                text1Style={{
+                    fontSize: 17
+                }}
+                text2Style={{
+                    fontSize: 15
+                }}
+            />
+        ),
+        /*
+          Or create a completely new type - `tomatoToast`,
+          building the layout from scratch.
+      
+          I can consume any custom `props` I want.
+          They will be passed when calling the `show` method (see below)
+        */
+        info: ({ text1, props }) => (
             <View style={styles.toastMsgContainer}>
-                <Image source={text1 === 'Remove' ? Images.deleteIcon : Images.ToastSuccess} style={{ height: 20, width: 20 }} />
-                <Text
-                    style={styles.toastMsgText}
-                >{text1 === 'Remove' ? 'Address Remove Successfully' : 'Address Added Successfully'}</Text>
+                <Image source={props.image} style={{ height: 20, width: 20 }} />
+                <View>
+                    <Text
+                        style={styles.toastMsgText}
+                    >{props.msg1}</Text>
+                    {
+                        props.msg2 && <Text style={styles.toastMsgText}>{props.msg2}</Text>
+                    }
+                    
+                </View>
             </View>
         )
     };
 
 
-    const showToast = (message) => {
+    const showToast = (image, message) => {
         Toast.show({
             type: 'info',
-            text1: message,
-            // text2: text2
+
+            // And I can pass any custom props I want
+            props: {
+                image: image,
+                msg1: message
+            }
         });
     }
 
@@ -146,7 +194,7 @@ const Address = (props) => {
     }
 
     const keyExtractor = (item, index) => {
-        return `_${index}`;
+        return index;
     };
 
     return (
@@ -199,6 +247,13 @@ const Address = (props) => {
                 visibilityTime={2000}
                 autoHide={true} /> */}
 
+            <Toast
+                config={toastConfig}
+                position="bottom"
+                visibilityTime={2000}
+                autoHide={true}
+            />
+
             <Modal
                 visible={modalVisible}
                 animationType="slide"
@@ -229,7 +284,7 @@ const Address = (props) => {
                                     // setAddressList(newAddressList);
                                     dispatch(removeAddress(id));
                                     setModalVisible(false);
-                                    // showToast(Images.deleteIcon, 'Address Removed Successfully')
+                                    showToast(Images.deleteIcon, 'Address Removed Successfully')
                                     // showToast('Remove')
                                 }}
                                 style={[styles.btnViewCont, { backgroundColor: Colors.themeColor }]}

@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View, FlatList } from 'react-native'
 import React from 'react'
 import Rating from './rating'
 import AppBackground from '../Components/AppBackground'
@@ -9,8 +9,32 @@ import Images from '../../constant/Images'
 import ProductHeader from '../Components/Cards/ProductHeader'
 import ProductList from '../Components/Cards/ProductList'
 import { ProductListData } from '../../constant/DemoArray'
+import ListView from '../../Components/ListView'
+import { wp } from '../../constant/responsiveFunc'
 
 const SellerReview = () => {
+
+  const renderItem =({item, index}) => {
+    return(
+       <ListView
+       item={item}
+             isExpress
+             isLike
+             TotalPrice
+             DisCountPrice
+             isDiscountPercent
+             isRating
+             ViewContStyle={{ width: wp(45.5), alignItems: 'center', marginHorizontal: '2%', marginTop: '4%', marginRight: 0 }}
+          />
+    );
+ }
+
+
+   const keyExtractor = (item, index) => {
+      return `_${index}`;
+  };
+
+
   return (
     <AppBackground>
                     <AppHeader placeholderText={'What are you looking for?'} showBackButton Search/>
@@ -34,7 +58,7 @@ const SellerReview = () => {
 
                   <ProductHeader title={'Products by Ecom Nation'}/>
 
-                 <ProductList 
+                 {/* <ProductList 
                    Data={ProductListData}
                    isExpress
                    isLike
@@ -47,7 +71,16 @@ const SellerReview = () => {
                 //    horizontal={false}
 
                    
-                 />
+                 /> */}
+                 <View style={{ flex: 1, width: wp(100), paddingHorizontal: '1%' }}>
+                  <FlatList
+               data={ProductListData}
+               renderItem={renderItem}
+               keyExtractor={keyExtractor}
+               numColumns={2}
+
+            />
+            </View>
     </AppBackground>
    
   )

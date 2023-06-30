@@ -10,6 +10,9 @@ import CartTotal from './CartTotal'
 import { useDispatch, useSelector } from 'react-redux';
 import { removeCartItem } from '../Store/actions/cartAction'
 import { setCartLabel } from '../Store/actions/cartAction'
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
+import Images from '../../constant/Images'
+
 
 
 
@@ -18,8 +21,87 @@ const CartItemCard = (props) => {
     const dispatch = useDispatch();
 
     const keyExtractor = (item, index) => {
-        return `_${index}`;
+        return index;
     };
+
+
+
+    const toastConfig = {
+        /*
+          Overwrite 'success' type,
+          by modifying the existing `BaseToast` component
+        */
+        success: (props) => (
+            <BaseToast
+                {...props}
+                style={{ borderLeftColor: 'pink' }}
+                contentContainerStyle={{ paddingHorizontal: 15 }}
+                text1Style={{
+                    fontSize: 15,
+                    fontWeight: '400'
+                }}
+            />
+        ),
+        /*
+          Overwrite 'error' type,
+          by modifying the existing `ErrorToast` component
+        */
+        error: (props) => (
+            <ErrorToast
+                {...props}
+                text1Style={{
+                    fontSize: 17
+                }}
+                text2Style={{
+                    fontSize: 15
+                }}
+            />
+        ),
+        /*
+          Or create a completely new type - `tomatoToast`,
+          building the layout from scratch.
+      
+          I can consume any custom `props` I want.
+          They will be passed when calling the `show` method (see below)
+        */
+        info: ({ text1, props }) => (
+            //   <View style={{ height: 60, width: '100%', backgroundColor: 'tomato' }}>
+            //     <Text>{text1}</Text>
+            //     <Text>{props.uuid}</Text>
+            //   </View>
+
+            <View style={styles.toastMsgContainer}>
+                <Image source={props.image} style={{ height: 20, width: 20 }} />
+                <View>
+                    <Text
+                        style={styles.toastMsgText}
+                    >{props.msg1}</Text>
+                    {
+                        props.msg2 && <Text style={styles.toastMsgText}>{props.msg2}</Text>
+                    }
+                    
+                </View>
+            </View>
+        )
+    };
+
+    const showToast = () => {
+        // Toast.show({
+        //     type: 'info',
+        //     text1: message,
+        //     text2: message2
+
+        // });
+        Toast.show({
+            type: 'info',
+
+            // And I can pass any custom props I want
+            props: {
+                image: Images.ToastSuccess,
+                msg1: "Product Removed Successfully!"
+            }
+        });
+    }
 
     const renderItem = ({ item, index }) => {
         return (
@@ -45,6 +127,7 @@ const CartItemCard = (props) => {
                 <CartItemQuantity
                     onRemove={() => {
                         dispatch(removeCartItem(item));
+                        showToast();
                         dispatch(setCartLabel('Add to Cart'));
                     }}
                 />
@@ -63,6 +146,14 @@ const CartItemCard = (props) => {
             />
             <Coupon />
             <CartTotal />
+
+            <Toast 
+                config={toastConfig}
+                position="bottom"
+                visibilityTime={10000}
+                autoHide={true}
+            />
+
         </ScrollView>
 
     )
@@ -92,5 +183,21 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
         color: Colors.BLACK
+    },
+    toastMsgContainer: {
+        height: 60, width: '90%', backgroundColor: Colors.WHITE, flexDirection: 'row', padding: 10, borderRadius: 8, marginHorizontal: 20, alignItems: 'center', gap: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.10,
+        elevation: 7,
+        zIndex: 1
+    },
+    toastMsgText: {
+        fontFamily: fonts.VisbyCF_Medium,
+        fontSize: 16,
+        letterSpacing: 0.5
     },
 })

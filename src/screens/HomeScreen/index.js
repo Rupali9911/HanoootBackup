@@ -20,6 +20,7 @@ import ProductHeader from '../Components/Cards/ProductHeader';
 import Banner from '../Components/Cards/Banner';
 import { hp, wp } from '../../constant/responsiveFunc';
 import ListView from '../../Components/ListView';
+import fonts from '../../constant/fonts';
 
 export default function HomeScreen() {
 
@@ -62,6 +63,18 @@ export default function HomeScreen() {
          <ScrollView showsVerticalScrollIndicator={false}
             nestedScrollEnabled={true}
             style={{ flex: 1, zIndex: -1 }}>
+               <View style={{
+                  backgroundColor: Colors.lightBlue,
+                  paddingHorizontal: 20,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 5
+               }}>
+                  <Image source={Images.LocationIcon} style={{height: 10, width: 10, resizeMode :'contain', tintColor :Colors.themeColor}}/>
+                  <Text style={styles.offerAvail}>Deliver to Mohammed - Basra</Text>
+               </View>
+                          
+
             <BannerCarousel />
             <FourImageCarousel title={'Smart Phones'} priceOff={'Up to 30% off'} />
 
@@ -86,6 +99,10 @@ export default function HomeScreen() {
                horizontal
                showsHorizontalScrollIndicator={false}
                style={{marginHorizontal: '5%', marginVertical: '2%'}}
+            />
+
+            <ProductList 
+            isBrand
             />
 
             <Banner Image={Images.urdu} />
@@ -154,7 +171,16 @@ const styles = StyleSheet.create({
       // alignItems: 'center',
       // paddingVertical: 15,
       // paddingHorizontal: 50,
-   }
+   },
+   offerAvail: {
+      fontWeight: 600,
+      fontFamily: fonts.VisbyCF_Demibold,
+      letterSpacing: 0.5,
+      
+      color: Colors.themeColor,
+      paddingVertical: 10,
+      fontSize: 12
+  },
 })
 
 

@@ -13,9 +13,10 @@ const HanoootProducts = (props) => {
             <ProductList
                 Data={ProductListData}
                 imgContStyle={{ padding: 5 }}
-                TextViewStyle={{ alignItems: 'center' }}
+                TextViewStyle={{ alignItems: 'center', textAlign: 'center' }}
                 DisCountPrice
                 PriceInGreen
+                // ViewContStyle={{margin: 10}}
             />
             <ProductList
                 Data={ProductListData}
@@ -23,6 +24,7 @@ const HanoootProducts = (props) => {
                 TextViewStyle={{ alignItems: 'center' }}
                 DisCountPrice
                 PriceInGreen
+                // ViewContStyle={{margin: 10}}
             />
         </View>
     )
@@ -32,7 +34,7 @@ export default HanoootProducts;
 
 const styles = StyleSheet.create({
     mainContainer: {
-        padding: 20,
+        padding: '5%',
         backgroundColor: Colors.LightBlue,
     },
     title: {
@@ -43,4 +45,5 @@ const styles = StyleSheet.create({
         fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold
     },
+    
 })

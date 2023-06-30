@@ -29,6 +29,7 @@ const CartScreen = (props) => {
         title={`Cart (${cartItems.length} item)`}
         showRightComponent
         isWishlist
+        // titleContainerStyle={{margin: '5%'}}
       />
       {/* <View
         // style={{flex: 1}}
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.WHITE,
-    paddingVertical: '2%'
+    paddingVertical: '2%',
+    // zIndex: -1
   },
 })

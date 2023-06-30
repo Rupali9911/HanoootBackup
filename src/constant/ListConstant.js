@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import Colors from './Colors'
 import fonts from './fonts'
 import Images from './Images'
 import { hp, wp } from './responsiveFunc'
+
+
 
 export const ExpressView = (props) => {
     return (
@@ -13,9 +15,27 @@ export const ExpressView = (props) => {
     )
 }
 
-export const LikeImage = () => {
+
+
+
+export const LikeImage = (props) => {
+    // const [isLiked, setLiked] = useState(false);
+
+    const handleLike = () => {
+        props.onPress;
+        // setLiked(!isLiked)
+    }
+
     return (
-        <Image source={Images.Wishlist} style={styles.like} />
+        <TouchableOpacity
+            onPress={props.onPress}
+
+            style={{alignItems: 'flex-end', flex: 1, }}
+        
+            // style={{backgroundColor: 'red'}}
+        >
+            <Image source={Images.Wishlist} style={[styles.like, props.imgStyle]}/>
+        </TouchableOpacity>
 
     )
 }
@@ -24,16 +44,19 @@ export const LikeImage = () => {
 const styles = StyleSheet.create({
     container: {
         // width: 65,
+        // flex: 1,
         backgroundColor: Colors.YELLOW,
         // left: 10,
         // marginVertical: 10,
         justifyContent: 'center',
-        alignItems: 'center',
+        // alignItems: 'center',
+        // width: 0,
         borderRadius: 8,
         // paddingVertical: 2,
         paddingHorizontal: wp('1%'),
-        height: hp('2%')
-        
+        height: hp('2%'),
+        // width: wp('1%')
+
 
     },
     name: {
@@ -44,6 +67,8 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VISBY_CF_REGULAR
     },
     like: {
-        height: 16, width: 16, resizeMode: 'contain' 
+        height: 16, width: 16, resizeMode: 'contain',
+        // tintColor: 'red',
+        
     }
 })

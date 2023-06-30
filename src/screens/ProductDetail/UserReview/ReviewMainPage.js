@@ -99,9 +99,9 @@ const ReviewMainPage = (props) => {
 
   const UserProgress = () => {
     return (
-      progressArr.map((item) => {
+      progressArr.map((item, i) => {
         return (
-          <View style={styles.progressViewCont}>
+          <View style={styles.progressViewCont} key={i}>
             <View style={{ flexDirection: 'row', gap: 3 }}>
               <Text>{item.rate}</Text>
               <Image source={Images.star} style={{ height: 15, width: 15 }} />

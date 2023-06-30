@@ -18,7 +18,7 @@ const FourImageCarousel = (props) => {
     }
 
     const keyExtractor = (item, index) => {
-        return `_${index}`;
+        return index;
     };
 
     const renderFourImgView = ({ item, index }) => {

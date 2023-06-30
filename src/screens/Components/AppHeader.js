@@ -43,11 +43,14 @@ export default function AppHeader(props) {
 
       {
         props.title &&
-        <View style={[styles.titleContainer, { justifyContent: props.showRightComponent ? 'space-between' : 'center', width: props.showBackButton && props.showRightComponent ? wp(90) : wp(100), }]}>
+        <View style={[styles.titleContainer, props.titleContainerStyle   ,{ justifyContent: props.showRightComponent ? 'space-between' : 'center', width: props.showBackButton && props.showRightComponent ? wp(90) : wp(100), }]}>
           <Text style={[styles.title, props.titleStyle]} numberOfLines={1}>{props.title}</Text>
           {props.showRightComponent &&
             <TouchableOpacity
-              onPress={props.onPressRight}>
+              onPress={props.onPressRight}
+              style={{marginRight: '5%'}}
+              >
+                
               {
                 props.isWishlist ?
                   <Image

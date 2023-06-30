@@ -14,7 +14,7 @@ const OrderSuccessScreen = () => {
     const navigation = useNavigation();
 
     return (
-        <AppBackground>
+        <AppBackground safeAreaColor={Colors.LightGray}>
             <View style={styles.container}>
                 <Image source={Images.OrderSuccess} style={styles.image} />
                 <Text

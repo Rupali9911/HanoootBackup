@@ -3,46 +3,56 @@ import Images from "./Images"
 export const electronicsArr = [
     {
         image: Images.Android,
-        name: 'Android'
+        name: 'Android',
+        id: 1
     },
     {
         image: Images.Android1,
-        name: 'Android'
+        name: 'Android',
+        id: 2
     },
     {
         image: Images.Android2,
-        name: 'Android'
+        name: 'Android',
+        id: 3
     },
     {
         image: Images.Android,
-        name: 'Android'
+        name: 'Android',
+        id: 4
     },
     {
         image: Images.Android2,
-        name: 'Android'
+        name: 'Android',
+        id: 5
     }
 ]
 
 export const homeAppliances = [
     {
         image: Images.homeAppliances,
-        name: 'Android'
+        name: 'Android',
+        id: 1
     },
     {
         image: Images.homeAppliances2,
-        name: 'Android'
+        name: 'Android',
+        id: 2
     },
     {
         image: Images.homeAppliances3,
-        name: 'Android'
+        name: 'Android',
+        id: 3
     },
     {
         image: Images.homeAppliances2,
-        name: 'Android'
+        name: 'Android',
+        id: 4
     },
     {
         image: Images.homeAppliances3,
-        name: 'Android'
+        name: 'Android',
+        id: 5
     }
 ]
 
@@ -291,26 +301,156 @@ export const ReviewList = [
     }
 ]
 
-export const productVersionVariation = [
-    {
-        val: 'Physical Dual Sim Version'
-    },
-    {
-        val: 'Middle East Version'
-    },
-    {
-        val: 'Physical Dual Sim Version'
-    },
-    {
-        val: 'Physical Dual Sim Version'
-    },
-    {
-        val: 'Middle East Version'
-    },
-    {
-        val: 'Physical Dual Sim Version'
-    }
-]
+export const productVersionVariation =
+    [
+
+        {
+            val: 'Physical Dual Sim Version',
+            id: 1
+        },
+        {
+            val: 'Middle East Version',
+            id: 2
+        },
+        {
+            val: 'Physical Dual Sim Version',
+            id: 3
+        },
+        {
+            val: 'Physical Dual Sim Version',
+            id: 4
+        },
+        {
+            val: 'Middle East Version',
+            id: 5
+        },
+        {
+            val: 'Physical Dual Sim Version',
+            id: 6
+        }
+
+
+        // {
+        //     iphone: {
+        //         name: 'iPhone',
+        //         model: '6S',
+        //         version: 'iOS 12'
+        //     }
+        // },
+        // {
+        //     ipad: {
+        //         name: 'iPad',
+        //         model: 'Pro',
+        //         version: 'iPadOS 12'
+        //     }
+        // }
+    ]
+// [
+//     {
+//         "iPhone": {
+//             "iPhone 11": {
+//                 "OS": "iOS 13",
+//                 "Screen Size": "6.1 inch"
+//             },
+//             "iPhone XR": {
+//                 "OS": "iOS 12",
+//                 "Screen Size": "6.1 inch"
+//             },
+//             "iPhone XS": {
+//                 "OS": "iOS 12",
+//                 "Screen Size": "5.8 inch"
+//             },
+//             "iPhone 8": {
+//                 "OS": "iOS 11",
+//                 "Screen Size": "4.7 inch"
+//             }
+//         },
+//         "iPad": {
+//             "iPad Pro": {
+//                 "OS": "iPadOS 13",
+//                 "Screen Size": "11 inch"
+//             },
+//             "iPad Air": {
+//                 "OS": "iPadOS 12",
+//                 "Screen Size": "10.5 inch"
+//             },
+//             "iPad Mini": {
+//                 "OS": "iPadOS 12",
+//                 "Screen Size": "7.9 inch"
+//             }
+//         },
+//         "Mac": {
+//             "MacBook Pro": {
+//                 "OS": "macOS 10.15 Catalina",
+//                 "Screen Size": "15 inch"
+//             },
+//             "MacBook Air": {
+//                 "OS": "macOS 10.14 Mojave",
+//                 "Screen Size": "13 inch"
+//             },
+//             "Mac Mini": {
+//                 "OS": "macOS 10.14 Mojave",
+//                 "Screen Size": "N/A"
+//             }
+//         }
+//     }
+
+
+
+
+
+
+//     // {
+//     //     color: "red",
+//     //     value: "#f00"
+//     // },
+//     // {
+//     //     color: "green",
+//     //     value: "#0f0"
+//     // },
+//     // {
+//     //     color: "blue",
+//     //     value: "#00f"
+//     // },
+//     // {
+//     //     color: "cyan",
+//     //     value: "#0ff"
+//     // },
+//     // {
+//     //     color: "magenta",
+//     //     value: "#f0f"
+//     // },
+//     // {
+//     //     color: "yellow",
+//     //     value: "#ff0"
+//     // },
+//     // {
+//     //     color: "black",
+//     //     value: "#000"
+//     // }
+
+
+
+
+//     // {
+//     //     val: 'Physical Dual Sim Version'
+//     // },
+//     // {
+//     //     val: 'Middle East Version'
+//     // },
+//     // {
+//     //     val: 'Physical Dual Sim Version'
+//     // },
+//     // {
+//     //     val: 'Physical Dual Sim Version'
+//     // },
+//     // {
+//     //     val: 'Middle East Version'
+//     // },
+//     // {
+//     //     val: 'Physical Dual Sim Version'
+//     // }
+// ]
 
 export const productMemoryVariation = [
     {
@@ -377,71 +517,71 @@ export const Description = [
 
 export const ProductListData = [
 
-        {
-            "image": Images.mobile,
-            "name": "Apple iPhone 11 Pro Max",
-            "price": "$ 1299.00",
-            "discountPrice": "$ 5,00.00",
-            "pricePercentOff": "%15 Off",
-            "quantity": 1,
-            "color": "Midnight Green",
-            "id": 1
-        },
-        {
-            "image": Images.mobile2,
-            "name": "Apple iPhone 11 Pro Max",
-            "price": "$ 15,000.00",
-            "discountPrice": "$ 5,00.00",
-            "pricePercentOff": "%15 Off",
-            "quantity": 1,
-            "color": "Midnight Green",
-            "id": 2
+    {
+        "image": Images.mobile,
+        "name": "Apple iPhone 11 Pro Max",
+        "price": "$ 1299.00",
+        "discountPrice": "$ 5,00.00",
+        "pricePercentOff": "%15 Off",
+        "quantity": 1,
+        "color": "Midnight Green",
+        "id": 1
+    },
+    {
+        "image": Images.mobile2,
+        "name": "Apple iPhone 11 Pro Max",
+        "price": "$ 15,000.00",
+        "discountPrice": "$ 5,00.00",
+        "pricePercentOff": "%15 Off",
+        "quantity": 1,
+        "color": "Midnight Green",
+        "id": 2
 
-        },
-        {
-            "image": Images.mobile4,
-            "name": "Apple iPhone 11 Pro Max",
-            "price": "$ 45,000.00",
-            "discountPrice": "$ 5,00.00",
-            "pricePercentOff": "%15 Off",
-            "quantity": 1,
-            "color": "Midnight Green",
-            "id": 3
+    },
+    {
+        "image": Images.mobile4,
+        "name": "Apple iPhone 11 Pro Max",
+        "price": "$ 45,000.00",
+        "discountPrice": "$ 5,00.00",
+        "pricePercentOff": "%15 Off",
+        "quantity": 1,
+        "color": "Midnight Green",
+        "id": 3
 
-        },
-        {
-            "image": Images.mobile6,
-            "name": "Apple iPhone 11 Pro Max",
-            "price": "$ 500,55.00",
-            "discountPrice": "$ 5,00.00",
-            "pricePercentOff": "%15 Off",
-            "quantity": 1,
-            "color": "Midnight Green",
-            "id": 4
+    },
+    {
+        "image": Images.mobile6,
+        "name": "Apple iPhone 11 Pro Max",
+        "price": "$ 500,55.00",
+        "discountPrice": "$ 5,00.00",
+        "pricePercentOff": "%15 Off",
+        "quantity": 1,
+        "color": "Midnight Green",
+        "id": 4
 
-        },
-        {
-            "image": Images.mobile3,
-            "name": "Apple iPhone 11 Pro Max",
-            "price": "$ 10,000.00",
-            "discountPrice": "$ 5,00.00",
-            "pricePercentOff": "%15 Off",
-            "quantity": 1,
-            "color": "Midnight Green",
-            "id": 5
+    },
+    {
+        "image": Images.mobile3,
+        "name": "Apple iPhone 11 Pro Max",
+        "price": "$ 10,000.00",
+        "discountPrice": "$ 5,00.00",
+        "pricePercentOff": "%15 Off",
+        "quantity": 1,
+        "color": "Midnight Green",
+        "id": 5
 
-        },
-        {
-            "image": Images.mobile,
-            "name": "Apple iPhone 11 Pro Max",
-            "price": "$ 1111.00",
-            "discountPrice": "$ 5,00.00",
-            "pricePercentOff": "%15 Off",
-            "quantity": 1,
-            "color": "Midnight Green",
-            "id": 6
+    },
+    {
+        "image": Images.mobile,
+        "name": "Apple iPhone 11 Pro Max",
+        "price": "$ 1111.00",
+        "discountPrice": "$ 5,00.00",
+        "pricePercentOff": "%15 Off",
+        "quantity": 1,
+        "color": "Midnight Green",
+        "id": 6
 
-        },
+    },
 ]
 
 const datadata = [

@@ -15,7 +15,7 @@ const CartItemQuantity = (props) => {
       <TouchableOpacity 
       onPress={props.onRemove}
       >
-        <Text style={[styles.Text, { color: Colors.themeColor }]}>Remove</Text>
+        <Text style={[styles.Text, { color: Colors.themeColor }]}>REMOVE</Text>
       </TouchableOpacity>
     </View>
   )

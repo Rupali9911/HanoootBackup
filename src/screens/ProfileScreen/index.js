@@ -93,6 +93,7 @@ const ProfileScreen = (props) => {
                             <ListItem
                                 Image={Images.Wishlist}
                                 title={'Wishlist'}
+                                onPress={() => navigation.navigate('WishlistScreen')}
                             />
                             <ListItem
                                 Image={Images.Location}

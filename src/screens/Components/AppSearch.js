@@ -287,9 +287,8 @@ const AppSearch = (props) => {
 
 
   const keyExtractor = (item, index) => {
-    return `_${index}`;
-  };
-
+    return index;
+};
   return (
     // <View>
     //   {/* <View style={styles.searchSection}> */}

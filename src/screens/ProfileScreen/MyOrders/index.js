@@ -12,10 +12,8 @@ import { useNavigation } from '@react-navigation/native'
 
 const MyOrderList = () => {
     const { cartItems } = useSelector(state => state.cartReducer);
-
     const navigation = useNavigation();
 
-    console.log('Cart Items : ', cartItems)
 
     const keyExtractor = (item, index) => {
         return `_${index}`;

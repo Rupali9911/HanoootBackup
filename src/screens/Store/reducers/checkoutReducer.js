@@ -27,7 +27,7 @@ const checkoutReducer = (state = initialState, action) => {
                 ],
             }
         case UPDATE_ADDRESS:
-            
+
             return {
                 ...state,
                 // ADDRESS_DETAIL: [
@@ -39,8 +39,18 @@ const checkoutReducer = (state = initialState, action) => {
                 //     state.ADDRESS_DETAIL.slice(0,action.payload.editId)
                 //   ],
                 ADDRESS_DETAIL: state.ADDRESS_DETAIL.map(
-                    (content, i) => content.id === action.payload.editId ? { ...content, Value: action.payload.editData }
-                        : content
+                    (content, i) =>
+                    
+                        content.id === action.payload.editId
+                            ?
+                            {
+                                ...content,
+                                Value: action.payload.editData,
+                            }
+                            : content
+                    
+                        
+                        
                 )
 
 

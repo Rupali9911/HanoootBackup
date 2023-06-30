@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Colors from '../constant/Colors'
 import Images from '../constant/Images'
 import fonts from '../constant/fonts'
@@ -7,11 +7,16 @@ import { hp, wp } from '../constant/responsiveFunc'
 import { LikeImage, ExpressView } from '../constant/ListConstant'
 import CheckBox from 'react-native-check-box'
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { addToWishlist, removeWishlistItem } from '../screens/Store/actions/wishlistActions'
 
 
 
 
 const ListView = (props) => {
+    const [isLiked, setLiked] = useState(false);
+    const dispatch = useDispatch();
+
     const { item } = props;
     const navigation = useNavigation();
 
@@ -26,7 +31,13 @@ const ListView = (props) => {
                 }
                 {
                     props.isLike ?
-                        <LikeImage /> :
+                        <LikeImage
+                            onPress={() => {
+                                setLiked(!isLiked);
+                                !isLiked ? dispatch(addToWishlist(item)) : dispatch(removeWishlistItem(item));
+                            }}
+                            imgStyle={{tintColor: isLiked ? Colors.RED : Colors.BLACK}}
+                        /> :
                         props.isCheckBox ?
                             <CheckBox
                                 onClick={() => {
@@ -124,6 +135,7 @@ const styles = StyleSheet.create({
         textDecorationStyle: 'solid',
     },
     topLine: {
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },

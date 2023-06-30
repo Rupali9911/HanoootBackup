@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
 
         width: 100,
         // padding: 10,
-        height: hp('6%'),
+        height: hp('5%'),
         alignItems: 'center',
         justifyContent: 'center'
 
@@ -120,7 +120,15 @@ const styles = StyleSheet.create({
 
     },
     ChangeBtnView: {
-        padding: 10,
+        // backgroundColor: Colors.themeColor,
+        borderRadius: 25,
+
+
+        width: 100,
+        // padding: 10,
+        height: hp('5%'),
+        alignItems: 'center',
+        justifyContent: 'center'
 
     },
     TouchableOpacity: {
@@ -153,7 +161,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VisbyCF_Demibold,
         fontWeight: '500',
         letterSpacing: 0.5,
-        height: hp('6%')
+        height: hp('5%')
     },
     infoMsg: {
         // color : infoMsg

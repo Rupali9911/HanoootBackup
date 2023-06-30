@@ -78,4 +78,8 @@ export default {
     UserLogin: require(`../assets/images/Profile/Login.png`),
     Shoping: require(`../assets/images/Shopping.png`),
     Invoice: require(`../assets/images/invoice.png`),
+    WishlistBanner: require(`../assets/images/wishlistImage.png`),
+    CrossIcon: require(`../assets/images/crossIcon.png`),
+    MinusIcon: require(`../assets/images/minusIcon.png`),
+    PlusWhiteIcon: require(`../assets/images/whitePlusIcon.png`),
 }

@@ -58,7 +58,7 @@ const UserReview = (props) => {
                         borderBottomWidth: 1
                     }}
                     >
-                    <Text style={styles.ButtonText}>See More</Text>
+                    <Text style={styles.ButtonText}>SEE MORE</Text>
                 </TouchableOpacity>
             {/* </View > */}
 

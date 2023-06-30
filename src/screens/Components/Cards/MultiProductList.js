@@ -16,12 +16,14 @@ const MultiProductList = (props) => {
                 imgContStyle={styles.productImgCont}
                 DisCountPrice
                 PriceInGreen
+                ViewContStyle={{margin: 0}}
             />
             <ProductList
                 Data={ProductListData}
                 imgContStyle={styles.productImgCont}
                 DisCountPrice
                 PriceInGreen
+                ViewContStyle={{margin: 0}}
             />
         </View>
     )
@@ -31,8 +33,8 @@ export default MultiProductList;
 
 const styles = StyleSheet.create({
     mainContainer: {
-        paddingHorizontal: 25,
-        paddingTop: 25,
+        paddingHorizontal: '5%',
+        paddingVertical: '5%',
         backgroundColor: Colors.WHITE,
         borderRadius: 4,
 

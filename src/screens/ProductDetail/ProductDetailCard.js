@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { hp, wp } from '../../constant/responsiveFunc';
 import Colors from '../../constant/Colors';
@@ -6,7 +6,6 @@ import fonts from '../../constant/fonts';
 import Rating from './rating';
 import Images from '../../constant/Images';
 import ProductImageCarousel from './ProductImageCarousel';
-import WishList from './WishList';
 import { ExpressView } from '../../constant/ListConstant';
 import Separator from '../../constant/Separator';
 
@@ -46,6 +45,22 @@ const ProductDetailCard = (props) => {
 //         }
 //     ]
 
+const CircleView = (props) => {
+    return (
+      <View style={[styles.circleView, props.contStyle]}>
+        <TouchableOpacity
+          onPress={props.onPress}
+        >
+          <Image
+            source={props.Image}
+            style={{ height: 20, width: 20, tintColor: Colors.GRAY, resizeMode: 'center' }}
+          />
+        </TouchableOpacity>
+      </View>
+      
+    )
+  }
+
 
     return (
         <View style={styles.mainContainer}>
@@ -76,8 +91,8 @@ const ProductDetailCard = (props) => {
 
 
             <View style={styles.wishListCotainer}>
-                <WishList Image={Images.Wishlist}/>
-                <WishList Image={Images.ShareIcon}/>
+                <CircleView Image={Images.Wishlist}/>
+                <CircleView Image={Images.ShareIcon}/>
             </View>
 
             <View style={{paddingHorizontal: 20}}>
@@ -202,7 +217,24 @@ const styles = StyleSheet.create({
                     fontWeight: 600,
                     color: Colors.GREEN,
                     fontSize: 16
-    }
+    },
+    circleView: {
+        backgroundColor: Colors.WHITE,
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+        shadowOpacity: 0.10,
+        // shadowRadius: 3.84,
+        elevation: 7,
+        margin: '5%'
+      }
     
 
 

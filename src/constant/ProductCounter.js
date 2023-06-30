@@ -76,11 +76,12 @@
 
 
 
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import React, { useState } from 'react'
 import Colors from './Colors';
 import { hp } from './responsiveFunc';
 import fonts from './fonts';
+import Images from './Images';
 
 // export default function ButtonView() {
 
@@ -131,13 +132,14 @@ const ProductCounter = (props) => {
     const Quantity = (props) => {
         return (
             <TouchableOpacity
-                style={[styles.buttonView, { backgroundColor: props.label === '-' ?  Colors.GRAYDARK : Colors.themeColor }]}
+                style={[styles.buttonView, { backgroundColor: props.Image === Images.MinusIcon ?  Colors.GRAYDARK : Colors.themeColor }]}
                 // onPress={decrementCounter}
                 onPress={
                     props.onPress
                 }
             >
-                <Text style={styles.buttonContent}>{props.label}</Text>
+                {/* <Text style={styles.buttonContent}>{props.label}</Text> */}
+                <Image source={props.Image} style={{height: 12, width: 12, resizeMode: 'contain'}}/>
             </TouchableOpacity>
         );
     }
@@ -146,13 +148,13 @@ const ProductCounter = (props) => {
 
     return (
         <View style={styles.container}>
-            <Quantity onPress={() => decrementCounter()} label={'-'} />
+            <Quantity onPress={() => decrementCounter()} Image={Images.MinusIcon} />
             {/* <Text style={styles.counter}>{counter}</Text> */}
 
             <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={styles.counter}>{counter}</Text>
             </View>
-            <Quantity onPress={() => incrementCounter()} label={'+'} />
+            <Quantity onPress={() => incrementCounter()} Image={Images.PlusWhiteIcon} />
         </View>
         // <View style={styles.container}>
         //     {/* <Text style={styles.qtyText}>Qty : </Text> */}

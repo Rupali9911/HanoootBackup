@@ -16,8 +16,8 @@ const Rating = (props) => {
 
                 <View style={{ rowGap: 5 }}>
                     <View style={{ flexDirection: 'row', gap: 2}}>
-                        {Rating.map(() => {
-                            return <Image source={Images.star} style={[styles.ratingImg, props.ImageStyle]} />;
+                        {Rating.map((item, i) => {
+                            return <Image source={Images.star} style={[styles.ratingImg, props.ImageStyle]} key={i}/>;
                         })}
                     </View>
 

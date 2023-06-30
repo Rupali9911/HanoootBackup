@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {
   SafeAreaView,
   StatusBar,
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
   },
 });
 
-AppBackground.propTypes = {
-  isBusy: PropTypes.bool,
-};
+// AppBackground.propTypes = {
+//   isBusy: PropTypes.bool,
+// };
 
 export default AppBackground;

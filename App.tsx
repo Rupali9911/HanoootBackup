@@ -14,11 +14,6 @@ import { Provider } from 'react-redux';
 import Store from './src/screens/Store';
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   useEffect(() => {
     SplashScreen.hide();
   }, []);

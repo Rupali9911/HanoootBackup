@@ -15,8 +15,8 @@ const ProductVariation = (props) => {
         }}>{props.children}</Text>
     }
 
-    const keyExtractor = ({ item, index }) => {
-        return `_${index}`;
+    const keyExtractor = (item, index) => {
+        return index;
     };
 
     const ColorChange = () => {
@@ -64,6 +64,7 @@ const ProductVariation = (props) => {
     return (
         <View style={styles.mainCont}>
             <Text style={styles.heading}>{props.title}</Text>
+            {props.Data ?
             <FlatList
                 data={props.Data}
                 renderItem={renderData}
@@ -71,6 +72,7 @@ const ProductVariation = (props) => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
             />
+            : null}
         </View>
     )
 }

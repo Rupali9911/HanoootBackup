@@ -32,9 +32,9 @@ const ProductSpecCard = (props) => {
                     <View style={styles.Separator} />
                     <DataTable>
                         {
-                            rows.map((items) => {
+                            rows.map((items, index) => {
                                 return (
-                                    <DataTable.Row>
+                                    <DataTable.Row key={`_${index}`}>
                                         <DataTable.Cell style={{ justifyContent: 'flex-start', }}><Text style={[styles.tableRowData, { color: Colors.GRAYDARK }]}>{items[0]}</Text></DataTable.Cell>
                                         <DataTable.Cell numeric style={{ justifyContent: 'flex-start' }}><Text style={styles.tableRowData}>{items[1]}</Text></DataTable.Cell>
                                     </DataTable.Row>
@@ -87,7 +87,7 @@ const ProductSpecCard = (props) => {
                     <View style={{ width: '60%', gap: 10 }}>
                         <Text style={styles.cardDetails}>Hanooot</Text>
                         <TouchableOpacity onPress={() => navigation.navigate('SellerReview')}>
-                            <Text style={[styles.cardDetails, { color: Colors.themeColor }]}>Ecom Natio</Text>
+                            <Text style={[styles.cardDetails, { color: Colors.themeColor }]}>Ecom Nation</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

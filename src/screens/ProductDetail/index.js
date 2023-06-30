@@ -53,7 +53,7 @@ const ProductDetail = (props) => {
         if (cartItems && cartItems.includes(item)) {
             dispatch(setCartLabel('View Cart'))
         }
-        else{
+        else {
             dispatch(setCartLabel('Add to Cart'))
         }
     }, [])
@@ -88,30 +88,30 @@ const ProductDetail = (props) => {
           by modifying the existing `BaseToast` component
         */
         success: (props) => (
-          <BaseToast
-            {...props}
-            style={{ borderLeftColor: 'pink' }}
-            contentContainerStyle={{ paddingHorizontal: 15 }}
-            text1Style={{
-              fontSize: 15,
-              fontWeight: '400'
-            }}
-          />
+            <BaseToast
+                {...props}
+                style={{ borderLeftColor: 'pink' }}
+                contentContainerStyle={{ paddingHorizontal: 15 }}
+                text1Style={{
+                    fontSize: 15,
+                    fontWeight: '400'
+                }}
+            />
         ),
         /*
           Overwrite 'error' type,
           by modifying the existing `ErrorToast` component
         */
         error: (props) => (
-          <ErrorToast
-            {...props}
-            text1Style={{
-              fontSize: 17
-            }}
-            text2Style={{
-              fontSize: 15
-            }}
-          />
+            <ErrorToast
+                {...props}
+                text1Style={{
+                    fontSize: 17
+                }}
+                text2Style={{
+                    fontSize: 15
+                }}
+            />
         ),
         /*
           Or create a completely new type - `tomatoToast`,
@@ -121,12 +121,12 @@ const ProductDetail = (props) => {
           They will be passed when calling the `show` method (see below)
         */
         info: ({ text1, props }) => (
-        //   <View style={{ height: 60, width: '100%', backgroundColor: 'tomato' }}>
-        //     <Text>{text1}</Text>
-        //     <Text>{props.uuid}</Text>
-        //   </View>
+            //   <View style={{ height: 60, width: '100%', backgroundColor: 'tomato' }}>
+            //     <Text>{text1}</Text>
+            //     <Text>{props.uuid}</Text>
+            //   </View>
 
-                  <View style={styles.toastMsgContainer}>
+            <View style={styles.toastMsgContainer}>
                 <Image source={props.image} style={{ height: 20, width: 20 }} />
                 <View>
                     <Text
@@ -136,7 +136,7 @@ const ProductDetail = (props) => {
                 </View>
             </View>
         )
-      };
+    };
 
     const showToast = (message) => {
         // Toast.show({
@@ -147,17 +147,17 @@ const ProductDetail = (props) => {
         // });
         Toast.show({
             type: 'info',
-            
+
             // And I can pass any custom props I want
-            props: { 
+            props: {
                 image: Images.ToastSuccess,
                 msg1: message,
                 msg2: 'Add to cart'
-             }
-          });
+            }
+        });
     }
 
-   
+
 
     const onScroll = event => {
         const scrollY = event.nativeEvent.contentOffset.y;
@@ -169,11 +169,11 @@ const ProductDetail = (props) => {
         // else{
         //     setScrollBtn(showButton)
         // }
-        if(cartLabel != 'View Cart'){
+        if (cartLabel != 'View Cart') {
             setScrollBtn(showButton)
             // setLastContentOffset(scrollY)
         }
-        
+
         // lastContentOffset.value = event.contentOffset.y;
         // setLastContentOffset(scrollY);
 
@@ -192,8 +192,8 @@ const ProductDetail = (props) => {
             <ScrollView
                 onScroll={onScroll}
                 scrollEventThrottle={0}
-                
-                
+
+
             >
                 <ProductDetailCard
                     ProductName={item.name}
@@ -215,7 +215,7 @@ const ProductDetail = (props) => {
                         else {
                             updateButtonText(item);
                             AddToCart(item);
-                            showToast(item.name, 'Add to Cart');
+                            // showToast(item.name, 'Add to Cart');
                             showToast(item.name);
                         }
                     }}
@@ -253,20 +253,16 @@ const ProductDetail = (props) => {
                     TotalPrice
                 />
             </ScrollView>
-            {/* <Toast
-                config={toastConfig}
+
+            <Toast config={toastConfig}
                 position="bottom"
                 visibilityTime={2000}
-                autoHide={true} /> */}
-                 <Toast config={toastConfig} 
-                 position="bottom"
-                 visibilityTime={2000}
-                 autoHide={true} 
-                 />
+                autoHide={true}
+            />
 
             {scrollBtn && (
-                <TouchableOpacity style={{backgroundColor: 'red', bottom: 10, left: 0, right: 0, justifyContent: 'center', alignItems: 'center',  flex: 1, position: 'absolute',backgroundColor: Colors.YELLOW1, padding: '3%', marginHorizontal: '35%', borderRadius: 100}}>
-                     <Text style={styles.scrollBtnText}>Add to Cart</Text>
+                <TouchableOpacity style={{ backgroundColor: 'red', bottom: 10, left: 0, right: 0, justifyContent: 'center', alignItems: 'center', flex: 1, position: 'absolute', backgroundColor: Colors.YELLOW1, padding: '3%', marginHorizontal: '35%', borderRadius: 100 }}>
+                    <Text style={styles.scrollBtnText}>Add to Cart</Text>
                 </TouchableOpacity>
                 // <TouchableOpacity style={styles.button}>
                 //     <Text style={styles.scrollBtnText}>Add to Cart</Text>

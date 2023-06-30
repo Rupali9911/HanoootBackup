@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import React from 'react';
 import { ImageBackground, Modal, StyleSheet, View, Platform, TouchableOpacity} from 'react-native';
 // import { BlurView } from '@react-native-community/blur';
@@ -53,13 +53,13 @@ const styles = StyleSheet.create({
   },
 });
 
-AppModal.propTypes = {
-  animated: PropTypes.bool,
-  animationType: PropTypes.oneOf(['none', 'slide', 'fade', undefined]),
-  transparent: PropTypes.bool,
-  visible: PropTypes.bool,
-  onRequestClose: PropTypes.func,
-};
+// AppModal.propTypes = {
+//   animated: PropTypes.bool,
+//   animationType: PropTypes.oneOf(['none', 'slide', 'fade', undefined]),
+//   transparent: PropTypes.bool,
+//   visible: PropTypes.bool,
+//   onRequestClose: PropTypes.func,
+// };
 
 export default AppModal;
 // 

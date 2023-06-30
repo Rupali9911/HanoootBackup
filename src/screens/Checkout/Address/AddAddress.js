@@ -56,7 +56,8 @@ const AddAddress = (props) => {
                 saveAddAs: EDIT.Value.saveAddAs,
                 countryName: EDIT?.Value?.countryName?.name
             });
-            setCountryValue(EDIT?.Value?.country?.name)
+            console.log('Edited Adress', EDIT)
+            setCountryValue(EDIT?.Value?.countryName)
         }
         else {
             setInputFields({

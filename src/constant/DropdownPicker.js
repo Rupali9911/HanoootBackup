@@ -99,6 +99,9 @@ const DropdownPicker = (props) => {
                 onChangeItem={item => setSelectedValue(item.value)}
             /> */}
 
+<Text style={[styles.label, props.labelStyle]}>{'Town/City'}<Text style={{ color: 'red' }}>*</Text></Text>
+
+
             <DropDownPicker
                 open={open}
                 value={props.Value}
@@ -150,10 +153,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         // backgroundColor: '#fff',
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'center',
         marginHorizontal: '5%',
         height: hp('6%'),
+        marginTop: '5%'
     },
     input: {
         borderWidth: 1,
@@ -230,5 +234,13 @@ const styles = StyleSheet.create({
         // fontSize: RF(1.8),
         color: Colors.BLACK,
         fontWeight: 'normal'
-    }
+    },
+    label: {
+        fontFamily: fonts.VisbyCF_Medium,
+        lineHeight: 19,
+        letterSpacing: 0.5,
+        marginBottom: 5,
+        fontWeight: '500',
+        color: Colors.BLACK
+    },
 })
