@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import AppModal from '../../constant/AppModal'
 import EmptyCart from './EmptyCart'
@@ -11,6 +11,7 @@ import { useIsFocused } from '@react-navigation/native';
 import fonts from '../../constant/fonts'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import Images from '../../constant/Images'
 
 const CartScreen = (props) => {
 
@@ -27,8 +28,19 @@ const CartScreen = (props) => {
       <AppHeader
         showBackButton
         title={`Cart (${cartItems.length} item)`}
-        showRightComponent
-        isWishlist
+        titleComponentStyle={{alignItems: 'flex-start'}}
+        showRightIcon
+        rightIcon={
+          <Image
+              source={Images.Wishlist}
+              style={{
+                  height: 20,
+                  width: 20,
+                  resizeMode: 'contain',
+                  tintColor: Colors.BLACK
+              }}
+          />
+      }
         // titleContainerStyle={{margin: '5%'}}
       />
       {/* <View

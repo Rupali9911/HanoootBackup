@@ -117,7 +117,9 @@ const AddAddress = (props) => {
 
     return (
         <AppBackground>
-            <AppHeader showBackButton title={'Add Address'} />
+            <AppHeader 
+            showBackButton 
+            title={'Add Address'} />
             <ScrollView>
                 <ProductHeader title={'Address Detail'} />
                 {/* <View style={{ zIndex: 2 }}>

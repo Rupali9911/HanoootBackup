@@ -15,14 +15,14 @@ export default function AppHeader(props) {
   return (
 
     <View style={styles.container}>
-      <View style={{ flex: 1 }}>
+      <View style={{ alignItems: 'flex-start' , justifyContent: 'center'}}>
         {props.showBackButton ? (
           <TouchableOpacity
             style={styles.backContainer}
             onPress={() =>
               props.onPressBack ? props.onPressBack : navigation.goBack()
             }
-            >
+          >
             {
               <Image
                 style={[
@@ -35,6 +35,55 @@ export default function AppHeader(props) {
         ) : null}
       </View>
 
+      <View style={[styles.mainTitleStyle, props.titleComponentStyle]}>
+        {props.placeholderText ? (
+          <View style={{ flex: 1, width: '100%', justifyContent: 'center' }}>
+            <AppSearch placeholderText={props.placeholderText} onChangeText={(val) => setSearch(val)} />
+          </View>
+        ) : (
+          <Text
+            numberOfLines={1}
+            style={[
+              styles.title,
+              {
+                paddingLeft: 10
+              },
+              props.titleStyle,
+            ]}>
+            {props.title}
+          </Text>
+        )}
+      </View>
+
+
+
+
+
+
+      <View style={{ alignItems: 'flex-end', justifyContent: 'center', height: '100%' }}>
+        {props.showRightIcon ? (
+          <TouchableOpacity
+            style={[
+              styles.backContainer,
+              { alignItems: 'flex-end', paddingLeft: 0, paddingRight: wp('3%') },
+            ]}
+            onPress={props.onPressRight}>
+            {props.rightIcon}
+          </TouchableOpacity>
+        ) : props.showRightComponent ? (
+          <Text 
+          style={[styles.title, { color: Colors.themeColor, paddingRight: 10 }]}
+          onPressRightText
+          >{'Cancel'}</Text>
+        ) : null}
+      </View>
+
+
+
+
+
+
+      {/* 
       {props.Search &&
         <View style={{ width: props.showBackButton && !isSearch ? wp(90) : wp(100) }}>
           <AppSearch placeholderText={props.placeholderText} onChangeText={(val) => setSearch(val)} />
@@ -67,33 +116,10 @@ export default function AppHeader(props) {
             </TouchableOpacity>
           }
         </View>
-      }
-
-
-      {/* {props.showRightIcon &&
-        <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-
-          <TouchableOpacity
-            style={styles.backContainer}
-
-            onPress={props.onPressRight}>
-            {
-              props.isWishlist ?
-                <Image
-                  style={[
-                    styles.likeIcon,
-                  ]}
-                  source={Images.like}
-                />
-                :
-                <Text
-                  style={[styles.title, { color: Colors.themeColor }]}
-                >Cancel</Text>
-            }
-          </TouchableOpacity>
-
-        </View>
       } */}
+
+
+
 
     </View>
 
@@ -118,7 +144,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: '100%',
     // backgroundColor: 'green',
-    zIndex: -1
+    // zIndex: -1
     // paddingHorizontal: '2%'
   },
 
@@ -127,7 +153,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: wp('10%'),
-    zIndex: 1,
+    // zIndex: 1,
     // backgroundColor: 'red'
 
   },
@@ -150,5 +176,9 @@ const styles = StyleSheet.create({
     width: 24,
     resizeMode: 'contain',
     tintColor: Colors.BLACK
+  },
+  mainTitleStyle: {
+    flex: 1, height: '100%', justifyContent: 'center', 
+    alignItems: 'center'
   }
 })

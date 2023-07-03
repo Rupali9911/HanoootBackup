@@ -130,7 +130,7 @@ const ReviewMainPage = (props) => {
 
   return (
     <AppBackground>
-      <AppHeader placeholderText={'What are you looking for?'} showBackButton Search/>
+      <AppHeader placeholderText={'What are you looking for?'} showBackButton/>
       <ScrollView>
         <View style={styles.ProductView}>
           <Image source={route.params.Product.image} style={{ height: 65, width: 65 }} />

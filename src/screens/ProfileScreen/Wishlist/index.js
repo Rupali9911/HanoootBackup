@@ -40,9 +40,12 @@ const Wishlist = () => {
                 <Image source={props.type === 'ADD' ? Images.ToastSuccess : Images.deleteIcon} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 <View>
                     <Text
-                        style={styles.toastMsgText}
+                        style={[styles.toastMsgText, { fontWeight: 600 }]}
                         numberOfLines={5}
-                    >{props.msg1}</Text>
+                    >
+                        {props.item}
+                        <Text style={{ fontWeight: 500 }}>{`${props.type === 'ADD' ? ` has been moved to your cart!` : ` has been removed from your Wishlist!`}`}</Text>
+                    </Text>
                 </View>
             </View>
         )
@@ -53,8 +56,7 @@ const Wishlist = () => {
             type: 'info',
             props: {
                 type: type,
-                image: Images.deleteIcon,
-                msg1: `${item} has been ${type === 'ADD' ? `moved to your cart!` : `removed from your Wishlist!`}`
+                item: item
             }
         });
     }
@@ -74,7 +76,6 @@ const Wishlist = () => {
                             dispatch(removeWishlistItem(item));
                             showToast('DELETE', item?.name);
                         }}
-
                     />
                     <View style={{
                         alignItems: 'center'
@@ -101,6 +102,7 @@ const Wishlist = () => {
                         style={{ paddingTop: 10, borderTopColor: Colors.GRAY, borderTopWidth: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}
                         onPress={() => {
                             dispatch(addToCart(item))
+                            dispatch(removeWishlistItem(item));
                             showToast('ADD', item?.name)
                         }}
                     >
@@ -114,12 +116,7 @@ const Wishlist = () => {
                             }}
                         >MOVE TO CART</Text>
                     </TouchableOpacity>
-
-
                 </View>
-
-
-
             </TouchableOpacity>
 
 
@@ -138,6 +135,18 @@ const Wishlist = () => {
             <AppHeader
                 showBackButton
                 title={'Wishlist'}
+                showRightIcon
+                rightIcon={
+                    <Image
+                        source={Images.cart}
+                        style={{
+                            height: 20,
+                            width: 20,
+                            resizeMode: 'contain',
+                            tintColor: Colors.BLACK
+                        }}
+                    />
+                }
             />
 
             {

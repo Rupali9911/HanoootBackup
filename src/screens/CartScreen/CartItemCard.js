@@ -112,8 +112,8 @@ const CartItemCard = (props) => {
                     </View>
                     <View style={{ gap: 5 }}>
                         <Text style={styles.itemName} numberOfLines={2}>{item.name}</Text>
-                        <Text style={styles.itemDetail}>Memory : <Text style={{ color: Colors.PRICEGRAY }}>{item.specifications.memory}</Text></Text>
-                        <Text>Color : <Text style={{ color: Colors.PRICEGRAY }}>{item.specifications.color}</Text></Text>
+                        <Text style={styles.itemDetail}>Memory : <Text style={{ color: Colors.PRICEGRAY }}>{'128 GB'}</Text></Text>
+                        <Text>Color : <Text style={{ color: Colors.PRICEGRAY }}>{'Purple Black'}</Text></Text>
                         <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Estimated Delivery on <Text style={{ color: Colors.BLACK }}>{'Sunday, 5 February.'}</Text></Text>
                         <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Order Within  <Text style={{ color: Colors.BLACK }}>{'8hr 40 mins.'}</Text></Text>
                         <View style={{ flexDirection: 'row' }}>

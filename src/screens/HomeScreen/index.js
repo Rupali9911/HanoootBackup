@@ -59,7 +59,7 @@ export default function HomeScreen() {
 
    return (
       <AppBackground >
-         <AppHeader Search placeholderText={'Search'} />
+         <AppHeader placeholderText={'Search'} />
          <ScrollView showsVerticalScrollIndicator={false}
             nestedScrollEnabled={true}
             style={{ flex: 1, zIndex: -1 }}>

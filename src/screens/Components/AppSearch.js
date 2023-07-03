@@ -335,8 +335,11 @@ const AppSearch = (props) => {
           borderWidth: 1,
           borderColor: Colors.GRAY,
           backgroundColor: Colors.GRAYRGBA,
+          // flex: 1,
           flexDirection: 'row',
-          marginHorizontal: '5%'
+          // marginHorizontal: '5%',
+          // width: wp('90%'),
+          marginHorizontal: wp('3%')
         }}>
         <Image source={Images.searchIcon} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
         <TextInput

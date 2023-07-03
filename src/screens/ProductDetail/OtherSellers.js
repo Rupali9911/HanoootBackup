@@ -114,7 +114,7 @@ const OtherSellers = (props) => {
 
     return (
         <AppBackground>
-            <AppHeader placeholderText={'What are you looking for?'} showBackButton Search />
+            <AppHeader placeholderText={'What are you looking for?'} showBackButton />
             <Text style={styles.offerAvail}>2 offers available</Text>
             {ProductDetail()}
             <FlatList

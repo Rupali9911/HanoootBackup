@@ -57,7 +57,10 @@ const LoactionPin = () => {
 
     // <View style={styles.container}>
     <AppBackground>
-<AppHeader showBackButton heading={'Pin Your Location'} />
+<AppHeader showBackButton 
+
+title={'Pin Your Location'} 
+/>
       {/* <View style={styles.header}>
         <Text>Header</Text>
       </View> */}

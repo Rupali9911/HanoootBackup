@@ -59,7 +59,7 @@ const ProductDetail = (props) => {
     }, [])
 
     const AddToCart = (obj) => {
-        obj.specifications = specifications;
+        // obj.specifications = specifications;
         dispatch(addToCart(obj));
     }
 
@@ -188,7 +188,10 @@ const ProductDetail = (props) => {
 
     return (
         <AppBackground>
-            <AppHeader placeholderText={'What are you looking for?'} showBackButton Search />
+            <AppHeader 
+            placeholderText={'What are you looking for?'} 
+            showBackButton 
+            />
             <ScrollView
                 onScroll={onScroll}
                 scrollEventThrottle={0}

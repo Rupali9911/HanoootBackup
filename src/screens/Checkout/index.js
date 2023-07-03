@@ -60,7 +60,11 @@ const Checkout = (props) => {
     <>
       <AppBackground>
 
-        <AppHeader title={'Checkout'} showRightComponent titleContainerStyle={{marginLeft: '2%'}}/>
+        <AppHeader 
+        title={'Checkout'} 
+        showRightComponent 
+        titleComponentStyle={{alignItems: 'flex-start'}}
+        />
 
 
         <View style={styles.container}>
