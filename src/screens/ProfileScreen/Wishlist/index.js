@@ -8,10 +8,11 @@ import Images from '../../../constant/Images';
 import Colors from '../../../constant/Colors';
 import fonts from '../../../constant/fonts';
 import Separator from '../../../constant/Separator';
-import { wp } from '../../../constant/responsiveFunc';
+import { wp, hp } from '../../../constant/responsiveFunc';
 import { useDispatch } from 'react-redux';
 import { removeWishlistItem } from '../../Store/actions/wishlistActions';
 import { addToCart } from '../../Store/actions/cartAction';
+import Toast from 'react-native-toast-message';
 
 
 const Wishlist = () => {
@@ -20,7 +21,7 @@ const Wishlist = () => {
     const { cartItems } = useSelector(state => state.cartReducer);
     const { WISHLIST_ITEMS } = useSelector(state => state.wishlistReducer);
 
-    console.log('Check wishlist data : ', WISHLIST_ITEMS)
+    // console.log('Check wishlist data : ', WISHLIST_ITEMS)
 
     const RemoveButton = (props) => {
         return (
@@ -33,45 +34,95 @@ const Wishlist = () => {
         );
     }
 
+    const toastConfig = {
+        info: ({ text1, props }) => (
+            <View style={styles.toastMsgContainer}>
+                <Image source={props.type === 'ADD' ? Images.ToastSuccess : Images.deleteIcon} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                <View>
+                    <Text
+                        style={styles.toastMsgText}
+                        numberOfLines={5}
+                    >{props.msg1}</Text>
+                </View>
+            </View>
+        )
+    };
+
+    const showToast = (type, item) => {
+        Toast.show({
+            type: 'info',
+            props: {
+                type: type,
+                image: Images.deleteIcon,
+                msg1: `${item} has been ${type === 'ADD' ? `moved to your cart!` : `removed from your Wishlist!`}`
+            }
+        });
+    }
+
 
     const renderItem = ({ item, index }) => {
         return (
 
-            <View style={{ backgroundColor: Colors.WHITE, width: wp(45.5), alignItems: 'center', marginHorizontal: '2%', marginTop: '4%', paddingVertical: 10, borderRadius: 10 }}>
 
-                <RemoveButton
-                    onPress={() => dispatch(removeWishlistItem(item))}
-                />
+            <TouchableOpacity
+                // onLongPress={onLongPress}
+                // onPress={onPress}
+                style={styles.collectionListItem}>
+                <View style={styles.listItemContainer}>
+                    <RemoveButton
+                        onPress={() => {
+                            dispatch(removeWishlistItem(item));
+                            showToast('DELETE', item?.name);
+                        }}
 
-                <Image source={item.image} style={{ height: 100, width: 100, resizeMode: 'contain' }} />
+                    />
+                    <View style={{
+                        alignItems: 'center'
+                    }}>
 
-                <View style={{ paddingVertical: 10 }}>
-                    <Text style={styles.name}>{item.name}</Text>
-                    <Text style={styles.price}>{item.price}</Text>
-                    <View style={{ flexDirection: 'row', gap: 2, alignItems: 'center' }}>
-                        <Image source={Images.star} style={{ height: 12, width: 12, resizeMode: 'contain' }} />
-                        <Text style={[styles.price, { fontSize: 10 }]}>4.5</Text>
-                        <Text style={[styles.name, { fontSize: 10, color: Colors.PRICEGRAY }]}>(1045 Reviews)</Text>
+                        <Image source={item.image} style={{ height: 100, width: 100, resizeMode: 'contain' }} />
                     </View>
+
+                    <View style={{
+                        paddingVertical: hp('2%'),
+                        paddingHorizontal: '5%'
+                    }}>
+                        <Text style={styles.name}>{item.name}</Text>
+                        <Text style={styles.price}>{item.price}</Text>
+                        <View style={{ flexDirection: 'row', gap: 5, alignItems: 'center' }}>
+                            <Image source={Images.star} style={{ height: 12, width: 12, resizeMode: 'contain' }} />
+                            <Text style={[styles.price, { fontSize: 10 }]}>4.5</Text>
+                            <Text style={[styles.name, { fontSize: 10, color: Colors.PRICEGRAY }]}>(1045 Reviews)</Text>
+                        </View>
+                    </View>
+
+
+                    <TouchableOpacity
+                        style={{ paddingTop: 10, borderTopColor: Colors.GRAY, borderTopWidth: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}
+                        onPress={() => {
+                            dispatch(addToCart(item))
+                            showToast('ADD', item?.name)
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontFamily: fonts.VisbyCF_Demibold,
+                                fontWeight: 600,
+                                fontSize: 12,
+                                letterSpacing: 0.5,
+                                color: Colors.themeColor
+                            }}
+                        >MOVE TO CART</Text>
+                    </TouchableOpacity>
+
+
                 </View>
 
-                <TouchableOpacity
-                    style={{ paddingTop: 10, borderTopColor: Colors.GRAY, borderTopWidth: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}
-                    // onPress={() => dispatch(addToCart(item))}
-                >
-                    <Text
-                        style={{
-                            fontFamily: fonts.VisbyCF_Demibold,
-                            fontWeight: 600,
-                            fontSize: 12,
-                            letterSpacing: 0.5,
-                            color: Colors.themeColor
-                        }}
-                    >Move to Cart</Text>
-                </TouchableOpacity>
 
 
-            </View>
+            </TouchableOpacity>
+
+
 
 
         );
@@ -91,68 +142,39 @@ const Wishlist = () => {
 
             {
                 WISHLIST_ITEMS.length ?
-                    <View style={{ flex: 1, width: wp(100), paddingHorizontal: '1%' }}>
+                    <View
+                        style={{
+                            // flex: 1,
+                            // width: wp(100),
+                            // paddingHorizontal: '1%'
+                        }}
+                    >
                         <FlatList
                             numColumns={2}
                             data={WISHLIST_ITEMS}
                             renderItem={renderItem}
                             keyExtractor={keyExtractor}
+                            showsVerticalScrollIndicator={false}
                             contentContainerStyle={{
                                 // flexGrow: 1,
                             }}
                         />
                     </View>
-                    : <EmptyDetailScreen
+                    :
+                    <EmptyDetailScreen
                         image={Images.WishlistBanner}
                         title={'Ready to make a Wish?'}
                         description={'Start adding items you love to your wishlist by tapping on the heart icon'}
                         buttonLabel={'Find Items to Save'}
                     />
-
             }
-            {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
-                {
-                    cartItems.length ?
-                        <FlatList
-                            numColumns={2}
-                            data={[1, 2, 3, 4]}
-                            renderItem={({ item }) => (
-                                <View style={{ backgroundColor: 'red', margin: 5, width: '40%'}}>
-                                    <Text style={{ padding: 20, fontSize: 18 }}>{"item.title"}</Text>
-                                </View>
-                            )}
-                            keyExtractor={(item, index) => index}
-                            contentContainerStyle={{
-                                flexGrow: 1,
-                            }}
-                        />
-                        :
-                        <EmptyDetailScreen
-                            image={Images.WishlistBanner}
-                            title={'Ready to make a Wish?'}
-                            description={'Start adding items you love to your wishlist by tapping on the heart icon'}
-                            buttonLabel={'Find Items to Save'}
-                        />
 
-                }
-            </View> */}
-            {/* <View style={{ flex: 1, width: wp(100), paddingHorizontal: '1%', backgroundColor: 'red', alignItems: 'center' }}>
-                <FlatList
-                    numColumns={2}
-                    data={cartItems}
-                    // renderItem={({ item }) => (
-                    //     <View style={{ backgroundColor: 'green', width: wp(45.5), alignItems: 'center', margin: '2%' }}>
-                    //         <Text style={{ padding: 20, fontSize: 18 }}>{"item.title"}</Text>
-                    //     </View>
-                    // )}
-                    renderItem={renderItem}
-                    keyExtractor={keyExtractor}
-                    contentContainerStyle={{
-                        flexGrow: 1,
-                        // marginHorizontal: '2%'
-                    }}
-                />
-            </View> */}
+            <Toast
+                config={toastConfig}
+                position="bottom"
+                visibilityTime={2000}
+                autoHide={true}
+            />
         </AppBackground>
     )
 }
@@ -160,26 +182,26 @@ const Wishlist = () => {
 export default Wishlist;
 
 const styles = StyleSheet.create({
-    container: {
-        // flex: 1,
-        // margin: '2%',
-        // marginHorizontal: '5%',
-        // marginVertical: '5%',
-        // marginRight: '2%',
-        // margin: '2%',
+    // container: {
+    //     // flex: 1,
+    //     // margin: '2%',
+    //     // marginHorizontal: '5%',
+    //     // marginVertical: '5%',
+    //     // marginRight: '2%',
+    //     // margin: '2%',
 
-        backgroundColor: Colors.WHITE,
-        // margin: '5%',
-        // paddingHorizontal: 10,
-        // paddingTop: 10,
-        // marginLeft: '5%',
-        marginVertical: '5%',
-        marginLeft: '5%',
-        paddingVertical: 10,
-        borderRadius: 10,
-        alignItems: 'center',
-        width: wp(40)
-    },
+    //     backgroundColor: Colors.WHITE,
+    //     // margin: '5%',
+    //     // paddingHorizontal: 10,
+    //     // paddingTop: 10,
+    //     // marginLeft: '5%',
+    //     marginVertical: '5%',
+    //     marginLeft: '5%',
+    //     paddingVertical: 10,
+    //     borderRadius: 10,
+    //     alignItems: 'center',
+    //     width: wp(40)
+    // },
     name: {
         fontFamily: fonts.VisbyCF_Medium,
         fontWeight: 500,
@@ -190,7 +212,58 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VisbyCF_Bold,
         fontWeight: 700,
         letterSpacing: 0.5
-    }
+    },
+    collectionListItem: {
+        marginVertical: wp("3"),
+        marginHorizontal: wp("3"),
+        width: (wp('100%') / 2) - wp('6%'),
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 1,
+        elevation: 5,
+        backgroundColor: Colors.WHITE,
+        borderRadius: 10,
+
+    },
+    listItemContainer: {
+        width: "100%",
+        // borderRadius: 20,
+        paddingVertical: '5%',
+        overflow: 'hidden',
+        // alignItems: 'center',
+        // justifyContent: 'center'
+    },
+    toastMsgContainer: {
+        // height: 60,
+        flex: 1,
+        width: wp(90),
+        backgroundColor: Colors.WHITE,
+        flexDirection: 'row',
+        padding: 10,
+        borderRadius: 8,
+        // marginHorizontal: 20,
+        alignItems: 'center',
+        // flexWrap: 'wrap',
+        gap: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.10,
+        elevation: 7,
+        zIndex: 1,
+        overflow: 'hidden'
+    },
+    toastMsgText: {
+        fontFamily: fonts.VisbyCF_Medium,
+        fontSize: 16,
+        letterSpacing: 0.5
+    },
 })
 
 

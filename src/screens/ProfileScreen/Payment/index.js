@@ -14,9 +14,9 @@ const Payment = () => {
                 title={'Payment Method'}
             />
 
-            <View style={{ marginTop: 20 }}>
+            <View>
                 <View style={styles.payCard}>
-                    <Image source={Images.cashOnDelivery} style={{ height: 40, width: 45 }} />
+                    <Image source={Images.cashOnDelivery} style={styles.image} />
                     <View>
                         <Text
                             style={styles.payMode}
@@ -24,17 +24,8 @@ const Payment = () => {
                         <Text style={styles.payModeDesc} numberOfLines={2}>{'Pay when you get order'}</Text>
                     </View>
                 </View>
-                <Separator separatorStyle={{ marginVertical: 0 }} />
                 <View style={styles.payCard}>
-                    <RadioButton
-                        innerColor={Colors.themeColor}
-                        outerColor={Colors.GRAY}
-                        animation={'bounceIn'}
-                        isSelected={checked === 1}
-                        onPress={() => { onPress(1) }}
-                        size={10}
-                    />
-                    <Image source={Images.ZainCash} style={{ height: 40, width: 45 }} />
+                    <Image source={Images.ZainCash} style={styles.image} />
                     <View>
                         <Text
                             style={styles.payMode}
@@ -45,11 +36,12 @@ const Payment = () => {
             </View>
             <Text
                 style={styles.privacyText}
-            >Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in
-                our privacy policy.</Text>
-
-
-
+            >
+                Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in
+                our privacy policy.
+                <Text style={{ color: Colors.themeColor }}
+                > privacy policy. </Text>
+            </Text>
         </AppBackground>
     )
 }
@@ -63,6 +55,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 15,
         padding: 20,
+        borderBottomColor: Colors.GRAY,
+        borderBottomWidth: 1
     },
     payMode: {
         fontFamily: fonts.VisbyCF_Demibold,
@@ -82,18 +76,13 @@ const styles = StyleSheet.create({
         padding: 20,
         fontWeight: 500,
         letterSpacing: 0.5,
-        textAlign: 'center',
+        // textAlign: 'center',
         color: Colors.PRICEGRAY
     },
-    bottomButtonCont: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: Colors.WHITE,
-        paddingVertical: '2%'
-    },
+    image: {
+        height: 40,
+        width: 45,
+        resizeMode: 'contain'
+    }
 });
 

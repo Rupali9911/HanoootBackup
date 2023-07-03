@@ -55,7 +55,7 @@ const ProfileScreen = (props) => {
                 </View>
                 {/* <Text style={styles.listTitle}>English</Text> */}
                 <TouchableOpacity
-                onPress={props.onPress}
+                    onPress={props.onPress}
                 >
                     <Image
                         source={Images.ForwardIcon}
@@ -102,6 +102,7 @@ const ProfileScreen = (props) => {
                             <ListItem
                                 Image={Images.Payment}
                                 title={'Payment Methods'}
+                                onPress={() => navigation.navigate('PaymentMethods')}
                             />
                         </> :
                         <ListItem
@@ -120,7 +121,7 @@ const ProfileScreen = (props) => {
                 }
 
                 <ListItem
-                    Image={Images.Language}x
+                    Image={Images.Language} x
                     title={'Language'}
                 />
                 <ListItem
