@@ -191,7 +191,7 @@ const ProductList = (props) => {
                 showsHorizontalScrollIndicator={false}
                 {...props}
                 contentContainerStyle={{
-                    marginHorizontal: '5%'
+                    // marginHorizontal: '5%'
                 }}
                 // numColumns={2}
                 

@@ -54,10 +54,10 @@ const AddAddress = (props) => {
                 name: EDIT.Value.name,
                 phoneNo: EDIT.Value.phoneNo,
                 saveAddAs: EDIT.Value.saveAddAs,
-                countryName: EDIT?.Value?.countryName?.name
+                countryName: EDIT?.Value?.countryName?.code
             });
             console.log('Edited Adress', EDIT)
-            setCountryValue(EDIT?.Value?.countryName)
+            setCountryValue(EDIT?.Value?.countryName?.code)
         }
         else {
             setInputFields({
@@ -70,7 +70,7 @@ const AddAddress = (props) => {
                 saveAddAs: 'Home',
                 country: ''
             });
-            // setCountryValue('')
+            setCountryValue('')
         }
     }, [isFocused]);
 
