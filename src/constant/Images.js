@@ -82,4 +82,5 @@ export default {
     CrossIcon: require(`../assets/images/crossIcon.png`),
     MinusIcon: require(`../assets/images/minusIcon.png`),
     PlusWhiteIcon: require(`../assets/images/whitePlusIcon.png`),
+    EmptyAddress: require(`../assets/images/EmptyAddress.png`),
 }

@@ -12,9 +12,9 @@ const EmptyDetailScreen = (props) => {
 
     return (
         <View style={styles.container}>
-            <Image source={props.image} style={styles.cartImg} />
-            <Text style={styles.emptyText}>{props.title}</Text>
-            <Text style={styles.addItemText}>{props.description}</Text>
+            <Image source={props.image} style={[styles.image, props.imgStyle]} />
+            <Text style={styles.title}>{props.title}</Text>
+            <Text style={styles.description}>{props.description}</Text>
             <AppButton containerStyle={{ width: wp(80) }} label={props.buttonLabel} onPress={props.onpress} />
         </View>
     )
@@ -30,13 +30,13 @@ const styles = StyleSheet.create({
         gap: 10,
         marginHorizontal: '5%'
     },
-    cartImg: {
+    image: {
         height: hp(20),
         width: wp(42),
         resizeMode: 'contain',
         marginBottom: 20
     },
-    emptyText: {
+    title: {
         fontWeight: 700,
         fontSize: 20,
         fontFamily: fonts.VisbyCF_Bold,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
         color: Colors.BLACK
     },
-    addItemText: {
+    description: {
         fontWeight: 500,
         fontSize: 16,
         fontFamily: fonts.VisbyCF_Medium,

@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View, ScrollView, Image, FlatList } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, ScrollView, Image, FlatList, TouchableOpacity } from 'react-native';
 import React from 'react';
 import AppHeader from '../Components/AppHeader';
 import AppBackground from '../Components/AppBackground';
@@ -21,32 +21,36 @@ import Banner from '../Components/Cards/Banner';
 import { hp, wp } from '../../constant/responsiveFunc';
 import ListView from '../../Components/ListView';
 import fonts from '../../constant/fonts';
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function HomeScreen() {
+   const navigation = useNavigation();
 
-   const renderProductList =({item, index}) => {
-      return(
+
+   const renderProductList = ({ item, index }) => {
+      return (
          <ListView
-         item={item}
-               isExpress
-               isLike
-               TotalPrice
-               DisCountPrice
-               isDiscountPercent
-               isRating
-            />
+            item={item}
+            isExpress
+            isLike
+            TotalPrice
+            DisCountPrice
+            isDiscountPercent
+            isRating
+         />
       );
    }
 
-   const renderWeekDealList =({item, index}) => {
-      return(
+   const renderWeekDealList = ({ item, index }) => {
+      return (
          <ListView
-         item={item}
-         isLike
-         isPriceButton
-         DisCountPrice
-         PriceInGreen
-            />
+            item={item}
+            isLike
+            isPriceButton
+            DisCountPrice
+            PriceInGreen
+         />
       );
    }
 
@@ -54,109 +58,120 @@ export default function HomeScreen() {
 
    const keyExtractor = (item, index) => {
       return `_${index}`;
-  };
+   };
 
 
    return (
-      <AppBackground >
-         <AppHeader placeholderText={'Search'} />
-         <ScrollView showsVerticalScrollIndicator={false}
-            nestedScrollEnabled={true}
-            style={{ flex: 1, zIndex: -1 }}>
-               <View style={{
-                  backgroundColor: Colors.lightBlue,
-                  paddingHorizontal: 20,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 5
-               }}>
-                  <Image source={Images.LocationIcon} style={{height: 10, width: 10, resizeMode :'contain', tintColor :Colors.themeColor}}/>
-                  <Text style={styles.offerAvail}>Deliver to Mohammed - Basra</Text>
-               </View>
-                          
-
-            <BannerCarousel />
-            <FourImageCarousel title={'Smart Phones'} priceOff={'Up to 30% off'} />
-
-            <ProductHeader title={'New Arrivals'} RightText={'See All'} />
-
-            {/* <ProductList
-               Data={ProductListData}
-               isExpress
-               isLike
-               TotalPrice
-               DisCountPrice
-               isDiscountPercent
-               isRating
-               isBrand
-               numColumns={2}
-            /> */}
-
-            <FlatList
-               data={ProductListData}
-               renderItem={renderProductList}
-               keyExtractor={keyExtractor}
-               horizontal
-               showsHorizontalScrollIndicator={false}
-               style={{marginHorizontal: '5%', marginVertical: '2%'}}
-            />
-
-            <ProductList 
-            isBrand
-            />
-
-            <Banner Image={Images.urdu} />
-
-            <ProductHeader title={'This weeks deals'} isSale={'End in 04: 10:24'} RightText={'See All'} />
-
-            {/* <ProductList
-               Data={ProductListData}
-               isLike
-               isPriceButton
-               DisCountPrice
-               PriceInGreen
-            /> */}
-             <FlatList
-               data={ProductListData}
-               renderItem={renderWeekDealList}
-               keyExtractor={keyExtractor}
-               horizontal
-               showsHorizontalScrollIndicator={false}
-               style={{marginHorizontal: '5%', marginVertical: '2%'}}
-
-            />
-
-            <ProductCollection />
-
-            <MultiProductList title={'Pick up where you left off'} />
-
-            <MultiProductList title={'Best Picks for you'} />
-
-            <ProductCategory />
+      //       <AppBackground >
+      //          <AppHeader placeholderText={'Search'} />
+      //          {/* <ScrollView showsVerticalScrollIndicator={false}
+      //             nestedScrollEnabled={true}
+      //             style={{ flex: 1, zIndex: -1 }}>
+      //                <View style={{
+      //                   backgroundColor: Colors.lightBlue,
+      //                   paddingHorizontal: 20,
+      //                   flexDirection: 'row',
+      //                   alignItems: 'center',
+      //                   gap: 5
+      //                }}>
+      //                   <Image source={Images.LocationIcon} style={{height: 10, width: 10, resizeMode :'contain', tintColor :Colors.themeColor}}/>
+      //                   <Text style={styles.offerAvail}>Deliver to Mohammed - Basra</Text>
+      //                </View>
 
 
-            <FourImageCarousel title={'Popular in Home'} imgContStyle={styles.circleImgView} />
+      //             <BannerCarousel />
+      //             <FourImageCarousel title={'Smart Phones'} priceOff={'Up to 30% off'} />
 
-            <Banner Image={Images.appleProduct} />
+      //             <ProductHeader title={'New Arrivals'} RightText={'See All'} />
 
-            <ProductCategoryWithBG image={Images.BlueBGImg} title={'Best Home Appliences'} />
-            <ProductCategoryWithBG image={Images.YellowBGImg} title={'Best Products'} ImgViewStyle={{ borderColor: Colors.RED, borderWidth: 1 }} />
+      //             {/* <ProductList
+      //                Data={ProductListData}
+      //                isExpress
+      //                isLike
+      //                TotalPrice
+      //                DisCountPrice
+      //                isDiscountPercent
+      //                isRating
+      //                isBrand
+      //                numColumns={2}
+      //             /> */}
 
-            <BrandProductCarousal />
+      //             <FlatList
+      //                data={ProductListData}
+      //                renderItem={renderProductList}
+      //                keyExtractor={keyExtractor}
+      //                horizontal
+      //                showsHorizontalScrollIndicator={false}
+      //                style={{marginHorizontal: '5%', marginVertical: '2%'}}
+      //             />
 
-            <ProductwithTitle title={'Electronics'} />
-            <ProductwithTitle title={'Home Appliances'} />
-            <ProductwithTitle title={'Gaming'} />
-            <ProductwithTitle title={'Computer & Office'} />
-            <ProductwithTitle title={'Phone & Tablet'} />
+      //             <ProductList 
+      //             isBrand
+      //             />
 
-            <DiscountCard />
+      //             <Banner Image={Images.urdu} />
 
-            <HanoootProducts title={'Only at Hanooot'} />
-            <HanoootProducts title={'Only at Hanooot'} mainContStyle={{ backgroundColor: '#F8E6C4' }} />
+      //             <ProductHeader title={'This weeks deals'} isSale={'End in 04: 10:24'} RightText={'See All'} />
 
-         </ScrollView>
-      </AppBackground>
+      //             {/* <ProductList
+      //                Data={ProductListData}
+      //                isLike
+      //                isPriceButton
+      //                DisCountPrice
+      //                PriceInGreen
+      //             /> */}
+      //              <FlatList
+      //                data={ProductListData}
+      //                renderItem={renderWeekDealList}
+      //                keyExtractor={keyExtractor}
+      //                horizontal
+      //                showsHorizontalScrollIndicator={false}
+      //                style={{marginHorizontal: '5%', marginVertical: '2%'}}
+
+      //             />
+
+      //             <ProductCollection />
+
+      //             <MultiProductList title={'Pick up where you left off'} />
+
+      //             <MultiProductList title={'Best Picks for you'} />
+
+      //             <ProductCategory />
+
+
+      //             <FourImageCarousel title={'Popular in Home'} imgContStyle={styles.circleImgView} />
+
+      //             <Banner Image={Images.appleProduct} />
+
+      //             <ProductCategoryWithBG image={Images.BlueBGImg} title={'Best Home Appliences'} />
+      //             <ProductCategoryWithBG image={Images.YellowBGImg} title={'Best Products'} ImgViewStyle={{ borderColor: Colors.RED, borderWidth: 1 }} />
+
+      //             <BrandProductCarousal />
+
+      //             <ProductwithTitle title={'Electronics'} />
+      //             <ProductwithTitle title={'Home Appliances'} />
+      //             <ProductwithTitle title={'Gaming'} />
+      //             <ProductwithTitle title={'Computer & Office'} />
+      //             <ProductwithTitle title={'Phone & Tablet'} />
+
+      //             <DiscountCard />
+
+      //             <HanoootProducts title={'Only at Hanooot'} />
+      //             <HanoootProducts title={'Only at Hanooot'} mainContStyle={{ backgroundColor: '#F8E6C4' }} />
+
+      //          </ScrollView> */}
+
+
+      // <
+      //       </AppBackground>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+         <TouchableOpacity
+            onPress={() => navigation.navigate('ProfileScreen', { LoggedIn: true })}
+         >
+            <Text>Show Logged in Profile</Text>
+         </TouchableOpacity>
+
+      </View>
    )
 }
 
@@ -176,11 +191,11 @@ const styles = StyleSheet.create({
       fontWeight: 600,
       fontFamily: fonts.VisbyCF_Demibold,
       letterSpacing: 0.5,
-      
+
       color: Colors.themeColor,
       paddingVertical: 10,
       fontSize: 12
-  },
+   },
 })
 
 

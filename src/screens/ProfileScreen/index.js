@@ -98,6 +98,7 @@ const ProfileScreen = (props) => {
                             <ListItem
                                 Image={Images.Location}
                                 title={'My Address'}
+                                onPress={() => navigation.navigate('MyAddress')}
                             />
                             <ListItem
                                 Image={Images.Payment}
