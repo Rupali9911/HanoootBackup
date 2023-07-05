@@ -60,10 +60,10 @@ const Checkout = (props) => {
     <>
       <AppBackground>
 
-        <AppHeader 
-        title={'Checkout'} 
-        showRightComponent 
-        titleComponentStyle={{alignItems: 'flex-start'}}
+        <AppHeader
+          title={'Checkout'}
+          showRightComponent
+          titleComponentStyle={{ alignItems: 'flex-start' }}
         />
 
 
@@ -90,7 +90,7 @@ const Checkout = (props) => {
           </View>
         </View>
 
-        {
+        {/* {
           screenType === 'ADDRESS' ?
             <Address setScreenType={(sType) => { console.log('ScreenType from Address Component', sType), setScreenType(sType) }} />
             :
@@ -99,9 +99,12 @@ const Checkout = (props) => {
               screenType === 'PLACEORDER' ? <ReviewOrder />
                 :
                 null
-        }
+        } */}
+
+        <Address setScreenType={(sType) => { console.log('ScreenType from Address Component', sType), setScreenType(sType) }} />
 
         {/* <DropdownPicker onSetCountry={(country) => console.log('countryvalue : ', country)}/> */}
+
 
       </AppBackground>
     </>

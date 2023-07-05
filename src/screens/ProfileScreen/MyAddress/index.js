@@ -38,18 +38,17 @@ const MyAddress = () => {
                         onpress={() => navigation.navigate('NewAddress')}
                     />
             }
+            {
+                ADDRESS_DETAIL.length ?
+                    <TouchableOpacity
+                        style={styles.submitButton}
+                        onPress={() => navigation.navigate('NewAddress')}>
+                        <Image
+                            source={Images.PlusWhiteIcon} style={{ height: 21, width: 21, resizeMode: 'contain' }} />
+                    </TouchableOpacity>
+                    : null
+            }
 
-            {/* <Button 
-            style
-                title={'ADD'}
-            /> */}
-
-            <TouchableOpacity
-             style={styles.submitButton} 
-             onPress={() => navigation.navigate('NewAddress')}>
-                 <Image 
-                 source={Images.PlusWhiteIcon} style={{height: 21, width: 21, resizeMode: 'contain'}}/>
-            </TouchableOpacity>
 
         </AppBackground>
     )
@@ -78,12 +77,13 @@ const styles = StyleSheet.create({
         // marginTop: 200,
         height: 48,
         width: 48,
-        borderRadius: 48/2,
+        borderRadius: 48 / 2,
         justifyContent: "center",
         alignItems: 'center',
 
         position: 'absolute',
-        bottom:10,
-        right:10,
+        bottom: 20,
+        right: 20,
+        zIndex: 0
     }
 })

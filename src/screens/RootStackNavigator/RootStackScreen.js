@@ -21,7 +21,7 @@ import Notification from '../ProfileScreen/Notifications';
 import Wishlist from '../ProfileScreen/Wishlist';
 import Payment from '../ProfileScreen/Payment';
 import MyAddress from '../ProfileScreen/MyAddress';
-import AddNewAddress from '../ProfileScreen/MyAddress/AddNewAddress';
+// import AddNewAddress from '../ProfileScreen/MyAddress/AddNewAddress';
 import Location from '../../Components/MyAddress/Location';
 import NewAddress from '../../Components/MyAddress/NewAddress';
 
@@ -53,7 +53,7 @@ export default function RootStackScreen() {
             <Stack.Screen name="WishlistScreen" component={Wishlist} options={{ headerMode: 'none' }} />
             <Stack.Screen name="PaymentMethods" component={Payment} options={{ headerMode: 'none' }} />
             <Stack.Screen name="MyAddress" component={MyAddress} options={{ headerMode: 'none' }} />
-            <Stack.Screen name="AddNewAddress" component={AddNewAddress} options={{ headerMode: 'none' }} />
+            {/* <Stack.Screen name="AddNewAddress" component={AddNewAddress} options={{ headerMode: 'none' }} /> */}
             <Stack.Screen name="Location" component={Location} options={{ headerMode: 'none' }} />
             <Stack.Screen name="NewAddress" component={NewAddress} options={{ headerMode: 'none' }} />
 

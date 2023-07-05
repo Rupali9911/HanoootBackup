@@ -135,7 +135,9 @@ const NewAddress = (props) => {
       else {
         dispatch(setAddressDetails(inputFields));
       }
-      navigation.navigate('MyAddress');
+      // navigation.navigate('MyAddress');
+      navigation.goBack();
+      // props.onPressAddNewAdrs;
     } else {
       alert('Please fill all the fields');
     }

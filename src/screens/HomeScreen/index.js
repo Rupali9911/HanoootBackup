@@ -166,9 +166,9 @@ export default function HomeScreen() {
       //       </AppBackground>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
          <TouchableOpacity
-            onPress={() => navigation.navigate('ProfileScreen', { LoggedIn: true })}
+            onPress={() => navigation.navigate('CheckoutScreen')}
          >
-            <Text>Show Logged in Profile</Text>
+            <Text>Show Checkout Screen</Text>
          </TouchableOpacity>
 
       </View>

@@ -28,7 +28,7 @@ const EmptyAddress = () => {
                 leftSideImg
                 ImgURI={Images.plusIcon}
                 labelStyle={{ color: Colors.themeColor }} containerStyle={{ backgroundColor: Colors.WHITE, marginTop: '8%' }}
-                onPress={() => navigation.navigate('AddAddressDetail')}
+                onPress={() => navigation.navigate('NewAddress')}
             />
 
         </View>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         borderTopColor: Colors.GRAY,
         borderTopWidth: 1,
         borderBottomWidth: 1,
-        marginVertical: '2%'
+        // marginVertical: '2%'
     },
     productName: {
         fontFamily: fonts.VisbyCF_Demibold,

@@ -3,7 +3,8 @@ import { REMOVE_ADDRESS } from "../types";
 import { UPDATE_ADDRESS } from "../types";
 
 const initialState = {
-    ADDRESS_DETAIL: []
+    ADDRESS_DETAIL: [],
+    addressType: ''
 }
 
 const checkoutReducer = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const checkoutReducer = (state = initialState, action) => {
                 ADDRESS_DETAIL: [...state.ADDRESS_DETAIL, {
                     id: `id_${Math.floor(Math.random() * 100) + 1}`,
                     Value: action.payload
-                }]
+                }],
+                addressType: 'Add_NEW_ADDRESS'
             }
         case REMOVE_ADDRESS:
             console.log('action.payload : ', action.payload)
@@ -25,6 +27,7 @@ const checkoutReducer = (state = initialState, action) => {
                 ADDRESS_DETAIL: [
                     ...state.ADDRESS_DETAIL.filter(item => item.id !== action.payload.id)
                 ],
+                addressType: 'REMOVE_ADDRESS'
             }
         case UPDATE_ADDRESS:
 
@@ -51,7 +54,9 @@ const checkoutReducer = (state = initialState, action) => {
                                 Value: action.payload.updateData,
                             }
                             : content
-                )
+                ),
+
+                addressType: 'UPDATE_ADDRESS'
             }
         default:
             return state;

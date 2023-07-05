@@ -1,49 +1,46 @@
 import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, Modal } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import EmptyDetailScreen from '../EmptyDetailScreen';
 import fonts from '../../constant/fonts';
 import Images from '../../constant/Images';
 import Colors from '../../constant/Colors';
 import AppButton from '../../screens/Components/AppButton';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import RadioButton from 'react-native-radio-button'
 import { hp, wp } from '../../constant/responsiveFunc';
 import { removeAddress } from '../../screens/Store/actions/checkoutAction';
 import { BlurView } from "@react-native-community/blur";
-
-
-
+import Toast from 'react-native-toast-message';
 
 
 const MyAddresss = (props) => {
     const [id, setId] = useState();
+    const [checked, setChecked] = useState(0)
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { ADDRESS_DETAIL } = useSelector(state => state.checkoutReducer);
+    const { ADDRESS_DETAIL, addressType } = useSelector(state => state.checkoutReducer);
     const dispatch = useDispatch();
-
-
-
-    // console.log('CHECK ADDRESS_DETAIL DATA : ', ADDRESS_DETAIL);
+    const isFocused = useIsFocused();
 
     const navigation = useNavigation();
+
+    console.log('Check Address Type : ', addressType);
+
+    useEffect(() => {
+        addressType != '' ? showToast() : null;
+    }, [isFocused])
 
     const EditRemoveButton = (props) => {
         return (
             <View style={styles.buttonView}>
                 <TouchableOpacity style={styles.ButtonTouchable}
-                    // onPress={() => {
-                    //     // setIndex(props.index);
-                    //     navigation.navigate('AddNewAddress', { EDIT: props.item })
-                    // }}
                     onPress={() => navigation.navigate('NewAddress', { EDIT_DETAIL: props.item })}
                 >
                     <Text style={styles.buttonText}>EDIT</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.ButtonTouchable}
                     onPress={() => {
-                        // setIndex(props.index);
                         setId(props.item);
                         setModalVisible(true);
                     }}
@@ -54,22 +51,49 @@ const MyAddresss = (props) => {
         );
     }
 
+    const onPressRadioButton = (index) => {
+        setChecked(index);
+    }
+
+    const toastConfig = {
+        info: ({ props }) => (
+            <View style={styles.toastMsgContainer}>
+                <Image source={props.type === 'REMOVE_ADDRESS' ? Images.deleteIcon : Images.ToastSuccess} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+                <View>
+                    <Text style={styles.toastMsgText}>{`${props.type === 'Add_NEW_ADDRESS' ? `New Address Added Successfully!` : props.type === 'Add_NEW_ADDRESS' ? `Address Updated Successfully!` : `Address removed successfully!`}`}</Text>
+                </View>
+            </View>
+        )
+    };
+
+    const showToast = () => {
+        Toast.show({
+            type: 'info',
+            props: {
+                type: addressType,
+            }
+        });
+    }
+
 
 
     const renderItem = ({ item, index }) => {
         return (
-            <View style={{ marginBottom: 10 }}>
+            <View style={{ marginTop: hp('1%') }}>
                 <View style={styles.DeliveryCard}>
                     <View style={styles.rowCont}>
                         <View style={{ flexDirection: 'row', gap: 10 }}>
-                            {/* <RadioButton
-                                innerColor={Colors.themeColor}
-                                outerColor={Colors.GRAY}
-                                animation={'bounceIn'}
-                                isSelected={checked === index}
-                                onPress={() => { onPress(index) }}
-                                size={10}
-                            /> */}
+                            {
+                                props.isRadioButton &&
+                                <RadioButton
+                                    innerColor={Colors.themeColor}
+                                    outerColor={Colors.GRAY}
+                                    animation={'bounceIn'}
+                                    isSelected={checked === index}
+                                    onPress={() => { onPressRadioButton(index) }}
+                                    size={10}
+                                />
+                            }
                             <Text style={styles.deliverUserName} numberOfLines={2}>{item?.Value?.name}</Text>
                         </View>
                         <View style={styles.deliveryLocation}>
@@ -88,6 +112,7 @@ const MyAddresss = (props) => {
                 </View>
 
             </View>
+
         );
     }
 
@@ -140,7 +165,7 @@ const MyAddresss = (props) => {
                                 onPress={() => {
                                     dispatch(removeAddress(id));
                                     setModalVisible(false);
-                                    // showToast(Images.deleteIcon, 'Address Removed Successfully')
+                                    showToast();
                                 }}
                                 style={[styles.btnViewCont, { backgroundColor: Colors.themeColor }]}
                             >
@@ -151,6 +176,13 @@ const MyAddresss = (props) => {
                     </View>
                 </View>
             </Modal>
+
+            <Toast
+                config={toastConfig}
+                position="bottom"
+                visibilityTime={100000}
+                autoHide={true}
+            />
 
         </>
 
@@ -219,7 +251,15 @@ const styles = StyleSheet.create({
         paddingVertical: '2%'
     },
     toastMsgContainer: {
-        height: 60, width: '90%', backgroundColor: Colors.WHITE, flexDirection: 'row', padding: 10, borderRadius: 8, marginHorizontal: 20, alignItems: 'center', gap: 10,
+        height: 60,
+        width: '90%',
+        backgroundColor: Colors.WHITE,
+        flexDirection: 'row',
+        padding: 10,
+        borderRadius: 8,
+        marginHorizontal: 20,
+        alignItems: 'center',
+        gap: 10,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -227,6 +267,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.10,
         elevation: 7,
+        zIndex: 1
     },
     infoMsg: {
         fontFamily: fonts.VisbyCF_Medium,
