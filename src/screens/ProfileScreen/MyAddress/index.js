@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import MyAddresss from '../../../Components/MyAddress'
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,6 +8,7 @@ import AppBackground from '../../Components/AppBackground';
 import AppHeader from '../../Components/AppHeader';
 import { hp, wp } from '../../../constant/responsiveFunc';
 import { useNavigation } from '@react-navigation/native';
+import Colors from '../../../constant/Colors';
 
 
 const MyAddress = () => {
@@ -37,10 +38,52 @@ const MyAddress = () => {
                         onpress={() => navigation.navigate('NewAddress')}
                     />
             }
+
+            {/* <Button 
+            style
+                title={'ADD'}
+            /> */}
+
+            <TouchableOpacity
+             style={styles.submitButton} 
+             onPress={() => navigation.navigate('NewAddress')}>
+                 <Image 
+                 source={Images.PlusWhiteIcon} style={{height: 21, width: 21, resizeMode: 'contain'}}/>
+            </TouchableOpacity>
+
         </AppBackground>
     )
 }
 
-export default MyAddress
+export default MyAddress;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    mainConatinerStyle: {
+        flexDirection: 'column',
+        flex: 1,
+        backgroundColor: 'red'
+    },
+    floatingMenuButtonStyle: {
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        bottom: 35
+    },
+    submitButton: {
+        // height: 85,
+        flex: 1,
+        backgroundColor: Colors.YELLOW1,
+        // borderColor: "#555555",
+        // borderWidth: 0,
+        // borderRadius: 0,
+        // marginTop: 200,
+        height: 48,
+        width: 48,
+        borderRadius: 48/2,
+        justifyContent: "center",
+        alignItems: 'center',
+
+        position: 'absolute',
+        bottom:10,
+        right:10,
+    }
+})
