@@ -22,7 +22,10 @@ const MyAddress = () => {
             />
             {
                 ADDRESS_DETAIL.length ?
-                    <MyAddresss />
+                    <MyAddresss
+                    // onPressEdit={() => navigation.navigate('AddNewAddress')}
+
+                    />
                     : <EmptyDetailScreen
                         image={Images.EmptyAddress}
                         title={'Whare is your saved address?'}
@@ -31,7 +34,7 @@ const MyAddress = () => {
                         imgStyle={{
                             width: wp(73)
                         }}
-                        onpress={() => navigation.navigate('AddNewAddress')}
+                        onpress={() => navigation.navigate('NewAddress')}
                     />
             }
         </AppBackground>

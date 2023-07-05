@@ -30,7 +30,7 @@ import ToggleButtons from '../../screens/Checkout/Address/ToggleButtons';
 import Separator from '../../constant/Separator';
 import { useNavigation } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAddressDetails, updateAddress } from '../../screens/Store/actions/checkoutAction';
 import DropdownPicker from '../../constant/DropdownPicker';
 import DeliveryType from './DeliveryAddType';
@@ -38,11 +38,17 @@ import DeliveryType from './DeliveryAddType';
 
 
 const NewAddress = (props) => {
-  const { route } = props;
-  const EDIT = route?.params?.EDIT;
+  const updateDetail = props?.route?.params?.EDIT_DETAIL;
+
+  // console.log('This is Edited Data  : ', props?.route?.params?.EDIT, updateDetail);
+
+  // const { route } = props;
+  // const EDIT = route?.params?.EDIT;
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
+
+  // const { ADDRESS_DETAIL } = useSelector(state => state.checkoutReducer);
 
 
 
@@ -61,20 +67,30 @@ const NewAddress = (props) => {
 
 
   useEffect(() => {
-    console.log('useeffect : ', EDIT?.Value)
-    if (EDIT) {
+
+    // const filterArr = ADDRESS_DETAIL.length && ADDRESS_DETAIL.filter(item => item.id == EDIT?.id);
+
+    // console.log('check filter data : ', filterArr)
+
+
+
+
+    // console.log('useeffect : ', EDIT?.Value)
+    if (updateDetail) {
+      // const updateDetail = updateDetail?.Value;
+      // console.log('details updated : ', updateDetail)
       setInputFields({
-        streetName: EDIT.Value.streetName,
-        buildingType: EDIT.Value.buildingType,
-        houseFlatNo: EDIT.Value.houseFlatNo,
-        nearByLandMark: EDIT.Value.nearByLandMark,
-        name: EDIT.Value.name,
-        phoneNo: EDIT.Value.phoneNo,
-        saveAddAs: EDIT.Value.saveAddAs,
-        countryName: EDIT?.Value?.countryName?.code
+        streetName: updateDetail?.Value?.streetName,
+        buildingType: updateDetail?.Value?.buildingType,
+        houseFlatNo: updateDetail?.Value?.houseFlatNo,
+        nearByLandMark: updateDetail?.Value?.nearByLandMark,
+        name: updateDetail?.Value?.name,
+        phoneNo: updateDetail?.Value?.phoneNo,
+        saveAddAs: updateDetail?.Value?.saveAddAs,
+        countryName: updateDetail?.Value?.countryName?.code
       });
-      console.log('Edited Adress', EDIT)
-      setCountryValue(EDIT?.Value?.countryName?.code)
+      // console.log('Edited Adress', EDIT)
+      setCountryValue(updateDetail?.Value?.countryName?.code)
     }
     else {
       setInputFields({
@@ -111,13 +127,15 @@ const NewAddress = (props) => {
 
     if (streetName && buildingType && houseFlatNo && nearByLandMark && name && phoneNo) {
       // Navigate to another screen and pass the input field values
-      if (EDIT) {
-        dispatch(updateAddress({ editData: inputFields, editId: EDIT.id }))
+      if (updateDetail) {
+        // dispatch(updateAddress({ editData: inputFields, editId: EDIT.id }))
+        // console.log('now data is updataedßß')
+        dispatch(updateAddress({ updateData: inputFields, updateId: updateDetail?.id }))
       }
       else {
         dispatch(setAddressDetails(inputFields));
       }
-      navigation.navigate('CheckoutScreen');
+      navigation.navigate('MyAddress');
     } else {
       alert('Please fill all the fields');
     }
@@ -130,7 +148,7 @@ const NewAddress = (props) => {
     return errorMsg;
   }
 
-  console.log('get Country value : ', inputFields.countryName, countryValue)
+  // console.log('get Country value : ', inputFields.countryName, countryValue)
 
   return (
     <AppBackground>

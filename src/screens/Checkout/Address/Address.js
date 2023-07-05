@@ -61,7 +61,7 @@ const Address = (props) => {
         //     setAddressList(newData)
         // }
         ADDRESS_DETAIL.length &&
-            showToast(Images.ToastSuccess,  'New Address Added Successfully!');
+            showToast(Images.ToastSuccess, 'New Address Added Successfully!');
 
     }, [isFocused])
 
@@ -114,7 +114,7 @@ const Address = (props) => {
                     {
                         props.msg2 && <Text style={styles.toastMsgText}>{props.msg2}</Text>
                     }
-                    
+
                 </View>
             </View>
         )

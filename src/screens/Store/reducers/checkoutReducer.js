@@ -7,7 +7,7 @@ const initialState = {
 }
 
 const checkoutReducer = (state = initialState, action) => {
-    // console.log('Check reducer state and action : ', state, action)
+    // console.log('Check reducer state and action : ', state, '********Action Call*******', action)
     switch (action.type) {
         case ADDRESS_DETAIL:
             return {
@@ -38,22 +38,20 @@ const checkoutReducer = (state = initialState, action) => {
                 //     },
                 //     state.ADDRESS_DETAIL.slice(0,action.payload.editId)
                 //   ],
+
+
+
                 ADDRESS_DETAIL: state.ADDRESS_DETAIL.map(
                     (content, i) =>
-                    
-                        content.id === action.payload.editId
+
+                        content.id === action.payload.updateId
                             ?
                             {
                                 ...content,
-                                Value: action.payload.editData,
+                                Value: action.payload.updateData,
                             }
                             : content
-                    
-                        
-                        
                 )
-
-
             }
         default:
             return state;
