@@ -16,14 +16,8 @@
 // import { useNavigation } from '@react-navigation/native';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { useSelector, useDispatch } from 'react-redux';
-// import { setAddressDetails, removeAddress } from '../../Store/actions/checkoutAction'
-
-
-
-
-
-
-
+// import { setAddressDetails, removeAddress } from '../../Store/actions/checkoutAction';
+// import MyAddresss from '../../../Components/MyAddress'
 
 
 // const Address = (props) => {
@@ -201,29 +195,27 @@
 //         <>
 //             <ProductHeader title={'Select a delivery Address'} />
 //             {
-//                 ADDRESS_DETAIL.length > 0
-//                     ?
-//                     <>
-//                         <View style={{ height: '50%' }}>
-//                             <FlatList
-//                                 data={ADDRESS_DETAIL}
-//                                 renderItem={renderItem}
-//                                 keyExtractor={keyExtractor}
-//                             />
-//                         </View>
-//                         <AppButton label={'Add New Address'}
-//                             isEmptyBG
-//                             leftSideImg
-//                             ImgURI={Images.plusIcon}
-//                             labelStyle={{ color: Colors.themeColor }} containerStyle={{ marginTop: '8%' }}
-//                             onPress={() => navigation.navigate('AddAddressDetail')}
-//                         />
-//                     </>
+//                 ADDRESS_DETAIL.length ?
+//                     <MyAddresss
+//                         isRadioButton
+//                     />
 //                     :
 //                     <EmptyAddress />
 //             }
+//             {
+//                 ADDRESS_DETAIL.length
+//                     ?
+//                     <AppButton label={'Add New Address'}
+//                         isEmptyBG
+//                         leftSideImg
+//                         ImgURI={Images.plusIcon}
+//                         labelStyle={{ color: Colors.themeColor }} containerStyle={{ marginVertical: '8%' }}
+//                         onPress={() => navigation.navigate('NewAddress')}
+//                     />
+//                     : null
+//             }
 
-//             <View style={styles.bottomButtonContainer}>
+//             {/* <View style={styles.bottomButtonContainer}>
 //                 <AppButton label={'Deliver to this Address'}
 //                     view={ADDRESS_DETAIL.length ? false : true}
 //                     onPress={() => {
@@ -240,12 +232,6 @@
 //                     }}
 //                 />
 //             </View>
-
-//             {/* <Toast
-//                 config={toastConfig}
-//                 position="bottom"
-//                 visibilityTime={2000}
-//                 autoHide={true} /> */}
 
 //             <Toast
 //                 config={toastConfig}
@@ -295,7 +281,7 @@
 
 //                     </View>
 //                 </View>
-//             </Modal>
+//             </Modal> */}
 
 //         </>
 
@@ -445,8 +431,8 @@
 //     },
 // })
 
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import { Button, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
 import MyAddresss from '../../../Components/MyAddress';
 import { useSelector, useDispatch } from 'react-redux';
 import Images from '../../../constant/Images';
@@ -457,27 +443,44 @@ import Colors from '../../../constant/Colors';
 import EmptyAddress from './EmptyAddress';
 import ProductHeader from '../../Components/Cards/ProductHeader';
 import AppButton from '../../Components/AppButton';
+import AppBackground from '../../Components/AppBackground';
 
-const Address = () => {
+const Address = (props) => {
+    const [toastVisible, setToastVisible] = useState(false)
 
     const { ADDRESS_DETAIL } = useSelector(state => state.checkoutReducer);
     const navigation = useNavigation();
 
     return (
-        <View style={{ backgroundColor: 'red' }}>
+        <>
+            {/* <View style={{ backgroundColor: 'red' }}> */}
             <ProductHeader
                 title={'Select a delivery Address'}
                 ContainerStyle={{ marginVertical: '5%' }}
             />
             {
                 ADDRESS_DETAIL.length ?
-                    <MyAddresss
-                        isRadioButton
-                    />
+                    <>
+                        {/* <View style={{ height: (Dimensions.get('window').height) / 3,  backgroundColor: 'red' }}> */}
+                            <MyAddresss
+                                isRadioButton
+                                isFooterShow
+                                isToastShow={(value) => setToastVisible(value)}
+                            />
+                        {/* </View> */}
+                        {/* <AppButton
+                            label={'Add New Address'}
+                            isEmptyBG
+                            leftSideImg
+                            ImgURI={Images.plusIcon}
+                            labelStyle={{ color: Colors.themeColor }} containerStyle={{ marginVertical: '8%' }}
+                            onPress={() => navigation.navigate('NewAddress')}
+                        /> */}
+                    </>
                     :
                     <EmptyAddress />
             }
-            {
+            {/* {
                 ADDRESS_DETAIL.length
                     ?
                     <AppButton label={'Add New Address'}
@@ -488,9 +491,9 @@ const Address = () => {
                         onPress={() => navigation.navigate('NewAddress')}
                     />
                     : null
-            }
+            } */}
 
-            {/* <View style={styles.bottomButtonContainer}>
+            <View style={[styles.bottomButtonContainer, {zIndex: toastVisible ? -1 : 1}]}>
                 <AppButton label={'Deliver to this Address'}
                     view={ADDRESS_DETAIL.length ? false : true}
                     onPress={() => {
@@ -506,8 +509,9 @@ const Address = () => {
                         props.setScreenType('PAYMENT')
                     }}
                 />
-            </View> */}
-        </View>
+            </View>
+            {/* </View> */}
+        </>
     )
 }
 
@@ -522,6 +526,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.WHITE,
-        paddingVertical: '2%'
+        paddingVertical: '2%',
+        zIndex: -1
     },
 })

@@ -7,7 +7,7 @@ import Images from '../../constant/Images';
 import Colors from '../../constant/Colors';
 import AppButton from '../../screens/Components/AppButton';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import RadioButton from 'react-native-radio-button'
+import RadioButton from 'react-native-radio-button';
 import { hp, wp } from '../../constant/responsiveFunc';
 import { removeAddress } from '../../screens/Store/actions/checkoutAction';
 import { BlurView } from "@react-native-community/blur";
@@ -29,7 +29,7 @@ const MyAddresss = (props) => {
 
     useEffect(() => {
         addressType != '' ? showToast() : null;
-    }, [isFocused])
+    }, [isFocused && addressType])
 
     const EditRemoveButton = (props) => {
         return (
@@ -60,7 +60,7 @@ const MyAddresss = (props) => {
             <View style={styles.toastMsgContainer}>
                 <Image source={props.type === 'REMOVE_ADDRESS' ? Images.deleteIcon : Images.ToastSuccess} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
                 <View>
-                    <Text style={styles.toastMsgText}>{`${props.type === 'Add_NEW_ADDRESS' ? `New Address Added Successfully!` : props.type === 'Add_NEW_ADDRESS' ? `Address Updated Successfully!` : `Address removed successfully!`}`}</Text>
+                    <Text style={styles.toastMsgText}>{`${props.type === 'Add_NEW_ADDRESS' ? `New Address Added Successfully!` : props.type === 'UPDATE_ADDRESS' ? `Address Updated Successfully!` : `Address removed successfully!`}`}</Text>
                 </View>
             </View>
         )
@@ -74,6 +74,7 @@ const MyAddresss = (props) => {
             }
         });
     }
+    
 
 
 
@@ -111,7 +112,14 @@ const MyAddresss = (props) => {
                     />
                 </View>
 
+
+
+
+
             </View>
+
+
+
 
         );
     }
@@ -119,6 +127,19 @@ const MyAddresss = (props) => {
     const keyExtractor = (item, index) => {
         return index;
     };
+
+    const renderFooter = () => {
+        return(
+            <AppButton
+                label={'Add New Address'}
+                isEmptyBG
+                leftSideImg
+                ImgURI={Images.plusIcon}
+                labelStyle={{ color: Colors.themeColor }} containerStyle={{ marginVertical: '8%' }}
+                onPress={() => navigation.navigate('NewAddress')}
+            />
+        );
+    }
 
 
 
@@ -128,9 +149,8 @@ const MyAddresss = (props) => {
                 data={ADDRESS_DETAIL}
                 renderItem={renderItem}
                 keyExtractor={keyExtractor}
+                ListFooterComponent={props.isFooterShow && renderFooter}
             />
-
-
 
             <Modal
                 visible={modalVisible}
@@ -180,8 +200,10 @@ const MyAddresss = (props) => {
             <Toast
                 config={toastConfig}
                 position="bottom"
-                visibilityTime={100000}
+                visibilityTime={2000}
                 autoHide={true}
+                onShow={() => props.isToastShow(true)}
+                onHide={() => props.isToastShow(false)}
             />
 
         </>
@@ -211,7 +233,6 @@ const styles = StyleSheet.create({
 
     buttonView: {
         flexDirection: 'row', borderTopColor: Colors.GRAY, borderTopWidth: 1,
-
     },
     ButtonTouchable: {
         width: '50%', padding: 10, justifyContent: 'center', alignItems: 'center', borderRightColor: Colors.GRAY, borderRightWidth: 1

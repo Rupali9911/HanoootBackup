@@ -1,5 +1,5 @@
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
 import MyAddresss from '../../../Components/MyAddress'
 import { useSelector, useDispatch } from 'react-redux';
 import EmptyDetailScreen from '../../../Components/EmptyDetailScreen';
@@ -12,6 +12,8 @@ import Colors from '../../../constant/Colors';
 
 
 const MyAddress = () => {
+    const [toastVisible, setToastVisible] = useState(false)
+
     const { ADDRESS_DETAIL } = useSelector(state => state.checkoutReducer);
     const navigation = useNavigation();
 
@@ -25,6 +27,7 @@ const MyAddress = () => {
                 ADDRESS_DETAIL.length ?
                     <MyAddresss
                     // onPressEdit={() => navigation.navigate('AddNewAddress')}
+                    isToastShow={(value) => setToastVisible(value)}
 
                     />
                     : <EmptyDetailScreen
@@ -35,14 +38,14 @@ const MyAddress = () => {
                         imgStyle={{
                             width: wp(73)
                         }}
-                        onpress={() => navigation.navigate('NewAddress')}
+                        onpress={() => navigation.navigate('NewAddress', {PROFILE: true})}
                     />
             }
             {
                 ADDRESS_DETAIL.length ?
                     <TouchableOpacity
-                        style={styles.submitButton}
-                        onPress={() => navigation.navigate('NewAddress')}>
+                        style={[styles.submitButton, {zIndex: toastVisible ? -1 : 1}]}
+                        onPress={() => navigation.navigate('NewAddress', {PROFILE: true})}>
                         <Image
                             source={Images.PlusWhiteIcon} style={{ height: 21, width: 21, resizeMode: 'contain' }} />
                     </TouchableOpacity>
@@ -84,6 +87,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 20,
         right: 20,
-        zIndex: 0
+        // zIndex: 0
     }
 })

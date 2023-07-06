@@ -62,116 +62,116 @@ export default function HomeScreen() {
 
 
    return (
-      //       <AppBackground >
-      //          <AppHeader placeholderText={'Search'} />
-      //          {/* <ScrollView showsVerticalScrollIndicator={false}
-      //             nestedScrollEnabled={true}
-      //             style={{ flex: 1, zIndex: -1 }}>
-      //                <View style={{
-      //                   backgroundColor: Colors.lightBlue,
-      //                   paddingHorizontal: 20,
-      //                   flexDirection: 'row',
-      //                   alignItems: 'center',
-      //                   gap: 5
-      //                }}>
-      //                   <Image source={Images.LocationIcon} style={{height: 10, width: 10, resizeMode :'contain', tintColor :Colors.themeColor}}/>
-      //                   <Text style={styles.offerAvail}>Deliver to Mohammed - Basra</Text>
-      //                </View>
+            <AppBackground >
+               <AppHeader placeholderText={'Search'} />
+                <ScrollView showsVerticalScrollIndicator={false}
+                  nestedScrollEnabled={true}
+                  style={{ flex: 1, zIndex: -1 }}>
+                     <View style={{
+                        backgroundColor: Colors.lightBlue,
+                        paddingHorizontal: 20,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 5
+                     }}>
+                        <Image source={Images.LocationIcon} style={{height: 10, width: 10, resizeMode :'contain', tintColor :Colors.themeColor}}/>
+                        <Text style={styles.offerAvail}>Deliver to Mohammed - Basra</Text>
+                     </View>
 
 
-      //             <BannerCarousel />
-      //             <FourImageCarousel title={'Smart Phones'} priceOff={'Up to 30% off'} />
+                  <BannerCarousel />
+                  <FourImageCarousel title={'Smart Phones'} priceOff={'Up to 30% off'} />
 
-      //             <ProductHeader title={'New Arrivals'} RightText={'See All'} />
+                  <ProductHeader title={'New Arrivals'} RightText={'See All'} />
 
-      //             {/* <ProductList
-      //                Data={ProductListData}
-      //                isExpress
-      //                isLike
-      //                TotalPrice
-      //                DisCountPrice
-      //                isDiscountPercent
-      //                isRating
-      //                isBrand
-      //                numColumns={2}
-      //             /> */}
+                  {/* <ProductList
+                     Data={ProductListData}
+                     isExpress
+                     isLike
+                     TotalPrice
+                     DisCountPrice
+                     isDiscountPercent
+                     isRating
+                     isBrand
+                     numColumns={2}
+                  /> */}
 
-      //             <FlatList
-      //                data={ProductListData}
-      //                renderItem={renderProductList}
-      //                keyExtractor={keyExtractor}
-      //                horizontal
-      //                showsHorizontalScrollIndicator={false}
-      //                style={{marginHorizontal: '5%', marginVertical: '2%'}}
-      //             />
+                  <FlatList
+                     data={ProductListData}
+                     renderItem={renderProductList}
+                     keyExtractor={keyExtractor}
+                     horizontal
+                     showsHorizontalScrollIndicator={false}
+                     style={{marginHorizontal: '5%', marginVertical: '2%'}}
+                  />
 
-      //             <ProductList 
-      //             isBrand
-      //             />
+                  <ProductList 
+                  isBrand
+                  />
 
-      //             <Banner Image={Images.urdu} />
+                  <Banner Image={Images.urdu} />
 
-      //             <ProductHeader title={'This weeks deals'} isSale={'End in 04: 10:24'} RightText={'See All'} />
+                  <ProductHeader title={'This weeks deals'} isSale={'End in 04: 10:24'} RightText={'See All'} />
 
-      //             {/* <ProductList
-      //                Data={ProductListData}
-      //                isLike
-      //                isPriceButton
-      //                DisCountPrice
-      //                PriceInGreen
-      //             /> */}
-      //              <FlatList
-      //                data={ProductListData}
-      //                renderItem={renderWeekDealList}
-      //                keyExtractor={keyExtractor}
-      //                horizontal
-      //                showsHorizontalScrollIndicator={false}
-      //                style={{marginHorizontal: '5%', marginVertical: '2%'}}
+                  {/* <ProductList
+                     Data={ProductListData}
+                     isLike
+                     isPriceButton
+                     DisCountPrice
+                     PriceInGreen
+                  /> */}
+                   <FlatList
+                     data={ProductListData}
+                     renderItem={renderWeekDealList}
+                     keyExtractor={keyExtractor}
+                     horizontal
+                     showsHorizontalScrollIndicator={false}
+                     style={{marginHorizontal: '5%', marginVertical: '2%'}}
 
-      //             />
+                  />
 
-      //             <ProductCollection />
+                  <ProductCollection />
 
-      //             <MultiProductList title={'Pick up where you left off'} />
+                  <MultiProductList title={'Pick up where you left off'} />
 
-      //             <MultiProductList title={'Best Picks for you'} />
+                  <MultiProductList title={'Best Picks for you'} />
 
-      //             <ProductCategory />
-
-
-      //             <FourImageCarousel title={'Popular in Home'} imgContStyle={styles.circleImgView} />
-
-      //             <Banner Image={Images.appleProduct} />
-
-      //             <ProductCategoryWithBG image={Images.BlueBGImg} title={'Best Home Appliences'} />
-      //             <ProductCategoryWithBG image={Images.YellowBGImg} title={'Best Products'} ImgViewStyle={{ borderColor: Colors.RED, borderWidth: 1 }} />
-
-      //             <BrandProductCarousal />
-
-      //             <ProductwithTitle title={'Electronics'} />
-      //             <ProductwithTitle title={'Home Appliances'} />
-      //             <ProductwithTitle title={'Gaming'} />
-      //             <ProductwithTitle title={'Computer & Office'} />
-      //             <ProductwithTitle title={'Phone & Tablet'} />
-
-      //             <DiscountCard />
-
-      //             <HanoootProducts title={'Only at Hanooot'} />
-      //             <HanoootProducts title={'Only at Hanooot'} mainContStyle={{ backgroundColor: '#F8E6C4' }} />
-
-      //          </ScrollView> */}
+                  <ProductCategory />
 
 
-      // <
-      //       </AppBackground>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-         <TouchableOpacity
-            onPress={() => navigation.navigate('CheckoutScreen')}
-         >
-            <Text>Show Checkout Screen</Text>
-         </TouchableOpacity>
+                  <FourImageCarousel title={'Popular in Home'} imgContStyle={styles.circleImgView} />
 
-      </View>
+                  <Banner Image={Images.appleProduct} />
+
+                  <ProductCategoryWithBG image={Images.BlueBGImg} title={'Best Home Appliences'} />
+                  <ProductCategoryWithBG image={Images.YellowBGImg} title={'Best Products'} ImgViewStyle={{ borderColor: Colors.RED, borderWidth: 1 }} />
+
+                  <BrandProductCarousal />
+
+                  <ProductwithTitle title={'Electronics'} />
+                  <ProductwithTitle title={'Home Appliances'} />
+                  <ProductwithTitle title={'Gaming'} />
+                  <ProductwithTitle title={'Computer & Office'} />
+                  <ProductwithTitle title={'Phone & Tablet'} />
+
+                  <DiscountCard />
+
+                  <HanoootProducts title={'Only at Hanooot'} />
+                  <HanoootProducts title={'Only at Hanooot'} mainContStyle={{ backgroundColor: '#F8E6C4' }} />
+
+               </ScrollView> 
+
+
+      
+            </AppBackground>
+      // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      //    <TouchableOpacity
+      //       onPress={() => navigation.navigate('CheckoutScreen')}
+      //    >
+      //       <Text>Show Checkout Screen</Text>
+      //    </TouchableOpacity>
+
+      // </View>
    )
 }
 
