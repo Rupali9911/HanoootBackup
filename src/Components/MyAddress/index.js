@@ -27,11 +27,12 @@ const MyAddresss = (props) => {
 
     const isProfile = props.isProfileScreen;
 
-    console.log('Check isProfileNavigate on address screen : ', props.isProfileScreen);
+    // console.log('Check isProfileNavigate on address screen : ', props.isProfileScreen);
+    console.log('check address type : ', addressType)
 
     useEffect(() => {
         addressType != '' && !isProfile ? showToast() : null;
-    }, [isFocused && addressType])
+    }, [isFocused])
 
     const EditRemoveButton = (props) => {
         return (
