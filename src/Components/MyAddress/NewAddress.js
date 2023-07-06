@@ -39,6 +39,10 @@ import DeliveryType from './DeliveryAddType';
 
 const NewAddress = (props) => {
   const updateDetail = props?.route?.params?.EDIT_DETAIL;
+  const isProfileAddress = props?.route?.params?.PROFILE;
+
+
+  console.log('isprofileNavigate: ', props?.route?.params)
 
   // console.log('This is Edited Data  : ', props?.route?.params?.EDIT, updateDetail);
 
@@ -130,13 +134,17 @@ const NewAddress = (props) => {
       if (updateDetail) {
         // dispatch(updateAddress({ editData: inputFields, editId: EDIT.id }))
         // console.log('now data is updataedßß')
-        dispatch(updateAddress({ updateData: inputFields, updateId: updateDetail?.id }))
+        dispatch(updateAddress({ updateData: inputFields, updateId: updateDetail?.id }));
+        isProfileAddress ? navigation.navigate('ToastMessageScreen', { title: 'Address Updated Successfully!' }) : navigation.goBack();
       }
       else {
         dispatch(setAddressDetails(inputFields));
+        isProfileAddress ? navigation.navigate('ToastMessageScreen', { title: 'Address Saved Successfully!' }) : navigation.goBack();
+
       }
-      // navigation.navigate('MyAddress');
-      navigation.goBack();
+      // navigation.navigate('ToastMessageScreen');
+      // navigation.goBack();
+
       // props.onPressAddNewAdrs;
     } else {
       alert('Please fill all the fields');

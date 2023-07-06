@@ -25,17 +25,19 @@ const MyAddresss = (props) => {
 
     const navigation = useNavigation();
 
-    console.log('Check Address Type : ', addressType);
+    const isProfile = props.isProfileScreen;
+
+    console.log('Check isProfileNavigate on address screen : ', props.isProfileScreen);
 
     useEffect(() => {
-        addressType != '' ? showToast() : null;
+        addressType != '' && !isProfile ? showToast() : null;
     }, [isFocused && addressType])
 
     const EditRemoveButton = (props) => {
         return (
             <View style={styles.buttonView}>
                 <TouchableOpacity style={styles.ButtonTouchable}
-                    onPress={() => navigation.navigate('NewAddress', { EDIT_DETAIL: props.item })}
+                    onPress={() => navigation.navigate('NewAddress', { EDIT_DETAIL: props.item, PROFILE: isProfile })}
                 >
                     <Text style={styles.buttonText}>EDIT</Text>
                 </TouchableOpacity>
@@ -74,7 +76,7 @@ const MyAddresss = (props) => {
             }
         });
     }
-    
+
 
 
 
@@ -129,7 +131,7 @@ const MyAddresss = (props) => {
     };
 
     const renderFooter = () => {
-        return(
+        return (
             <AppButton
                 label={'Add New Address'}
                 isEmptyBG

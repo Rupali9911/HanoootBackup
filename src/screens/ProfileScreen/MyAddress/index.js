@@ -1,5 +1,5 @@
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import MyAddresss from '../../../Components/MyAddress'
 import { useSelector, useDispatch } from 'react-redux';
 import EmptyDetailScreen from '../../../Components/EmptyDetailScreen';
@@ -26,8 +26,9 @@ const MyAddress = () => {
             {
                 ADDRESS_DETAIL.length ?
                     <MyAddresss
-                    // onPressEdit={() => navigation.navigate('AddNewAddress')}
-                    isToastShow={(value) => setToastVisible(value)}
+                        // onPressEdit={() => navigation.navigate('AddNewAddress')}
+                        isToastShow={(value) => setToastVisible(value)}
+                        isProfileScreen
 
                     />
                     : <EmptyDetailScreen
@@ -38,14 +39,14 @@ const MyAddress = () => {
                         imgStyle={{
                             width: wp(73)
                         }}
-                        onpress={() => navigation.navigate('NewAddress', {PROFILE: true})}
+                        onpress={() => navigation.navigate('NewAddress', { PROFILE: true })}
                     />
             }
             {
                 ADDRESS_DETAIL.length ?
                     <TouchableOpacity
-                        style={[styles.submitButton, {zIndex: toastVisible ? -1 : 1}]}
-                        onPress={() => navigation.navigate('NewAddress', {PROFILE: true})}>
+                        style={[styles.submitButton, { zIndex: toastVisible ? -1 : 1 }]}
+                        onPress={() => navigation.navigate('NewAddress', { PROFILE: true })}>
                         <Image
                             source={Images.PlusWhiteIcon} style={{ height: 21, width: 21, resizeMode: 'contain' }} />
                     </TouchableOpacity>
