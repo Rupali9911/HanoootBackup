@@ -1,215 +1,61 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Platform } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Platform, Image } from 'react-native'
 import React, { useState, useRef } from 'react'
 import fonts from './fonts';
 import Colors from './Colors';
 import { Picker } from '@react-native-picker/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { hp } from './responsiveFunc';
+import Images from './Images';
 
 
 
 
 const AppInput = (props) => {
-    // const [showDropdown, setShowDropdown] = useState(false);
-    // const [selectedValue, setSelectedValue] = useState(props.defaultValue);
-    // const [inputValue, setInputValue] = useState(props.defaultValue);
-    // const [selectedLanguage, setSelectedLanguage] = useState();
+    const [showPassword, setShowPassword] = useState(true);
+    const [password, setPassword] = useState('');
 
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState();
-    const [items, setItems] = useState([
-        {
-            "label": "United States",
-            "value": "US"
-        },
-        {
-            "label": "Canada",
-            "value": "CA"
-        },
-        {
-            "label": "United Kingdom",
-            "value": "UK"
-        },
-        {
-            "label": "France",
-            "value": "FR"
-        },
-        {
-            "label": "Germany",
-            "value": "DE"
-        },
-        {
-            "label": "Australia",
-            "value": "AU"
-        },
-        {
-            "label": "Japan",
-            "value": "JP"
-        },
-        {
-            "label": "India",
-            "value": "IN"
-        },
-        {
-            "label": "China",
-            "value": "CN"
-        },
-        {
-            "label": "Italy",
-            "value": "IT"
-        },
-        {
-            "label": "Brazil",
-            "value": "BR"
-        },
-        {
-            "label": "Mexico",
-            "value": "MX"
-        },
-        {
-            "label": "South Africa",
-            "value": "ZA"
-        },
-        {
-            "label": "Russia",
-            "value": "RU"
-        },
-        {
-            "label": "Spain",
-            "value": "ES"
-        },
-        {
-            "label": "Indonesia",
-            "value": "ID"
-        },
-        {
-            "label": "Turkey",
-            "value": "TR"
-        },
-        {
-            "label": "Netherlands",
-            "value": "NL"
-        },
-        {
-            "label": "Switzerland",
-            "value": "CH"
-        },
-        {
-            "label": "Argentina",
-            "value": "AR"
-        },
-        {
-            "label": "Austria",
-            "value": "AT"
-        },
-        {
-            "label": "Belgium",
-            "value": "BE"
-        },
-        {
-            "label": "Greece",
-            "value": "GR"
-        },
-        {
-            "label": "Hong Kong",
-            "value": "HK"
-        },
-        {
-            "label": "Ireland",
-            "value": "IE"
-        },
-        {
-            "label": "Israel",
-            "value": "IL"
-        },
-        {
-            "label": "Malaysia",
-            "value": "MY"
-        },
-        {
-            "label": "New Zealand",
-            "value": "NZ"
-        },
-        {
-            "label": "Philippines",
-            "value": "PH"
-        },
-        {
-            "label": "Poland",
-            "value": "PL"
-        },
-        {
-            "label": "Singapore",
-            "value": "SG"
-        },
-        {
-            "label": "South Korea",
-            "value": "KR"
-        },
-        {
-            "label": "Sweden",
-            "value": "SE"
-        },
-        {
-            "label": "Thailand",
-            "value": "TH"
-        }
-    ]);
-
-
-    // const toggleDropdown = () => {
-    //     setShowDropdown(!showDropdown);
-    // };
-
-    // const onValueChange = (value, index) => {
-    //     setSelectedValue(value);
-    //     setInputValue(value);
-    //     props.onValueChange(value, index);
-    // };
-
-    // const pickerRef = useRef();
-
-    // function open() {
-    //     pickerRef.current.focus();
-    // }
-
-    // function close() {
-    //     pickerRef.current.blur();
-    // }
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
 
     return (
         <View style={[styles.inputContainer, props.inputContainerStyle]}>
             <Text style={[styles.label, props.labelStyle]}>{props.label}{props.required && <Text style={{ color: 'red' }}>*</Text>}</Text>
-            {
-                props.isDropDown ? 
-                
-                // <View style={{zIndex: 2}}>
-                <DropDownPicker
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                    style={!open ? styles.input : { borderWidth: 0 }}
-                    dropDownContainerStyle={{ borderWidth: 0 }}
-                    dropDownDirection="BOTTOM"
-                />
-                // </View>
-                 : 
-                <View style={{ height: hp('6%'),}}>
+            <View style={{ height: hp('6%'), flexDirection: 'row' }}>
                 <TextInput
                     style={[styles.input, props.textInputStyle]}
                     placeholder={props.placeholder}
                     onChangeText={props.onChangeText}
                     value={props.value}
-                    secureTextEntry={props.secureTextEntry}
+                    // secureTextEntry={props.secureTextEntry}
                     placeholderTextColor={Colors.GRAYDARK}
                     required={props.required}
-                />
-                 </View>
+                    // {...props}
+                    secureTextEntry={showPassword}
 
-            }
+                />
+                {
+                    props.isEyeIconShow &&
+                    <View style={{
+                        right: '5%',
+                        position: 'absolute',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        top: 0,
+                        bottom: 0
+                    }}>
+                        <TouchableOpacity onPress={toggleShowPassword}>
+                            <Image source={showPassword ? Images.Eye : Images.EyeOff}
+                                style={{
+                                    height: 20,
+                                    width: 20,
+                                    resizeMode: 'contain'
+                                }}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                }
+            </View>
             {props.error && <Text style={styles.errorMessage}>{props.error}</Text>}
             {props.success && <Text style={styles.successMessage}>{props.success}</Text>}
         </View>
@@ -313,7 +159,9 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VisbyCF_Medium,
         fontWeight: '500',
         letterSpacing: 0.5,
-        height: hp('6%')
+        height: hp('6%'),
+        flex: 1,
+        alignItems: 'center'
     },
     errorMessage: {
         fontSize: 14,

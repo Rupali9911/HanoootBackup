@@ -25,6 +25,7 @@ import MyAddress from '../ProfileScreen/MyAddress';
 import Location from '../../Components/MyAddress/Location';
 import NewAddress from '../../Components/MyAddress/NewAddress';
 import ToastPages from '../../Components/MyAddress/ToastPages';
+import ChangePassword from '../ProfileScreen/ChangePassword';
 
 
 const Stack = createStackNavigator();
@@ -58,6 +59,7 @@ export default function RootStackScreen() {
             <Stack.Screen name="Location" component={Location} options={{ headerMode: 'none' }} />
             <Stack.Screen name="NewAddress" component={NewAddress} options={{ headerMode: 'none' }} />
             <Stack.Screen name="ToastMessageScreen" component={ToastPages} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="ChangePassword" component={ChangePassword} options={{ headerMode: 'none' }} />
 
         </Stack.Navigator>
     );

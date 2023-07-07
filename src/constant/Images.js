@@ -84,4 +84,6 @@ export default {
     PlusWhiteIcon: require(`../assets/images/whitePlusIcon.png`),
     EmptyAddress: require(`../assets/images/EmptyAddress.png`),
     ToastSuccessBanner: require(`../assets/images/ToastSuccessBanner.png`),
+    EyeOff: require(`../assets/images/EyeOff.png`),
+    Eye: require(`../assets/images/Eye.png`),
 }

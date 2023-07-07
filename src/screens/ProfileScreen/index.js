@@ -117,6 +117,7 @@ const ProfileScreen = (props) => {
                     Login && <ListItem
                         Image={Images.ChangePassword}
                         title={'Change Password'}
+                        onPress={() => navigation.navigate('ChangePassword')}
                     />
 
                 }
