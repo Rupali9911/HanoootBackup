@@ -86,4 +86,8 @@ export default {
     ToastSuccessBanner: require(`../assets/images/ToastSuccessBanner.png`),
     EyeOff: require(`../assets/images/EyeOff.png`),
     Eye: require(`../assets/images/Eye.png`),
+    US_FLAG: require(`../assets/images/USFlag.png`),
+    IRAQ_FLAG: require(`../assets/images/IraqFlag.png`),
+    rightIcon: require(`../assets/images/rightIcon.png`),
+    HanoootLogo: require(`../assets/images/HanoootLogo.png`),
 }

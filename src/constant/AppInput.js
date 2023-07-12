@@ -13,17 +13,41 @@ import Images from './Images';
 const AppInput = (props) => {
     const [showPassword, setShowPassword] = useState(true);
     const [password, setPassword] = useState('');
+    const [isFocus, setIsFocus] = useState(false)
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
+
+    const handleFocus = () => setIsFocus(true);
+
+    const handleBlur = () => setIsFocus(false)
+
+    // console.log('check focus : ', isFocus)
+
+    const PasswordErrorRender = (props) => {
+        return (
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                <Image
+                    source={Images.rightIcon}
+                    style={{
+                        width: 8,
+                        height: 6,
+                        resizeMode: 'contain',
+                        tintColor: Colors.GRAYDARK
+                    }}
+                />
+                <Text style={styles.passwordError}>{props.label}</Text>
+            </View>
+        );
+    }
 
     return (
         <View style={[styles.inputContainer, props.inputContainerStyle]}>
             <Text style={[styles.label, props.labelStyle]}>{props.label}{props.required && <Text style={{ color: 'red' }}>*</Text>}</Text>
             <View style={{ height: hp('6%'), flexDirection: 'row' }}>
                 <TextInput
-                    style={[styles.input, props.textInputStyle]}
+                    style={[styles.input(isFocus), props.textInputStyle]}
                     placeholder={props.placeholder}
                     onChangeText={props.onChangeText}
                     value={props.value}
@@ -31,8 +55,12 @@ const AppInput = (props) => {
                     placeholderTextColor={Colors.GRAYDARK}
                     required={props.required}
                     // {...props}
-                    secureTextEntry={showPassword}
-
+                    // secureTextEntry={showPassword}
+                    // onBlur={props.onBlur}
+                    onBlur={handleBlur}
+                    onFocus={handleFocus}
+                    // onSubmitEditing={a => console.log(`onSubmitEditing: ${a}`) }
+                    {...props}
                 />
                 {
                     props.isEyeIconShow &&
@@ -45,7 +73,7 @@ const AppInput = (props) => {
                         bottom: 0
                     }}>
                         <TouchableOpacity onPress={toggleShowPassword}>
-                            <Image source={showPassword ? Images.Eye : Images.EyeOff}
+                            <Image source={showPassword && props.value ? Images.Eye : Images.EyeOff}
                                 style={{
                                     height: 20,
                                     width: 20,
@@ -58,6 +86,16 @@ const AppInput = (props) => {
             </View>
             {props.error && <Text style={styles.errorMessage}>{props.error}</Text>}
             {props.success && <Text style={styles.successMessage}>{props.success}</Text>}
+            {
+                props.passwordError &&
+                <View style={{
+                    marginVertical: '5%'
+                }}>
+                    <PasswordErrorRender label={'Must include a letter'} />
+                    <PasswordErrorRender label={'Must include a number'} />
+                    <PasswordErrorRender label={'Must be 8 -30 characters'} />
+                </View>
+            }
         </View>
 
 
@@ -147,9 +185,9 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: Colors.BLACK
     },
-    input: {
+    input: isFocus => ({
         borderWidth: 1,
-        borderColor: Colors.GRAY,
+        borderColor: isFocus ? Colors.themeColor : Colors.GRAY,
         // paddingVertical: Platform.OS === 'ios' ? 15 : 8,
         // paddingHorizontal: 20,
         paddingHorizontal: 20,
@@ -162,17 +200,37 @@ const styles = StyleSheet.create({
         height: hp('6%'),
         flex: 1,
         alignItems: 'center'
-    },
+    }),
     errorMessage: {
         fontSize: 14,
-        color: "red",
+        color: Colors.RED1,
         marginTop: 5,
+        fontFamily: fonts.VisbyCF_Medium,
+        fontWeight: 500
     },
     successMessage: {
         fontSize: 14,
         color: "green",
         marginTop: 5,
     },
+    passwordError: {
+        //         //styleName: English/Small Text Medium;
+        // font-family: Visby CF;
+        // font-size: 12px;
+        // font-weight: 500;
+        // line-height: 17px;
+        // letter-spacing: 0.005em;
+        // text-align: left;
+
+
+        fontFamily: fonts.VisbyCF_Medium,
+        fontSize: 12,
+        fontWeight: 500,
+        letterSpacing: 0.5,
+        textAlign: 'left',
+        color: Colors.GRAYDARK
+
+    }
 
 
 

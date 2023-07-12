@@ -26,7 +26,15 @@ import Location from '../../Components/MyAddress/Location';
 import NewAddress from '../../Components/MyAddress/NewAddress';
 import ToastPages from '../../Components/MyAddress/ToastPages';
 import ChangePassword from '../ProfileScreen/ChangePassword';
-
+import ChangePasswordSuccess from '../ProfileScreen/ChangePassword/ChangePasswordSuccess';
+import LanguageScreen from '../ProfileScreen/Language';
+import SupportScreen from '../ProfileScreen/Help&Support';
+import LegalPolicies from '../ProfileScreen/Legal&Policies';
+import PrivacyPolicies from '../ProfileScreen/Legal&Policies/privacyPolicies';
+import ReturnPolicy from '../ProfileScreen/Legal&Policies/returnPolicy';
+import PolicyView from '../ProfileScreen/Legal&Policies/PolicyView';
+import EditProfile from '../ProfileScreen/EditProfile';
+import Signup from '../AuthScreen/SignUp';
 
 const Stack = createStackNavigator();
 
@@ -60,9 +68,20 @@ export default function RootStackScreen() {
             <Stack.Screen name="NewAddress" component={NewAddress} options={{ headerMode: 'none' }} />
             <Stack.Screen name="ToastMessageScreen" component={ToastPages} options={{ headerMode: 'none' }} />
             <Stack.Screen name="ChangePassword" component={ChangePassword} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="ChangePasswordSuccess" component={ChangePasswordSuccess} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="LanguageScreen" component={LanguageScreen} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="SupportScreen" component={SupportScreen} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="LegalPolicies" component={LegalPolicies} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="PrivacyPolicies" component={PrivacyPolicies} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="ReturnPolicies" component={ReturnPolicy} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="PolicyWebViewScreen" component={PolicyView} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="EditProfileScreen" component={EditProfile} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="SignUpScreen" component={Signup} options={{ headerMode: 'none' }} />
+
 
         </Stack.Navigator>
     );
 }
 
 const styles = StyleSheet.create({})
+ 

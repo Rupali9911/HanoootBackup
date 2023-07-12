@@ -6,75 +6,122 @@ import AppInput from '../../../constant/AppInput';
 import fonts from '../../../constant/fonts';
 import Colors from '../../../constant/Colors';
 import AppButton from '../../Components/AppButton';
+import { useNavigation } from '@react-navigation/native';
 
 const ChangePassword = () => {
-  const [password, setPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState({})
+  const [isMatched, setIsMatched] = useState(false)
+
+  const navigation = useNavigation();
 
 
-  // const toggleShowPassword = () => {
-  //   setShowPassword(!showPassword);
-  // };
+  // console.log('check old password : ', !oldPassword ? false : true)
 
+
+  // Regular expression to validate oldPassword
   const validPasswordString = (value) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,15})/
+    setOldPassword(value);
+    const errList = {}
+    let reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 
-    const isValid = passwordRegex.test(value);
-
-    setPassword(value)
-
-    const errList = { ...error }
-
-    if (value && isValid) {
-      console.log('Valid Password')
-      errList.password = 'Valid Password'
+    if (value && !reg.test(value)) {
+      errList.newPassword = 'Password must contain at least 8 characters, one letter and one number';
+    } else {
+      errList.newPassword = ''
     }
-    else {
-      console.log('InValid Password')
-      errList.password = 'Invalid Password'
-    }
-    setError(errList)
-
+    setError(errList);
   }
 
+  // Compare value of two passwords
+  comparePasswords = (confirmPassword) => {
+    const errList = {}
+    if (confirmPassword && newPassword != confirmPassword) {
+      errList.confirmPassword = 'Password must contain at least 8 characters, one letter and one number';
+    } else {
+      errList.confirmPassword = '';
+    }
+    setError(errList);
+  }
 
+  const ChangePassword = () => {
+    let errorList = {};
+    !oldPassword ?
+      errorList["oldPassword"] = 'Enter your old password' :
+      !newPassword ? errorList["newPassword"] = 'Enter your new password' : 
+        !confirmPassword ? errorList["confirmPassword"] = 'Enter your confirm password' :
+          newPassword !== confirmPassword ? errorList["confirmPassword"] = 'Password are not matched!!' : {};
 
-
+    setError(errorList)
+    if (Object.keys(errorList).length == 0) {
+      setError({});
+      // navigation.navigate('ChangePasswordSuccess')
+      navigation.navigate('ToastMessageScreen', { title: 'Password Updated Successfully!', navigate: 'ProfileScreen' }) 
+    }
+  }
 
   return (
     <AppBackground>
       <AppHeader showBackButton title={'Reset Password'} />
-      <Text style={styles.title}>New password should be different from your current password</Text>
+      <Text style={styles.title}>New oldPassword should be different from your current oldPassword</Text>
       <AppInput
-        placeholder={'Enter your current password'}
+        placeholder={'Enter your current Password'}
         label={'Enter Current Password'}
         isEyeIconShow
-        value={password}
-        onChangeText={(password) => validPasswordString(password)}
-        error={error["password"]}
+        value={oldPassword}
+        onChangeText={(oldPassword) => {
+          setOldPassword(oldPassword);
+          // !oldPassword ? error["oldPassword"] = '' : null
+        }}
+        error={error["oldPassword"]}
+        maxLength={9}
+        // onBlur={() => {
+        //   validPasswordString(oldPassword)
+        // }}
+
       />
       <AppInput
-        placeholder={'Enter new password'}
-        label={'Enter new password'}
+        placeholder={'Enter new Password'}
+        label={'Enter new Password'}
         isEyeIconShow
         value={newPassword}
-        onChangeText={newPassword => setNewPassword(newPassword)}
+        onChangeText={(newPassword) => {
+          setNewPassword(newPassword);
+          !newPassword ? error["newPassword"] = '' : null
+        }}
+        maxLength={9}
+        error={error["newPassword"]}
+        onBlur={() => {
+          validPasswordString(newPassword)
+        }}
       />
+
+
       <AppInput
-        placeholder={'Re-enter new password'}
+        placeholder={'Re-enter new Password'}
         label={'Confirm New Password'}
         isEyeIconShow
         value={confirmPassword}
-        onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
+        onChangeText={(confirmPassword) => {
+          setConfirmPassword(confirmPassword);
+          // !confirmPassword ? error["confirmPassword"] = '' : null
+        }}
+        // onChangeText={newPassword => setNewPassword(newPassword)}
+        maxLength={9}
+        error={error["confirmPassword"]}
+        // onBlur={() => {
+        //   comparePasswords(confirmPassword)
+        // }}
       />
 
 
       <AppButton
         label={'Update Password'}
+        view={!oldPassword || !newPassword || !confirmPassword ? true : false}
         containerStyle={{ flex: 1, bottom: 50, position: 'absolute' }}
-        onPress={() => console.log('value of change password : ', password, newPassword, confirmPassword)}
+        onPress={ChangePassword}
       />
     </AppBackground>
 
@@ -96,31 +143,3 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
 })
-
-
-// import React, { useState } from 'react';
-// import { TextInput, TouchableOpacity, Text, View } from 'react-native';
-
-// const PasswordInput = () => {
-//   const [showPassword, setShowPassword] = useState(false);
-//   const [password, setPassword] = useState('');
-
-//   const toggleShowPassword = () => {
-//     setShowPassword(!showPassword);
-//   };
-
-//   return (
-//     <View>
-//       <TextInput
-//         secureTextEntry={!showPassword}
-//         onChangeText={(text) => setPassword(text)}
-//         value={password}
-//       />
-//       <TouchableOpacity onPress={toggleShowPassword}>
-//         <Text>{showPassword ? 'Hide' : 'Show'}</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-// };
-
-// export default PasswordInput;

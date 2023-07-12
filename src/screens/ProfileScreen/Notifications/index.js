@@ -7,12 +7,25 @@ import Colors from '../../../constant/Colors'
 import ToggleSwitch from 'toggle-switch-react-native'
 
 const Notification = () => {
-    const [myOrderToggle, setMyOrderToggle] = useState(false);
-    const [reminderToggle, setReminderToggle] = useState(false);
-    const [newOfferToggle, setNewOfferToggle] = useState(false);
-    const [hanoootToggle, setHanoootToggle] = useState(false);
-    const [reviewToggle, setReviewToggle] = useState(false);
+    
+    const CustomToggleSwitch = (props) => {
+        const [isEnabled, setIsEnabled] = useState(false);
 
+        const toggleSwitch = (toggle) => {
+            setIsEnabled(toggle)
+            props.setToggle(toggle)
+        }
+
+        return (
+                <ToggleSwitch
+                    isOn={isEnabled}
+                    onColor={Colors.themeColor}
+                    offColor={Colors.GRAY}
+                    size='medium'
+                    onToggle={(isOn) => toggleSwitch(isOn)}
+                />
+        );
+    };
 
     const ListItems = (props) => {
         return(
@@ -21,12 +34,8 @@ const Notification = () => {
                     <Text style={styles.notify}>{props.title}</Text>
                     <Text style={styles.notifyDesc} >{props.desc}</Text>
                 </View>
-                <ToggleSwitch
-                    isOn={props.toggle}
-                    onColor={Colors.themeColor}
-                    offColor={Colors.GRAY}
-                   
-                    onToggle={props.onToggle}
+                <CustomToggleSwitch 
+                    setToggle={props.getToggleValue}
                 />
             </View>
         );
@@ -41,51 +50,30 @@ const Notification = () => {
 
             <Text style={styles.topLine}>Get Notification from Hanooot on your mobile</Text>
 
-            {/* <View style={styles.listContainer}>
-                <View>
-                    <Text style={styles.notify}>My Orders</Text>
-                    <Text style={styles.notifyDesc} >Latest updates on your orders</Text>
-                </View>
-                <ToggleSwitch
-                    isOn={toggle}
-                    onColor={Colors.themeColor}
-                    offColor={Colors.GRAY}
-                   
-                    onToggle={isOn => {
-                        setToggle(isOn)
-                        console.log("changed to : ", isOn)}}
-                />
-            </View> */}
-
             <ListItems 
             title={'My Orders'}
             desc={'Latest updates on your orders'}
-            toggle={myOrderToggle}
-            onToggle={setMyOrderToggle}    
+            // getToggleValue={(toggle) => console.log('Check First Toggle Value : ', toggle)}    
             />
             <ListItems 
             title={'Reminder'}
             desc={'Price drops, Back-in-stock products, etc'}
-            toggle={reminderToggle}
-            onToggle={setReminderToggle}   
+            // getToggleValue={(toggle) => console.log('Check Second Toggle Value : ', toggle)} 
             />
             <ListItems 
             title={'New Offers'}
-            desc={'Top deals, offers & more'}
-            toggle={newOfferToggle}
-            onToggle={setNewOfferToggle}   
+            desc={'Top deals, offers & more'}  
+            // getToggleValue={(toggle) => console.log('Check THIRD Toggle Value : ', toggle)} 
             />
             <ListItems 
             title={'Hanooot Community'}
             desc={'Profile updates, communication, news'}
-            toggle={hanoootToggle}
-            onToggle={setHanoootToggle}   
+            // getToggleValue={(toggle) => console.log('Check FOURTH Toggle Value : ', toggle)} 
             />
             <ListItems 
             title={'Feedback & Review'}
             desc={'Ratings and reviews of your purchase'}
-            toggle={reviewToggle}
-            onToggle={setReviewToggle}   
+            // getToggleValue={(toggle) => console.log('Check FIVE Toggle Value : ', toggle)}   
             />
         </AppBackground>
     )
@@ -103,9 +91,11 @@ const styles = StyleSheet.create({
     listContainer: {
         backgroundColor: Colors.WHITE,
         paddingHorizontal: '5%',
-        paddingVertical: '3%',
+        paddingVertical: '4%',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        borderBottomColor: Colors.GRAY,
+        borderBottomWidth: 0.3
     },
     notify: {
         fontFamily: fonts.VisbyCF_Demibold,

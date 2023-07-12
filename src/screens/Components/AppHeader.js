@@ -14,8 +14,8 @@ export default function AppHeader(props) {
 
   return (
 
-    <View style={styles.container}>
-      <View style={{ alignItems: 'flex-start' , justifyContent: 'center'}}>
+    <View style={[styles.container, props.mainContainerStyle]}>
+      <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
         {props.showBackButton ? (
           <TouchableOpacity
             style={styles.backContainer}
@@ -40,19 +40,28 @@ export default function AppHeader(props) {
           <View style={{ flex: 1, width: '100%', justifyContent: 'center' }}>
             <AppSearch placeholderText={props.placeholderText} onChangeText={(val) => setSearch(val)} />
           </View>
-        ) : (
-          <Text
-            numberOfLines={1}
-            style={[
-              styles.title,
-              {
-                paddingLeft: 10
-              },
-              props.titleStyle,
-            ]}>
-            {props.title}
-          </Text>
-        )}
+        ) :
+          props.Image ?
+            <Image source={Images.HanoootLogo} style={{
+              width: 90,
+              height: 60,
+              resizeMode: 'contain'
+            }}/>
+            :
+            (
+              <Text
+                numberOfLines={1}
+                style={[
+                  styles.title,
+                  {
+                    // paddingLeft: 10,
+                    left: props.showBackButton ? -10 : 10
+                  },
+                  props.titleStyle,
+                ]}>
+                {props.title}
+              </Text>
+            )}
       </View>
 
 
@@ -71,9 +80,9 @@ export default function AppHeader(props) {
             {props.rightIcon}
           </TouchableOpacity>
         ) : props.showRightComponent ? (
-          <Text 
-          style={[styles.title, { color: Colors.themeColor, paddingRight: 10 }]}
-          onPressRightText
+          <Text
+            style={[styles.title, { color: Colors.themeColor, paddingRight: 10 }]}
+            onPressRightText
           >{'Cancel'}</Text>
         ) : null}
       </View>
@@ -164,11 +173,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fonts.VisbyCF_Bold,
-    fontSize: 16,
+    fontSize: 18,
     letterSpacing: 0.5,
     lineHeight: 21,
     fontWeight: 700,
-    color: Colors.BLACK
+    color: Colors.BLACK,
+    // backgroundColor: 'red',
+    // justifyContent: 'flex-start',
+    // alignItems: 'flex-start'
 
   },
   likeIcon: {
@@ -178,7 +190,11 @@ const styles = StyleSheet.create({
     tintColor: Colors.BLACK
   },
   mainTitleStyle: {
-    flex: 1, height: '100%', justifyContent: 'center', 
-    alignItems: 'center'
+    flex: 1,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // width: '100%',
+
   }
 })

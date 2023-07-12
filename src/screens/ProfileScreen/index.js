@@ -23,7 +23,7 @@ const ProfileScreen = (props) => {
                 {
                     Login ?
                         <TouchableOpacity
-                            onPress={() => console.log('profile')}>
+                            onPress={() => navigation.navigate('EditProfileScreen')}>
                             <Image source={Images?.pencilIcon} style={styles.pencilImg} />
                         </TouchableOpacity>
                         :
@@ -119,12 +119,12 @@ const ProfileScreen = (props) => {
                         title={'Change Password'}
                         onPress={() => navigation.navigate('ChangePassword')}
                     />
-
                 }
 
                 <ListItem
-                    Image={Images.Language} x
+                    Image={Images.Language}
                     title={'Language'}
+                    onPress={() => navigation.navigate('LanguageScreen')}
                 />
                 <ListItem
                     Image={Images.Notification}
@@ -135,10 +135,12 @@ const ProfileScreen = (props) => {
                 <ListItem
                     Image={Images.Question}
                     title={'Help & Support'}
+                    onPress={() => navigation.navigate('SupportScreen')}
                 />
                 <ListItem
                     Image={Images.Shield}
                     title={'Legal and Policies'}
+                    onPress={() => navigation.navigate('LegalPolicies')}
                 />
                 <View style={styles.socialIconContainer}>
                     <SocialIcon

@@ -9,7 +9,7 @@ import Checkout from '../Checkout';
 import ProfileScreen from '../ProfileScreen';
 import { useNavigation } from '@react-navigation/native';
 import EmptyDetailScreen from '../../Components/EmptyDetailScreen';
-
+import Signup from '../AuthScreen/SignUp';
 
 const Tab = createBottomTabNavigator();
 
@@ -93,7 +93,8 @@ export default function TabComponent() {
                 },
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
+            {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
+            <Tab.Screen name="Home" component={Signup} />
             <Tab.Screen name="Categories" component={D} />
             <Tab.Screen name="Cart" component={CartScreen}/>
             <Tab.Screen name="Profile" component={ProfileScreen} />

@@ -43,7 +43,8 @@ const ToastPages = (props) => {
             <AppButton
                 label={'Go Back'}
                 containerStyle={{ bottom: 50 }}
-                onPress={() => navigation.navigate('MyAddress')}
+                onPress={() => navigation.navigate(props.route.params.navigate)}
+                // onPress={() => props.onPress ? props.onPress : navigation.navigate('MyAddress')}
             />
         </>
     )
