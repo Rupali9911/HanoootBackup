@@ -24,13 +24,13 @@ export default function TabComponent() {
     }
     const D = () => {
         return (
-            <View style={{flex: 1, justifyContent:'center', alignItems: 'center'}}>
-            <TouchableOpacity
-            onPress={() => navigation.navigate('ProfileScreen', {LoggedIn: true})}
-            >
-                <Text>Show Logged in Profile</Text>
-            </TouchableOpacity>
-            
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('ProfileScreen', { LoggedIn: true })}
+                >
+                    <Text>Show Logged in Profile</Text>
+                </TouchableOpacity>
+
             </View>
             // <EmptyDetailScreen />
         );
@@ -74,7 +74,7 @@ export default function TabComponent() {
                     if (route.name === 'Home') {
                         iconName = focused ? Images.homeSelected : Images.home;
                     }
-                     else if (route.name === 'Categories') {
+                    else if (route.name === 'Categories') {
                         iconName = focused ? Images.homeSelected : Images.categories;
                     }
                     else if (route.name === 'Cart') {
@@ -93,10 +93,11 @@ export default function TabComponent() {
                 },
             })}
         >
-            {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
-            <Tab.Screen name="Home" component={Signup} />
+            <Tab.Screen name="Home" component={HomeScreen} />
+            {/* <Tab.Screen name="Home" component={Signup} /> */}
             <Tab.Screen name="Categories" component={D} />
-            <Tab.Screen name="Cart" component={CartScreen}/>
+            <Tab.Screen name="Cart" component={CartScreen} />
+            {/* <Tab.Screen name="Cart" component={Signup} /> */}
             <Tab.Screen name="Profile" component={ProfileScreen} />
 
         </Tab.Navigator>

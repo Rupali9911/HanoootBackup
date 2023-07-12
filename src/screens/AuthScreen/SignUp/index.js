@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import AppBackground from '../../Components/AppBackground';
 import Colors from '../../../constant/Colors';
 import AppHeader from '../../Components/AppHeader';
-import { hp } from '../../../constant/responsiveFunc';
+import { hp, wp } from '../../../constant/responsiveFunc';
 import fonts from '../../../constant/fonts';
 import AppInput from '../../../constant/AppInput';
+import AppButton from '../../Components/AppButton';
 
 const Signup = () => {
     return (
@@ -38,6 +39,39 @@ const Signup = () => {
                 passwordError
             />
 
+            {/* <Text style={styles.termsPrivacy} >
+                By Continuing, you agree to Hanooot
+                <TouchableOpacity onPress={() => console.log('Terms & Condition')}>
+                    <Text style={{ color: Colors.themeColor }} > Terms and Conditions </Text>
+                </TouchableOpacity>
+                and
+                <TouchableOpacity onPress={() => console.log('Privacy Policy')}>
+                    <Text style={{ color: Colors.themeColor }} > Privacy Policy </Text>
+                </TouchableOpacity>
+            </Text> */}
+
+            <AppButton
+                label={'Continue'}
+            />
+
+
+            {/* <View style={{ backgroundColor: 'red' }}>
+                <Text style={{ textAlign: 'center', width: '50%' }}>Or sign up with</Text>
+            </View> */}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: wp(100) }}>
+                <View style={{ borderBottomColor: Colors.GRAY, borderBottomWidth: 1, width: '35%' }}>
+
+                </View>
+                <Text style={{
+                    fontFamily: fonts.VISBY_CF_REGULAR,
+                    fontWeight: 600,
+                    fontSize: 13,
+                    letterSpacing: 0.5,
+                }}>Or Sign Up with</Text>
+                <View style={{ borderBottomColor: Colors.GRAY, borderBottomWidth: 1, width: '35%' }}>
+
+                </View>
+            </View>
 
 
         </AppBackground>
@@ -59,6 +93,27 @@ const styles = StyleSheet.create({
         // backgroundColor: 'red',
         borderBottomColor: Colors.GRAY,
         borderBottomWidth: 1
+    },
+    termsPrivacy: {
+        fontFamily: fonts.VisbyCF_Medium,
+        fontWeight: 500,
+        letterSpacing: 0.5,
+        textAlign: 'left',
+        color: Colors.GRAY3,
+        marginHorizontal: '5%',
+        // backgroundColor: 'red'
+
+
+
+
+        //         //styleName: English/Body Text Medium;
+        // font-family: Visby CF;
+        // font-size: 14px;
+        // font-weight: 500;
+        // line-height: 19px;
+        // letter-spacing: 0.005em;
+        // text-align: left;
+
     }
 
     //     //styleName: English/H1 Text Semi Bold;
