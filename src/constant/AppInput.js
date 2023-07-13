@@ -6,6 +6,8 @@ import { Picker } from '@react-native-picker/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { hp } from './responsiveFunc';
 import Images from './Images';
+import { CountryPicker } from "react-native-country-codes-picker";
+
 
 
 
@@ -14,6 +16,10 @@ const AppInput = (props) => {
     const [showPassword, setShowPassword] = useState(true);
     const [password, setPassword] = useState('');
     const [isFocus, setIsFocus] = useState(false)
+
+
+    const [show, setShow] = useState(false);
+    const [countryCode, setCountryCode] = useState('');
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
@@ -46,6 +52,40 @@ const AppInput = (props) => {
         <View style={[styles.inputContainer, props.inputContainerStyle]}>
             <Text style={[styles.label, props.labelStyle]}>{props.label}{props.required && <Text style={{ color: 'red' }}>*</Text>}</Text>
             <View style={{ height: hp('6%'), flexDirection: 'row' }}>
+                {/* ============================= */}
+
+                <View style={styles.container}>
+                    <TouchableOpacity
+                        onPress={() => setShow(true)}
+                        style={{
+                            width: '80%',
+                            height: 60,
+                            backgroundColor: 'black',
+                            padding: 10,
+                        }}
+                    >
+                        <Text style={{
+                            color: 'white',
+                            fontSize: 20
+                        }}>
+                            {countryCode}
+                        </Text>
+                    </TouchableOpacity>
+
+                    <CountryPicker
+                        show={show}
+                        // when picker button press you will get the country object with dial code
+                        pickerButtonOnPress={(item) => {
+                            setCountryCode(item.dial_code);
+                            setShow(false);
+                        }}
+                    />
+                </View>
+
+
+
+
+                {/* ============================= */}
                 <TextInput
                     style={[styles.input(isFocus), props.textInputStyle]}
                     placeholder={props.placeholder}

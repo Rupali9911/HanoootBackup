@@ -90,4 +90,7 @@ export default {
     IRAQ_FLAG: require(`../assets/images/IraqFlag.png`),
     rightIcon: require(`../assets/images/rightIcon.png`),
     HanoootLogo: require(`../assets/images/HanoootLogo.png`),
+    GoogleIcon: require(`../assets/images/Google.png`),
+    FacebookIcon: require(`../assets/images/FacebookIcon.png`),
+    AppleIcon: require(`../assets/images/AppleIcon.png`),
 }

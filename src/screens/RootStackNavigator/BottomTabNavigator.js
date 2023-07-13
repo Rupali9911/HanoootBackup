@@ -96,8 +96,8 @@ export default function TabComponent() {
             <Tab.Screen name="Home" component={HomeScreen} />
             {/* <Tab.Screen name="Home" component={Signup} /> */}
             <Tab.Screen name="Categories" component={D} />
-            <Tab.Screen name="Cart" component={CartScreen} />
-            {/* <Tab.Screen name="Cart" component={Signup} /> */}
+            {/* <Tab.Screen name="Cart" component={CartScreen} /> */}
+            <Tab.Screen name="Cart" component={Signup} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
 
         </Tab.Navigator>
