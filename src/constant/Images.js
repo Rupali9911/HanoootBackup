@@ -93,4 +93,5 @@ export default {
     GoogleIcon: require(`../assets/images/Google.png`),
     FacebookIcon: require(`../assets/images/FacebookIcon.png`),
     AppleIcon: require(`../assets/images/AppleIcon.png`),
+    OTPVerify: require(`../assets/images/OTPVerify.png`),
 }

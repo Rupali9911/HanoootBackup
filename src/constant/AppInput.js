@@ -4,10 +4,9 @@ import fonts from './fonts';
 import Colors from './Colors';
 import { Picker } from '@react-native-picker/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { hp } from './responsiveFunc';
+import { hp, wp } from './responsiveFunc';
 import Images from './Images';
-import { CountryPicker } from "react-native-country-codes-picker";
-
+import PhoneInput from "react-native-phone-number-input";
 
 
 
@@ -16,10 +15,12 @@ const AppInput = (props) => {
     const [showPassword, setShowPassword] = useState(true);
     const [password, setPassword] = useState('');
     const [isFocus, setIsFocus] = useState(false)
-
-
     const [show, setShow] = useState(false);
-    const [countryCode, setCountryCode] = useState('');
+    const [value, setValue] = useState("");
+    const [formattedValue, setFormattedValue] = useState("");
+
+    const phoneInput = useRef(null);
+
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
@@ -27,9 +28,11 @@ const AppInput = (props) => {
 
     const handleFocus = () => setIsFocus(true);
 
-    const handleBlur = () => setIsFocus(false)
+    const handleBlur = () => {
+        setIsFocus(false);
+    }
 
-    // console.log('check focus : ', isFocus)
+    console.log('check focus : ', props.success)
 
     const PasswordErrorRender = (props) => {
         return (
@@ -40,90 +43,160 @@ const AppInput = (props) => {
                         width: 8,
                         height: 6,
                         resizeMode: 'contain',
-                        tintColor: Colors.GRAYDARK
+                        tintColor: props.isSuccess ? Colors.GREEN : Colors.GRAYDARK
                     }}
                 />
-                <Text style={styles.passwordError}>{props.label}</Text>
+                <Text style={[styles.passwordError, {color: props.isSuccess ? Colors.GREEN : Colors.GRAYDARK}]}>{props.label}</Text>
             </View>
         );
     }
 
     return (
-        <View style={[styles.inputContainer, props.inputContainerStyle]}>
+
+        // <View style={[styles.inputContainer, props.inputContainerStyle]}>
+        //     <Text style={[styles.label, props.labelStyle]}>{props.label}{props.required && <Text style={{ color: 'red' }}>*</Text>}</Text>
+        //     <View style={{ height: hp('6%'), flexDirection: 'row' }}>
+        //         <TextInput
+        //             style={[styles.input(isFocus), props.textInputStyle]}
+        //             placeholder={props.placeholder}
+        //             onChangeText={props.onChangeText}
+        //             value={props.value}
+        //             // secureTextEntry={props.secureTextEntry}
+        //             placeholderTextColor={Colors.GRAYDARK}
+        //             required={props.required}
+        //             // {...props}
+        //             // secureTextEntry={showPassword}
+        //             // onBlur={props.onBlur}
+        //             onBlur={handleBlur}
+        //             onFocus={handleFocus}
+        //             // onSubmitEditing={a => console.log(`onSubmitEditing: ${a}`) }
+        //             {...props}
+        //         />
+        //         {
+        //             props.isEyeIconShow &&
+        //             <View style={{
+        //                 right: '5%',
+        //                 position: 'absolute',
+        //                 alignItems: 'center',
+        //                 justifyContent: 'center',
+        //                 top: 0,
+        //                 bottom: 0
+        //             }}>
+        //                 <TouchableOpacity onPress={toggleShowPassword}>
+        //                     <Image source={showPassword && props.value ? Images.Eye : Images.EyeOff}
+        //                         style={{
+        //                             height: 20,
+        //                             width: 20,
+        //                             resizeMode: 'contain'
+        //                         }}
+        //                     />
+        //                 </TouchableOpacity>
+        //             </View>
+        //         }
+        //     </View>
+        //     {props.error && <Text style={styles.errorMessage}>{props.error}</Text>}
+        //     {props.success && <Text style={styles.successMessage}>{props.success}</Text>}
+        //     {
+        //         props.passwordError &&
+        //         <View style={{
+        //             marginVertical: '5%'
+        //         }}>
+        //             <PasswordErrorRender label={'Must include a letter'} />
+        //             <PasswordErrorRender label={'Must include a number'} />
+        //             <PasswordErrorRender label={'Must be 8 -30 characters'} />
+        //         </View>
+        //     }
+        // </View>
+
+
+        <View style={styles.mainContainer}>
             <Text style={[styles.label, props.labelStyle]}>{props.label}{props.required && <Text style={{ color: 'red' }}>*</Text>}</Text>
-            <View style={{ height: hp('6%'), flexDirection: 'row' }}>
-                {/* ============================= */}
 
-                <View style={styles.container}>
-                    <TouchableOpacity
-                        onPress={() => setShow(true)}
-                        style={{
-                            width: '80%',
-                            height: 60,
-                            backgroundColor: 'black',
-                            padding: 10,
-                        }}
-                    >
-                        <Text style={{
-                            color: 'white',
-                            fontSize: 20
-                        }}>
-                            {countryCode}
-                        </Text>
-                    </TouchableOpacity>
-
-                    <CountryPicker
-                        show={show}
-                        // when picker button press you will get the country object with dial code
-                        pickerButtonOnPress={(item) => {
-                            setCountryCode(item.dial_code);
-                            setShow(false);
-                        }}
-                    />
-                </View>
-
-
-
-
-                {/* ============================= */}
-                <TextInput
-                    style={[styles.input(isFocus), props.textInputStyle]}
-                    placeholder={props.placeholder}
-                    onChangeText={props.onChangeText}
-                    value={props.value}
-                    // secureTextEntry={props.secureTextEntry}
-                    placeholderTextColor={Colors.GRAYDARK}
-                    required={props.required}
-                    // {...props}
-                    // secureTextEntry={showPassword}
-                    // onBlur={props.onBlur}
-                    onBlur={handleBlur}
-                    onFocus={handleFocus}
-                    // onSubmitEditing={a => console.log(`onSubmitEditing: ${a}`) }
-                    {...props}
-                />
-                {
-                    props.isEyeIconShow &&
-                    <View style={{
-                        right: '5%',
-                        position: 'absolute',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        top: 0,
-                        bottom: 0
-                    }}>
-                        <TouchableOpacity onPress={toggleShowPassword}>
-                            <Image source={showPassword && props.value ? Images.Eye : Images.EyeOff}
-                                style={{
-                                    height: 20,
-                                    width: 20,
-                                    resizeMode: 'contain'
+            <View style={styles.container}>
+                <View style={styles.inputContainer(isFocus)}>
+                    {
+                        props.isNumberField ?
+                            <PhoneInput
+                                ref={phoneInput}
+                                defaultValue={props.value}
+                                defaultCode="IN"
+                                layout="first"
+                                onChangeText={props.onChangeText}
+                                value={props.value}
+                                // onChangeFormattedText={(text) => {
+                                //     setFormattedValue(text);
+                                // }}
+                                onChangeCountry={props.onChangeCountry}
+                                onChangeFormattedText={props.onChangeFormattedText}
+                                countryPickerButtonStyle={[styles.countryCodePickerStyle(isFocus), styles.countryButtonPicker ]}
+                                textInputStyle={styles.input}
+                                isValidNumber={true}
+                                textInputProps={{
+                                    keyboardType: "phone-pad",
+                                    onFocus: () => handleFocus(),
+                                    onBlur: () => handleBlur(),
                                 }}
+                                textContainerStyle={styles.countryCodePickerStyle(isFocus)}
+                                placeholder={props.placeholder}
+                                {...props}
                             />
-                        </TouchableOpacity>
-                    </View>
-                }
+                            :
+                            <TextInput
+                                style={styles.input}
+                                placeholder={props.placeholder}
+                                onChangeText={props.onChangeText}
+                                value={props.value}
+                                secureTextEntry={props.secureTextEntry}
+                                placeholderTextColor={Colors.GRAYDARK}
+                                required={props.required}
+                                {...props}
+                                // secureTextEntry={showPassword}
+                                // onBlur={props.onBlur}
+                                onBlur={handleBlur}
+                                onFocus={handleFocus}
+                                keyboardType={props.keyboardType}
+                            />
+                    }
+
+                    {/* <TextInput
+                        style={styles.input}
+                        placeholder={props.placeholder}
+                        onChangeText={props.onChangeText}
+                        value={props.value}
+                        secureTextEntry={props.secureTextEntry}
+                        placeholderTextColor={Colors.GRAYDARK}
+                        required={props.required}
+                        {...props}
+                        // secureTextEntry={showPassword}
+                        // onBlur={props.onBlur}
+                        onBlur={handleBlur}
+                        onFocus={handleFocus}
+                    /> */}
+                    {
+                        props.rightComponent &&
+                        <View style={{
+                            right: '5%',
+                            position: 'absolute',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            top: 0,
+                            bottom: 0
+                        }}>
+                            <TouchableOpacity onPress={props.onPasswordPress}>
+                                <Image source={props.secureTextEntry && isFocus ? Images.Eye : Images.EyeOff}
+                                    style={{
+                                        height: 20,
+                                        width: 20,
+                                        resizeMode: 'contain'
+                                    }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    }
+
+                </View>
             </View>
+
             {props.error && <Text style={styles.errorMessage}>{props.error}</Text>}
             {props.success && <Text style={styles.successMessage}>{props.success}</Text>}
             {
@@ -131,89 +204,23 @@ const AppInput = (props) => {
                 <View style={{
                     marginVertical: '5%'
                 }}>
-                    <PasswordErrorRender label={'Must include a letter'} />
-                    <PasswordErrorRender label={'Must include a number'} />
-                    <PasswordErrorRender label={'Must be 8 -30 characters'} />
+                    <PasswordErrorRender label={'Must include a letter'} isSuccess={props.passwordSuccess}/>
+                    <PasswordErrorRender label={'Must include a number'} isSuccess={props.passwordSuccess}/>
+                    <PasswordErrorRender label={'Must be 8 -30 characters'} isSuccess={props.passwordSuccess}/>
                 </View>
             }
+
         </View>
 
 
 
-        // <View style={{
-        //     backgroundColor: '#171717',
-        //     flex: 1,
-        //     alignItems: 'center',
-        //     justifyContent: 'center',
-        //     paddingHorizontal: 15
-        // }}>
-        //     <DropDownPicker
-        //         open={open}
-        //         value={value}
-        //         items={items}
-        //         setOpen={setOpen}
-        //         setValue={setValue}
-        //         setItems={setItems}
-
-        //         // theme="LIGHT"
-        //         // mode="BADGE"
-        //         style={!open && styles.input}
-        //                />
-        // </View>
-
-        //         <View style={styles.container}>
-        //         <View style={styles.labelContainer}>
-        //           <Text style={styles.label}>{props.label}</Text>
-        //         </View>
-        //         <View style={styles.inputContainer}>
-        //           <TextInput
-        //             style={styles.input}
-        //             value={inputValue}
-        //             onChangeText={text => setInputValue(text)}
-        //           />
-        //           <TouchableOpacity onPress={toggleDropdown}>
-        //             <Text style={styles.icon}>{props.icon}</Text>
-        //           </TouchableOpacity>
-        //         </View>
-        //         <Modal visible={showDropdown} animationType="slide">
-        //           <View style={styles.modalContainer}>
-        //             {/* <Picker
-        //               selectedValue={selectedValue}
-        //               style={styles.picker}
-        //               onValueChange={onValueChange}
-        //             >
-        //               {props.data.map((item, index) => (
-        //                 <Picker.Item label={item} value={item} key={index} />
-        //               ))}
-        //             </Picker> */}
-        //             <Picker
-        //   selectedValue={selectedLanguage}
-        //   onValueChange={(itemValue, itemIndex) =>
-        //     setSelectedLanguage(itemValue)
-        //   }>
-        //   <Picker.Item label="Java" value="java" />
-        //   <Picker.Item label="JavaScript" value="js" />
-        // </Picker>
-        //           </View>
-        //         </Modal>
-        //         {props.errorMessage && (
-        //           <View style={styles.errorContainer}>
-        //             <Text style={styles.errorMessage}>{props.errorMessage}</Text>
-        //           </View>
-        //         )}
-        //         {props.successMessage && (
-        //           <View style={styles.successContainer}>
-        //             <Text style={styles.successMessage}>{props.successMessage}</Text>
-        //           </View>
-        //         )}
-        //       </View>
     );
 };
 
 export default AppInput
 
 const styles = StyleSheet.create({
-    inputContainer: {
+    mainContainer: {
         marginHorizontal: '5%',
         marginTop: '5%'
     },
@@ -225,22 +232,41 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: Colors.BLACK
     },
-    input: isFocus => ({
+    container: {
+        // flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: hp('6%'),
+        // backgroundColor: 'yellow'
+    },
+    inputContainer: isFocus => ({
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
         borderWidth: 1,
         borderColor: isFocus ? Colors.themeColor : Colors.GRAY,
-        // paddingVertical: Platform.OS === 'ios' ? 15 : 8,
-        // paddingHorizontal: 20,
         paddingHorizontal: 20,
-        // fontSize: 16,
         borderRadius: 100,
         backgroundColor: Colors.WHITE,
+        height: hp('6%'),
+    }),
+    imageStyle: {
+        padding: 10,
+        margin: 5,
+        height: 25,
+        width: 25,
+        resizeMode: 'stretch',
+        alignItems: 'center',
+    },
+
+    input: {
+        flex: 1,
         fontFamily: fonts.VisbyCF_Medium,
         fontWeight: '500',
         letterSpacing: 0.5,
-        height: hp('6%'),
-        flex: 1,
-        alignItems: 'center'
-    }),
+        // padding: 0
+        // backgroundColor: 'red'
+    },
     errorMessage: {
         fontSize: 14,
         color: Colors.RED1,
@@ -270,7 +296,29 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         color: Colors.GRAYDARK
 
+    },
+    countryCodePickerStyle: isFocus => ({
+        height: hp('6%'),
+       
+        borderTopColor: isFocus ? Colors.themeColor : Colors.GRAY,
+        borderBottomColor: isFocus ? Colors.themeColor : Colors.GRAY,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        backgroundColor: Colors.WHITE
+       
+    }),
+    countryButtonPicker: {
+        width: 70,
+        borderRightColor: Colors.GRAY,
+        borderRightWidth: 1
     }
+    // borderTopColor: isFocus ? Colors.themeColor : Colors.GRAY,
+    // borderBottomColor: isFocus ? Colors.themeColor : Colors.GRAY,
+
+    // borderTopWidth: 1,
+    // borderBottomWidth: 1,
+    // backgroundColor: Colors.WHITE,
+    // height: hp('6%'),
 
 
 

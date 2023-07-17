@@ -35,6 +35,8 @@ import ReturnPolicy from '../ProfileScreen/Legal&Policies/returnPolicy';
 import PolicyView from '../ProfileScreen/Legal&Policies/PolicyView';
 import EditProfile from '../ProfileScreen/EditProfile';
 import Signup from '../AuthScreen/SignUp';
+import OtpVerification from '../AuthScreen/SignUp/OtpVerification';
+import OtpVerifySuccess from '../AuthScreen/SignUp/OtpVerifySuccess';
 
 const Stack = createStackNavigator();
 
@@ -77,6 +79,8 @@ export default function RootStackScreen() {
             <Stack.Screen name="PolicyWebViewScreen" component={PolicyView} options={{ headerMode: 'none' }} />
             <Stack.Screen name="EditProfileScreen" component={EditProfile} options={{ headerMode: 'none' }} />
             <Stack.Screen name="SignUpScreen" component={Signup} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="OtpVerification" component={OtpVerification} options={{ headerMode: 'none' }} />
+            <Stack.Screen name="OtpVerifySuccess" component={OtpVerifySuccess} options={{ headerMode: 'none' }} />
 
 
         </Stack.Navigator>
