@@ -7,7 +7,7 @@ const initialState = {
 
 
 const wishlistReducer = (state = initialState, action) => {
-    console.log('Check reducer state and action : ', state, action)
+    // console.log('Check reducer state and action : ', state, action)
     switch (action.type) {
         case ADD_TO_WISHLIST:
             return {

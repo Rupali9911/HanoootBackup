@@ -32,7 +32,7 @@ const AppInput = (props) => {
         setIsFocus(false);
     }
 
-    console.log('check focus : ', props.success)
+    // console.log('check focus : ', props.success)
 
     const PasswordErrorRender = (props) => {
         return (
@@ -123,11 +123,11 @@ const AppInput = (props) => {
                                 layout="first"
                                 onChangeText={props.onChangeText}
                                 value={props.value}
-                                // onChangeFormattedText={(text) => {
-                                //     setFormattedValue(text);
-                                // }}
+                                onChangeFormattedText={(text) => {
+                                    setFormattedValue(text);
+                                }}
                                 onChangeCountry={props.onChangeCountry}
-                                onChangeFormattedText={props.onChangeFormattedText}
+                                // onChangeFormattedText={props.onChangeFormattedText}
                                 countryPickerButtonStyle={[styles.countryCodePickerStyle(isFocus), styles.countryButtonPicker ]}
                                 textInputStyle={styles.input}
                                 isValidNumber={true}
@@ -183,7 +183,7 @@ const AppInput = (props) => {
                             bottom: 0
                         }}>
                             <TouchableOpacity onPress={props.onPasswordPress}>
-                                <Image source={props.secureTextEntry && isFocus ? Images.Eye : Images.EyeOff}
+                                <Image source={props.secureTextEntry || isFocus ? Images.Eye : Images.EyeOff}
                                     style={{
                                         height: 20,
                                         width: 20,

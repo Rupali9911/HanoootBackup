@@ -91,28 +91,28 @@ const OtpVerification = () => {
             return (
                 <View key={index} style={styles.otpInputContainer}>
                     <TextInput
-                    // ref={otpInput => otpInput = input.stateName}
+                        // ref={otpInput => otpInput = input.stateName}
                         style={styles.otpInput(isFocus)}
                         placeholder={input.placeholder}
                         maxLength={input.maxLength}
                         keyboardType="number-pad"
                         onChangeText={(text) => {
-                            setOtpField({...otpField, [input.stateName]: text})
+                            setOtpField({ ...otpField, [input.stateName]: text })
                             console.log('otpInput : ', otpInput.current[index])
-                            
+
                             // setOtpField({...otpField, [input.stateName]: text}, () => {
-                                if(text.length === input.maxLength && input.stateName != 'otp6'){
-                                    otpInput.current[index+1].focus()
-                                    // otpInput[input.nextField].focus();
-                                    // otpInput.current = input.nextField;
-                                    // otpInput.current.focus();
-                                    // this.ref.input.nextField.focus()
-                                    // console.log('otpInput : ', otpInput)
+                            if (text.length === input.maxLength && input.stateName != 'otp6') {
+                                otpInput.current[index + 1].focus()
+                                // otpInput[input.nextField].focus();
+                                // otpInput.current = input.nextField;
+                                // otpInput.current.focus();
+                                // this.ref.input.nextField.focus()
+                                // console.log('otpInput : ', otpInput)
 
-                                    // otpInput = this[input.nextField]
-                                    // otpInput.current.focus();
+                                // otpInput = this[input.nextField]
+                                // otpInput.current.focus();
 
-                                }
+                            }
 
 
                             // setOtpField({ [input.stateName]: text }, () => {
@@ -123,10 +123,10 @@ const OtpVerification = () => {
                         }}
                         // onSubmitEditing={}
                         onFocus={() => setIsFocus(true)}
-                    ref={ input => otpInput.current[index] = input}
-                    // ref={otpInput(input.stateName)}
+                        ref={input => otpInput.current[index] = input}
+                        // ref={otpInput(input.stateName)}
 
-                    value={otpField[input.stateName]}
+                        value={otpField[input.stateName]}
                     />
                 </View>
             );
@@ -173,7 +173,15 @@ const OtpVerification = () => {
 
                 <AppButton
                     label={'Submit'}
-                    onPress={() => navigation.navigate('OtpVerifySuccess')}
+                    onPress={() => {
+                        const { 
+                            otp1, otp2, otp3, otp4, otp5, otp6 } = otpField
+
+                        if (otp1 && otp2 && otp3 && otp4 && otp5 && otp6) {
+                            navigation.navigate('OtpVerifySuccess')
+                        }
+                    }
+                    }
                 />
 
             </View>

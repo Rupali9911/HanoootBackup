@@ -30,7 +30,6 @@ const Signup = () => {
     const navigation = useNavigation();
 
     const Signup = () => {
-        // console.log('check input data : ', name, phoneNo, password)
         let validateNum = 0;
 
         if (maxLength32(name)) {
@@ -46,7 +45,7 @@ const Signup = () => {
         if (maxLength10(phoneNo)) {
             setErrPhoneNo(maxLength10(phoneNo));
         } else {
-            if (!isValidNumber(phoneNo)) {
+            if (validatePhoneNo(phoneNo)) {
                 setErrPhoneNo(validatePhoneNo(phoneNo));
             } else {
                 validateNum++;
@@ -62,11 +61,21 @@ const Signup = () => {
                 setSuccessPassword(false)
             } else {
                 setSuccessPassword(true)
+                validateNum++;
             }
         }
 
 
-        navigation.navigate('OtpVerification')
+
+
+        if (validateNum === 3) {
+            navigation.navigate('OtpVerification')
+          }
+
+
+
+
+        
     }
 
     return (
@@ -106,8 +115,8 @@ const Signup = () => {
                     value={phoneNo}
                     validate={[maxLength10, validatePhoneNo]}
                     error={errPhoneNo}
-                    onChangeCountry={(val) => console.log(val)}
-                    onChangeFormattedText={() => setPhoneNo('')}
+                    // onChangeCountry={(val) => console.log(val)}
+                    // onChangeFormattedText={() => setPhoneNo('')}
                 />
 
                 <AppInput
