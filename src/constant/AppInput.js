@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Platform, I
 import React, { useState, useRef } from 'react'
 import fonts from './fonts';
 import Colors from './Colors';
-import { Picker } from '@react-native-picker/picker';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { hp, wp } from './responsiveFunc';
 import Images from './Images';
 import PhoneInput from "react-native-phone-number-input";
@@ -12,19 +10,8 @@ import PhoneInput from "react-native-phone-number-input";
 
 
 const AppInput = (props) => {
-    const [showPassword, setShowPassword] = useState(true);
-    const [password, setPassword] = useState('');
     const [isFocus, setIsFocus] = useState(false)
-    const [show, setShow] = useState(false);
-    const [value, setValue] = useState("");
-    const [formattedValue, setFormattedValue] = useState("");
-
     const phoneInput = useRef(null);
-
-
-    const toggleShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
 
     const handleFocus = () => setIsFocus(true);
 
@@ -32,9 +19,10 @@ const AppInput = (props) => {
         setIsFocus(false);
     }
 
-    console.log('check focus : ', props.success)
+    // console.log('check focus : ', props.success)
 
     const PasswordErrorRender = (props) => {
+        // console.log('Props', props)
         return (
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                 <Image
@@ -46,7 +34,7 @@ const AppInput = (props) => {
                         tintColor: props.isSuccess ? Colors.GREEN : Colors.GRAYDARK
                     }}
                 />
-                <Text style={[styles.passwordError, {color: props.isSuccess ? Colors.GREEN : Colors.GRAYDARK}]}>{props.label}</Text>
+                <Text style={[styles.passwordError, { color: props.isSuccess ? Colors.GREEN : Colors.GRAYDARK }]}>{props.label}</Text>
             </View>
         );
     }
@@ -123,12 +111,9 @@ const AppInput = (props) => {
                                 layout="first"
                                 onChangeText={props.onChangeText}
                                 value={props.value}
-                                // onChangeFormattedText={(text) => {
-                                //     setFormattedValue(text);
-                                // }}
                                 onChangeCountry={props.onChangeCountry}
                                 onChangeFormattedText={props.onChangeFormattedText}
-                                countryPickerButtonStyle={[styles.countryCodePickerStyle(isFocus), styles.countryButtonPicker ]}
+                                countryPickerButtonStyle={[styles.countryCodePickerStyle(isFocus), styles.countryButtonPicker]}
                                 textInputStyle={styles.input}
                                 isValidNumber={true}
                                 textInputProps={{
@@ -204,9 +189,9 @@ const AppInput = (props) => {
                 <View style={{
                     marginVertical: '5%'
                 }}>
-                    <PasswordErrorRender label={'Must include a letter'} isSuccess={props.passwordSuccess}/>
-                    <PasswordErrorRender label={'Must include a number'} isSuccess={props.passwordSuccess}/>
-                    <PasswordErrorRender label={'Must be 8 -30 characters'} isSuccess={props.passwordSuccess}/>
+                    <PasswordErrorRender label={'Must include a letter'} isSuccess={props.passwordSuccess} />
+                    <PasswordErrorRender label={'Must include a number'} isSuccess={props.passwordSuccess} />
+                    <PasswordErrorRender label={'Must be 8 -30 characters'} isSuccess={props.passwordSuccess} />
                 </View>
             }
 
@@ -299,13 +284,12 @@ const styles = StyleSheet.create({
     },
     countryCodePickerStyle: isFocus => ({
         height: hp('6%'),
-       
         borderTopColor: isFocus ? Colors.themeColor : Colors.GRAY,
         borderBottomColor: isFocus ? Colors.themeColor : Colors.GRAY,
         borderTopWidth: 1,
         borderBottomWidth: 1,
         backgroundColor: Colors.WHITE
-       
+
     }),
     countryButtonPicker: {
         width: 70,
