@@ -8,3 +8,8 @@ export const REMOVE_ADDRESS = 'REMOVE_ADDRESS';
 export const UPDATE_ADDRESS = 'UPDATE_ADDRESS';
 export const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
 export const REMOVE_FROM_WISHLIST = 'REMOVE_FROM_WISHLIST';
+
+//====================USER REDUCER=====================
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+
+

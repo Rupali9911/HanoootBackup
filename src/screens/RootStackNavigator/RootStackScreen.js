@@ -1,7 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useSelector } from 'react-redux';
 import TabComponent from './BottomTabNavigator';
+import AuthStack from './AuthStack';
+
 import ProductDetail from '../ProductDetail';
 import CartScreen from '../CartScreen';
 import ReviewMainPage from '../ProductDetail/UserReview/ReviewMainPage';

@@ -9,6 +9,8 @@ export const maxLength10 = maxLength(10);
 export const maxLength8 = maxLength(8);
 
 
+const fullNameRegex = new RegExp(/^[A-Za-z\s]*$/)
+
 const userNameRegex = new RegExp(
     // /^[a-zA-Z0-9 !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/,
     "^\\w[\\w.]{2,18}\\w$"
@@ -20,11 +22,12 @@ const phoneNoRegex = new RegExp(
 
 
 const passwordRegex = new RegExp(
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
+    // /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/
+    /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/
 )
 
 const emailRegex = new RegExp(
-  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 )
 
 
@@ -37,33 +40,42 @@ export const validateUserName = value => {
     }
 };
 
+export const validateFullName = value => {
+    if (!value.trim().length) {
+        return 'Your name is required';
+    } else if (!fullNameRegex.test(value)) {
+        return 'No special character, no spacing, only alphabetical and numerical characters required';
+    }
+};
+
 
 
 export const validatePhoneNo = value => {
     // console.log('Chekc phone no value : ', value)
     if (!value.trim().length) {
-        return 'Phone no is required';
+        return 'Phone number is required';
     } else if (!phoneNoRegex.test(value)) {
         return 'Please enter a valid mobile no';
     }
 };
 
 export const validatePassword = value => {
+    console.log('Test password validation', passwordRegex.test(value), value, )
     if (!value.trim().length) {
         return 'Password is required';
     } else if (!passwordRegex.test(value)) {
         return 'Please enter a valid password';
     }
-    
+
 };
 
 export const validateEmail = value => {
     if (!value.trim().length) {
-      return 'Email is required';
+        return 'Email is required';
     } else if (!emailRegex.test(value)) {
-      return 'Please enter valid email address';
+        return 'Please enter valid email address';
     } else {
-      return false;
+        return false;
     }
-  };
+};
 

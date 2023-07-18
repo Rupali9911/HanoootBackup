@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Modal, Platform, I
 import React, { useState, useRef } from 'react'
 import fonts from './fonts';
 import Colors from './Colors';
-import { Picker } from '@react-native-picker/picker';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { hp, wp } from './responsiveFunc';
 import Images from './Images';
 import PhoneInput from "react-native-phone-number-input";
@@ -12,19 +10,8 @@ import PhoneInput from "react-native-phone-number-input";
 
 
 const AppInput = (props) => {
-    const [showPassword, setShowPassword] = useState(true);
-    const [password, setPassword] = useState('');
     const [isFocus, setIsFocus] = useState(false)
-    const [show, setShow] = useState(false);
-    const [value, setValue] = useState("");
-    const [formattedValue, setFormattedValue] = useState("");
-
     const phoneInput = useRef(null);
-
-
-    const toggleShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
 
     const handleFocus = () => setIsFocus(true);
 
@@ -35,6 +22,7 @@ const AppInput = (props) => {
     // console.log('check focus : ', props.success)
 
     const PasswordErrorRender = (props) => {
+        // console.log('Props', props)
         return (
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                 <Image
@@ -123,21 +111,8 @@ const AppInput = (props) => {
                                 layout="first"
                                 onChangeText={props.onChangeText}
                                 value={props.value}
-                                onChangeFormattedText={(text) => {
-                                    setFormattedValue(text);
-                                }}
-                                // flagButtonStyle={{
-                                //     // tintColor: Colors.themeColor
-                                //     backgroundColor: 'red',
-                                //     color: 'green',
-                                //     fontSize: 50,
-                                //     borderWidth: 1
-                                // }}
-                                // countryPickerButtonStyle={{
-                                //     backgroundColor: 'green'
-                                // }}
                                 onChangeCountry={props.onChangeCountry}
-                                // onChangeFormattedText={props.onChangeFormattedText}
+                                onChangeFormattedText={props.onChangeFormattedText}
                                 countryPickerButtonStyle={[styles.countryCodePickerStyle(isFocus), styles.countryButtonPicker]}
                                 textInputStyle={styles.input}
                                 isValidNumber={true}
@@ -309,13 +284,11 @@ const styles = StyleSheet.create({
     },
     countryCodePickerStyle: isFocus => ({
         height: hp('6%'),
-
         borderTopColor: isFocus ? Colors.themeColor : Colors.GRAY,
         borderBottomColor: isFocus ? Colors.themeColor : Colors.GRAY,
         borderTopWidth: 1,
         borderBottomWidth: 1,
-        backgroundColor: Colors.WHITE,
-
+        backgroundColor: Colors.WHITE
 
     }),
     countryButtonPicker: {

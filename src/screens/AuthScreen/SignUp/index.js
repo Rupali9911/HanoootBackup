@@ -10,14 +10,17 @@ import AppButton from '../../Components/AppButton';
 import Images from '../../../constant/Images';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import AuthBottomContainer from '../AuthBottomContainer';
-import { maxLength32, maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8 } from '../../utils';
+import { maxLength32, maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName } from '../../utils';
 import { isValidNumber } from 'react-native-phone-number-input';
 import AuthHeader from '../AuthHeader';
 import { useNavigation } from '@react-navigation/native';
+import { CHECK_PHONE_NUMBER } from '../../../utility/apiUrls'
+import sendRequest from '../../../services/axios/AxiosApiRequest'
 
 const Signup = () => {
     const [name, setName] = useState('')
     const [phoneNo, setPhoneNo] = useState('')
+    const [formattedNum, setFormattedNum] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [errUsername, setErrUsername] = useState(false);
@@ -35,9 +38,10 @@ const Signup = () => {
         if (maxLength32(name)) {
             setErrUsername(maxLength32(name));
         } else {
-            if (validateUserName(name)) {
-                setErrUsername(validateUserName(name));
+            if (validateFullName(name)) {
+                setErrUsername(validateFullName(name));
             } else {
+                console.log('Name validated')
                 validateNum++;
             }
         }
@@ -45,38 +49,43 @@ const Signup = () => {
         if (maxLength10(phoneNo)) {
             setErrPhoneNo(maxLength10(phoneNo));
         } else {
-            if (validatePhoneNo(phoneNo)) {
+            if (!isValidNumber(formattedNum)) {
                 setErrPhoneNo(validatePhoneNo(phoneNo));
             } else {
                 validateNum++;
             }
         }
-
-        if (maxLength8(password)) {
-            setErrPassword(maxLength8(password));
+        if (validatePassword(password)) {
+            setErrPassword(validatePassword(password));
             setSuccessPassword(false)
         } else {
-            if (validatePassword(password)) {
-                setErrPassword(validatePassword(password));
-                setSuccessPassword(false)
-            } else {
-                setSuccessPassword(true)
-                validateNum++;
-            }
+            setSuccessPassword(true)
+            validateNum++;
         }
 
-
-
-
+        // Call check phone API
         if (validateNum === 3) {
-            navigation.navigate('OtpVerification', {contactNo: phoneNo}) 
+            checkPhoneNumber(formattedNum)
         }
-
-
-
-
-
     }
+
+    const checkPhoneNumber = (phoneNumber) => {
+        sendRequest({
+            url: CHECK_PHONE_NUMBER,
+            method: 'POST',
+            data: {
+                phone_number: phoneNumber
+            }
+        })
+            .then(response => {
+                console.log('Response from Check phone number api', response)
+                //  navigation.navigate('OtpVerification')
+            })
+            .catch(error => {
+                console.log('Error from Check phone number api', error)
+            })
+    };
+
 
     return (
         <AppBackground
@@ -84,12 +93,7 @@ const Signup = () => {
         >
             <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('10%') }} />
             <KeyboardAwareScrollView>
-
-
-                <AuthHeader
-                    title={'Create Your Account'}
-                />
-
+                <AuthHeader title={'Create Your Account'} />
                 <AppInput
                     label={'Your Name'}
                     placeholder={'Enter your Name'}
@@ -115,8 +119,8 @@ const Signup = () => {
                     value={phoneNo}
                     validate={[maxLength10, validatePhoneNo]}
                     error={errPhoneNo}
-                // onChangeCountry={(val) => console.log(val)}
-                // onChangeFormattedText={() => setPhoneNo('')}
+                    onChangeCountry={(val) => console.log(val)}
+                    onChangeFormattedText={(val) => setFormattedNum(val)}
                 />
 
                 <AppInput
@@ -140,6 +144,11 @@ const Signup = () => {
                     onChangeText={(password) => {
                         setPassword(password)
                         setErrPassword(false)
+                        if (validatePassword(password)) {
+                            setSuccessPassword(false)
+                        } else {
+                            setSuccessPassword(true)
+                        }
                     }}
                     value={password}
                     validate={[maxLength8, validatePassword]}
@@ -147,8 +156,6 @@ const Signup = () => {
                     passwordSuccess={successPassword}
                     secureTextEntry={showPassword}
                     onPasswordPress={() => setShowPassword(!showPassword)}
-
-
                 />
                 <View style={{ marginHorizontal: '3%' }}>
                     <Text style={styles.termsPrivacy} >
