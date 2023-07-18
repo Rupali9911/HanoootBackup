@@ -40,9 +40,9 @@ export const validateUserName = value => {
 
 
 export const validatePhoneNo = value => {
-    console.log('Chekc phone no value : ', value)
+    // console.log('Chekc phone no value : ', value)
     if (!value.trim().length) {
-        return 'Mobile No is required';
+        return 'Phone no is required';
     } else if (!phoneNoRegex.test(value)) {
         return 'Please enter a valid mobile no';
     }

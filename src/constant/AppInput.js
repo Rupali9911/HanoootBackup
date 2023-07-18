@@ -46,7 +46,7 @@ const AppInput = (props) => {
                         tintColor: props.isSuccess ? Colors.GREEN : Colors.GRAYDARK
                     }}
                 />
-                <Text style={[styles.passwordError, {color: props.isSuccess ? Colors.GREEN : Colors.GRAYDARK}]}>{props.label}</Text>
+                <Text style={[styles.passwordError, { color: props.isSuccess ? Colors.GREEN : Colors.GRAYDARK }]}>{props.label}</Text>
             </View>
         );
     }
@@ -126,9 +126,19 @@ const AppInput = (props) => {
                                 onChangeFormattedText={(text) => {
                                     setFormattedValue(text);
                                 }}
+                                // flagButtonStyle={{
+                                //     // tintColor: Colors.themeColor
+                                //     backgroundColor: 'red',
+                                //     color: 'green',
+                                //     fontSize: 50,
+                                //     borderWidth: 1
+                                // }}
+                                // countryPickerButtonStyle={{
+                                //     backgroundColor: 'green'
+                                // }}
                                 onChangeCountry={props.onChangeCountry}
                                 // onChangeFormattedText={props.onChangeFormattedText}
-                                countryPickerButtonStyle={[styles.countryCodePickerStyle(isFocus), styles.countryButtonPicker ]}
+                                countryPickerButtonStyle={[styles.countryCodePickerStyle(isFocus), styles.countryButtonPicker]}
                                 textInputStyle={styles.input}
                                 isValidNumber={true}
                                 textInputProps={{
@@ -183,7 +193,7 @@ const AppInput = (props) => {
                             bottom: 0
                         }}>
                             <TouchableOpacity onPress={props.onPasswordPress}>
-                                <Image source={props.secureTextEntry || isFocus ? Images.Eye : Images.EyeOff}
+                                <Image source={props.secureTextEntry ? Images.Eye : Images.EyeOff}
                                     style={{
                                         height: 20,
                                         width: 20,
@@ -204,9 +214,9 @@ const AppInput = (props) => {
                 <View style={{
                     marginVertical: '5%'
                 }}>
-                    <PasswordErrorRender label={'Must include a letter'} isSuccess={props.passwordSuccess}/>
-                    <PasswordErrorRender label={'Must include a number'} isSuccess={props.passwordSuccess}/>
-                    <PasswordErrorRender label={'Must be 8 -30 characters'} isSuccess={props.passwordSuccess}/>
+                    <PasswordErrorRender label={'Must include a letter'} isSuccess={props.passwordSuccess} />
+                    <PasswordErrorRender label={'Must include a number'} isSuccess={props.passwordSuccess} />
+                    <PasswordErrorRender label={'Must be 8 -30 characters'} isSuccess={props.passwordSuccess} />
                 </View>
             }
 
@@ -299,13 +309,14 @@ const styles = StyleSheet.create({
     },
     countryCodePickerStyle: isFocus => ({
         height: hp('6%'),
-       
+
         borderTopColor: isFocus ? Colors.themeColor : Colors.GRAY,
         borderBottomColor: isFocus ? Colors.themeColor : Colors.GRAY,
         borderTopWidth: 1,
         borderBottomWidth: 1,
-        backgroundColor: Colors.WHITE
-       
+        backgroundColor: Colors.WHITE,
+
+
     }),
     countryButtonPicker: {
         width: 70,

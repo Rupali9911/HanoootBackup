@@ -6,7 +6,7 @@ import fonts from '../../constant/fonts'
 import Images from '../../constant/Images'
 
 
-const AuthBottomContainer = () => {
+const AuthBottomContainer = (props) => {
 
     const SocialIconSection = (props) => {
         return (
@@ -24,7 +24,7 @@ const AuthBottomContainer = () => {
         <>
             <View style={styles.mainContainer}>
                 <View style={styles.separator} />
-                <Text style={styles.titleText}>Or Sign Up with</Text>
+                <Text style={styles.titleText}>{props.title}</Text>
                 <View style={styles.separator} />
             </View>
 
@@ -43,9 +43,9 @@ const AuthBottomContainer = () => {
             </View>
 
             <View style={styles.rowContainer}>
-                <Text style={styles.termsPrivacy}>Already have an account?</Text>
-                <TouchableOpacity onPress={this.onSignInPress}>
-                    <Text style={[styles.termsPrivacy, { color: Colors.themeColor }]}> Sign in</Text>
+                <Text style={styles.termsPrivacy}>{props.isAccountText}</Text>
+                <TouchableOpacity onPress={props.onPressButton}>
+                    <Text style={[styles.termsPrivacy, { color: Colors.themeColor, fontWeight: 'bold' }]}>{ props.button}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Colors.WHITE,
+        // backgroundColor: Colors.WHITE,
         borderWidth: 1,
         borderRadius: 100,
         borderColor: Colors.GRAY,

@@ -69,13 +69,13 @@ const Signup = () => {
 
 
         if (validateNum === 3) {
-            navigation.navigate('OtpVerification')
-          }
+            navigation.navigate('OtpVerification', {contactNo: phoneNo}) 
+        }
 
 
 
 
-        
+
     }
 
     return (
@@ -84,9 +84,9 @@ const Signup = () => {
         >
             <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('10%') }} />
             <KeyboardAwareScrollView>
-               
 
-                <AuthHeader 
+
+                <AuthHeader
                     title={'Create Your Account'}
                 />
 
@@ -115,8 +115,8 @@ const Signup = () => {
                     value={phoneNo}
                     validate={[maxLength10, validatePhoneNo]}
                     error={errPhoneNo}
-                    // onChangeCountry={(val) => console.log(val)}
-                    // onChangeFormattedText={() => setPhoneNo('')}
+                // onChangeCountry={(val) => console.log(val)}
+                // onChangeFormattedText={() => setPhoneNo('')}
                 />
 
                 <AppInput
@@ -169,7 +169,12 @@ const Signup = () => {
                     onPress={Signup}
                 />
 
-                <AuthBottomContainer />
+                <AuthBottomContainer
+                    title={'Or Sign Up with'}
+                    isAccountText={'Already have an account?'}
+                    button={' Sign in'}
+                    onPressButton={() => navigation.navigate('LoginScreen')}
+                />
 
             </KeyboardAwareScrollView>
         </AppBackground>

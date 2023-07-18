@@ -39,7 +39,7 @@ import AuthStack from './AuthStack';
 const Stack = createStackNavigator();
 
 export default function RootStackScreen() {
-    const [userData, setUserData] = useState(true)
+    const [userData, setUserData] = useState(false)
 
 
 

@@ -1,15 +1,17 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native'
 import React, { useState, useEffect, useRef } from 'react'
-import AppBackground from '../../Components/AppBackground'
-import AppHeader from '../../Components/AppHeader'
-import Colors from '../../../constant/Colors'
-import { hp, wp } from '../../../constant/responsiveFunc'
-import AuthHeader from '../AuthHeader'
-import fonts from '../../../constant/fonts'
-import AppButton from '../../Components/AppButton'
+import AppBackground from '../Components/AppBackground'
+import AppHeader from '../Components/AppHeader'
+import Colors from '../../constant/Colors'
+import { hp, wp } from '../../constant/responsiveFunc'
+import AuthHeader from './AuthHeader'
+import fonts from '../../constant/fonts'
+import AppButton from '../Components/AppButton'
 import { useNavigation } from '@react-navigation/native'
 
-const OtpVerification = () => {
+const OtpVerification = (props) => {
+
+
 
     const navigation = useNavigation();
     const otpInput = useRef([])
@@ -29,6 +31,7 @@ const OtpVerification = () => {
 
 
 
+    const { otp1, otp2, otp3, otp4, otp5, otp6 } = otpField;
 
     useEffect(() => {
         let interval;
@@ -124,6 +127,7 @@ const OtpVerification = () => {
                         // onSubmitEditing={}
                         onFocus={() => setIsFocus(true)}
                         ref={input => otpInput.current[index] = input}
+
                         // ref={otpInput(input.stateName)}
 
                         value={otpField[input.stateName]}
@@ -151,7 +155,7 @@ const OtpVerification = () => {
             <View style={styles.container}>
                 <Text style={styles.title}>{'Enter your OTP'}</Text>
                 <Text style={[styles.text, styles.grayColor]}>{'We have sent a OTP on below mobile'}</Text>
-                <Text style={styles.text}>{'+967 945 454 4542'}<Text style={styles.themeColor}>{' Change'}</Text></Text>
+                <Text style={styles.text}>{props.route.params.contactNo}<Text style={styles.themeColor}>{' Change'}</Text></Text>
 
 
                 <View style={styles.OTPView}>
@@ -174,14 +178,9 @@ const OtpVerification = () => {
                 <AppButton
                     label={'Submit'}
                     onPress={() => {
-                        const { 
-                            otp1, otp2, otp3, otp4, otp5, otp6 } = otpField
-
-                        if (otp1 && otp2 && otp3 && otp4 && otp5 && otp6) {
-                            navigation.navigate('OtpVerifySuccess')
-                        }
-                    }
-                    }
+                        navigation.navigate('OtpVerifySuccess')
+                    }}
+                    view={(otp1 && otp2 && otp3 && otp4 && otp5 && otp6) ? false : true}
                 />
 
             </View>
