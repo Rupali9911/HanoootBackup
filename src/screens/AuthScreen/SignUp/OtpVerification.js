@@ -8,25 +8,29 @@ import AuthHeader from '../AuthHeader'
 import fonts from '../../../constant/fonts'
 import AppButton from '../../Components/AppButton'
 import { useNavigation } from '@react-navigation/native'
+import auth from '@react-native-firebase/auth';
 
-const OtpVerification = () => {
+const otpObj = {
+    otp1: "",
+    otp2: "",
+    otp3: "",
+    otp4: "",
+    otp5: "",
+    otp6: "",
+}
+const OtpVerification = ({ route }) => {
+    const [authResult, setauthResult] = useState(route?.params?.authResult)
 
+    const phoneNumber = route?.params?.phoneNumber
+    // console.log(route?.params)
     const navigation = useNavigation();
     const otpInput = useRef([])
 
-
-
-    const [otpField, setOtpField] = useState({
-        otp1: "",
-        otp2: "",
-        otp3: "",
-        otp4: "",
-        otp5: "",
-        otp6: "",
-    })
+    const [otpField, setOtpField] = useState(otpObj)
     const [isFocus, setIsFocus] = useState(false)
     const [seconds, setSeconds] = useState(60)
 
+    const { otp1, otp2, otp3, otp4, otp5, otp6 } = otpField;
 
 
 
@@ -84,49 +88,29 @@ const OtpVerification = () => {
             },
         ];
 
-
-
-
         return inputs.map((input, index) => {
             return (
                 <View key={index} style={styles.otpInputContainer}>
                     <TextInput
-                    // ref={otpInput => otpInput = input.stateName}
+                        // ref={otpInput => otpInput = input.stateName}
+                        autoFocus={index == 0}
                         style={styles.otpInput(isFocus)}
                         placeholder={input.placeholder}
                         maxLength={input.maxLength}
                         keyboardType="number-pad"
                         onChangeText={(text) => {
-                            setOtpField({...otpField, [input.stateName]: text})
-                            console.log('otpInput : ', otpInput.current[index])
-                            
-                            // setOtpField({...otpField, [input.stateName]: text}, () => {
-                                if(text.length === input.maxLength && input.stateName != 'otp6'){
-                                    otpInput.current[index+1].focus()
-                                    // otpInput[input.nextField].focus();
-                                    // otpInput.current = input.nextField;
-                                    // otpInput.current.focus();
-                                    // this.ref.input.nextField.focus()
-                                    // console.log('otpInput : ', otpInput)
-
-                                    // otpInput = this[input.nextField]
-                                    // otpInput.current.focus();
-
-                                }
-
-
-                            // setOtpField({ [input.stateName]: text }, () => {
-                            //     if (text.length == input.maxLength) {
-                            //         this.refs[input.nextField].focus();
-                            //     }
-                            // });
+                            console.log('text', text)
+                            setOtpField({ ...otpField, [input.stateName]: text })
+                            if (text.length === input.maxLength && input.nextField) {
+                                otpInput.current[index + 1]?.focus()
+                            }
+                            else if (text.length === 0) {
+                                otpInput.current[index - 1]?.focus()
+                            }
                         }}
-                        // onSubmitEditing={}
                         onFocus={() => setIsFocus(true)}
-                    ref={ input => otpInput.current[index] = input}
-                    // ref={otpInput(input.stateName)}
-
-                    value={otpField[input.stateName]}
+                        ref={input => otpInput.current[index] = input}
+                        value={otpField[input.stateName]}
                     />
                 </View>
             );
@@ -134,11 +118,39 @@ const OtpVerification = () => {
     };
 
 
-    const handleResendOTP = () => {
-        setSeconds(60)
+    const handleResendOTP = async () => {
+        auth()
+            .signInWithPhoneNumber(phoneNumber)
+            .then(confirmResult => {
+                console.log('Resend Result', confirmResult)
+                setSeconds(60)
+                setauthResult(confirmResult);
+                setOtpField(otpObj)
+            })
+            .catch(error => {
+                console.log('Resend Result', error)
+            })
     }
 
+    const changeNumber = () => {
+        navigation.goBack()
+    }
+    const verifyOTP = async () => {
+        const otp = Object.values(otpField).join('')
+        authResult.confirm(otp).then(confirmResult => {
+            console.log('Verify OTp', confirmResult)
+            setauthResult(null)
+            setOtpField(otpObj)
+            navigation.navigate('OtpVerifySuccess')
 
+            // result
+            // {"additionalUserInfo": {"isNewUser": false, "profile": null, "providerId": "phone", "username": null}, "user": {"displayName": null, "email": null, "emailVerified": false, "isAnonymous": false, "metadata": [Object], "multiFactor": [Object], "phoneNumber": "+919907193313", "photoURL": null, "providerData": [Array], "providerId": "firebase", "refreshToken": "AMf-vBzKv4EYWGm4_L7qKibexpUQ4To7nd1bizJ1ggBVujenoy-ULpLuV9US7_SOQvgN6K3-zUnEQJCFY1wLwbLHXikoIY0vB1s7vs9AGdUSJlbK1ESdh5Eux2W5zoIWKm0HSk6GT9v_h7_BE0RunrxoRRGmTOnRroVfkUrUk0fc0dB8WZqaw8H8u301DX9ADBWOJ2AnGbpm", "tenantId": null, "uid": "j5v6deVa7pXdZd6TB5wva018ce93"}}
+        })
+            .catch(error => {
+                console.log('Verify OTp ERROR', error.error)
+            })
+
+    }
 
     return (
         <AppBackground
@@ -146,12 +158,19 @@ const OtpVerification = () => {
         >
             <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('10%') }} />
             <AuthHeader
-                title={'Verify Your Mobile Number'}
+                title={'Your One Time Password'}
             />
             <View style={styles.container}>
-                <Text style={styles.title}>{'Enter your OTP'}</Text>
+                {/* <Text style={styles.title}>{'Enter your OTP'}</Text> */}
                 <Text style={[styles.text, styles.grayColor]}>{'We have sent a OTP on below mobile'}</Text>
-                <Text style={styles.text}>{'+967 945 454 4542'}<Text style={styles.themeColor}>{' Change'}</Text></Text>
+                <Text style={[styles.rowContainer, { gap: 5 }]}>
+                    <Text style={styles.text}>{phoneNumber}</Text>
+                    <TouchableOpacity onPress={() => changeNumber()}>
+                        <Text style={[styles.text, styles.themeColor]}>
+                            {' Change'}
+                        </Text>
+                    </TouchableOpacity>
+                </Text>
 
 
                 <View style={styles.OTPView}>
@@ -162,9 +181,7 @@ const OtpVerification = () => {
                             {seconds > 0 ? (
                                 <Text style={[styles.text, styles.grayColor]}>{`Resend OTP in ${seconds} seconds`}</Text>
                             ) : (
-                                <View style={styles.rowContainer}>
-                                    <Button title="Resend" onPress={handleResendOTP} style={styles.text} color={Colors.themeColor} /><Text style={[styles.text, styles.grayColor]}>Now</Text>
-                                </View>
+                                <Button title="Resend OTP" onPress={handleResendOTP} style={styles.text} color={Colors.themeColor} />
                             )}
                         </View>
                     </View>
@@ -173,8 +190,11 @@ const OtpVerification = () => {
 
                 <AppButton
                     label={'Submit'}
-                    onPress={() => navigation.navigate('OtpVerifySuccess')}
+                    disabled={(otp1 && otp2 && otp3 && otp4 && otp5 && otp6) ? false : true}
+                    onPress={() => verifyOTP()
+                    }
                 />
+                <Button title="Go Back" onPress={() => changeNumber()} style={styles.text} color={Colors.themeColor} />
 
             </View>
 
@@ -186,7 +206,8 @@ export default OtpVerification
 
 const styles = StyleSheet.create({
     container: {
-        margin: '5%',
+        marginHorizontal: '5%',
+        marginVertical: '8%',
         gap: 5
     },
     title: {
@@ -212,23 +233,15 @@ const styles = StyleSheet.create({
         color: Colors.GRAY3
     },
     OTPView: {
-        // flex: 1,
         alignItems: "center",
         justifyContent: "center",
         marginVertical: '5%',
-        // height: 20,
-        // width: 20,
-        // borderColor: Colors.themeColor,
-        // borderWidth: 1
-
     },
     otpContainer: {
         flexDirection: "row",
         marginBottom: 30,
     },
     otpInputContainer: {
-        // borderBottomWidth: 1,
-        // borderBottomColor: "#000",
         marginRight: 10,
     },
     otpInput: isFocus => ({
@@ -249,4 +262,3 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 })
-

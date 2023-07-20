@@ -8,21 +8,21 @@ import Images from '../../constant/Images'
 
 const AppButton = (props) => {
     return (
-    
+
         <ButtonInputContainer
             onPress={props.onPress}
             containerStyle={[
                 styles.container,
                 props.containerStyle,
-                props.view && styles.inActive,
+                props.disabled && styles.inActive,
                 props.isEmptyBG && styles.isEmptyBG,
                 // props.bottomAlignButton && styles.bottomAlignButton
             ]}
-            view={props.view}
-            >
-                {
-                    props.leftSideImg ? <Image source={props.ImgURI} style={{height: 15, width: 15, resizeMode: 'contain' , right: 10}}/> : null
-                }
+            disabled={props.disabled}
+        >
+            {
+                props.leftSideImg ? <Image source={props.ImgURI} style={{ height: 15, width: 15, resizeMode: 'contain', right: 10 }} /> : null
+            }
             <Text style={[styles.label, props.labelStyle, props.isEmptyBG && styles.isEmptyBtnText]}>{props.label}</Text>
         </ButtonInputContainer>
     )

@@ -4,13 +4,15 @@ import { wp, hp } from '../../constant/responsiveFunc'
 import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
 import Images from '../../constant/Images'
+import { useNavigation } from '@react-navigation/native';
+import { googleSignIn, appleSignIn } from '../../services/socialAuth'
 
-
-const AuthBottomContainer = () => {
+const AuthBottomContainer = (props) => {
+    const navigation = useNavigation();
 
     const SocialIconSection = (props) => {
         return (
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={props.onPress}>
                 <Image
                     style={styles.icon}
                     source={props.Image}
@@ -20,7 +22,37 @@ const AuthBottomContainer = () => {
         )
     }
 
-   return (
+
+    onPressGoggle = async () => {
+        console.log('Goggle Sigin Tapped')
+        googleSignIn()
+            .then(response => {
+                console.log('response from googleSignIn', response)
+                navigation.navigate('Home')
+            })
+            .catch(error => {
+                console.log('Error from googleSignIn', error)
+            })
+
+    }
+
+    onPressFacebook = () => {
+        console.log('Facebook Sigin Tapped')
+    }
+
+    onPressApple = () => {
+        console.log('Apple Sigin Tapped')
+        appleSignIn()
+            .then(response => {
+                console.log('response from appleSignIn', response)
+                navigation.navigate('Home')
+            })
+            .catch(error => {
+                console.log('Error from appleSignIn', error)
+            })
+    }
+
+    return (
         <>
             <View style={styles.mainContainer}>
                 <View style={styles.separator} />
@@ -30,13 +62,16 @@ const AuthBottomContainer = () => {
 
             <View style={styles.SocialIconContainer}>
                 <SocialIconSection
+                    onPress={onPressGoggle}
                     Image={Images.GoogleIcon}
                     Text={'Google'}
                 />
                 <SocialIconSection
+                    onPress={onPressFacebook}
                     Image={Images.FacebookIcon}
                     Text={'Facebook'} />
                 <SocialIconSection
+                    onPress={onPressApple}
                     Image={Images.AppleIcon}
                     Text={'Apple'}
                 />
@@ -149,8 +184,8 @@ const styles = StyleSheet.create({
         marginVertical: '5%'
     },
     rowContainer: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
+        flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'center',
         marginBottom: '5%'
     }

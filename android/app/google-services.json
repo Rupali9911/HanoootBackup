@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "154905673298",
+    "project_id": "hanooot-app-web",
+    "storage_bucket": "hanooot-app-web.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154905673298:android:5d68a6e485bf2bf4a5a98b",
+        "android_client_info": {
+          "package_name": "com.hanooot.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154905673298-1ojcgdc10gsfbat0l7d3aqivo0kd8lk0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgYEhFKOXi6VpeYxb6QVNyPmfzWh0_ZZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154905673298-1ojcgdc10gsfbat0l7d3aqivo0kd8lk0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "154905673298-ri9sfojvsn0jrd8qo375ujfqqd2k30j5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hanooot.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

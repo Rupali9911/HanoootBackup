@@ -4,12 +4,14 @@
 // #import "RNSplashScreen.h"  // here
 #import <RNSplashScreen.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import <Firebase.h>
 
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [FIRApp configure];
    [GMSServices provideAPIKey:@"AIzaSyCiF5X2iLOtAMjFoD6kjutPvam7v6nAmVA"];
   self.moduleName = @"HanoootApp";
   // You can add your custom initial props in the dictionary below.

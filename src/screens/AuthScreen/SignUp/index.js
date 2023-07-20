@@ -7,14 +7,13 @@ import { hp, wp } from '../../../constant/responsiveFunc';
 import fonts from '../../../constant/fonts';
 import AppInput from '../../../constant/AppInput';
 import AppButton from '../../Components/AppButton';
-import Images from '../../../constant/Images';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import AuthBottomContainer from '../AuthBottomContainer';
 import { maxLength32, maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName } from '../../utils';
 import { isValidNumber } from 'react-native-phone-number-input';
 import AuthHeader from '../AuthHeader';
 import { useNavigation } from '@react-navigation/native';
-import { CHECK_PHONE_NUMBER } from '../../../utility/apiUrls'
+import { CHECK_PHONE_NUMBER, GOOGLE_CLIENT_ID } from '../../../utility/apiUrls'
 import sendRequest from '../../../services/axios/AxiosApiRequest'
 
 const Signup = () => {
@@ -79,12 +78,25 @@ const Signup = () => {
         })
             .then(response => {
                 console.log('Response from Check phone number api', response)
-                //  navigation.navigate('OtpVerification')
+                auth()
+                    .signInWithPhoneNumber(phoneNumber)
+                    .then(confirmResult => {
+                        console.log('confirmResult', confirmResult)
+                        console.log('confirmResult', confirmResult._verificationId)
+                        navigation.navigate('OtpVerification', {
+                            authResult: confirmResult,
+                            phoneNumber: phoneNumber
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(error => {
                 console.log('Error from Check phone number api', error)
             })
     };
+
 
 
     return (
@@ -176,7 +188,11 @@ const Signup = () => {
                     onPress={Signup}
                 />
 
-                <AuthBottomContainer />
+                <AuthBottomContainer
+                    onPressGoggle={() => goggleSigninAction()}
+                    onPressFacbook={() => facebookSigninAction()}
+                    onPressApple={() => appleSigninAction()}
+                />
 
             </KeyboardAwareScrollView>
         </AppBackground>

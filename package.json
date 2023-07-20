@@ -5,15 +5,25 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "ios-device": "react-native run-ios --device",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "rc-start": "npm start -- --reset-cache",
+    "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean",
+    "clean-start": "npm run clean && npm run rc-start",
+    "fresh-install": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && npm cache clean && npm install",
+    "fresh-start": "npm run fresh-install && npm run rc-start"
   },
   "dependencies": {
+    "@invertase/react-native-apple-authentication": "^2.2.2",
     "@react-native-async-storage/async-storage": "^1.18.2",
     "@react-native-community/blur": "^4.3.2",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/progress-view": "^1.4.1",
+    "@react-native-firebase/app": "^18.2.0",
+    "@react-native-firebase/auth": "^18.2.0",
+    "@react-native-google-signin/google-signin": "^10.0.1",
     "@react-native-picker/picker": "^2.4.10",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",

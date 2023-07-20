@@ -8,7 +8,7 @@ const ButtonInputContainer = (props) => {
     return (
         <TouchableOpacity
             onPress={props.onPress}
-            disabled={props.view}
+            disabled={props.disabled}
             style={[
                 styles.container,
                 {
