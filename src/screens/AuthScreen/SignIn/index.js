@@ -12,73 +12,62 @@ import AppInput from '../../../constant/AppInput'
 import fonts from '../../../constant/fonts'
 import AppButton from '../../Components/AppButton'
 import CustomSwitch from '../customSwitch'
-import { maxLength10, maxLength8, validatePhoneNo, validateEmail, validatePassword, maxLength32 } from '../../utils'
+import { maxLength10, maxLength8, maxLength50, validatePhoneNo, validateEmail, validatePassword, maxLength32 } from '../../utils'
+import ToggleSwitch from 'toggle-switch-react-native'
+import { isValidNumber } from 'react-native-phone-number-input';
+
 
 
 const Login = () => {
     const [phoneNo, setPhoneNo] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [errPhoneNo, setErrPhoneNo] = useState(false)
-    const [errEmail, setErrEmail] = useState(false)
-    const [errPassword, setErrPassword] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
-
-
-
+    const [isEnabled, setIsEnabled] = useState(false);
+    const [formattedNum, setFormattedNum] = useState('')
+    const [error, setError] = useState('')
     const [toggle, setToggle] = useState('Mobile')
-
-
-
-
-
-
-
 
     const navigation = useNavigation();
 
     const Login = () => {
-        let validateNum = 0;
+        const errorList = {}
 
         if (toggle === 'Mobile') {
+            //=============Phone Number Validation================
             if (maxLength10(phoneNo)) {
-                setErrPhoneNo(maxLength10(phoneNo));
-            } else {
-                if (validatePhoneNo(phoneNo)) {
-                    setErrPhoneNo(validatePhoneNo(phoneNo));
-                } else {
-                    validateNum++;
-                }
+                errorList.phoneErr = maxLength10(phoneNo)
+
+            } else if (!isValidNumber(formattedNum)) {
+                errorList.phoneErr = validatePhoneNo(phoneNo)
             }
         }
-        else {
-            if (maxLength32(email)) {
-                setErrEmail(maxLength32(email));
-            } else {
-                if (validateEmail(email)) {
-                    setErrEmail(validateEmail(email));
-                } else {
-                    validateNum++;
-                }
+        else if (toggle === 'Email') {
+            //=============Email Validation================
+            if (maxLength50(email)) {
+                errorList.emailErr = maxLength50(email)
+            }
+            else if (validateEmail(email)) {
+                errorList.emailErr = validateEmail(email)
             }
 
+            //=============Password Validation================
             if (maxLength8(password)) {
-                setErrPassword(maxLength8(password));
-            } else {
-                if (validatePassword(password)) {
-                    setErrPassword(validatePassword(password));
-                } else {
-                    validateNum++;
-                }
+                errorList.passwordErr = maxLength8(password)
+            }
+            else if (validatePassword(password)) {
+                errorList.passwordErr = validatePassword(password)
             }
         }
 
-       
+        setError(errorList)
 
-
-
-
-
+        //================API Call Fuction================
+        if (Object.keys(errorList).length == 0) {
+            setError({});
+            // checkPhoneNumber(formattedNum)
+            navigation.navigate('OtpVerification')
+        }
     }
 
 
@@ -91,75 +80,90 @@ const Login = () => {
                 <AuthHeader
                     title={'Sign in to Your Account'}
                 />
-
                 <CustomSwitch
                     selectionMode={1}
-                    onSelectSwitch={(value) => setToggle(value)}
+                    onSelectSwitch={(value) => {
+                        setError({})
+                        setToggle(value)
+                    }}
                     selectionColor={Colors.themeColor}
                 />
-
-
                 {
                     toggle === 'Mobile' ?
-                        (<AppInput
+                        <AppInput
                             label={'Mobile Phone Number'}
                             required
                             placeholder={'Enter your phone number'}
                             isNumberField
-                            onChangeText={(phoneNo) => setPhoneNo(phoneNo)}
+                            onChangeText={(phoneNo) => {
+                                setPhoneNo(phoneNo)
+                                setError({ ...error, ['phoneErr']: null })
+                            }}
                             value={phoneNo}
                             validate={[maxLength10, validatePhoneNo]}
-                            error={errPhoneNo}
-                        />)
+                            error={error['phoneErr']}
+                            onChangeFormattedText={(val) => setFormattedNum(val)}
+                        />
                         :
                         (
-                            <><AppInput
-                                label={'Email Address'}
-                                required
-                                placeholder={'Enter Your Email Address'}
-                                onChangeText={(email) => setEmail(email)}
-                                value={email}
-                                validate={[maxLength32, validateEmail]}
-                                error={errEmail}
-                            />
-
+                            <>
+                                <AppInput
+                                    label={'Email Address'}
+                                    required
+                                    placeholder={'Enter Your Email Address'}
+                                    onChangeText={(email) => {
+                                        setEmail(email)
+                                        setError({ ...error, ['emailErr']: null })
+                                    }}
+                                    value={email}
+                                    validate={[maxLength32, validateEmail]}
+                                    error={error['emailErr']}
+                                />
                                 <AppInput
                                     label={'Password'}
                                     placeholder={'Enter your password'}
                                     required
                                     rightComponent
-                                    onChangeText={(password) => setPassword(password)}
+                                    onChangeText={(password) => {
+                                        setPassword(password)
+                                        if (validatePassword(password) || maxLength8(password)) {
+                                        } else {
+                                            setError({ ...error, ['passwordErr']: null })
+                                        }
+                                    }}
                                     value={password}
                                     secureTextEntry={showPassword}
                                     onPasswordPress={() => setShowPassword(!showPassword)}
                                     validate={[maxLength8, validatePassword]}
-                                    error={errPassword}
+                                    error={error['passwordErr']}
                                 />
-
-
-                                <TouchableOpacity style={{ margin: '5%' }} onPress={() => {navigation.navigate('ForgotPasswordScreen') }}>
-                                    <Text style={styles.forgotText}>
-                                        Forgot password?</Text>
-                                </TouchableOpacity >
+                                <TouchableOpacity style={{ margin: '5%' }} onPress={() => navigation.navigate('ForgotPassword')}>
+                                    <Text style={[styles.text, { textAlign: 'right' }]}>Forgot password?</Text>
+                                </TouchableOpacity>
                             </>
                         )
-
                 }
 
+                <AppButton label={'Sign In'} containerStyle={{ marginVertical: '5%' }} onPress={Login} />
 
+                <View style={styles.rowContainer}>
+                    <ToggleSwitch
+                        isOn={isEnabled}
+                        onColor={Colors.themeColor}
+                        offColor={Colors.GRAY}
+                        size='small'
+                        onToggle={(isOn) => setIsEnabled(isOn)}
+                    />
+                    <Text style={[styles.text, { color: Colors.GRAY3 }]}>Keep me signed in</Text>
+                </View>
 
-
-
-
-
-
-                <AppButton label={'Continue'} containerStyle={{ marginVertical: '5%' }} onPress={Login} />
                 <AuthBottomContainer
                     title={'Or Sign In with'}
                     isAccountText={'Don’t have a account ?'}
                     button={' Sign up'}
-                    onPressButton={() => navigation.navigate('SignUpScreen')}
+                    onPressButton={() => navigation.navigate('Signup')}
                 />
+                
             </KeyboardAwareScrollView>
 
         </AppBackground>
@@ -169,12 +173,20 @@ const Login = () => {
 export default Login
 
 const styles = StyleSheet.create({
-    forgotText: {
+    text: {
         fontFamily: fonts.VisbyCF_Medium,
         fontSize: 16,
         fontWeight: 500,
         letterSpacing: 0.5,
         textAlign: 'left',
         color: Colors.themeColor
+    },
+    rowContainer: {
+        // justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 5,
+        margin: '5%'
     }
+
 })

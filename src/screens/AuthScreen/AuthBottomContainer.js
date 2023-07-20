@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { wp, hp } from '../../constant/responsiveFunc'
 import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
@@ -8,7 +8,7 @@ import Images from '../../constant/Images'
 
 const AuthBottomContainer = (props) => {
 
-    const SocialIconSection = (props) => {
+    const SocialIconSection = useCallback((props) => {
         return (
             <TouchableOpacity style={styles.container}>
                 <Image
@@ -18,8 +18,8 @@ const AuthBottomContainer = (props) => {
                 <Text style={styles.text}>{props.Text}</Text>
             </TouchableOpacity>
         )
-    }
-
+    }, []);
+    
    return (
         <>
             <View style={styles.mainContainer}>

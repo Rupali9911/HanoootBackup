@@ -7,6 +7,7 @@ export const maxLength = max => value =>
 export const maxLength32 = maxLength(32);
 export const maxLength10 = maxLength(10);
 export const maxLength8 = maxLength(8);
+export const maxLength50 = maxLength(50);
 
 
 const fullNameRegex = new RegExp(/^[A-Za-z\s]*$/)

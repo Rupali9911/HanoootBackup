@@ -19,11 +19,11 @@ const ToastPages = (props) => {
             }}>
                 <Image
                     source={Images.ToastSuccessBanner}
-                    style={{
+                    style={[{
                         height: hp(15),
                         width: wp(34),
                         resizeMode: 'contain'
-                    }}
+                    }, props.imageStyle]}
 
                 />
                 <Text

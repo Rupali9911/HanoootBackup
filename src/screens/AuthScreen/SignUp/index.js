@@ -10,12 +10,13 @@ import AppButton from '../../Components/AppButton';
 import Images from '../../../constant/Images';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import AuthBottomContainer from '../AuthBottomContainer';
-import { maxLength32, maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName } from '../../utils';
+import { maxLength32, maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName, maxLength50, validateEmail } from '../../utils';
 import { isValidNumber } from 'react-native-phone-number-input';
 import AuthHeader from '../AuthHeader';
 import { useNavigation } from '@react-navigation/native';
 import { CHECK_PHONE_NUMBER } from '../../../utility/apiUrls'
 import sendRequest from '../../../services/axios/AxiosApiRequest'
+import CustomSwitch from '../customSwitch';
 
 const Signup = () => {
     const [name, setName] = useState('')
@@ -23,48 +24,54 @@ const Signup = () => {
     const [formattedNum, setFormattedNum] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-    const [errUsername, setErrUsername] = useState(false);
-    const [errPhoneNo, setErrPhoneNo] = useState(false);
-    const [errEmail, setErrEmail] = useState(false);
-    const [errPassword, setErrPassword] = useState(false);
     const [successPassword, setSuccessPassword] = useState(false);
     const [showPassword, setShowPassword] = useState(true);
+    const [toggle, setToggle] = useState('Mobile')
+    const [error, setError] = useState({})
 
     const navigation = useNavigation();
 
     const Signup = () => {
-        let validateNum = 0;
+        const errorList = {}
 
-        if (maxLength32(name)) {
-            setErrUsername(maxLength32(name));
-        } else {
-            if (validateFullName(name)) {
-                setErrUsername(validateFullName(name));
-            } else {
-                console.log('Name validated')
-                validateNum++;
+        //=============Fullname Validation================
+        if (validateFullName(name)) {
+            errorList.nameErr = validateFullName(name)
+        }
+
+        if (toggle === 'Mobile') {
+            //=============Phone Number Validation================
+            if (maxLength10(phoneNo)) {
+                errorList.phoneErr = maxLength10(phoneNo)
+
+            } else if (!isValidNumber(formattedNum)) {
+                errorList.phoneErr = validatePhoneNo(phoneNo)
             }
         }
 
-        if (maxLength10(phoneNo)) {
-            setErrPhoneNo(maxLength10(phoneNo));
-        } else {
-            if (!isValidNumber(formattedNum)) {
-                setErrPhoneNo(validatePhoneNo(phoneNo));
-            } else {
-                validateNum++;
+        else if (toggle === 'Email') {
+            //=============Email Validation================
+            if (maxLength50(email)) {
+                errorList.emailErr = maxLength50(email)
+            }
+            else if (validateEmail(email)) {
+                errorList.emailErr = validateEmail(email)
+            }
+
+            //=============Password Validation================
+            if (maxLength8(password)) {
+                errorList.passwordErr = maxLength8(password)
+            }
+            else if (validatePassword(password)) {
+                errorList.passwordErr = validatePassword(password)
             }
         }
-        if (validatePassword(password)) {
-            setErrPassword(validatePassword(password));
-            setSuccessPassword(false)
-        } else {
-            setSuccessPassword(true)
-            validateNum++;
-        }
 
-        // Call check phone API
-        if (validateNum === 3) {
+        setError(errorList)
+
+        //================API Call Fuction================
+        if (Object.keys(errorList).length == 0) {
+            setError({});
             checkPhoneNumber(formattedNum)
         }
     }
@@ -79,7 +86,7 @@ const Signup = () => {
         })
             .then(response => {
                 console.log('Response from Check phone number api', response)
-                //  navigation.navigate('OtpVerification')
+                 navigation.navigate('OtpVerification')
             })
             .catch(error => {
                 console.log('Error from Check phone number api', error)
@@ -93,71 +100,95 @@ const Signup = () => {
         >
             <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('10%') }} />
             <KeyboardAwareScrollView>
-                <AuthHeader title={'Create Your Account'} />
+                <AuthHeader title={'Register to Hanooot'} />
+
+                <CustomSwitch
+                    selectionMode={1}
+                    onSelectSwitch={(value) => {
+                        setError({})
+                        setToggle(value)
+                    }}
+                    selectionColor={Colors.themeColor}
+                />
+
                 <AppInput
                     label={'Your Name'}
                     placeholder={'Enter your Name'}
                     required
                     onChangeText={(name) => {
                         setName(name);
-                        setErrUsername(false);
+                        setError({ ...error, ['nameErr']: null })
                     }}
                     value={name}
-                    validate={[maxLength32, validateUserName]}
-                    error={errUsername}
+                    validate={[validateUserName]}
+                    error={error['nameErr']}
+
                 />
 
-                <AppInput
-                    label={'Mobile Phone Number'}
-                    placeholder={'Enter your phone number'}
-                    required
-                    isNumberField
-                    onChangeText={(phoneNo) => {
-                        setPhoneNo(phoneNo)
-                        setErrPhoneNo(false)
-                    }}
-                    value={phoneNo}
-                    validate={[maxLength10, validatePhoneNo]}
-                    error={errPhoneNo}
-                    onChangeCountry={(val) => console.log(val)}
-                    onChangeFormattedText={(val) => setFormattedNum(val)}
-                />
+                {
+                    toggle === 'Mobile' ?
+                        (
+                            <AppInput
+                                label={'Mobile Phone Number'}
+                                placeholder={'Enter your phone number'}
+                                required
+                                isNumberField
+                                onChangeText={(phoneNo) => {
+                                    setPhoneNo(phoneNo)
+                                    setError({ ...error, ['phoneErr']: null })
+                                }}
+                                value={phoneNo}
+                                validate={[maxLength10, validatePhoneNo]}
+                                error={error['phoneErr']}
+                                onChangeCountry={(val) => console.log(val)}
+                                onChangeFormattedText={(val) => setFormattedNum(val)}
+                            />
+                        ) : (
+                            <>
+                                <AppInput
+                                    label={'Email'}
+                                    placeholder={'Enter your eamil'}
+                                    onChangeText={(email) => {
+                                        setEmail(email)
+                                        setError({ ...error, ['emailErr']: null })
+                                    }}
+                                    required
+                                    value={email}
+                                    maxLength={50}
+                                    validate={[maxLength50, validatePhoneNo]}
+                                    error={error['emailErr']}
+                                />
 
-                <AppInput
-                    label={'Email'}
-                    placeholder={'Enter your eamil'}
-                    onChangeText={(email) => {
-                        setEmail(email)
-                        setErrEmail(false)
-                    }}
-                    value={email}
-                    error={errEmail}
-                    maxLength={50}
-                />
+                                <AppInput
+                                    label={'Password'}
+                                    placeholder={'at least 8 characters'}
+                                    required
+                                    rightComponent
+                                    passwordError
+                                    onChangeText={(password) => {
+                                        setPassword(password)
+                                        if (validatePassword(password) || maxLength8(password)) {
+                                            setSuccessPassword(false)
+                                        } else {
+                                            setError({ ...error, ['passwordErr']: null })
+                                            setSuccessPassword(true)
 
-                <AppInput
-                    label={'Password'}
-                    placeholder={'at least 8 characters'}
-                    required
-                    rightComponent
-                    passwordError
-                    onChangeText={(password) => {
-                        setPassword(password)
-                        setErrPassword(false)
-                        if (validatePassword(password)) {
-                            setSuccessPassword(false)
-                        } else {
-                            setSuccessPassword(true)
-                        }
-                    }}
-                    value={password}
-                    validate={[maxLength8, validatePassword]}
-                    error={errPassword}
-                    passwordSuccess={successPassword}
-                    secureTextEntry={showPassword}
-                    onPasswordPress={() => setShowPassword(!showPassword)}
-                />
-                <View style={{ marginHorizontal: '3%' }}>
+                                        }
+                                    }}
+                                    value={password}
+                                    validate={[maxLength8, validatePassword]}
+                                    error={error['passwordErr']}
+                                    passwordSuccess={successPassword}
+                                    secureTextEntry={showPassword}
+                                    onPasswordPress={() => setShowPassword(!showPassword)}
+                                />
+                            </>
+                        )
+                }
+
+
+
+                <View style={{ marginHorizontal: '3%', marginVertical: '5%' }}>
                     <Text style={styles.termsPrivacy} >
                         By Continuing, you agree to Hanooot
                         <TouchableOpacity onPress={() => console.log('Terms & Condition')}>
@@ -180,7 +211,7 @@ const Signup = () => {
                     title={'Or Sign Up with'}
                     isAccountText={'Already have an account?'}
                     button={' Sign in'}
-                    onPressButton={() => navigation.navigate('LoginScreen')}
+                    onPressButton={() => navigation.navigate('Login')}
                 />
 
             </KeyboardAwareScrollView>

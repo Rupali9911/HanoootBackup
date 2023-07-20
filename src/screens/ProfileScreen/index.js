@@ -27,7 +27,7 @@ const ProfileScreen = (props) => {
                             <Image source={Images?.pencilIcon} style={styles.pencilImg} />
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity style={styles.registerButton}>
+                        <TouchableOpacity style={styles.registerButton} onPress={() => navigation.navigate('Signup')}>
                             <Text style={styles.register}>Register</Text>
                         </TouchableOpacity>
                 }

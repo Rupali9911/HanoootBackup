@@ -9,7 +9,7 @@ import AuthHeader from '../AuthHeader'
 import fonts from '../../../constant/fonts'
 import AppInput from '../../../constant/AppInput'
 import AppButton from '../../Components/AppButton'
-import { maxLength10, maxLength32, validatePhoneNo, validateEmail } from '../../utils'
+import { maxLength10, maxLength32, validatePhoneNo, validateEmail, maxLength50 } from '../../utils'
 import { useNavigation } from '@react-navigation/native'
 import CustomSwitch from '../customSwitch'
 
@@ -27,31 +27,45 @@ const ForgotPassword = () => {
 
         const errList = {}
 
-        if (toggle === 'Mobile') {
-            if (maxLength10(phoneNo)) {
-                errList.phoneErr = maxLength10(phoneNo)
-            }
-            else if(validatePhoneNo(phoneNo)){
-                errList.phoneErr = validatePhoneNo(phoneNo)
-            }
-            else{
-                navigation.navigate('OtpVerification', { contactNo: phoneNo })
-            }
-            setError(errList);
+        if (maxLength50(email)) {
+            errList.emailErr = maxLength32(email)
         }
-        else if(toggle === 'Email') {
-            if (maxLength32(email)) {
-                errList.emailErr = maxLength32(email)
-            }
-            else if(validateEmail(email)){
-                errList.emailErr = validateEmail(email)
-            }
-            else{
-                navigation.navigate('NewPasswordScreen')
-            }
-            setError(errList);
+        else if (validateEmail(email)) {
+            errList.emailErr = validateEmail(email)
+        }
+        
+        setError(errList)
+
+        if (Object.keys(errList).length == 0) {
+            setError({});
+            navigation.navigate('EmailLinkSuccess')
         }
 
+
+        // if (toggle === 'Mobile') {
+        //     if (maxLength10(phoneNo)) {
+        //         errList.phoneErr = maxLength10(phoneNo)
+        //     }
+        //     else if (validatePhoneNo(phoneNo)) {
+        //         errList.phoneErr = validatePhoneNo(phoneNo)
+        //     }
+        //     else {
+        //         navigation.navigate('OtpVerification', { contactNo: phoneNo })
+        //     }
+        //     setError(errList);
+        // }
+        // else if (toggle === 'Email') {
+        //     if (maxLength32(email)) {
+        //         errList.emailErr = maxLength32(email)
+        //     }
+        //     else if (validateEmail(email)) {
+        //         errList.emailErr = validateEmail(email)
+        //     }
+        //     else {
+        //         navigation.navigate('NewPasswordScreen')
+        //     }
+        //     setError(errList);
+        // }
     }
 
     return (
@@ -61,45 +75,27 @@ const ForgotPassword = () => {
 
             <KeyboardAwareScrollView>
                 <AuthHeader
-                    title={'Forgot Password'}
+                    title={'Lost Your Password?'}
                 />
 
-                <Text style={styles.text}>Enter the mobile phone number associated with your Hanooot account.</Text>
+                <Text style={styles.text}>Enter the email associated with your Hanooot account.</Text>
 
-
-                <CustomSwitch
-                    selectionMode={1}
-                    onSelectSwitch={(value) => setToggle(value)}
-                    selectionColor={Colors.themeColor}
+                <AppInput
+                    label={'Email Address'}
+                    required
+                    placeholder={'Enter Your Email Address'}
+                    onChangeText={(email) => {
+                        setEmail(email)
+                        setError({})
+                    }}
+                    value={email}
+                    validate={[maxLength32, validateEmail]}
+                    error={error['emailErr']}
                 />
+                <AppButton label={'Continue'} containerStyle={{ marginVertical: '5%' }} onPress={ForgotPassword} />
 
-                {
-                    toggle === 'Mobile' ?
-                        <AppInput
-                            label={'Mobile Phone Number'}
-                            required
-                            placeholder={'Enter your phone number'}
-                            isNumberField
-                            onChangeText={(phoneNo) => setPhoneNo(phoneNo)}
-                            value={phoneNo}
-                            validate={[maxLength10, validatePhoneNo]}
-                            error={error['phoneErr']}
-                        />
-                        :
-                        <AppInput
-                            label={'Email Address'}
-                            required
-                            placeholder={'Enter Your Email Address'}
-                            onChangeText={(email) => setEmail(email)}
-                            value={email}
-                            validate={[maxLength32, validateEmail]}
-                            error={error['emailErr']}
-                        />
-                }
-                <AppButton label={toggle === 'Mobile' ? 'Get Verification Code' : 'Reset Password'} containerStyle={{ marginVertical: '5%' }} onPress={ForgotPassword} />
-
-                <TouchableOpacity>
-                    <Text style={[styles.text, { color: Colors.themeColor, fontWeight: 'bold' }]}>Back to Login</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Text style={[styles.text, { color: Colors.themeColor, fontWeight: '600' }]}>Back to Sign In</Text>
                 </TouchableOpacity>
             </KeyboardAwareScrollView>
 

@@ -3,7 +3,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import Signup from '../AuthScreen/SignUp';
 import OtpVerification from '../AuthScreen/OtpVerification';
-import OtpVerifySuccess from '../AuthScreen/SignUp/OtpVerifySuccess';
+import OtpVerifySuccess from '../AuthScreen/OtpVerifySuccess';
 import Login from '../AuthScreen/SignIn';
 import ForgotPassword from '../AuthScreen/ForgotPassword';
 import NewPassword from '../AuthScreen/ForgotPassword/NewPassword';

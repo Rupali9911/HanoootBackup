@@ -10,13 +10,8 @@ import AppButton from '../Components/AppButton'
 import { useNavigation } from '@react-navigation/native'
 
 const OtpVerification = (props) => {
-
-
-
     const navigation = useNavigation();
     const otpInput = useRef([])
-
-
 
     const [otpField, setOtpField] = useState({
         otp1: "",
@@ -29,11 +24,10 @@ const OtpVerification = (props) => {
     const [isFocus, setIsFocus] = useState(false)
     const [seconds, setSeconds] = useState(60)
 
-
-
     const { otp1, otp2, otp3, otp4, otp5, otp6 } = otpField;
 
     useEffect(() => {
+        console.log('check how many times useEffect called : ', seconds)
         let interval;
         if (seconds > 0) {
             interval = setInterval(() => {
@@ -46,7 +40,6 @@ const OtpVerification = (props) => {
         return () => clearInterval(interval);
 
     }, [seconds])
-
 
     const renderOTPInput = () => {
         let inputs = [
@@ -87,9 +80,6 @@ const OtpVerification = (props) => {
             },
         ];
 
-
-
-
         return inputs.map((input, index) => {
             return (
                 <View key={index} style={styles.otpInputContainer}>
@@ -101,35 +91,15 @@ const OtpVerification = (props) => {
                         keyboardType="number-pad"
                         onChangeText={(text) => {
                             setOtpField({ ...otpField, [input.stateName]: text })
-                            console.log('otpInput : ', otpInput.current[index])
-
-                            // setOtpField({...otpField, [input.stateName]: text}, () => {
-                            if (text.length === input.maxLength && input.stateName != 'otp6') {
+                            if (text.length === input.maxLength && input.nextField) {
                                 otpInput.current[index + 1].focus()
-                                // otpInput[input.nextField].focus();
-                                // otpInput.current = input.nextField;
-                                // otpInput.current.focus();
-                                // this.ref.input.nextField.focus()
-                                // console.log('otpInput : ', otpInput)
-
-                                // otpInput = this[input.nextField]
-                                // otpInput.current.focus();
-
                             }
-
-
-                            // setOtpField({ [input.stateName]: text }, () => {
-                            //     if (text.length == input.maxLength) {
-                            //         this.refs[input.nextField].focus();
-                            //     }
-                            // });
+                            else if (text.length === 0 && input.nextField != 'otp2') {
+                                otpInput.current[index - 1].focus()
+                            }
                         }}
-                        // onSubmitEditing={}
                         onFocus={() => setIsFocus(true)}
                         ref={input => otpInput.current[index] = input}
-
-                        // ref={otpInput(input.stateName)}
-
                         value={otpField[input.stateName]}
                     />
                 </View>
@@ -142,20 +112,24 @@ const OtpVerification = (props) => {
         setSeconds(60)
     }
 
-
-
     return (
         <AppBackground
             safeAreaColor={Colors.themeColor}
         >
             <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('10%') }} />
             <AuthHeader
-                title={'Verify Your Mobile Number'}
+                title={'Your One Time Password'}
             />
             <View style={styles.container}>
-                <Text style={styles.title}>{'Enter your OTP'}</Text>
+                {/* <Text style={styles.title}>{'Enter your OTP'}</Text> */}
                 <Text style={[styles.text, styles.grayColor]}>{'We have sent a OTP on below mobile'}</Text>
-                <Text style={styles.text}>{props.route.params.contactNo}<Text style={styles.themeColor}>{' Change'}</Text></Text>
+                <View style={[styles.rowContainer, { gap: 5 }]}>
+                    <Text style={styles.text}>{'+91 8856646645'}</Text>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Text style={[styles.text, styles.themeColor]}>{'Change'}</Text>
+                    </TouchableOpacity>
+
+                </View>
 
 
                 <View style={styles.OTPView}>
@@ -166,14 +140,11 @@ const OtpVerification = (props) => {
                             {seconds > 0 ? (
                                 <Text style={[styles.text, styles.grayColor]}>{`Resend OTP in ${seconds} seconds`}</Text>
                             ) : (
-                                <View style={styles.rowContainer}>
-                                    <Button title="Resend" onPress={handleResendOTP} style={styles.text} color={Colors.themeColor} /><Text style={[styles.text, styles.grayColor]}>Now</Text>
-                                </View>
+                                    <Button title="Resend OTP" onPress={handleResendOTP} style={styles.text} color={Colors.themeColor} />
                             )}
                         </View>
                     </View>
                 </View>
-
 
                 <AppButton
                     label={'Submit'}
@@ -183,6 +154,7 @@ const OtpVerification = (props) => {
                     view={(otp1 && otp2 && otp3 && otp4 && otp5 && otp6) ? false : true}
                 />
 
+                <Button title="Go Back" onPress={() => navigation.goBack()} style={styles.text} color={Colors.themeColor} />
             </View>
 
         </AppBackground>
@@ -193,7 +165,8 @@ export default OtpVerification
 
 const styles = StyleSheet.create({
     container: {
-        margin: '5%',
+        marginHorizontal: '5%',
+        marginVertical: '8%',
         gap: 5
     },
     title: {
@@ -219,23 +192,15 @@ const styles = StyleSheet.create({
         color: Colors.GRAY3
     },
     OTPView: {
-        // flex: 1,
         alignItems: "center",
         justifyContent: "center",
         marginVertical: '5%',
-        // height: 20,
-        // width: 20,
-        // borderColor: Colors.themeColor,
-        // borderWidth: 1
-
     },
     otpContainer: {
         flexDirection: "row",
         marginBottom: 30,
     },
     otpInputContainer: {
-        // borderBottomWidth: 1,
-        // borderBottomColor: "#000",
         marginRight: 10,
     },
     otpInput: isFocus => ({

@@ -120,9 +120,11 @@ const AppInput = (props) => {
                                     keyboardType: "phone-pad",
                                     onFocus: () => handleFocus(),
                                     onBlur: () => handleBlur(),
+                                    selectionColor: Colors.themeColor
                                 }}
                                 textContainerStyle={styles.countryCodePickerStyle(isFocus)}
                                 placeholder={props.placeholder}
+                            
                                 {...props}
                             />
                             :
@@ -187,7 +189,7 @@ const AppInput = (props) => {
             {
                 props.passwordError &&
                 <View style={{
-                    marginVertical: '5%'
+                    marginTop: '5%'
                 }}>
                     <PasswordErrorRender label={'Must include a letter'} isSuccess={props.passwordSuccess} />
                     <PasswordErrorRender label={'Must include a number'} isSuccess={props.passwordSuccess} />

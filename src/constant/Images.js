@@ -4,6 +4,7 @@ export default {
     categories: require('../assets/images/categories.png'),
     cart: require('../assets/images/cart.png'),
     cartSelected: require('../assets/images/cartSelected.png'),
+    categorySelected: require('../assets/images/categorySelected.png'),
     profile: require('../assets/images/profile.png'),
     backIcon: require(`../assets/images/backArrow.png`),
     searchIcon: require(`../assets/images/search_grey.png`),

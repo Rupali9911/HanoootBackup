@@ -9,9 +9,10 @@ import Checkout from '../Checkout';
 import ProfileScreen from '../ProfileScreen';
 import { useNavigation } from '@react-navigation/native';
 import EmptyDetailScreen from '../../Components/EmptyDetailScreen';
-import Signup from '../AuthScreen/SignUp';
-import { hp } from '../../constant/responsiveFunc';
+import { hp, wp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
+// import Signup from '../AuthScreen/SignUp';
+import Category from '../Categories';
 
 const Tab = createBottomTabNavigator();
 
@@ -50,8 +51,8 @@ export default function TabComponent() {
 
                     if (route.name === 'Home') {
                         iconName = focused ? Images.homeSelected : Images.home;
-                    } else if (route.name === 'Categories') {
-                        iconName = focused ? Images.homeSelected : Images.categories;
+                    } else if (route.name === 'Category') {
+                        iconName = focused ? Images.categorySelected : Images.categories;
                     } else if (route.name === 'Cart') {
                         iconName = focused ? Images.cartSelected : Images.cart;
                     } else if (route.name === 'Profile') {
@@ -61,14 +62,14 @@ export default function TabComponent() {
                         <Image
                             source={iconName}
                             resizeMode="contain"
-                            style={{ width: 20, height: 20, }}
+                            style={{ width: wp(5), height: hp(2), }}
                         />
                     );
                 },
             })}
         >
             <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Categories" component={D} />
+            <Tab.Screen name="Category" component={Category} />
             <Tab.Screen name="Cart" component={CartScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
 
