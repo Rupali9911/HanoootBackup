@@ -3,14 +3,12 @@ import React, { useState } from 'react'
 import Colors from '../constant/Colors'
 import Images from '../constant/Images'
 import fonts from '../constant/fonts'
-import { hp, wp } from '../constant/responsiveFunc'
+import { hp, wp, SIZE } from '../constant/responsiveFunc'
 import { LikeImage, ExpressView } from '../constant/ListConstant'
 import CheckBox from 'react-native-check-box'
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addToWishlist, removeWishlistItem } from '../screens/Store/actions/wishlistActions'
-
-
 
 
 const ListView = (props) => {
@@ -25,6 +23,7 @@ const ListView = (props) => {
             style={[styles.ProductListContainer, props.ViewContStyle]}
             onPress={() => navigation.navigate('ProductDetail', { item: item })}
         >
+
             <View style={styles.topLine}>
                 {
                     props.isExpress && <ExpressView />
@@ -36,7 +35,7 @@ const ListView = (props) => {
                                 setLiked(!isLiked);
                                 !isLiked ? dispatch(addToWishlist(item)) : dispatch(removeWishlistItem(item));
                             }}
-                            imgStyle={{tintColor: isLiked ? Colors.RED : Colors.BLACK}}
+                            imgStyle={{ tintColor: isLiked ? Colors.RED : Colors.BLACK }}
                         /> :
                         props.isCheckBox ?
                             <CheckBox
@@ -64,7 +63,7 @@ const ListView = (props) => {
                     </View>
 
                 }
-                <Text style={styles.productName} numberOfLines={2}>{item.name}</Text>
+                <Text style={styles.productName} numberOfLines={2}>{item?.name}</Text>
 
 
 
@@ -89,13 +88,14 @@ const ListView = (props) => {
                 {
                     props.isRating &&
 
-                    <View style={styles.ratingView}>
+                    <View style={styles.rowContainer}>
                         <Text style={styles.rating}>{'4.0'}</Text>
                         <Image source={Images.star} style={styles.ratingImg} />
                         <Text style={styles.ratingVal}>{'(79)'}</Text>
                     </View>
                 }
             </View>
+
         </TouchableOpacity>
     )
 }
@@ -104,16 +104,26 @@ export default ListView
 
 const styles = StyleSheet.create({
     ProductListContainer: {
-        backgroundColor: Colors.WHITE,
-        width: wp(35),
-        paddingHorizontal: 10,
-        paddingVertical: 20,
-        borderRadius: 10,
-        // margin: 10
-        marginRight: 15
+        marginVertical: wp('2'),
+        marginHorizontal: wp('2'),
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        borderRadius: SIZE(10),
+
+        elevation: 5,
+        backgroundColor: 'white',
+        paddingVertical: SIZE(15),
+        paddingHorizontal: SIZE(10),
+        verticalAlign: 'top',
+        overflow: 'hidden',
     },
     textView: {
-        top: 10
+        marginTop: SIZE(20),
+        maxWidth: wp(35)
     },
     price: {
         fontFamily: fonts.VISBY_CF_REGULAR,
@@ -123,7 +133,7 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         alignSelf: 'center',
-        padding: 10
+        // padding: 10
     },
     discountPrice: {
         fontFamily: fonts.VISBY_CF_REGULAR,
@@ -137,11 +147,12 @@ const styles = StyleSheet.create({
     topLine: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginBottom: SIZE(20)
     },
     productImg: {
-        height: 70,
-        width: 70,
+        height: SIZE(70),
+        width: SIZE(70),
         resizeMode: 'contain'
     },
     productName: {
@@ -183,13 +194,20 @@ const styles = StyleSheet.create({
         fontWeight: 600
     },
     ratingImg: {
-        height: 12, width: 12, resizeMode: 'contain'
+        height: SIZE(12), width: SIZE(12), resizeMode: 'contain'
     },
-    ratingView: {
+    rowContainer: {
         flexDirection: 'row', alignItems: 'center', gap: 3
     },
     priceBtnView: {
-        paddingVertical: 2, paddingHorizontal: 10, backgroundColor: Colors.RED, width: 60, borderRadius: 10, marginVertical: 5
+        // paddingVertical: 2, 
+        // paddingHorizontal: 10, 
+        backgroundColor: Colors.RED, 
+        width: 60, 
+        borderRadius: 10, 
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: SIZE(1)
     },
     priceBtnText: {
         fontFamily: fonts.VisbyCF_Demibold,

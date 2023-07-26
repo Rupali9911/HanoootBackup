@@ -41,6 +41,8 @@ import OtpVerifySuccess from '../AuthScreen/OtpVerifySuccess';
 import Login from '../AuthScreen/SignIn';
 import ForgotPassword from '../AuthScreen/ForgotPassword';
 import EmailLinkSuccess from '../AuthScreen/ForgotPassword/EmailLinkSuccess';
+import ViewMoreCategories from '../Categories/ViewMoreCategories';
+import ProductListWithFilters from '../Components/ProductListWithFilters';
 
 const Stack = createStackNavigator();
 
@@ -86,6 +88,8 @@ export default function RootStackScreen() {
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="EmailLinkSuccess" component={EmailLinkSuccess} />
+            <Stack.Screen name="ViewMoreCategories" component={ViewMoreCategories} />
+            <Stack.Screen name="ProductListWithFilters" component={ProductListWithFilters} />
         </Stack.Navigator>
     )
 }
