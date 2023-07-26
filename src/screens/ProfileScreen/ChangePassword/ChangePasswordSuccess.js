@@ -6,10 +6,10 @@ import { useNavigation } from '@react-navigation/native'
 const ChangePasswordSuccess = () => {
   const navigation = useNavigation();
   return (
-   <ToastPages 
-   title={'Password Updated Successfully!'}
-   onPress={navigation.navigate('ProfileScreen')}
-   />
+    <ToastPages
+      title={'Password Updated Successfully!'}
+      onPress={navigation.navigate('ProfileScreen')}
+    />
   )
 }
 

@@ -7,6 +7,7 @@ export const maxLength = max => value =>
 export const maxLength32 = maxLength(32);
 export const maxLength10 = maxLength(10);
 export const maxLength8 = maxLength(8);
+export const maxLength50 = maxLength(50);
 
 
 const fullNameRegex = new RegExp(/^[A-Za-z\s]*$/)
@@ -51,6 +52,7 @@ export const validateFullName = value => {
 
 
 export const validatePhoneNo = value => {
+    // console.log('Chekc phone no value : ', value)
     if (!value.trim().length) {
         return 'Phone number is required';
     } else if (!phoneNoRegex.test(value)) {
@@ -59,13 +61,18 @@ export const validatePhoneNo = value => {
 };
 
 export const validatePassword = value => {
-    console.log('Test password validation', passwordRegex.test(value), value, )
+    console.log('Test password validation', passwordRegex.test(value), value,)
     if (!value.trim().length) {
         return 'Password is required';
     } else if (!passwordRegex.test(value)) {
         return 'Please enter a valid password';
     }
+};
 
+export const validateBlankPassword = value => {
+    if (!value.trim().length) {
+        return 'Password is required';
+    }
 };
 
 export const validateEmail = value => {

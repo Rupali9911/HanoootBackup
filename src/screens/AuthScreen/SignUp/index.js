@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import AppBackground from '../../Components/AppBackground';
 import Colors from '../../../constant/Colors';
 import AppHeader from '../../Components/AppHeader';
@@ -9,12 +10,14 @@ import AppInput from '../../../constant/AppInput';
 import AppButton from '../../Components/AppButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import AuthBottomContainer from '../AuthBottomContainer';
-import { maxLength32, maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName } from '../../utils';
+import { maxLength32, maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName, maxLength50, validateEmail } from '../../utils';
 import { isValidNumber } from 'react-native-phone-number-input';
 import AuthHeader from '../AuthHeader';
 import { useNavigation } from '@react-navigation/native';
-import { CHECK_PHONE_NUMBER, GOOGLE_CLIENT_ID } from '../../../utility/apiUrls'
-import sendRequest from '../../../services/axios/AxiosApiRequest'
+import CustomSwitch from '../customSwitch';
+import { checkPhoneNumber } from '../../../services/apis'
+import { createUserWithEmail, updateDisplayName, signInWithPhoneNumber } from '../../../services/socialAuth'
+import { setUserData } from '../../Store/actions/userAction'
 
 const Signup = () => {
     const [name, setName] = useState('')
@@ -22,154 +25,217 @@ const Signup = () => {
     const [formattedNum, setFormattedNum] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-    const [errUsername, setErrUsername] = useState(false);
-    const [errPhoneNo, setErrPhoneNo] = useState(false);
-    const [errEmail, setErrEmail] = useState(false);
-    const [errPassword, setErrPassword] = useState(false);
     const [successPassword, setSuccessPassword] = useState(false);
     const [showPassword, setShowPassword] = useState(true);
+    const [mobileSwitch, setMobileSwitch] = useState(true)
+    const [error, setError] = useState({})
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
-    const Signup = () => {
-        let validateNum = 0;
+    const signupTapped = () => {
+        const errorList = {}
 
-        if (maxLength32(name)) {
-            setErrUsername(maxLength32(name));
-        } else {
-            if (validateFullName(name)) {
-                setErrUsername(validateFullName(name));
-            } else {
-                console.log('Name validated')
-                validateNum++;
+        //=============Fullname Validation================
+        if (validateFullName(name)) {
+            errorList.nameErr = validateFullName(name)
+        }
+
+        if (mobileSwitch) {
+            //=============Phone Number Validation================
+            if (maxLength10(phoneNo)) {
+                errorList.phoneErr = maxLength10(phoneNo)
+
+            } else if (!isValidNumber(formattedNum)) {
+                errorList.phoneErr = validatePhoneNo(phoneNo)
             }
         }
 
-        if (maxLength10(phoneNo)) {
-            setErrPhoneNo(maxLength10(phoneNo));
-        } else {
-            if (!isValidNumber(formattedNum)) {
-                setErrPhoneNo(validatePhoneNo(phoneNo));
-            } else {
-                validateNum++;
+        else if (!mobileSwitch) {
+            //=============Email Validation================
+            if (maxLength50(email)) {
+                errorList.emailErr = maxLength50(email)
+            }
+            else if (validateEmail(email)) {
+                errorList.emailErr = validateEmail(email)
+            }
+
+            //=============Password Validation================
+            if (validatePassword(password)) {
+                errorList.passwordErr = validatePassword(password)
             }
         }
-        if (validatePassword(password)) {
-            setErrPassword(validatePassword(password));
-            setSuccessPassword(false)
-        } else {
-            setSuccessPassword(true)
-            validateNum++;
-        }
 
-        // Call check phone API
-        if (validateNum === 3) {
-            checkPhoneNumber(formattedNum)
+        setError(errorList)
+
+        //================API Call Fuction================
+        if (Object.keys(errorList).length == 0) {
+            setError({});
+            (mobileSwitch) ? signUpWithNumber() : signUpWithEmail()
         }
     }
 
-    const checkPhoneNumber = (phoneNumber) => {
-        sendRequest({
-            url: CHECK_PHONE_NUMBER,
-            method: 'POST',
-            data: {
-                phone_number: phoneNumber
+    const signUpWithNumber = async () => {
+        const a = {}
+        console.log('Value of a', a)
+        return
+        // checkPhoneNumber(formattedNum, phoneNo)
+        //     .then((response) => {
+        //         console.log('Response from Check phone number api', response)
+        //         navigation.navigate('OtpVerification', {
+        //             authResult: response,
+        //             phoneNumber: formattedNum
+        //         });
+        //     })
+        //     .catch((error) => {
+        //         console.log('Error from Check phone number api', error)
+        //     })
+
+        try {
+            await checkPhoneNumber(formattedNum, phoneNo)
+            const authResults = await signInWithPhoneNumber(formattedNum)(formattedNum, phoneNo)
+
+            navigation.navigate('OtpVerification', {
+                authResult: authResults,
+                phoneNumber: formattedNum
+            });
+        }
+        catch (error) {
+            console.log('Error from Check phone number api', error)
+        }
+    }
+
+    const signUpWithEmail = async () => {
+        try {
+            const userCredentials = await createUserWithEmail(email, password)
+            if (userCredentials?.user) {
+                await updateDisplayName(userCredentials, name)
+                userCredentials.user.displayName = name
             }
-        })
-            .then(response => {
-                console.log('Response from Check phone number api', response)
-                auth()
-                    .signInWithPhoneNumber(phoneNumber)
-                    .then(confirmResult => {
-                        console.log('confirmResult', confirmResult)
-                        console.log('confirmResult', confirmResult._verificationId)
-                        navigation.navigate('OtpVerification', {
-                            authResult: confirmResult,
-                            phoneNumber: phoneNumber
-                        });
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-            })
-            .catch(error => {
-                console.log('Error from Check phone number api', error)
-            })
-    };
+            dispatch(setUserData(userCredentials.user))
+            navigation.navigate('Home')
+        }
+        catch (error) {
+            console.log('Error from createUserWithEmail or ', error)
+        }
 
 
+        // createUserWithEmail(email, password)
+        //     .then((userCredentials) => {
+        //         console.log('response from createUserWithEmail ', userCredentials)
+        //         console.log('response from createUserWithEmail ', userCredentials?.user)
+        //         const updateName = updateDisplayName(userCredentials, name)
+        //         dispatch(setUserData(userCredentials.user))
+        //         navigation.navigate('Home')
+        //         if (userCredentials?.user) {
+        //             await updateDisplayName(userCredentials, name)
+        //             dispatch(setUserData(userCredentials.user))
+        //             navigation.navigate('Home')
+        //         } else {
+        //             navigation.navigate('Home')
+        //         }
 
+        //         // {"additionalUserInfo": {"isNewUser": true, "profile": null, "providerId": "password", "username": null}, "user": {"displayName": null, "email": "rupali.c@webllisto.com", "emailVerified": false, "isAnonymous": false, "metadata": [Object], "multiFactor": [Object], "phoneNumber": null, "photoURL": null, "providerData": [Array], "providerId": "firebase", "refreshToken": "AMf-vBwOplEQ9FnF13SYraOBrzjrv5Rsoow64JwJLSpM6oBi4OGRbATV1oDxtJlTg6uSGFJMEh-7MdS1raDACEDsZJLqIMwaT-PjhhxQowfa4hZhY40r7bhpZSjKJOwKw53KTtb4PYliM6IcO5VIwjuq8ZWfbpVuPbJnyvgnP_pRohhJCYx_uJTHRIx-iBw_9JCX56_7DbX6h1ng7m1q6h2cfmK3w67gBA", "tenantId": null, "uid": "CiMdFlBYwxUWEOoGOAeXE3GsfjZ2"}}
+
+        //     })
+        //     .catch((error) => {
+        //         console.log('Error from Check phone number api', error)
+        //     })
+    }
     return (
         <AppBackground
             safeAreaColor={Colors.themeColor}
         >
             <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('10%') }} />
-            <KeyboardAwareScrollView>
-                <AuthHeader title={'Create Your Account'} />
+            <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'>
+                <AuthHeader title={'Register to Hanooot'} />
+
+                <CustomSwitch
+                    selectionMode={1}
+                    onSelectSwitch={(value) => {
+                        setError({})
+                        setMobileSwitch(value === 'Mobile' ? true : false)
+                    }}
+                    selectionColor={Colors.themeColor}
+                />
+
                 <AppInput
                     label={'Your Name'}
                     placeholder={'Enter your Name'}
                     required
                     onChangeText={(name) => {
                         setName(name);
-                        setErrUsername(false);
+                        setError({ ...error, ['nameErr']: null })
                     }}
                     value={name}
-                    validate={[maxLength32, validateUserName]}
-                    error={errUsername}
+                    validate={[validateUserName]}
+                    error={error['nameErr']}
+
                 />
 
-                <AppInput
-                    label={'Mobile Phone Number'}
-                    placeholder={'Enter your phone number'}
-                    required
-                    isNumberField
-                    onChangeText={(phoneNo) => {
-                        setPhoneNo(phoneNo)
-                        setErrPhoneNo(false)
-                    }}
-                    value={phoneNo}
-                    validate={[maxLength10, validatePhoneNo]}
-                    error={errPhoneNo}
-                    onChangeCountry={(val) => console.log(val)}
-                    onChangeFormattedText={(val) => setFormattedNum(val)}
-                />
+                {
+                    mobileSwitch ?
+                        (
+                            <AppInput
+                                label={'Mobile Phone Number'}
+                                placeholder={'Enter your phone number'}
+                                required
+                                isNumberField
+                                onChangeText={(phoneNo) => {
+                                    setPhoneNo(phoneNo)
+                                    setError({ ...error, ['phoneErr']: null })
+                                }}
+                                value={phoneNo}
+                                validate={[maxLength10, validatePhoneNo]}
+                                error={error['phoneErr']}
+                                onChangeCountry={(val) => console.log(val)}
+                                onChangeFormattedText={(val) => setFormattedNum(val)}
+                            />
+                        ) : (
+                            <>
+                                <AppInput
+                                    label={'Email'}
+                                    placeholder={'Enter your eamil'}
+                                    onChangeText={(email) => {
+                                        setEmail(email)
+                                        setError({ ...error, ['emailErr']: null })
+                                    }}
+                                    required
+                                    value={email}
+                                    maxLength={50}
+                                    validate={[maxLength50, validatePhoneNo]}
+                                    error={error['emailErr']}
+                                />
 
-                <AppInput
-                    label={'Email'}
-                    placeholder={'Enter your eamil'}
-                    onChangeText={(email) => {
-                        setEmail(email)
-                        setErrEmail(false)
-                    }}
-                    value={email}
-                    error={errEmail}
-                    maxLength={50}
-                />
+                                <AppInput
+                                    label={'Password'}
+                                    placeholder={'at least 8 characters'}
+                                    required
+                                    rightComponent
+                                    passwordError
+                                    onChangeText={(password) => {
+                                        setPassword(password)
+                                        if (validatePassword(password)) {
+                                            setSuccessPassword(false)
+                                        } else {
+                                            setError({ ...error, ['passwordErr']: null })
+                                            setSuccessPassword(true)
+                                        }
+                                    }}
+                                    value={password}
+                                    validate={[maxLength8, validatePassword]}
+                                    error={error['passwordErr']}
+                                    passwordSuccess={successPassword}
+                                    secureTextEntry={showPassword}
+                                    onPasswordPress={() => setShowPassword(!showPassword)}
+                                />
+                            </>
+                        )
+                }
 
-                <AppInput
-                    label={'Password'}
-                    placeholder={'at least 8 characters'}
-                    required
-                    rightComponent
-                    passwordError
-                    onChangeText={(password) => {
-                        setPassword(password)
-                        setErrPassword(false)
-                        if (validatePassword(password)) {
-                            setSuccessPassword(false)
-                        } else {
-                            setSuccessPassword(true)
-                        }
-                    }}
-                    value={password}
-                    validate={[maxLength8, validatePassword]}
-                    error={errPassword}
-                    passwordSuccess={successPassword}
-                    secureTextEntry={showPassword}
-                    onPasswordPress={() => setShowPassword(!showPassword)}
-                />
-                <View style={{ marginHorizontal: '3%' }}>
+
+
+                <View style={{ marginHorizontal: '3%', marginVertical: '5%' }}>
                     <Text style={styles.termsPrivacy} >
                         By Continuing, you agree to Hanooot
                         <TouchableOpacity onPress={() => console.log('Terms & Condition')}>
@@ -185,13 +251,14 @@ const Signup = () => {
                 <AppButton
                     label={'Continue'}
                     containerStyle={{ marginVertical: '5%' }}
-                    onPress={Signup}
+                    onPress={signupTapped}
                 />
 
                 <AuthBottomContainer
-                    onPressGoggle={() => goggleSigninAction()}
-                    onPressFacbook={() => facebookSigninAction()}
-                    onPressApple={() => appleSigninAction()}
+                    title={'Or Sign Up with'}
+                    isAccountText={'Already have an account?'}
+                    button={' Sign in'}
+                    onPressButton={() => navigation.navigate('Login')}
                 />
 
             </KeyboardAwareScrollView>

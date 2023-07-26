@@ -6,9 +6,11 @@ const GOOGLE_CLIENT_ID = '154905673298-1ojcgdc10gsfbat0l7d3aqivo0kd8lk0.apps.goo
 
 //APIs
 const CHECK_PHONE_NUMBER = `${API_BASE_URL}/api/v1/user/check-phone`
+const USER_REGISTER = `${API_BASE_URL}/api/v1/user/register`
 
 
 export {
     CHECK_PHONE_NUMBER,
-    GOOGLE_CLIENT_ID
+    GOOGLE_CLIENT_ID,
+    USER_REGISTER
 };

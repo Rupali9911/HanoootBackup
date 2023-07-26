@@ -50,7 +50,7 @@ const ChangePassword = () => {
     let errorList = {};
     !oldPassword ?
       errorList["oldPassword"] = 'Enter your old password' :
-      !newPassword ? errorList["newPassword"] = 'Enter your new password' : 
+      !newPassword ? errorList["newPassword"] = 'Enter your new password' :
         !confirmPassword ? errorList["confirmPassword"] = 'Enter your confirm password' :
           newPassword !== confirmPassword ? errorList["confirmPassword"] = 'Password are not matched!!' : {};
 
@@ -58,7 +58,7 @@ const ChangePassword = () => {
     if (Object.keys(errorList).length == 0) {
       setError({});
       // navigation.navigate('ChangePasswordSuccess')
-      navigation.navigate('ToastMessageScreen', { title: 'Password Updated Successfully!', navigate: 'ProfileScreen' }) 
+      navigation.navigate('ToastMessageScreen', { title: 'Password Updated Successfully!', navigate: 'ProfileScreen' })
     }
   }
 
@@ -77,9 +77,9 @@ const ChangePassword = () => {
         }}
         error={error["oldPassword"]}
         maxLength={9}
-        // onBlur={() => {
-        //   validPasswordString(oldPassword)
-        // }}
+      // onBlur={() => {
+      //   validPasswordString(oldPassword)
+      // }}
 
       />
       <AppInput
@@ -111,9 +111,9 @@ const ChangePassword = () => {
         // onChangeText={newPassword => setNewPassword(newPassword)}
         maxLength={9}
         error={error["confirmPassword"]}
-        // onBlur={() => {
-        //   comparePasswords(confirmPassword)
-        // }}
+      // onBlur={() => {
+      //   comparePasswords(confirmPassword)
+      // }}
       />
 
 

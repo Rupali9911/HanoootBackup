@@ -4,6 +4,7 @@ import auth from '@react-native-firebase/auth';
 import { GOOGLE_CLIENT_ID } from '../../utility/apiUrls'
 import appleAuth from '@invertase/react-native-apple-authentication'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import { showErrorToast } from '../../Components/universal/Toast'
 
 export const googleSignIn = () => {
     GoogleSignin.configure({
@@ -55,18 +56,16 @@ export const appleSignIn = () => {
     })
 }
 
-const authSignIn = (credential) => {
+const authSignIn = async (credential) => {
     return new Promise((resolve, _reject) => {
         auth()
             .signInWithCredential(credential)
             .then(response => {
-                response.user.updateProfile({
-                    displayName: 'Shubham Kothari',
-                });
                 resolve(response)
             })
     })
         .catch(_error => {
+            handleAuthError(_error)
             _reject(_error)
         })
 }
@@ -82,3 +81,193 @@ const authSignIn = (credential) => {
 
 //Resposne from Apple Signin
 //{"additionalUserInfo": {"isNewUser": false, "profile": {"aud": "com.hanooot.ios", "auth_time": 1689860499, "c_hash": "DjChQbemSCa_SmDp730v-w", "email": "25mwvdvyd7@privaterelay.appleid.com", "email_verified": "true", "exp": 1689946899, "iat": 1689860499, "is_private_email": "true", "iss": "https://appleid.apple.com", "nonce": "9b365dd12480ab281dfb0ae9187f308084ee18739df41c532335d32c6d22b32b", "nonce_supported": true, "sub": "000169.c23f7674bce64ad28e70a1b849c69f88.1224"}, "providerId": "apple.com", "username": null}, "user": {"displayName": "Shubham Kothari", "email": "25mwvdvyd7@privaterelay.appleid.com", "emailVerified": true, "isAnonymous": false, "metadata": [Object], "multiFactor": [Object], "phoneNumber": null, "photoURL": null, "providerData": [Array], "providerId": "firebase", "refreshToken": "AMf-vBzOXWNOUcsd_H9ZJzYqAIfPGV59Iy7Je9jWp4jmNw7eGOrDcFFHaY5zPv4B9Z6kmOAisc4UYGIGzTCVjsRVJoXAwdgQcA7Eb13nN0wkkGfUCcEvHQp10dZpxvj4VZGhl41h2VDckmlvWWWLFH6N8Usf0pPNnhZCY32VuL8cYMc7ukiAXu3vq7XHEswt9aSUdtWGcThQvIh1-tXXdxLmzryia_Lfol-HB_AxWy0Epp-5qiTVreLT1F-blM9NVn4jZkMbi9wOvTh45C2v9Tn_QLEpvfwozQ8AUtZoH8N5k1UxK8QmekAPzTYNU9ZZm8DffRB8Mf6P", "tenantId": null, "uid": "ezjPvsYKKVUD3Z9evlVdhZS2gb23"}}
+
+
+
+export const signInWithPhoneNumber = (phoneNumber) => {
+    return new Promise((resolve, _reject) => {
+        auth()
+            .signInWithPhoneNumber(phoneNumber)
+            .then(response => {
+                resolve(response)
+            })
+            .catch(error => {
+                handleAuthError(error)
+                _reject(error)
+            })
+    })
+}
+
+export const createUserWithEmail = (email, pwd) => {
+    return new Promise((resolve, _reject) => {
+        auth()
+            .createUserWithEmailAndPassword(email, pwd)
+            .then(response => {
+                resolve(response)
+            })
+            .catch((error) => {
+                handleAuthError(error)
+                _reject(error)
+            })
+    })
+}
+
+export const signInWithEmailAndPwd = (email, pwd) => {
+    return new Promise((resolve, _reject) => {
+        auth()
+            .signInWithEmailAndPassword(email, pwd)
+            .then(response => {
+                resolve(response)
+            })
+            .catch((error) => {
+                handleAuthError(error)
+            })
+    })
+}
+
+export const sendPasswordResetEmail = (email) => {
+    return new Promise((resolve, _reject) => {
+        auth()
+            .sendPasswordResetEmail(email)
+            .then(response => {
+                resolve(response)
+            })
+            .catch((error) => {
+                handleAuthError(error)
+            })
+    })
+}
+
+auth().onAuthStateChanged((user) => {
+    console.log('Auth State changed', user);
+    if (user) {
+        // User logged in already or has just logged in.
+        user.getIdToken().then(function (idToken) {  // <------ Check this line
+            console.log('iDToken', idToken);
+        });
+        // console.log(user);
+    } else {
+        // User not logged in or has just logged out.
+    }
+});
+
+export const signOut = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await auth().signOut();
+            resolve(response)
+        } catch (error) {
+            console.log(error)
+            // reject(error)
+            handleAuthError(error)
+        }
+    })
+}
+
+export const confirmOtp = (authResult, otp) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await authResult.confirm(otp)
+            resolve(response)
+        } catch (error) {
+            console.log(error)
+            handleAuthError(error)
+        }
+    })
+}
+
+export const updateDisplayName = (userCredentials, name) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await userCredentials.user.updateProfile({
+                displayName: name
+            })
+            resolve(response)
+        } catch (error) {
+            console.log(error)
+            handleAuthError(error)
+        }
+    })
+}
+
+
+
+
+export const handleAuthError = (error) => {
+    var errorMessage = ''
+
+    switch (error.code) {
+        case "auth/missing-phone-number":
+            errorMessage = "Missing Phone Number";
+            break;
+
+        case "auth/invalid-phone-number":
+            errorMessage = "Invalid Phone Number.";
+            break;
+
+        case "auth/quota-exceeded":
+            errorMessage = "SMS quota exceeded.";
+            break;
+
+        case "auth/too-many-requests":
+            errorMessage = "We have blocked all requests from this device due to unusual activity. Try again later.";
+            break;
+
+        case "auth/invalid-verification-code":
+            errorMessage = "Invalid OTP.";
+            break;
+
+        case "auth/code-expired":
+            errorMessage = "OTP has been expired.";
+            break;
+        case "auth/no-current-user":
+            errorMessage = "User already signed out";
+            break;
+
+        case "ERROR_EMAIL_ALREADY_IN_USE":
+        case "account-exists-with-different-credential":
+        case "email-already-in-use":
+        case "auth/email-already-in-use":
+            errorMessage = "Account already exists with different credentials";
+            break;
+
+        case "ERROR_WRONG_PASSWORD":
+        case "wrong-password":
+        case "auth/wrong-password":
+            errorMessage = "Wrong email/password combination.";
+            break;
+
+        case "ERROR_USER_NOT_FOUND":
+        case "user-not-found":
+        case "auth/user-not-found":
+            errorMessage = "No user found with this email.";
+            break;
+
+        case "ERROR_USER_DISABLED":
+        case "user-disabled":
+        case "auth/user-disabled":
+            errorMessage = "User is disabled.";
+            break;
+
+        case "ERROR_TOO_MANY_REQUESTS":
+        case "operation-not-allowed":
+            errorMessage = "Too many requests to log into this account.";
+            break;
+
+        case "ERROR_OPERATION_NOT_ALLOWED":
+        case "operation-not-allowed":
+            errorMessage = "Server error, please try again later.";
+            break;
+
+        case "ERROR_INVALID_EMAIL":
+        case "invalid-email":
+        case "auth/invalid-email":
+            errorMessage = "Email address is invalid.";
+            break;
+
+        default:
+            errorMessage = "Something went wrong";
+            break;
+    }
+    showErrorToast('Auth Error', errorMessage)
+}

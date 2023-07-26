@@ -14,51 +14,51 @@ import { wp } from '../../constant/responsiveFunc'
 
 const SellerReview = () => {
 
-  const renderItem =({item, index}) => {
-    return(
-       <ListView
-       item={item}
-             isExpress
-             isLike
-             TotalPrice
-             DisCountPrice
-             isDiscountPercent
-             isRating
-             ViewContStyle={{ width: wp(45.5), alignItems: 'center', marginHorizontal: '2%', marginTop: '4%', marginRight: 0 }}
-          />
+  const renderItem = ({ item, index }) => {
+    return (
+      <ListView
+        item={item}
+        isExpress
+        isLike
+        TotalPrice
+        DisCountPrice
+        isDiscountPercent
+        isRating
+        ViewContStyle={{ width: wp(45.5), alignItems: 'center', marginHorizontal: '2%', marginTop: '4%', marginRight: 0 }}
+      />
     );
- }
+  }
 
 
-   const keyExtractor = (item, index) => {
-      return `_${index}`;
+  const keyExtractor = (item, index) => {
+    return `_${index}`;
   };
 
 
   return (
     <AppBackground>
-                    <AppHeader placeholderText={'What are you looking for?'} showBackButton Search/>
-                  <View style={{padding: 20, backgroundColor: Colors.WHITE, borderBottomColor: Colors.GRAY, borderBottomWidth: 1}}>
-                  <Text style={{
-                    fontFamily: fonts.VisbyCF_Demibold,
-                    fontWeight: 600,
-                    fontSize: 18
-                  }}>Ecom Nation</Text>
+      <AppHeader placeholderText={'What are you looking for?'} showBackButton Search />
+      <View style={{ padding: 20, backgroundColor: Colors.WHITE, borderBottomColor: Colors.GRAY, borderBottomWidth: 1 }}>
+        <Text style={{
+          fontFamily: fonts.VisbyCF_Demibold,
+          fontWeight: 600,
+          fontSize: 18
+        }}>Ecom Nation</Text>
 
-                  <View style={{flexDirection: 'row', alignItems: 'center', gap: 5}}>
-                    <Image source={Images.LocationIcon}  style={{height: 12, width: 9}}/>
-                    <Text style={{fontFamily: fonts.VisbyCF_Medium, fontWeight: 500}}>Dhi Qar Governorate, Al-Rifa'i District , baghdad</Text>
-                  </View>
-                    <Rating
-                    RatingReview
-                    isBottomLine
-                    ImageStyle={{ height: 15, width: 15 }}
-                />
-                  </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+          <Image source={Images.LocationIcon} style={{ height: 12, width: 9 }} />
+          <Text style={{ fontFamily: fonts.VisbyCF_Medium, fontWeight: 500 }}>Dhi Qar Governorate, Al-Rifa'i District , baghdad</Text>
+        </View>
+        <Rating
+          RatingReview
+          isBottomLine
+          ImageStyle={{ height: 15, width: 15 }}
+        />
+      </View>
 
-                  <ProductHeader title={'Products by Ecom Nation'}/>
+      <ProductHeader title={'Products by Ecom Nation'} />
 
-                 {/* <ProductList 
+      {/* <ProductList 
                    Data={ProductListData}
                    isExpress
                    isLike
@@ -72,17 +72,17 @@ const SellerReview = () => {
 
                    
                  /> */}
-                 <View style={{ flex: 1, width: wp(100), paddingHorizontal: '1%' }}>
-                  <FlatList
-               data={ProductListData}
-               renderItem={renderItem}
-               keyExtractor={keyExtractor}
-               numColumns={2}
+      <View style={{ flex: 1, width: wp(100), paddingHorizontal: '1%' }}>
+        <FlatList
+          data={ProductListData}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          numColumns={2}
 
-            />
-            </View>
+        />
+      </View>
     </AppBackground>
-   
+
   )
 }
 

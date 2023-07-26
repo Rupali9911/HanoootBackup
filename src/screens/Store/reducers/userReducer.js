@@ -1,5 +1,6 @@
 import {
-    AUTH_SUCCESS
+    AUTH_SUCCESS,
+    AUTH_LOGOUT
 } from '../types'
 
 const initialState = {
@@ -11,7 +12,12 @@ export default userReducer = (state = initialState, action) => {
         case AUTH_SUCCESS:
             return {
                 ...state,
-                userData: action.payload.data
+                userData: action.payload
+            }
+        case AUTH_LOGOUT:
+            return {
+                ...state,
+                userData: null
             }
         default:
             return state;

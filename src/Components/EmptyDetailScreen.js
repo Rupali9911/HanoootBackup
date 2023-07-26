@@ -1,15 +1,11 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import Images from '../constant/Images'
 import { hp, wp } from '../constant/responsiveFunc'
 import fonts from '../constant/fonts'
 import Colors from '../constant/Colors'
 import AppButton from '../screens/Components/AppButton'
-import { useNavigation } from '@react-navigation/native'
 
 const EmptyDetailScreen = (props) => {
-    const navigation = useNavigation();
-
     return (
         <View style={styles.container}>
             <Image source={props.image} style={[styles.image, props.imgStyle]} />

@@ -1,33 +1,41 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import AppBackground from '../Components/AppBackground'
 import Images from '../../constant/Images'
 import fonts from '../../constant/fonts'
 import Colors from '../../constant/Colors'
 import { useNavigation } from '@react-navigation/native'
+import { signOut } from '../../services/socialAuth'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearUserData } from '../Store/actions/userAction'
 
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
-    const { route } = props;
-    const Login = route?.params?.LoggedIn;
-    console.log('Login : ', Login)
+    const dispatch = useDispatch();
+    const [rerender, setRerender] = useState(false)
+    // const { route } = props;
+    // const Login = route?.params?.LoggedIn;
+    const { userData } = useSelector((state) => state.userReducer);
+
+
+    console.log('userData : ', userData)
 
     const ProfileDetail = () => {
         return (
             <View style={styles.profileDetail}>
                 <View style={{ flex: 1 }}>
-                    <Text style={styles.userName}>{Login ? 'Andy Lexsian' : 'Hey There,'}</Text>
-                    <Text style={styles.userEmail}>{Login ? 'andy.lex@gmail.com' : 'Nice to meet you!'}</Text>
+                    <Text style={styles.userName}>{userData ? userData.displayName : 'Hey There,'}</Text>
+                    <Text style={styles.userEmail}>{userData ? userData.email : 'Nice to meet you!'}</Text>
                 </View>
 
                 {
-                    Login ?
+                    userData ?
                         <TouchableOpacity
                             onPress={() => navigation.navigate('EditProfileScreen')}>
                             <Image source={Images?.pencilIcon} style={styles.pencilImg} />
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity style={styles.registerButton}>
+                        <TouchableOpacity style={styles.registerButton} onPress={() => navigation.navigate('Signup')}>
                             <Text style={styles.register}>Register</Text>
                         </TouchableOpacity>
                 }
@@ -45,7 +53,7 @@ const ProfileScreen = (props) => {
 
     const ListItem = (props) => {
         return (
-            <View style={styles.listContainer}>
+            <TouchableOpacity style={styles.listContainer} onPress={props.onPress}>
                 <View style={styles.leftContainer}>
                     <Image
                         source={props.Image}
@@ -54,15 +62,13 @@ const ProfileScreen = (props) => {
                     <Text style={styles.listTitle}>{props.title}</Text>
                 </View>
                 {/* <Text style={styles.listTitle}>English</Text> */}
-                <TouchableOpacity
-                    onPress={props.onPress}
-                >
+                <View>
                     <Image
                         source={Images.ForwardIcon}
                         style={styles.arrowIcon}
                     />
-                </TouchableOpacity>
-            </View>
+                </View>
+            </TouchableOpacity>
         );
     }
 
@@ -77,13 +83,26 @@ const ProfileScreen = (props) => {
         );
     }
 
+    const logout = () => {
+        signOut()
+            .then((response) => {
+                dispatch(clearUserData)
+                setRerender(!rerender)
+                console.log('user Logout Succesfully', response, userData)
+                setTimeout(() => {
+                    console.log('user Logout Succesfully', userData)
+
+                }, 5000)
+            })
+    }
+
     return (
         <AppBackground safeAreaColor={Colors.LightGray}>
             <ScrollView>
                 <ProfileDetail />
                 <HeadingComponent Title={'MY ACCOUNT'} />
                 {
-                    Login ?
+                    userData ?
                         <>
                             <ListItem
                                 Image={Images.BagIcon}
@@ -109,12 +128,13 @@ const ProfileScreen = (props) => {
                         <ListItem
                             Image={Images.UserLogin}
                             title={'Log In'}
+                            onPress={() => navigation.navigate('Login')}
                         />
                 }
 
                 <HeadingComponent Title={'SETTING'} />
                 {
-                    Login && <ListItem
+                    userData && <ListItem
                         Image={Images.ChangePassword}
                         title={'Change Password'}
                         onPress={() => navigation.navigate('ChangePassword')}
@@ -157,10 +177,10 @@ const ProfileScreen = (props) => {
                     />
                 </View>
                 {
-                    Login &&
+                    userData &&
                     <TouchableOpacity
                         style={styles.logoutButton}
-                        onPress={() => console.log('Logout')}
+                        onPress={() => logout()}
                     >
                         <Text style={styles.logout}>Log Out</Text>
                     </TouchableOpacity>

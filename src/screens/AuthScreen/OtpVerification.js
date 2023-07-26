@@ -1,14 +1,17 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native'
 import React, { useState, useEffect, useRef } from 'react'
-import AppBackground from '../../Components/AppBackground'
-import AppHeader from '../../Components/AppHeader'
-import Colors from '../../../constant/Colors'
-import { hp, wp } from '../../../constant/responsiveFunc'
-import AuthHeader from '../AuthHeader'
-import fonts from '../../../constant/fonts'
-import AppButton from '../../Components/AppButton'
+import AppBackground from '../Components/AppBackground'
+import AppHeader from '../Components/AppHeader'
+import Colors from '../../constant/Colors'
+import { hp, wp } from '../../constant/responsiveFunc'
+import AuthHeader from './AuthHeader'
+import fonts from '../../constant/fonts'
+import AppButton from '../Components/AppButton'
 import { useNavigation } from '@react-navigation/native'
-import auth from '@react-native-firebase/auth';
+import { signInWithPhoneNumber, confirmOtp } from '../../services/socialAuth'
+import { setUserData } from '../Store/actions/userAction'
+import { useDispatch } from 'react-redux'
+import { userRegister } from '../../services/apis'
 
 const otpObj = {
     otp1: "",
@@ -18,23 +21,22 @@ const otpObj = {
     otp5: "",
     otp6: "",
 }
+
 const OtpVerification = ({ route }) => {
     const [authResult, setauthResult] = useState(route?.params?.authResult)
-
     const phoneNumber = route?.params?.phoneNumber
-    // console.log(route?.params)
+    // console.log('route?.params?.authResult', route?.params?.authResult)
     const navigation = useNavigation();
+    const dispatch = useDispatch()
     const otpInput = useRef([])
 
     const [otpField, setOtpField] = useState(otpObj)
     const [isFocus, setIsFocus] = useState(false)
     const [seconds, setSeconds] = useState(60)
-
     const { otp1, otp2, otp3, otp4, otp5, otp6 } = otpField;
 
-
-
     useEffect(() => {
+        // console.log('check how many times useEffect called : ', seconds)
         let interval;
         if (seconds > 0) {
             interval = setInterval(() => {
@@ -47,7 +49,6 @@ const OtpVerification = ({ route }) => {
         return () => clearInterval(interval);
 
     }, [seconds])
-
 
     const renderOTPInput = () => {
         let inputs = [
@@ -119,17 +120,15 @@ const OtpVerification = ({ route }) => {
 
 
     const handleResendOTP = async () => {
-        auth()
-            .signInWithPhoneNumber(phoneNumber)
-            .then(confirmResult => {
-                console.log('Resend Result', confirmResult)
-                setSeconds(60)
-                setauthResult(confirmResult);
-                setOtpField(otpObj)
-            })
-            .catch(error => {
-                console.log('Resend Result', error)
-            })
+        try {
+            const result = await signInWithPhoneNumber(phoneNumber)
+            console.log('Resend Result', result)
+            setSeconds(60)
+            setauthResult(result);
+            setOtpField(otpObj)
+        } catch (error) {
+            console.log('Resend Result', error)
+        }
     }
 
     const changeNumber = () => {
@@ -137,19 +136,39 @@ const OtpVerification = ({ route }) => {
     }
     const verifyOTP = async () => {
         const otp = Object.values(otpField).join('')
-        authResult.confirm(otp).then(confirmResult => {
-            console.log('Verify OTp', confirmResult)
-            setauthResult(null)
-            setOtpField(otpObj)
+        console.log('authResult', authResult)
+        // authResult.confirm(otp).then(confirmResult => {
+        //     console.log('Verify OTp response', confirmResult?.user)
+        //     console.log('Verify OTp response if user exists', confirmResult?.user)
+        //     // dispatch(setUserData(userCredentials?.user))
+        //     // setauthResult(null)
+        //     // setOtpField(otpObj)
+        //     navigation.navigate('OtpVerifySuccess')
+
+        //     // result
+        //     // {"additionalUserInfo": {"isNewUser": false, "profile": null, "providerId": "phone", "username": null}, "user": {"displayName": null, "email": null, "emailVerified": false, "isAnonymous": false, "metadata": [Object], "multiFactor": [Object], "phoneNumber": "+919907193313", "photoURL": null, "providerData": [Array], "providerId": "firebase", "refreshToken": "AMf-vBzKv4EYWGm4_L7qKibexpUQ4To7nd1bizJ1ggBVujenoy-ULpLuV9US7_SOQvgN6K3-zUnEQJCFY1wLwbLHXikoIY0vB1s7vs9AGdUSJlbK1ESdh5Eux2W5zoIWKm0HSk6GT9v_h7_BE0RunrxoRRGmTOnRroVfkUrUk0fc0dB8WZqaw8H8u301DX9ADBWOJ2AnGbpm", "tenantId": null, "uid": "j5v6deVa7pXdZd6TB5wva018ce93"}}
+        // })
+        //     .catch(error => {
+        //         console.log('Verify OTp ERROR', error.code, error.message)
+        //         handleAuthError(error)
+        //     })
+
+        try {
+            const userDetails = await confirmOtp(authResult, otp)
+            console.log('Verify OTp response', userDetails?.user)
+            const userRegistered = await userRegister(userDetails?.user?.uid, '')
+            console.log('userRegistered', userRegistered)
+            if (userRegistered?.user) {
+                await updateDisplayName(userRegistered, name)
+            }
+            dispatch(setUserData(userDetails?.user))
+            // setauthResult(null)
+            // setOtpField(otpObj)
             navigation.navigate('OtpVerifySuccess')
-
-            // result
-            // {"additionalUserInfo": {"isNewUser": false, "profile": null, "providerId": "phone", "username": null}, "user": {"displayName": null, "email": null, "emailVerified": false, "isAnonymous": false, "metadata": [Object], "multiFactor": [Object], "phoneNumber": "+919907193313", "photoURL": null, "providerData": [Array], "providerId": "firebase", "refreshToken": "AMf-vBzKv4EYWGm4_L7qKibexpUQ4To7nd1bizJ1ggBVujenoy-ULpLuV9US7_SOQvgN6K3-zUnEQJCFY1wLwbLHXikoIY0vB1s7vs9AGdUSJlbK1ESdh5Eux2W5zoIWKm0HSk6GT9v_h7_BE0RunrxoRRGmTOnRroVfkUrUk0fc0dB8WZqaw8H8u301DX9ADBWOJ2AnGbpm", "tenantId": null, "uid": "j5v6deVa7pXdZd6TB5wva018ce93"}}
-        })
-            .catch(error => {
-                console.log('Verify OTp ERROR', error.error)
-            })
-
+        }
+        catch (error) {
+            console.log('error from either  confirmOtp or userRegister', error)
+        }
     }
 
     return (
@@ -187,7 +206,6 @@ const OtpVerification = ({ route }) => {
                     </View>
                 </View>
 
-
                 <AppButton
                     label={'Submit'}
                     disabled={(otp1 && otp2 && otp3 && otp4 && otp5 && otp6) ? false : true}
@@ -195,7 +213,6 @@ const OtpVerification = ({ route }) => {
                     }
                 />
                 <Button title="Go Back" onPress={() => changeNumber()} style={styles.text} color={Colors.themeColor} />
-
             </View>
 
         </AppBackground>

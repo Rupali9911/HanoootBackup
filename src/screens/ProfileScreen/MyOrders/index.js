@@ -39,9 +39,9 @@ const MyOrderList = () => {
                     </View>
                 </View>
                 <View style={styles.separator} />
-                <TouchableOpacity 
-                style={styles.button}
-                onPress={() => navigation.navigate('OrderDetail', {item: item})}
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate('OrderDetail', { item: item })}
                 >
                     <Text style={styles.buttonText}>VIEW DETAIL</Text>
                 </TouchableOpacity>

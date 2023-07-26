@@ -462,11 +462,11 @@ const Address = (props) => {
                 ADDRESS_DETAIL.length ?
                     <>
                         {/* <View style={{ height: (Dimensions.get('window').height) / 3,  backgroundColor: 'red' }}> */}
-                            <MyAddresss
-                                isRadioButton
-                                isFooterShow
-                                isToastShow={(value) => setToastVisible(value)}
-                            />
+                        <MyAddresss
+                            isRadioButton
+                            isFooterShow
+                            isToastShow={(value) => setToastVisible(value)}
+                        />
                         {/* </View> */}
                         {/* <AppButton
                             label={'Add New Address'}
@@ -493,7 +493,7 @@ const Address = (props) => {
                     : null
             } */}
 
-            <View style={[styles.bottomButtonContainer, {zIndex: toastVisible ? -1 : 1}]}>
+            <View style={[styles.bottomButtonContainer, { zIndex: toastVisible ? -1 : 1 }]}>
                 <AppButton label={'Deliver to this Address'}
                     view={ADDRESS_DETAIL.length ? false : true}
                     onPress={() => {

@@ -36,8 +36,12 @@ import ReturnPolicy from '../ProfileScreen/Legal&Policies/returnPolicy';
 import PolicyView from '../ProfileScreen/Legal&Policies/PolicyView';
 import EditProfile from '../ProfileScreen/EditProfile';
 import Signup from '../AuthScreen/SignUp';
-import OtpVerification from '../AuthScreen/SignUp/OtpVerification';
-import OtpVerifySuccess from '../AuthScreen/SignUp/OtpVerifySuccess';
+import OtpVerification from '../AuthScreen/OtpVerification';
+import OtpVerifySuccess from '../AuthScreen/OtpVerifySuccess';
+import Login from '../AuthScreen/SignIn';
+import ForgotPassword from '../AuthScreen/ForgotPassword';
+import EmailLinkSuccess from '../AuthScreen/ForgotPassword/EmailLinkSuccess';
+
 const Stack = createStackNavigator();
 
 export default function RootStackScreen() {
@@ -79,6 +83,9 @@ export default function RootStackScreen() {
             <Stack.Screen name="Signup" component={Signup} />
             <Stack.Screen name="OtpVerification" component={OtpVerification} />
             <Stack.Screen name="OtpVerifySuccess" component={OtpVerifySuccess} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            <Stack.Screen name="EmailLinkSuccess" component={EmailLinkSuccess} />
         </Stack.Navigator>
     )
 }

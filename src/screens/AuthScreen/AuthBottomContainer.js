@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Image, Platform } from 'react-native'
+import React, { useCallback } from 'react'
 import { wp, hp } from '../../constant/responsiveFunc'
 import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
@@ -10,7 +10,7 @@ import { googleSignIn, appleSignIn } from '../../services/socialAuth'
 const AuthBottomContainer = (props) => {
     const navigation = useNavigation();
 
-    const SocialIconSection = (props) => {
+    const SocialIconSection = useCallback((props) => {
         return (
             <TouchableOpacity style={styles.container} onPress={props.onPress}>
                 <Image
@@ -20,8 +20,7 @@ const AuthBottomContainer = (props) => {
                 <Text style={styles.text}>{props.Text}</Text>
             </TouchableOpacity>
         )
-    }
-
+    })
 
     onPressGoggle = async () => {
         console.log('Goggle Sigin Tapped')
@@ -33,7 +32,6 @@ const AuthBottomContainer = (props) => {
             .catch(error => {
                 console.log('Error from googleSignIn', error)
             })
-
     }
 
     onPressFacebook = () => {
@@ -56,7 +54,7 @@ const AuthBottomContainer = (props) => {
         <>
             <View style={styles.mainContainer}>
                 <View style={styles.separator} />
-                <Text style={styles.titleText}>Or Sign Up with</Text>
+                <Text style={styles.titleText}>{props.title}</Text>
                 <View style={styles.separator} />
             </View>
 
@@ -66,21 +64,24 @@ const AuthBottomContainer = (props) => {
                     Image={Images.GoogleIcon}
                     Text={'Google'}
                 />
-                <SocialIconSection
+                {/* <SocialIconSection
                     onPress={onPressFacebook}
                     Image={Images.FacebookIcon}
-                    Text={'Facebook'} />
-                <SocialIconSection
-                    onPress={onPressApple}
-                    Image={Images.AppleIcon}
-                    Text={'Apple'}
-                />
+                    Text={'Facebook'} /> */}
+                {Platform.OS === 'ios' &&
+                    <SocialIconSection
+                        onPress={onPressApple}
+                        Image={Images.AppleIcon}
+                        Text={'Apple'}
+                    />
+                }
+
             </View>
 
             <View style={styles.rowContainer}>
-                <Text style={styles.termsPrivacy}>Already have an account?</Text>
-                <TouchableOpacity onPress={this.onSignInPress}>
-                    <Text style={[styles.termsPrivacy, { color: Colors.themeColor }]}> Sign in</Text>
+                <Text style={styles.termsPrivacy}>{props.isAccountText}</Text>
+                <TouchableOpacity onPress={props.onPressButton}>
+                    <Text style={[styles.termsPrivacy, { color: Colors.themeColor, fontWeight: 'bold' }]}>{props.button}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Colors.WHITE,
+        // backgroundColor: Colors.WHITE,
         borderWidth: 1,
         borderRadius: 100,
         borderColor: Colors.GRAY,
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
     },
     SocialIconContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
         marginVertical: '5%'
     },
     rowContainer: {
