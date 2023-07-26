@@ -70,7 +70,6 @@ const PrivacyPolicies = () => {
                     nestedScrollEnabled={true}
                     stickySectionHeadersEnabled={false}
                     scrollToOverflowEnabled={true}
-                    
                 />
             </ScrollView>
         </AppBackground>

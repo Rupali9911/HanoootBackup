@@ -39,7 +39,7 @@ const FourImageCarousel = (props) => {
 
     const renderCarousalView = ({ item, index }) => {
         return (
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={styles.rowContainer}>
                 <FlatList
                     data={item}
                     renderItem={renderFourImgView}
@@ -47,7 +47,7 @@ const FourImageCarousel = (props) => {
                     numColumns={2}
                     scrollEnabled={false}
                 />
-            </View>
+             </View>
         )
     }
 
@@ -57,11 +57,12 @@ const FourImageCarousel = (props) => {
             {
                 props.priceOff && <Text style={styles.priceOff}>{props.priceOff}</Text>
             }
-
+            
             <Carousels
                 Data={sliceIntoChunks(FourImgData, 4)}
                 renderItem={renderCarousalView}
                 dotsLength={4}
+                
             />
         </View>
     )
@@ -75,15 +76,6 @@ const styles = StyleSheet.create({
         paddingTop: 25,
         backgroundColor: Colors.WHITE,
         borderRadius: 4,
-        // shadowColor: "#000",
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 3,
-        // },
-        // shadowOpacity: 0.10,
-        // elevation: 7,
-        // width: wp(100),
-        justifyContent: 'center',
         alignItems: 'center'
 
     },
@@ -106,18 +98,11 @@ const styles = StyleSheet.create({
     },
     container: {
         margin: '2%',
-        // width: wp(40),
         width: '44%',
-        // justifyContent: 'center',
-        // alignItems: 'center'
     },
     imageContainer: {
-        // width: wp(40),
-        // height: hp(13),
         borderRadius: 10,
         backgroundColor: Colors.lightBlue,
-        // paddingVertical: '20%',
-        // paddingHorizontal: '20%',
         padding: '20%',
         justifyContent: 'center',
         alignItems: 'center'
@@ -134,4 +119,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VISBY_CF_REGULAR,
         top: 5
     },
+    rowContainer: {
+        justifyContent: 'center', alignItems: 'center'
+    }
 })

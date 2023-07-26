@@ -1,8 +1,11 @@
-import { Dimensions, PixelRatio } from 'react-native';
+import { Platform, Dimensions, PixelRatio } from 'react-native';
 
 let screenWidth = Dimensions.get('window').width;
 
 let screenHeight = Dimensions.get('window').height;
+
+const {width: WIDTH, height: HEIGHT} = Dimensions.get('window');
+
 
 const heightPercentageToDP = (heightPercent) => {
     const elemHeight = typeof heightPercent === "number" ? heightPercent : parseFloat(heightPercent);
@@ -19,10 +22,23 @@ const responsiveFontSize = (f) => {
     return Math.sqrt(Math.pow(tempHeight, 2) + Math.pow(screenWidth, 2)) * (f / 100);
 };
 
+
+const SIZE = size => {
+    const newSize = (size * WIDTH) / 375;
+    if (Platform.OS === 'ios') {
+      return Math.round(PixelRatio.roundToNearestPixel(newSize));
+    } else if (Platform.OS === 'android') {
+      return Math.round(PixelRatio.roundToNearestPixel(newSize));
+    } else {
+      return size;
+    }
+  };
+
 export {
     responsiveFontSize as RF,
     heightPercentageToDP as hp,
     widthPercentageToDP as wp,
     screenWidth,
-    screenHeight
+    screenHeight,
+    SIZE
 };

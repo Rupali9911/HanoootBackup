@@ -660,6 +660,7 @@ const datadata = [
 
 export const FeedArray = [
     {
+        "id": 1,
         "category": "Popular",
         "items": [
             {
@@ -690,6 +691,7 @@ export const FeedArray = [
     },
 
     {
+        "id": 2,
         "category": "Phone & Tablets",
         "items": [
             {
@@ -759,6 +761,7 @@ export const FeedArray = [
     },
 
     {
+        "id": 3,
         "category": "Electronics", 
         "items": [
             {
@@ -870,6 +873,7 @@ export const FeedArray = [
         ]
     },
     {
+        "id": 4,
         "category": "Clothing",
         "items": [
             {
@@ -910,7 +914,7 @@ export const FeedArray = [
         ]
     },
     {
-
+        "id": 5,
         "category": "Home & KitchenHome",
         "items": [
             {
@@ -941,6 +945,7 @@ export const FeedArray = [
         ]
     },
     {
+        "id": 6,
         "category": "Beauty & Health Care",
         "items": [
             {
@@ -992,6 +997,7 @@ export const FeedArray = [
 
 
     {
+        "id": 7,
         "category": "Outdoor & Sports",
         "items": [
             {

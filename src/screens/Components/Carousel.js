@@ -49,6 +49,7 @@ const Carousels = (props) => {
                 inactiveSlideShift={0}
                 onSnapToItem={index => setActiveIndex(index)}
                 activeSlideAlignment={'center'}
+                contentContainerCustomStyle={props.contentContainerCustomStyle}
             // loop={true}
             // autoplay={true}
             {...props}

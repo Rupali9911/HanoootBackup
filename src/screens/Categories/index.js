@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AppBackground from '../Components/AppBackground'
 import AppHeader from '../Components/AppHeader'
@@ -11,6 +11,9 @@ import { FeedArray } from '../../constant/DemoArray'
 
 const Category = () => {
     const [selectedFeedIndex, setSelectedFeedIndex] = useState(0)
+    const [showAll, setShowAll] = useState(false);
+    const [expanded, setExpanded] = useState(false);
+    const [subCategoryIndex, setSubCategoryIndex] = useState(null);
     const [selectedFeedItems, setSelectedFeedItems] = useState({
         "category": "Popular",
         "items": [
@@ -44,6 +47,8 @@ const Category = () => {
     const navigation = useNavigation();
 
 
+
+
     const Categories = ({ item, index }) => {
         return (
             <TouchableOpacity style={styles.categorySection(selectedFeedIndex, index)}
@@ -61,100 +66,145 @@ const Category = () => {
         );
     }
 
-    const SubCategoriesTitle = (title) => {
+
+    const ListView = (props) => {
         return (
-            <View style={styles.rowContainer}>
+            <FlatList
+                data={props.data}
+                renderItem={props.renderItem}
+                keyExtractor={(item, index) => index.toString()}
+                {...props}
+            />
+        );
+    }
+
+    const toggleExpand = (index) => {
+        setExpanded(!expanded);
+        setSubCategoryIndex(index);
+
+    };
+
+    const SubCategoriesTitle = (props) => {
+        return (
+            <TouchableOpacity style={styles.rowContainer} onPress={() => toggleExpand(props.index)}>
                 <Text
                     style={styles.subCategoryTitle}
-                >{title}</Text>
-                <TouchableOpacity>
-                    <Image source={Images.ForwardIcon} style={styles.arrowImgStyle} />
-                </TouchableOpacity>
-            </View>
+                >{props.title}</Text>
+                <View>
+                    {expanded && subCategoryIndex === props.index ? (
+                        <Image source={Images.ForwardIcon} style={[styles.arrowImgStyle, { transform: [{ rotate: '90deg' }] }]} />
+                    ) : (
+                        <Image source={Images.ForwardIcon} style={styles.arrowImgStyle} />
+                    )}
+                </View>
+            </TouchableOpacity>
+        );
+    }
+
+    const SubCategoryListItems = (props) => {
+        return (
+            <>
+                <Image
+                    source={{ uri: props.image }}
+                    style={styles.image}
+                />
+                {
+                    props.name &&
+                    <Text numberOfLines={2}
+                        style={styles.subCategoryText}
+                    >{props.name}</Text>
+                }
+            </>
+        )
+    }
+
+    const ViewMoreButton = (props) => {
+        return (
+            <TouchableOpacity
+                onPress={() => navigation.navigate('ViewMoreCategories', { item: props.navigation })}
+            >
+                <Text numberOfLines={2}
+                    style={[styles.subCategoryText, { color: Colors.themeColor }]}
+                >{'View More'}</Text>
+            </TouchableOpacity>
+        );
+    }
+
+
+    const RightComponentList = (subCategory, idx) => {
+        return (
+            <>
+                {subCategory?.title && <SubCategoriesTitle title={subCategory?.title} index={idx} />}
+
+                {expanded && subCategoryIndex === idx && (
+
+                    <ListView
+                        data={subCategory?.products.slice(0, 6)}
+                        numColumns={3}
+                        nestedScrollEnabled={false}
+                        scrollEnabled={false}
+                        renderItem={({ item, index }) => {
+                            return (
+                                <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters')}>
+                                    {
+                                        index != 5 ?
+                                            <SubCategoryListItems
+                                                image={item?.image}
+                                                name={item?.name}
+                                            />
+                                            :
+                                            <View pointerEvents="none" >
+                                                <ViewMoreButton
+                                                    navigation={subCategory}
+                                                />
+                                            </View>
+                                    }
+                                </TouchableOpacity>
+                            )
+                        }}
+                        initialNumToRender={3}
+                    />
+                )}
+
+                {selectedFeedItems?.items.length > 1 && <View style={styles.separator} />}
+            </>
         );
     }
 
     return (
         <AppBackground>
             <AppHeader placeholderText={'What are you looking for?'} />
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-                <View style={{ width: wp(27), backgroundColor: Colors.WHITE }}>
-                    <FlatList
+            <View style={styles.container}>
+                <View style={styles.categoryContainer}>
+                    <ListView
                         data={FeedArray}
-                        keyExtractor={(item, index) => index.toString()}
                         renderItem={Categories}
                     />
                 </View>
 
-                <View style={{ flex: 1, marginHorizontal: '1%', marginVertical: '5%' }}>
-                    {selectedFeedItems ? (
-                        <FlatList
-                            data={selectedFeedItems?.items}
-                            keyExtractor={(item, index) => index.toString()}
-                            showsVerticalScrollIndicator={false}
-                            renderItem={({ item, index }) => {
+                <ScrollView
+                    horizontal={false}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    scrollEventThrottle={200}
+                    decelerationRate="fast"
+                    style={styles.subCategoryContainer}
+                >
+                    {
+                        selectedFeedItems ? (
+                            selectedFeedItems?.items.map((subCategory, _i) => {
                                 return (
-                                    item?.products ? 
-                                        <>
-                                            {item?.title &&
-                                                SubCategoriesTitle(item?.title)
-                                            }
-                                            <FlatList
-                                                data={item?.products.slice(0, 6)}
-                                                keyExtractor={(item, index) => index.toString()}
-                                                numColumns={3}
-                                                renderItem={({ item, index }) => {
-                                                    return (
-                                                        <View style={styles.CategorySubProductContainer}>
-                                                            {
-                                                                index != 5 ?
-                                                                    <>
-                                                                        <Image
-                                                                            source={{ uri: item?.image }}
-                                                                            style={styles.image}
-                                                                        />
-                                                                        {
-                                                                            item?.name &&
-                                                                            <Text numberOfLines={2}
-                                                                                style={styles.subCategoryText}
-                                                                            >{item?.name}</Text>
-                                                                        }
-                                                                    </>
-                                                                    :
-                                                                    <TouchableOpacity
-                                                                        onPress={() => navigation.navigate('ViewMoreCategories', { item: item?.products })}
-                                                                    >
-                                                                        <Text numberOfLines={2}
-                                                                            style={[styles.subCategoryText, { color: Colors.themeColor }]}
-                                                                        >{'View More'}</Text>
-                                                                    </TouchableOpacity> 
-                                                            }
-                                                        </View>
-                                                    );
-                                                }}
-                                            />
-                                            {
-                                                selectedFeedItems?.items.length > 1 && <View style={styles.separator} />
-                                            }
-
-                                        </>
-                                        :
-                                        <View style={{ flex: 1 }}>
-                                            <View style={styles.CategorySubProductContainer}>
-                                                <Image
-                                                    source={{ uri: item?.image }}
-                                                    style={styles.image}
-                                                />
-                                                <Text numberOfLines={2}
-                                                    style={styles.subCategoryText}
-                                                >{item?.name}</Text>
-                                            </View>
+                                    subCategory?.products ?
+                                        <View key={_i} >
+                                            {RightComponentList(subCategory, _i)}
                                         </View>
+                                        :
+                                        null
                                 );
-                            }}
-                        />
-                    ) : null}
-                </View>
+                            })
+                        ) : null
+                    }
+                </ScrollView>
             </View>
         </AppBackground>
     )
@@ -163,7 +213,7 @@ const Category = () => {
 export default Category
 
 const styles = StyleSheet.create({
-    CategorySubProductContainer: {
+    SubCategoryItemsContainer: {
         // height: hp(13),
         width: wp(21),
         backgroundColor: Colors.WHITE,
@@ -229,7 +279,7 @@ const styles = StyleSheet.create({
         lineHeight: 17
     },
     arrowImgStyle: {
-        transform: [{ rotate: '90deg' }],
+
         height: 12,
         width: 12,
         resizeMode: 'contain',
@@ -239,6 +289,19 @@ const styles = StyleSheet.create({
         height: 1,
         marginVertical: hp('2%'),
         marginHorizontal: wp('2%')
+    },
+    container: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+    categoryContainer: {
+        width: wp(27),
+        backgroundColor: Colors.WHITE
+    },
+    subCategoryContainer: {
+        flex: 1,
+        marginHorizontal: '1%',
+        marginVertical: '5%'
     }
 
 })

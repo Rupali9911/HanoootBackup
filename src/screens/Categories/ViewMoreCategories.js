@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import AppBackground from '../Components/AppBackground'
 import AppHeader from '../Components/AppHeader'
@@ -8,28 +8,38 @@ import Colors from '../../constant/Colors'
 
 
 const ViewMoreCategories = (props) => {
-    console.log('Check ViewMoreCategories : ', props?.route?.params?.item)
+    const ITEMS = props?.route?.params?.item;
+
+    const renderItem = ({ item, index }) => {
+        return (
+            <View style={styles.itemContainer}>
+                <Image
+                    source={{ uri: item?.image }}
+                    style={styles.image}
+                />
+                {
+                    item?.name &&
+                    <Text numberOfLines={2}
+                        style={styles.subCategoryText}
+                    >{item?.name}</Text>
+                }
+            </View>
+        );
+    }
+
+
     return (
         <AppBackground>
             <AppHeader placeholderText={'What are you looking for?'} />
-            <FlatList
-                data={props?.route?.params?.item}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => {
-                    <View style={styles.CategorySubProductContainer}>
-                        <Image
-                            source={{ uri: item?.image }}
-                            style={styles.image}
-                        />
-                        {
-                            item?.name &&
-                            <Text numberOfLines={2}
-                                style={styles.subCategoryText}
-                            >{item?.name}</Text>
-                        }
-                    </View>
-                }}
-            />
+            <Text style={styles.title}>{ITEMS?.title}</Text>
+            <View style={styles.centerView}>
+                <FlatList
+                    data={ITEMS?.products}
+                    keyExtractor={(item, index) => index.toString()}
+                    numColumns={4}
+                    renderItem={renderItem}
+                />
+            </View>
         </AppBackground>
     )
 }
@@ -37,14 +47,14 @@ const ViewMoreCategories = (props) => {
 export default ViewMoreCategories
 
 const styles = StyleSheet.create({
-    CategorySubProductContainer: {
+    itemContainer: {
         width: wp(21),
         backgroundColor: Colors.WHITE,
         margin: 5.5,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 6,
-        paddingVertical: '6%',
+        paddingVertical: '5%',
         paddingHorizontal: '2%',
         shadowColor: 'rgba(0, 0, 0, 0.03)',
         shadowOffset: {
@@ -56,4 +66,22 @@ const styles = StyleSheet.create({
         elevation: 7,
         gap: 10
     },
+    image: {
+        height: hp(6),
+        width: wp(13),
+        resizeMode: 'contain'
+    },
+    title: {
+        fontFamily: fonts.VisbyCF_Demibold,
+        fontWeight: 600,
+        letterSpacing: 0.5,
+        textAlign: 'left',
+        margin: '5%',
+        fontSize: 16
+    },
+    centerView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 })
