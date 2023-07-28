@@ -1,20 +1,26 @@
-import { FlatList, StyleSheet, Text, View, Image } from 'react-native'
+import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import AppBackground from '../Components/AppBackground'
 import AppHeader from '../Components/AppHeader'
 import { hp, wp } from '../../constant/responsiveFunc'
 import fonts from '../../constant/fonts'
 import Colors from '../../constant/Colors'
+import { useNavigation } from '@react-navigation/native'
 
 
 const ViewMoreCategories = (props) => {
-    const ITEMS = props?.route?.params?.item;
+    const ITEMS = props?.route?.params?.item; 
+
+    const navigation = useNavigation();
+
+
+    // console.log('ViewMoreCategories : ', ITEMS);
 
     const renderItem = ({ item, index }) => {
         return (
-            <View style={styles.itemContainer}>
+            <TouchableOpacity style={styles.itemContainer} onPress={() => navigation.navigate('ProductListWithFilters')}>
                 <Image
-                    source={{ uri: item?.image }}
+                    source={{ uri: item?.thumbnail_image }}
                     style={styles.image}
                 />
                 {
@@ -23,7 +29,7 @@ const ViewMoreCategories = (props) => {
                         style={styles.subCategoryText}
                     >{item?.name}</Text>
                 }
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -31,10 +37,10 @@ const ViewMoreCategories = (props) => {
     return (
         <AppBackground>
             <AppHeader placeholderText={'What are you looking for?'} />
-            <Text style={styles.title}>{ITEMS?.title}</Text>
+            <Text style={styles.title}>{ITEMS?.name}</Text>
             <View style={styles.centerView}>
                 <FlatList
-                    data={ITEMS?.products}
+                    data={ITEMS?.children}
                     keyExtractor={(item, index) => index.toString()}
                     numColumns={4}
                     renderItem={renderItem}

@@ -1,4 +1,4 @@
-import { CHECK_PHONE_NUMBER, USER_REGISTER } from '../../utility/apiUrls'
+import { CHECK_PHONE_NUMBER, USER_REGISTER, CATEGORY_LIST } from '../../utility/apiUrls'
 import sendRequest from '../../services/axios/AxiosApiRequest'
 import { signInWithPhoneNumber } from '../socialAuth'
 import { showErrorToast } from '../../Components/universal/Toast'
@@ -60,3 +60,26 @@ export const userRegister = (firebase_user_id, password) => {
     })
 
 };
+
+
+// export const getCategoryListAPI = () => {
+//     return new Promise((resolve, _reject) => {
+//         sendRequest({
+//             url: CATEGORY_LIST,
+//             method: 'GET',
+//             params: {
+//                 pageNumber:1,
+//                 limit:10
+//             }
+//         })
+//             .then((response) => {
+//                 console.log('Response from CATEGORY_LIST api', response)
+//                 resolve(response)
+//             })
+//             .catch(error => {
+//                 console.log('Error from CATEGORY_LIST api', error)
+//                 _reject(error)
+//             })
+//     })
+
+// };

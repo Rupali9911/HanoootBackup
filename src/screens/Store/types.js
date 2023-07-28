@@ -17,9 +17,12 @@ export const REMOVE_FROM_WISHLIST = 'REMOVE_FROM_WISHLIST';
 
 //====================Categories=====================
 
-export const CATEGORY_LOAD_START = 'CATEGORY_LOAD_START';
-export const CATEGORY_LOAD_SUCCESS = 'CATEGORY_LOAD_SUCCESS';
-export const CATEGORY_LOAD_FAIL = 'CATEGORY_LOAD_FAIL';
+export const CATEGORY_LIST_LOADING = 'CATEGORY_LIST_LOADING';
+export const CATEGORY_LIST_SUCCESS = 'CATEGORY_LIST_SUCCESS';
+export const CATEGORY_LIST_FAIL = 'CATEGORY_LIST_FAIL';
+export const CATEGORY_LIST_RESET = 'CATEGORY_LIST_RESET';
+export const CATEGORY_PAGE_CHANGE = 'CATEGORY_PAGE_CHANGE';
+export const SUB_CATEGORY_LIST = 'SUB_CATEGORY_LIST';
 
 //====================USER REDUCER=====================
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';

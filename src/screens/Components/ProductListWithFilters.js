@@ -36,34 +36,39 @@ const ProductListWithFilters = () => {
             <AppHeader
                 showBackButton
                 title={'Android'}
-                showRightIcon
+                // showRightIcon
                 titleComponentStyle={{ alignItems: 'flex-start', marginStart: 10 }}
-                rightIcon={
-                    <View style={{ flexDirection: 'row', gap: 10 }}>
-                        <Image
-                            source={Images.searchIcon}
-                            style={styles.headerIcon}
-                        />
-                        <Image
-                            source={Images.Wishlist}
-                            style={styles.headerIcon}
-                        />
-                        <Image
-                            source={Images.cart}
-                            style={styles.headerIcon}
-                        />
-                    </View>} 
-                />
+                // rightIcon={
+                //     <View style={{ flexDirection: 'row', gap: 10 }}>
+                //         <Image
+                //             source={Images.searchIcon}
+                //             style={styles.headerIcon}
+                //         />
+                //         <Image
+                //             source={Images.Wishlist}
+                //             style={styles.headerIcon}
+                //         />
+                //         <Image
+                //             source={Images.cart}
+                //             style={styles.headerIcon}
+                //         />
+                //     </View>}
+                showLikeIcon
+                showSearchIcon
+                showCartIcon
+                // showRightComponent
+
+            />
 
 
-                <FlatList
-                    numColumns={2}
-                    data={ProductListData}
-                    renderItem={renderItem}
-                    keyExtractor={keyExtractor}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{alignSelf: 'center'}}
-                />
+            <FlatList
+                numColumns={2}
+                data={ProductListData}
+                renderItem={renderItem}
+                keyExtractor={keyExtractor}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ alignSelf: 'center' }}
+            />
 
         </AppBackground>
     )

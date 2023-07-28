@@ -4,13 +4,15 @@ import cartReducer from "./cartReducer";
 import checkoutReducer from "./checkoutReducer";
 import wishlistReducer from "./wishlistReducer";
 import userReducer from "./userReducer";
+import categoryReducer from "./categoryReducer";
 
 const RootReducer = combineReducers({
     userReducer,
     placeReducer,
     cartReducer,
     checkoutReducer,
-    wishlistReducer
+    wishlistReducer,
+    categoryReducer
 })
 
 export default RootReducer;
