@@ -24,6 +24,13 @@ export const CATEGORY_LIST_RESET = 'CATEGORY_LIST_RESET';
 export const CATEGORY_PAGE_CHANGE = 'CATEGORY_PAGE_CHANGE';
 export const SUB_CATEGORY_LIST = 'SUB_CATEGORY_LIST';
 
+//====================Product List=====================
+export const PRODUCT_LIST_LOADING = 'PRODUCT_LIST_LOADING';
+export const PRODUCT_LIST_SUCCESS = 'PRODUCT_LIST_SUCCESS';
+export const PRODUCT_LIST_FAIL = 'PRODUCT_LIST_FAIL';
+export const PRODUCT_LIST_RESET = 'PRODUCT_LIST_RESET';
+export const PRODUCT_LIST_PAGE_CHANGE = 'PRODUCT_LIST_PAGE_CHANGE';
+
 //====================USER REDUCER=====================
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';

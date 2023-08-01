@@ -9,6 +9,8 @@ import axios from 'axios';
 //=============== API Calling function ========================
 async function sendRequest(payload) {
   try {
+
+    console.log('payload check : ', payload)
     // const token = await getAccessToken('ACCESS_TOKEN');
     payload.headers = payload.headers
     // ? payload.headers.Authorization

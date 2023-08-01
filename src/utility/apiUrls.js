@@ -8,6 +8,8 @@ const GOOGLE_CLIENT_ID = '154905673298-1ojcgdc10gsfbat0l7d3aqivo0kd8lk0.apps.goo
 const CHECK_PHONE_NUMBER = `${API_BASE_URL}/api/v1/user/check-phone`
 const USER_REGISTER = `${API_BASE_URL}/api/v1/user/register`
 const CATEGORY_LIST = `${API_BASE_URL}/api/v1/category`
+const PRODUCT_LIST = `${API_BASE_URL}/api/v1/product`
+
 
 
 
@@ -15,5 +17,6 @@ export {
     CHECK_PHONE_NUMBER,
     GOOGLE_CLIENT_ID,
     USER_REGISTER,
-    CATEGORY_LIST
+    CATEGORY_LIST,
+    PRODUCT_LIST
 };

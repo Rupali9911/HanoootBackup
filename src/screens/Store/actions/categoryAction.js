@@ -46,28 +46,35 @@ export const getSubCategoryList = data => ({
 
 // }
 
-export const getCategoryList = (pageNum, limit) => {
+export const getCategoryList = (pageNum) => {
   // console.log('sdhjfs')
   // const a = getCategoryListAPI(1, 10)
 
-  try {
-    return async dispatch => {
-      await categoryList(pageNum, limit).
-        then(response => {
-          if(response?.data){
-            dispatch(categorySuccess(response?.data));
-            dispatch(getSubCategoryList(response?.data?.categories[0]));
-          }
-        }).
-        catch(err => {
-          dispatch(categoryFail(err));
-        })
-    };
+  // try {
+  return async dispatch => {
+    await categoryList(pageNum, 50).
+      then(response => {
+        
 
-  }
-  catch (error) {
-    console.log('Error from get category list api', error)
-  }
+
+
+
+
+        console.log('chekc response : ', JSON.stringify(response))
+        if (response?.data?.categories.length) {
+          dispatch(categorySuccess(response?.data));
+          dispatch(getSubCategoryList(response?.data?.categories[0]));
+        }
+      }).
+      catch(err => {
+        dispatch(categoryFail(err));
+      })
+  };
+
+  // }
+  // catch (error) {
+  //   console.log('Error from get category list api', error)
+  // }
 
 
   // return async dispatch => {
