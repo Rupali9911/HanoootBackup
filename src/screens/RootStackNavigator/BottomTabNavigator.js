@@ -34,9 +34,8 @@ export default function TabComponent() {
     }
     return (
         <Tab.Navigator
-            initialRouteName="Home"
+            initialRouteName="HomeTab"
             detachInactiveScreens={true}
-            lazy={true}
             screenOptions={({ route }) => ({
                 tabBarShowLabel: false,
                 headerShown: false,
@@ -68,7 +67,7 @@ export default function TabComponent() {
                 },
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="HomeTab" component={HomeScreen} />
             <Tab.Screen name="Category" component={Category} />
             <Tab.Screen name="Cart" component={CartScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />

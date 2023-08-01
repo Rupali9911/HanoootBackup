@@ -6,6 +6,9 @@ import AppInput from '../../../constant/AppInput'
 import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import AppButton from '../../Components/AppButton'
+import { validateUserName, validateEmail, validateDescription } from '../../utils'
+import { helpNSupport } from '../../../services/apis'
+import { useNavigation } from '@react-navigation/native'
 
 const SupportScreen = () => {
     const [about, setAbout] = useState('')
@@ -14,18 +17,32 @@ const SupportScreen = () => {
     // const [emailErr, setEmailErr] = useState('')
     // const [aboutErr, setAboutErr] = useState('')
     const [error, setError] = useState('')
+    const navigation = useNavigation()
 
     const onSubmit = () => {
         let errorList = {};
-        !email ?
-            errorList["Email"] = 'Please enter your email address' :
-            !about ? errorList["About"] = 'Please enter your query' :
-                {};
-
+        // !email ?
+        //     errorList["Email"] = 'Please enter your email address' :
+        //     !about ? errorList["About"] = 'Please enter your query' :
+        //         {};
+        if (validateEmail(email)) {
+            errorList["Email"] = validateEmail(email)
+        }
+        if (validateDescription(about)) {
+            errorList["About"] = validateDescription(about)
+        }
         setError(errorList)
         if (Object.keys(errorList).length == 0) {
             setError({});
+            callHelpSupportAPI()
         }
+    }
+
+    const callHelpSupportAPI = () => {
+        helpNSupport(name, email, about)
+            .then(() => {
+                navigation.goBack()
+            })
     }
 
 
@@ -40,6 +57,7 @@ const SupportScreen = () => {
                 label={'Name'}
                 placeholder={'Enter your Name'}
                 onChangeText={(name) => setName(name)}
+                validate={[validateUserName]}
                 value={name}
             />
             <AppInput
@@ -49,7 +67,7 @@ const SupportScreen = () => {
                 onChangeText={(email) => setEmail(email)}
                 value={email}
                 error={error['Email']}
-                validate
+                validate={[validateEmail]}
             />
             <View style={styles.textAreaContainer}>
                 <Text style={styles.label}>{'Let us know how can we help you'}{<Text style={{ color: 'red' }}>*</Text>}</Text>
@@ -66,11 +84,11 @@ const SupportScreen = () => {
                 // onFocus={}
                 />
                 {
-                error && <Text style={styles.errorMessage}>{error['About']}</Text>
-            }
+                    error && <Text style={styles.errorMessage}>{error['About']}</Text>
+                }
 
             </View>
-            
+
 
             <AppButton
                 label={'Submit'}

@@ -85,3 +85,11 @@ export const validateEmail = value => {
     }
 };
 
+export const validateDescription = value => {
+    if (!value.trim().length) {
+        return 'Please enter your query';
+    } else {
+        return false;
+    }
+};
+

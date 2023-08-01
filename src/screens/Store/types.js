@@ -24,5 +24,6 @@ export const CATEGORY_LOAD_FAIL = 'CATEGORY_LOAD_FAIL';
 //====================USER REDUCER=====================
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+export const UPDATE_NAME_EMAIL = 'UPDATE_NAME_EMAIL';
 
 
