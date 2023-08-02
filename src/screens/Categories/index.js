@@ -12,12 +12,13 @@ import { FeedArray } from '../../constant/DemoArray'
 import { categoryLoadingStart, getCategoryList, categoryPageChange, getSubCategoryList } from '../Store/actions/categoryAction'
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../../constant/Loader'
+import { capitalizeFirstLetter } from '../utils'
 
 const Category = () => {
     const [selectedFeedIndex, setSelectedFeedIndex] = useState(0)
     const [expanded, setExpanded] = useState(false);
     const [subCategoryIndex, setSubCategoryIndex] = useState(null);
-    const { isCatgListLoading, categoryList, subCategoryList, categoryPageNum } = useSelector(state => state.categoryReducer);
+    const { isCatgListLoading, categoryList, subCategoryList, categoryPageNum, categoryTotalCounts } = useSelector(state => state.categoryReducer);
     const dispatch = useDispatch();
 
     const navigation = useNavigation();
@@ -45,7 +46,7 @@ const Category = () => {
                 <Text
                     style={styles.categoryText(selectedFeedIndex, index)}
                     numberOfLines={2}>
-                    {item?.name.toUpperCase()}
+                    {capitalizeFirstLetter(item?.name)}
                 </Text>
             </TouchableOpacity>
         );
@@ -60,6 +61,7 @@ const Category = () => {
                 keyExtractor={(item, index) => index.toString()}
                 onEndReached={props.onEndReached}
                 onEndReachedThreshold={props.onEndReachedThreshold}
+                ListFooterComponent={props.ListFooterComponent}
                 {...props}
             />
         );
@@ -68,10 +70,9 @@ const Category = () => {
     const handleFlatListEndReached = () => {
         if (
             !isCatgListLoading &&
-            categoryList?.categories?.length > 1
+            categoryList?.rows.length !== categoryTotalCounts
         ) {
             let num = categoryPageNum + 1;
-
             // dispatch(categoryLoadingStart());
             getData(num);
             dispatch(categoryPageChange(num));
@@ -103,7 +104,7 @@ const Category = () => {
 
     const SubCategoryListItems = (props) => {
         return (
-            <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters', {category_id: subCategoryList?.id})}>
+            <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters', { category_id: subCategoryList?.id, headerTitle: subCategoryList?.name })}>
                 <Image
                     source={{ uri: props.image }}
                     style={styles.image}
@@ -167,20 +168,19 @@ const Category = () => {
         );
     }
 
-    return (
 
-        !isCatgListLoading && categoryList?.categories?.length
-
-            ?
+    const renderCategoryCollectionList = () => {
+        return (
             <AppBackground>
                 <AppHeader placeholderText={'What are you looking for?'} />
                 <View style={styles.container}>
                     <View style={styles.categoryContainer}>
                         <ListView
-                            data={categoryList?.categories}
+                            data={categoryList?.rows}
                             renderItem={renderCategories}
                             onEndReached={handleFlatListEndReached}
                             onEndReachedThreshold={0.5}
+                        // ListFooterComponent={() => console.log('Footer Called')}
                         />
                     </View>
 
@@ -194,8 +194,6 @@ const Category = () => {
                                 decelerationRate="fast"
                                 style={styles.subCategoryContainer}
                             >
-
-
                                 {subCategoryList?.children.map((subCategory, _i) => {
                                     return (
                                         <View key={_i} >
@@ -211,8 +209,16 @@ const Category = () => {
                     }
                 </View>
             </AppBackground>
-            :
-            <Loader />
+        );
+    }
+
+    return (
+        isCatgListLoading && categoryPageNum === 1 ?
+            (<Loader />) :
+            categoryList?.rows?.length > 0 ?
+                renderCategoryCollectionList()
+                :
+                null
     )
 }
 

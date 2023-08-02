@@ -17,8 +17,8 @@ const productListReducer = (state = initialState, action) => {
         case PRODUCT_LIST_SUCCESS:
             return {
                 ...state,
-                productList: { ...state.productList, ...action.payload },
-                // productTotalCount: action.payload.count,
+                productList: [...state.productList, ...action.payload.rows ],
+                productTotalCount: action.payload.count,
                 isListLoading: false,
                 productListFail: '',
             };
@@ -29,11 +29,8 @@ const productListReducer = (state = initialState, action) => {
         case PRODUCT_LIST_PAGE_CHANGE:
             return (state = { ...state, productListPage: action.payload });
 
-        // case PRODUCT_LIST_RESET:
-        //     return (state = {
-        //         ...state,
-              
-        //     });
+            case PRODUCT_LIST_RESET:
+                return state = { ...state, productList: [] };
         default:
             return state;
     }

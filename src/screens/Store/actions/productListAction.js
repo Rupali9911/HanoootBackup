@@ -55,9 +55,9 @@ export const getProductList = (page, categoryId) => {
     return async dispatch => {
         await ProductList(page, categoryId, limit).
             then((response) => {
-                // console.log('this is response : ', response)
+                console.log('CHECK LENGTH OF PRODUCTLIST : ', JSON.stringify(response))
                 if (response?.data) {
-                    dispatch(productListSuccess(response));
+                    dispatch(productListSuccess(response?.data));
                 }
             }).
             catch((err) => { dispatch(productListFail(err)) })

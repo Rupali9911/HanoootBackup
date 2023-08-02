@@ -49,6 +49,13 @@ const ProductDetail = (props) => {
         color: 'Dual Purple'
     });
 
+    // useEffect(() => {
+        
+    // })
+
+
+
+
     useEffect(() => {
         if (cartItems && cartItems.includes(item)) {
             dispatch(setCartLabel('View Cart'))
@@ -57,6 +64,9 @@ const ProductDetail = (props) => {
             dispatch(setCartLabel('Add to Cart'))
         }
     }, [])
+
+
+
 
     const AddToCart = (obj) => {
         // obj.specifications = specifications;

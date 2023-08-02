@@ -6,7 +6,8 @@ const initialState = {
     categoryList: [],
     categoryFailed: '',
     categoryPageNum: 1,
-    subCategoryList: {}
+    subCategoryList: {},
+    categoryTotalCounts: 0
 
 }
 
@@ -23,6 +24,7 @@ const categoryReducer = (state = initialState, action) => {
                     ...state.categoryList,
                     ...action.payload,
                 },
+                categoryTotalCounts: action.payload.count,
                 isCatgListLoading: false,
                 categoryFailed: ''
             };

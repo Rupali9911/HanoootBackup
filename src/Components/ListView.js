@@ -21,7 +21,7 @@ const ListView = (props) => {
         noOfReview
       } = props;
 
-    console.log('averageRating : ', averageRating,noOfReview)
+    // console.log('averageRating : ', averageRating,noOfReview)
 
     const [isLiked, setLiked] = useState(false);
     const dispatch = useDispatch();
@@ -100,7 +100,7 @@ const ListView = (props) => {
                     <View style={styles.rowContainer}>
                         <Text style={styles.rating}>{averageRating}</Text>
                         <Image source={Images.star} style={styles.ratingImg} />
-                        <Text style={styles.ratingVal}>{noOfReview}</Text>
+                        <Text style={styles.noOfReview}>{`(${noOfReview})`}</Text>
                     </View>
                 }
             </View>
@@ -196,18 +196,20 @@ const styles = StyleSheet.create({
         lineHeight: 21,
         fontWeight: 800
     },
-    ratingVal: {
+    noOfReview: {
         fontSize: 11,
         lineHeight: 21,
         letterSpacing: 0.5,
         fontFamily: fonts.VISBY_CF_REGULAR,
-        fontWeight: 600
+        fontWeight: 500
     },
     ratingImg: {
-        height: SIZE(12), width: SIZE(12), resizeMode: 'contain'
+        height: SIZE(12), width: SIZE(12), resizeMode: 'contain',
+        width: wp('3%')
     },
     rowContainer: {
-        flexDirection: 'row', alignItems: 'center', gap: 3
+        flexDirection: 'row', alignItems: 'center', gap: 3,
+        // justifyContent: 'center'
     },
     priceBtnView: {
         // paddingVertical: 2, 

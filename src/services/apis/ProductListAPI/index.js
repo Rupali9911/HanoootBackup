@@ -11,7 +11,7 @@ export const ProductList = (pageNumber, category_id, limit) => {
             params: {
                 pageNumber: pageNumber,
                 limit: limit,
-                category_id: 10
+                category_id: category_id
             }
         }).
         then((response) => {
