@@ -658,387 +658,679 @@ const datadata = [
 ]
 
 
-export const FeedArray = [
-    {
-        "id": 1,
-        "category": "Popular",
-        "items": [
-            {
-                "products": [
-                    {
-                        "name": "Apple",
-                        "image": 'https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45',
-                    },
-                    {
-                        "name": "IOS",
-                        "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
-                    },
-                    {
-                        "name": "Android",
-                        "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
-                    },
-                    {
-                        "name": "Cable",
-                        "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
-                    },
-                    {
-                        "name": "Holder",
-                        "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
-                    }
-                ]
-            },
-        ]
-    },
+// export const FeedArray = [
+//     {
+//         "id": 1,
+//         "category": "Popular",
+//         "items": [
+//             {
+//                 "products": [
+//                     {
+//                         "name": "Apple",
+//                         "image": 'https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45',
+//                     },
+//                     {
+//                         "name": "IOS",
+//                         "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
+//                     },
+//                     {
+//                         "name": "Android",
+//                         "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
+//                     },
+//                     {
+//                         "name": "Cable",
+//                         "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
+//                     },
+//                     {
+//                         "name": "Holder",
+//                         "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
+//                     }
+//                 ]
+//             },
+//         ]
+//     },
 
-    {
-        "id": 2,
-        "category": "Phone & Tablets",
-        "items": [
-            {
-                "title": "Shope by brands",
-                "products": [
-                    {
+//     {
+//         "id": 2,
+//         "category": "Phone & Tablets",
+//         "items": [
+//             {
+//                 "title": "Shope by brands",
+//                 "products": [
+//                     {
 
-                        "image": 'https://cdn-icons-png.flaticon.com/512/0/747.png',
-                    },
-                    {
+//                         "image": 'https://cdn-icons-png.flaticon.com/512/0/747.png',
+//                     },
+//                     {
 
-                        "image": "https://cdn-icons-png.flaticon.com/512/882/882747.png",
-                    },
-                    {
+//                         "image": "https://cdn-icons-png.flaticon.com/512/882/882747.png",
+//                     },
+//                     {
 
-                        "image": "https://cdn-icons-png.flaticon.com/512/5969/5969073.png",
-                    },
-                ]
-            },
-            {
-                "title": "Mobile",
-                "products": [
-                    {
-                        "name": "Apple",
-                        "image": 'https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45',
-                    },
-                    {
-                        "name": "IOS",
-                        "image": "https://img.freepik.com/free-vector/phone-with-gradient-wallpaper_23-2147850273.jpg?t=st=1689927861~exp=1689928461~hmac=c452797ede5eb66bfa06b5768e44569bcc0d436a2624b3f55c82803f567a3ea8",
-                    },
-                    {
-                        "name": "Android",
-                        "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
-                    },
-                ]
-            },
-            {
-                "title": "Mobile Accessories",
-                "products": [
-                    {
-                        "name": "Head Phone",
-                        "image": 'https://img.freepik.com/free-vector/wireless-headphones-set_1284-20423.jpg?t=st=1689929734~exp=1689930334~hmac=1c9bc984326a31280c8c4c8f9871515783877b7524b041b7d848b031c82c2803',
-                    },
-                    {
-                        "name": "Charger",
-                        "image": "https://img.freepik.com/free-vector/headphones-wireless-realistic-composition-with-isolated-image-phones-with-power-bank-dock-station-with-reflections-vector-illustration_1284-73201.jpg?t=st=1689929734~exp=1689930334~hmac=eefb3d707a98456eb1dd0516094be0c0a47b7dda9a4f45ec013067c5feedfbea",
-                    },
-                    {
-                        "name": "Head Phone",
-                        "image": "https://img.freepik.com/free-vector/wireless-headphones-set_1284-20423.jpg?t=st=1689929734~exp=1689930334~hmac=1c9bc984326a31280c8c4c8f9871515783877b7524b041b7d848b031c82c2803",
-                    },
-                    {
-                        "name": "Ear-Pods",
-                        "image": "https://img.freepik.com/free-vector/headphones-wireless-realistic-composition-with-isolated-image-phones-with-power-bank-dock-station-with-reflections-vector-illustration_1284-73201.jpg?t=st=1689929734~exp=1689930334~hmac=eefb3d707a98456eb1dd0516094be0c0a47b7dda9a4f45ec013067c5feedfbea",
-                    },
-                    {
-                        "name": "Head Phone",
-                        "image": "https://img.freepik.com/free-vector/wireless-headphones-set_1284-20423.jpg?t=st=1689929734~exp=1689930334~hmac=1c9bc984326a31280c8c4c8f9871515783877b7524b041b7d848b031c82c2803",
-                    },
-                    {
-                        "name": "Holder",
-                        "image": "https://img.freepik.com/free-vector/wireless-headphones-set_1284-20423.jpg?t=st=1689929734~exp=1689930334~hmac=1c9bc984326a31280c8c4c8f9871515783877b7524b041b7d848b031c82c2803",
-                    }
-                ]
-            },
-        ]
-    },
+//                         "image": "https://cdn-icons-png.flaticon.com/512/5969/5969073.png",
+//                     },
+//                 ]
+//             },
+//             {
+//                 "title": "Mobile",
+//                 "products": [
+//                     {
+//                         "name": "Apple",
+//                         "image": 'https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45',
+//                     },
+//                     {
+//                         "name": "IOS",
+//                         "image": "https://img.freepik.com/free-vector/phone-with-gradient-wallpaper_23-2147850273.jpg?t=st=1689927861~exp=1689928461~hmac=c452797ede5eb66bfa06b5768e44569bcc0d436a2624b3f55c82803f567a3ea8",
+//                     },
+//                     {
+//                         "name": "Android",
+//                         "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
+//                     },
+//                 ]
+//             },
+//             {
+//                 "title": "Mobile Accessories",
+//                 "products": [
+//                     {
+//                         "name": "Head Phone",
+//                         "image": 'https://img.freepik.com/free-vector/wireless-headphones-set_1284-20423.jpg?t=st=1689929734~exp=1689930334~hmac=1c9bc984326a31280c8c4c8f9871515783877b7524b041b7d848b031c82c2803',
+//                     },
+//                     {
+//                         "name": "Charger",
+//                         "image": "https://img.freepik.com/free-vector/headphones-wireless-realistic-composition-with-isolated-image-phones-with-power-bank-dock-station-with-reflections-vector-illustration_1284-73201.jpg?t=st=1689929734~exp=1689930334~hmac=eefb3d707a98456eb1dd0516094be0c0a47b7dda9a4f45ec013067c5feedfbea",
+//                     },
+//                     {
+//                         "name": "Head Phone",
+//                         "image": "https://img.freepik.com/free-vector/wireless-headphones-set_1284-20423.jpg?t=st=1689929734~exp=1689930334~hmac=1c9bc984326a31280c8c4c8f9871515783877b7524b041b7d848b031c82c2803",
+//                     },
+//                     {
+//                         "name": "Ear-Pods",
+//                         "image": "https://img.freepik.com/free-vector/headphones-wireless-realistic-composition-with-isolated-image-phones-with-power-bank-dock-station-with-reflections-vector-illustration_1284-73201.jpg?t=st=1689929734~exp=1689930334~hmac=eefb3d707a98456eb1dd0516094be0c0a47b7dda9a4f45ec013067c5feedfbea",
+//                     },
+//                     {
+//                         "name": "Head Phone",
+//                         "image": "https://img.freepik.com/free-vector/wireless-headphones-set_1284-20423.jpg?t=st=1689929734~exp=1689930334~hmac=1c9bc984326a31280c8c4c8f9871515783877b7524b041b7d848b031c82c2803",
+//                     },
+//                     {
+//                         "name": "Holder",
+//                         "image": "https://img.freepik.com/free-vector/wireless-headphones-set_1284-20423.jpg?t=st=1689929734~exp=1689930334~hmac=1c9bc984326a31280c8c4c8f9871515783877b7524b041b7d848b031c82c2803",
+//                     }
+//                 ]
+//             },
+//         ]
+//     },
 
-    {
-        "id": 3,
-        "category": "Electronics", 
-        "items": [
-            {
-                "title": "Shope by brands",
-                "products": [
-                    {
+//     {
+//         "id": 3,
+//         "category": "Electronics", 
+//         "items": [
+//             {
+//                 "title": "Shope by brands",
+//                 "products": [
+//                     {
 
-                        "image": 'https://cdn-icons-png.flaticon.com/512/0/747.png',
-                    },
-                    {
+//                         "image": 'https://cdn-icons-png.flaticon.com/512/0/747.png',
+//                     },
+//                     {
 
-                        "image": "https://cdn-icons-png.flaticon.com/512/882/882747.png",
-                    },
-                    {
+//                         "image": "https://cdn-icons-png.flaticon.com/512/882/882747.png",
+//                     },
+//                     {
 
-                        "image": "https://cdn-icons-png.flaticon.com/512/5969/5969073.png",
-                    },
+//                         "image": "https://cdn-icons-png.flaticon.com/512/5969/5969073.png",
+//                     },
 
-                    {
+//                     {
 
-                        "image": "https://cdn-icons-png.flaticon.com/512/5969/5969073.png",
-                    },
-                    {
+//                         "image": "https://cdn-icons-png.flaticon.com/512/5969/5969073.png",
+//                     },
+//                     {
 
-                        "image": 'https://cdn-icons-png.flaticon.com/512/0/747.png',
-                    },
-                    {
+//                         "image": 'https://cdn-icons-png.flaticon.com/512/0/747.png',
+//                     },
+//                     {
 
-                        "image": "https://cdn-icons-png.flaticon.com/512/5969/5969073.png",
-                    },
-                ]
-            },
-            {
-                "title": "TVs & Home Entertainment",
-                "products": [
-                    {
-                        "name": "Apple iPhone 11 Pro Max",
-                        "image": 'https://images.pexels.com/photos/10141956/pexels-photo-10141956.jpeg',
-                    },
-                    {
-                        "name": "Samsung Galaxy S20",
-                        "image": "https://img.freepik.com/free-photo/phone-14-front-side-arabic-themed-background_187299-35431.jpg",
-                    },
-                    {
-                        "name": "Google Pixel 4 XL",
-                        "image": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437106.jpg?w=360&t=st=1689836515~exp=1689837115~hmac=6fff98337487db9e91cfff3be34b7b379f6f2f92d75cd4d9a56f88eb002f3302",
-                    },
-                    {
-                        "name": "Apple iPhone 11 Pro Max",
-                        "image": 'https://images.pexels.com/photos/10141956/pexels-photo-10141956.jpeg',
-                    },
-                    {
-                        "name": "Samsung Galaxy S20",
-                        "image": "https://img.freepik.com/free-photo/phone-14-front-side-arabic-themed-background_187299-35431.jpg",
-                    },
-                    {
-                        "name": "Google Pixel 4 XL",
-                        "image": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437106.jpg?w=360&t=st=1689836515~exp=1689837115~hmac=6fff98337487db9e91cfff3be34b7b379f6f2f92d75cd4d9a56f88eb002f3302",
-                    },
-                    {
-                        "name": "Apple iPhone 11 Pro Max",
-                        "image": 'https://images.pexels.com/photos/10141956/pexels-photo-10141956.jpeg',
-                    },
-                    {
-                        "name": "Samsung Galaxy S20",
-                        "image": "https://img.freepik.com/free-photo/phone-14-front-side-arabic-themed-background_187299-35431.jpg",
-                    },
-                    {
-                        "name": "Google Pixel 4 XL",
-                        "image": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437106.jpg?w=360&t=st=1689836515~exp=1689837115~hmac=6fff98337487db9e91cfff3be34b7b379f6f2f92d75cd4d9a56f88eb002f3302",
-                    }
-                ]
-            },
-            {
-                "title": "Home Audio",
-                "products": [
-                    {
-                        "name": "Apple iPhone 11 Pro Max",
-                        "image": 'https://images.pexels.com/photos/10141956/pexels-photo-10141956.jpeg',
+//                         "image": "https://cdn-icons-png.flaticon.com/512/5969/5969073.png",
+//                     },
+//                 ]
+//             },
+//             {
+//                 "title": "TVs & Home Entertainment",
+//                 "products": [
+//                     {
+//                         "name": "Apple iPhone 11 Pro Max",
+//                         "image": 'https://images.pexels.com/photos/10141956/pexels-photo-10141956.jpeg',
+//                     },
+//                     {
+//                         "name": "Samsung Galaxy S20",
+//                         "image": "https://img.freepik.com/free-photo/phone-14-front-side-arabic-themed-background_187299-35431.jpg",
+//                     },
+//                     {
+//                         "name": "Google Pixel 4 XL",
+//                         "image": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437106.jpg?w=360&t=st=1689836515~exp=1689837115~hmac=6fff98337487db9e91cfff3be34b7b379f6f2f92d75cd4d9a56f88eb002f3302",
+//                     },
+//                     {
+//                         "name": "Apple iPhone 11 Pro Max",
+//                         "image": 'https://images.pexels.com/photos/10141956/pexels-photo-10141956.jpeg',
+//                     },
+//                     {
+//                         "name": "Samsung Galaxy S20",
+//                         "image": "https://img.freepik.com/free-photo/phone-14-front-side-arabic-themed-background_187299-35431.jpg",
+//                     },
+//                     {
+//                         "name": "Google Pixel 4 XL",
+//                         "image": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437106.jpg?w=360&t=st=1689836515~exp=1689837115~hmac=6fff98337487db9e91cfff3be34b7b379f6f2f92d75cd4d9a56f88eb002f3302",
+//                     },
+//                     {
+//                         "name": "Apple iPhone 11 Pro Max",
+//                         "image": 'https://images.pexels.com/photos/10141956/pexels-photo-10141956.jpeg',
+//                     },
+//                     {
+//                         "name": "Samsung Galaxy S20",
+//                         "image": "https://img.freepik.com/free-photo/phone-14-front-side-arabic-themed-background_187299-35431.jpg",
+//                     },
+//                     {
+//                         "name": "Google Pixel 4 XL",
+//                         "image": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437106.jpg?w=360&t=st=1689836515~exp=1689837115~hmac=6fff98337487db9e91cfff3be34b7b379f6f2f92d75cd4d9a56f88eb002f3302",
+//                     }
+//                 ]
+//             },
+//             {
+//                 "title": "Home Audio",
+//                 "products": [
+//                     {
+//                         "name": "Apple iPhone 11 Pro Max",
+//                         "image": 'https://images.pexels.com/photos/10141956/pexels-photo-10141956.jpeg',
 
-                    },
-                    {
-                        "name": "Samsung Galaxy S20",
-                        "image": "https://img.freepik.com/free-photo/phone-14-front-side-arabic-themed-background_187299-35431.jpg",
+//                     },
+//                     {
+//                         "name": "Samsung Galaxy S20",
+//                         "image": "https://img.freepik.com/free-photo/phone-14-front-side-arabic-themed-background_187299-35431.jpg",
 
-                    },
-                    {
-                        "name": "Google Pixel 4 XL",
-                        "image": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437106.jpg?w=360&t=st=1689836515~exp=1689837115~hmac=6fff98337487db9e91cfff3be34b7b379f6f2f92d75cd4d9a56f88eb002f3302",
+//                     },
+//                     {
+//                         "name": "Google Pixel 4 XL",
+//                         "image": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437106.jpg?w=360&t=st=1689836515~exp=1689837115~hmac=6fff98337487db9e91cfff3be34b7b379f6f2f92d75cd4d9a56f88eb002f3302",
 
-                    },
-                    {
-                        "name": "Apple iPhone 11 Pro Max",
-                        "image": 'https://images.pexels.com/photos/10141956/pexels-photo-10141956.jpeg',
+//                     },
+//                     {
+//                         "name": "Apple iPhone 11 Pro Max",
+//                         "image": 'https://images.pexels.com/photos/10141956/pexels-photo-10141956.jpeg',
 
-                    },
-                    {
-                        "name": "Samsung Galaxy S20",
-                        "image": "https://img.freepik.com/free-photo/phone-14-front-side-arabic-themed-background_187299-35431.jpg",
+//                     },
+//                     {
+//                         "name": "Samsung Galaxy S20",
+//                         "image": "https://img.freepik.com/free-photo/phone-14-front-side-arabic-themed-background_187299-35431.jpg",
 
-                    },
-                    {
-                        "name": "Google Pixel 4 XL",
-                        "image": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437106.jpg?w=360&t=st=1689836515~exp=1689837115~hmac=6fff98337487db9e91cfff3be34b7b379f6f2f92d75cd4d9a56f88eb002f3302",
+//                     },
+//                     {
+//                         "name": "Google Pixel 4 XL",
+//                         "image": "https://img.freepik.com/free-photo/elegant-smartphone-composition_23-2149437106.jpg?w=360&t=st=1689836515~exp=1689837115~hmac=6fff98337487db9e91cfff3be34b7b379f6f2f92d75cd4d9a56f88eb002f3302",
 
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "id": 4,
-        "category": "Clothing",
-        "items": [
-            {
-                "title": "Men's Tshirt",
-                "products": [
-                    {
-                        "name": "Adidas Men's T-Shirt",
-                        "image": "https://img.freepik.com/premium-photo/white-t-shirt-with-bunny-it_816702-534.jpg?w=740",
-                    },
-                    {
-                        "name": "Nike Men's Shorts",
-                        "image": "https://img.freepik.com/premium-photo/black-shirt-with-picture-man-s-head-words-head-it_729592-1666.jpg?w=740",
-                    },
-                    {
-                        "name": "Under Armour Men's Hoodie",
-                        "image": "https://img.freepik.com/premium-photo/brooklyn-break-all-rules-graphic-abstract-typography-vector-t-shirt-design_37433-934.jpg?w=740",
-                    }
-                ]
-            },
-            {
-                "title": "Men's Tshirt",
-                "products": [
-                    {
-                        "name": "Adidas Men's T-Shirt",
-                        "image": "https://img.freepik.com/premium-photo/white-t-shirt-with-bunny-it_816702-534.jpg?w=740",
-                    },
-                    {
-                        "name": "Nike Men's Shorts",
-                        "image": "https://img.freepik.com/premium-photo/black-shirt-with-picture-man-s-head-words-head-it_729592-1666.jpg?w=740",
-                    },
-                    {
-                        "name": "Under Armour Men's Hoodie",
-                        "image": "https://img.freepik.com/premium-photo/brooklyn-break-all-rules-graphic-abstract-typography-vector-t-shirt-design_37433-934.jpg?w=740",
-                    }
-                ]
-            }
+//                     }
+//                 ]
+//             }
+//         ]
+//     },
+//     {
+//         "id": 4,
+//         "category": "Clothing",
+//         "items": [
+//             {
+//                 "title": "Men's Tshirt",
+//                 "products": [
+//                     {
+//                         "name": "Adidas Men's T-Shirt",
+//                         "image": "https://img.freepik.com/premium-photo/white-t-shirt-with-bunny-it_816702-534.jpg?w=740",
+//                     },
+//                     {
+//                         "name": "Nike Men's Shorts",
+//                         "image": "https://img.freepik.com/premium-photo/black-shirt-with-picture-man-s-head-words-head-it_729592-1666.jpg?w=740",
+//                     },
+//                     {
+//                         "name": "Under Armour Men's Hoodie",
+//                         "image": "https://img.freepik.com/premium-photo/brooklyn-break-all-rules-graphic-abstract-typography-vector-t-shirt-design_37433-934.jpg?w=740",
+//                     }
+//                 ]
+//             },
+//             {
+//                 "title": "Men's Tshirt",
+//                 "products": [
+//                     {
+//                         "name": "Adidas Men's T-Shirt",
+//                         "image": "https://img.freepik.com/premium-photo/white-t-shirt-with-bunny-it_816702-534.jpg?w=740",
+//                     },
+//                     {
+//                         "name": "Nike Men's Shorts",
+//                         "image": "https://img.freepik.com/premium-photo/black-shirt-with-picture-man-s-head-words-head-it_729592-1666.jpg?w=740",
+//                     },
+//                     {
+//                         "name": "Under Armour Men's Hoodie",
+//                         "image": "https://img.freepik.com/premium-photo/brooklyn-break-all-rules-graphic-abstract-typography-vector-t-shirt-design_37433-934.jpg?w=740",
+//                     }
+//                 ]
+//             }
 
-        ]
-    },
-    {
-        "id": 5,
-        "category": "Home & KitchenHome",
-        "items": [
-            {
-                "title": "Home & KitchenHome",
-                "products": [
-                    {
-                        "name": "Instant Pot Duo 7-in-1",
-                        "image": "https://img.freepik.com/free-photo/electric-blender-mixer-juicer-set_140725-7263.jpg?w=996&t=st=1689836826~exp=1689837426~hmac=1d306e30de1535e06ec0fd1061b32de06fd2f26b7c959e8300935360890881b8",
+//         ]
+//     },
+//     {
+//         "id": 5,
+//         "category": "Home & KitchenHome",
+//         "items": [
+//             {
+//                 "title": "Home & KitchenHome",
+//                 "products": [
+//                     {
+//                         "name": "Instant Pot Duo 7-in-1",
+//                         "image": "https://img.freepik.com/free-photo/electric-blender-mixer-juicer-set_140725-7263.jpg?w=996&t=st=1689836826~exp=1689837426~hmac=1d306e30de1535e06ec0fd1061b32de06fd2f26b7c959e8300935360890881b8",
 
-                    },
-                    {
-                        "name": "Keurig K-Mini Plus",
-                        "image": "https://img.freepik.com/free-photo/interiors-homely-kitchen_53876-146777.jpg?w=1060&t=st=1689836829~exp=1689837429~hmac=66b7b4997f29e988f06d9a03bb4741c9997fca6cedadb580d39048afbcccd4aa",
+//                     },
+//                     {
+//                         "name": "Keurig K-Mini Plus",
+//                         "image": "https://img.freepik.com/free-photo/interiors-homely-kitchen_53876-146777.jpg?w=1060&t=st=1689836829~exp=1689837429~hmac=66b7b4997f29e988f06d9a03bb4741c9997fca6cedadb580d39048afbcccd4aa",
 
-                    },
-                    {
-                        "name": "Dyson V7 Motorhead",
-                        "image": "https://img.freepik.com/free-photo/top-view-wooden-spoon-empty-plastic-coffee-pot-cutting-board-grater-pink-surface_140725-94279.jpg?w=1060&t=st=1689836832~exp=1689837432~hmac=3a834db77f4f5bfa9f078d070d7bce0b982b549012d939009c24cc0787fd3f23",
+//                     },
+//                     {
+//                         "name": "Dyson V7 Motorhead",
+//                         "image": "https://img.freepik.com/free-photo/top-view-wooden-spoon-empty-plastic-coffee-pot-cutting-board-grater-pink-surface_140725-94279.jpg?w=1060&t=st=1689836832~exp=1689837432~hmac=3a834db77f4f5bfa9f078d070d7bce0b982b549012d939009c24cc0787fd3f23",
 
-                    },
-                    {
-                        "name": "Dyson V7 Motorhead",
-                        "image": "https://img.freepik.com/free-photo/top-view-wooden-spoon-empty-plastic-coffee-pot-cutting-board-grater-pink-surface_140725-94279.jpg?w=1060&t=st=1689836832~exp=1689837432~hmac=3a834db77f4f5bfa9f078d070d7bce0b982b549012d939009c24cc0787fd3f23",
+//                     },
+//                     {
+//                         "name": "Dyson V7 Motorhead",
+//                         "image": "https://img.freepik.com/free-photo/top-view-wooden-spoon-empty-plastic-coffee-pot-cutting-board-grater-pink-surface_140725-94279.jpg?w=1060&t=st=1689836832~exp=1689837432~hmac=3a834db77f4f5bfa9f078d070d7bce0b982b549012d939009c24cc0787fd3f23",
 
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "id": 6,
-        "category": "Beauty & Health Care",
-        "items": [
-            {
-                "title": "Beauty Products",
-                "products": [
-                    {
-                        "name": "Olay Regenerist Micro-Sculpting Cream",
-                        "image": "https://img.freepik.com/free-photo/top-view-arrangement-with-spa-items-wooden-background_23-2148268490.jpg?w=1060&t=st=1689849946~exp=1689850546~hmac=12618850addb91c7bb192a99f1513a9addaffd3bce1381c76015053ccec6e898",
+//                     }
+//                 ]
+//             }
+//         ]
+//     },
+//     {
+//         "id": 6,
+//         "category": "Beauty & Health Care",
+//         "items": [
+//             {
+//                 "title": "Beauty Products",
+//                 "products": [
+//                     {
+//                         "name": "Olay Regenerist Micro-Sculpting Cream",
+//                         "image": "https://img.freepik.com/free-photo/top-view-arrangement-with-spa-items-wooden-background_23-2148268490.jpg?w=1060&t=st=1689849946~exp=1689850546~hmac=12618850addb91c7bb192a99f1513a9addaffd3bce1381c76015053ccec6e898",
 
-                    },
-                    {
-                        "name": "Burt's Bees Intense Hydration Cream Cleanser",
-                        "image": "https://img.freepik.com/free-photo/beauty-product-still-life_23-2147817669.jpg?w=1060&t=st=1689849949~exp=1689850549~hmac=afe849c4e5114c6602c6720a1e65b3ee5dc89d4125d4af99af102af119981bfd",
-                    },
-                    {
-                        "name": "Neutrogena Hydro Boost Water Gel",
-                        "image": "https://img.freepik.com/free-photo/close-up-elegant-beauty-selfcare-treatment_23-2149238298.jpg?w=360&t=st=1689849967~exp=1689850567~hmac=40c5c5db275c6d623185fa7c45b0868c460b6fb0d10a6ff164e66a1f2a03fc6c",
+//                     },
+//                     {
+//                         "name": "Burt's Bees Intense Hydration Cream Cleanser",
+//                         "image": "https://img.freepik.com/free-photo/beauty-product-still-life_23-2147817669.jpg?w=1060&t=st=1689849949~exp=1689850549~hmac=afe849c4e5114c6602c6720a1e65b3ee5dc89d4125d4af99af102af119981bfd",
+//                     },
+//                     {
+//                         "name": "Neutrogena Hydro Boost Water Gel",
+//                         "image": "https://img.freepik.com/free-photo/close-up-elegant-beauty-selfcare-treatment_23-2149238298.jpg?w=360&t=st=1689849967~exp=1689850567~hmac=40c5c5db275c6d623185fa7c45b0868c460b6fb0d10a6ff164e66a1f2a03fc6c",
 
-                    },
-                ]
-            },
-            {
-                "title": "Health Care Products",
-                "products": [
-                    {
-                        "name": "Neutrogena Hydro Boost Water Gel",
-                        "image": "https://img.freepik.com/free-photo/women-s-cosmetic-products-placed-blue_1150-17127.jpg?w=1060&t=st=1689849975~exp=1689850575~hmac=76cdc6b730b42aa580a31d4d2121601f479506371f774ee665fa053009d7c325",
+//                     },
+//                 ]
+//             },
+//             {
+//                 "title": "Health Care Products",
+//                 "products": [
+//                     {
+//                         "name": "Neutrogena Hydro Boost Water Gel",
+//                         "image": "https://img.freepik.com/free-photo/women-s-cosmetic-products-placed-blue_1150-17127.jpg?w=1060&t=st=1689849975~exp=1689850575~hmac=76cdc6b730b42aa580a31d4d2121601f479506371f774ee665fa053009d7c325",
 
-                    },
-                    {
-                        "name": "Neutrogena Hydro Boost Water Gel",
-                        "image": "https://img.freepik.com/free-photo/beauty-product-still-life_23-2147817669.jpg?w=1060&t=st=1689849949~exp=1689850549~hmac=afe849c4e5114c6602c6720a1e65b3ee5dc89d4125d4af99af102af119981bfd",
+//                     },
+//                     {
+//                         "name": "Neutrogena Hydro Boost Water Gel",
+//                         "image": "https://img.freepik.com/free-photo/beauty-product-still-life_23-2147817669.jpg?w=1060&t=st=1689849949~exp=1689850549~hmac=afe849c4e5114c6602c6720a1e65b3ee5dc89d4125d4af99af102af119981bfd",
 
-                    },
-                    {
-                        "name": "Neutrogena Hydro Boost Water Gel",
-                        "image": "https://img.freepik.com/free-photo/women-s-cosmetic-products-placed-blue_1150-17127.jpg?w=1060&t=st=1689849975~exp=1689850575~hmac=76cdc6b730b42aa580a31d4d2121601f479506371f774ee665fa053009d7c325",
-                        "price": "17.99"
-                    },
-                    {
-                        "name": "Neutrogena Hydro Boost Water Gel",
-                        "image": "https://img.freepik.com/free-photo/beauty-product-still-life_23-2147817669.jpg?w=1060&t=st=1689849949~exp=1689850549~hmac=afe849c4e5114c6602c6720a1e65b3ee5dc89d4125d4af99af102af119981bfd",
+//                     },
+//                     {
+//                         "name": "Neutrogena Hydro Boost Water Gel",
+//                         "image": "https://img.freepik.com/free-photo/women-s-cosmetic-products-placed-blue_1150-17127.jpg?w=1060&t=st=1689849975~exp=1689850575~hmac=76cdc6b730b42aa580a31d4d2121601f479506371f774ee665fa053009d7c325",
+//                         "price": "17.99"
+//                     },
+//                     {
+//                         "name": "Neutrogena Hydro Boost Water Gel",
+//                         "image": "https://img.freepik.com/free-photo/beauty-product-still-life_23-2147817669.jpg?w=1060&t=st=1689849949~exp=1689850549~hmac=afe849c4e5114c6602c6720a1e65b3ee5dc89d4125d4af99af102af119981bfd",
 
-                    }
-                ]
-            }
-        ]
-    },
+//                     }
+//                 ]
+//             }
+//         ]
+//     },
 
 
-    {
-        "id": 7,
-        "category": "Outdoor & Sports",
-        "items": [
-            {
-                "title": "Outdoor Products",
-                "products": [
-                    {
-                        "name": "Wilson NFL Football",
-                        "image": "https://img.freepik.com/free-photo/top-view-composition-with-neatly-arranged-organized-sport-items_23-2150275221.jpg?w=1060&t=st=1689852491~exp=1689853091~hmac=64e35bcfc3d685e3342bbc44737f934fca3f1463344304b64c562f3014d1c4e0",
+//     {
+//         "id": 7,
+//         "category": "Outdoor & Sports",
+//         "items": [
+//             {
+//                 "title": "Outdoor Products",
+//                 "products": [
+//                     {
+//                         "name": "Wilson NFL Football",
+//                         "image": "https://img.freepik.com/free-photo/top-view-composition-with-neatly-arranged-organized-sport-items_23-2150275221.jpg?w=1060&t=st=1689852491~exp=1689853091~hmac=64e35bcfc3d685e3342bbc44737f934fca3f1463344304b64c562f3014d1c4e0",
 
-                    },
-                    {
-                        "name": "Spalding NBA Basketball",
-                        "image": "https://img.freepik.com/free-photo/flat-lay-still-life-sport-composition_23-2149006379.jpg?w=1060&t=st=1689852495~exp=1689853095~hmac=541235752ae071947fc7836b7fe2eca8a0f469a94dae9c5c808037d9265ebf4b",
+//                     },
+//                     {
+//                         "name": "Spalding NBA Basketball",
+//                         "image": "https://img.freepik.com/free-photo/flat-lay-still-life-sport-composition_23-2149006379.jpg?w=1060&t=st=1689852495~exp=1689853095~hmac=541235752ae071947fc7836b7fe2eca8a0f469a94dae9c5c808037d9265ebf4b",
 
-                    },
-                    {
-                        "name": "Rawlings Baseball Glove",
-                        "image": "https://img.freepik.com/free-photo/flat-lay-still-life-sport-composition_23-2149006379.jpg?w=1060&t=st=1689852495~exp=1689853095~hmac=541235752ae071947fc7836b7fe2eca8a0f469a94dae9c5c808037d9265ebf4b",
+//                     },
+//                     {
+//                         "name": "Rawlings Baseball Glove",
+//                         "image": "https://img.freepik.com/free-photo/flat-lay-still-life-sport-composition_23-2149006379.jpg?w=1060&t=st=1689852495~exp=1689853095~hmac=541235752ae071947fc7836b7fe2eca8a0f469a94dae9c5c808037d9265ebf4b",
 
-                    },
-                ]
-            },
-            {
-                "title": "Sports Products",
-                "products": [
-                    {
-                        "name": "Wilson NFL Football",
-                        "image": "https://img.freepik.com/free-photo/basketball-bag-with-headphones_23-2148375967.jpg?w=996&t=st=1689852502~exp=1689853102~hmac=ac6668f6d820426b8dc166807484299e2090d420a05a6575133a252facd312fb",
+//                     },
+//                 ]
+//             },
+//             {
+//                 "title": "Sports Products",
+//                 "products": [
+//                     {
+//                         "name": "Wilson NFL Football",
+//                         "image": "https://img.freepik.com/free-photo/basketball-bag-with-headphones_23-2148375967.jpg?w=996&t=st=1689852502~exp=1689853102~hmac=ac6668f6d820426b8dc166807484299e2090d420a05a6575133a252facd312fb",
 
-                    },
-                    {
-                        "name": "Spalding NBA Basketball",
-                        "image": "https://img.freepik.com/premium-photo/hiking-boots-backpack-map-background_488220-7102.jpg?w=1060",
+//                     },
+//                     {
+//                         "name": "Spalding NBA Basketball",
+//                         "image": "https://img.freepik.com/premium-photo/hiking-boots-backpack-map-background_488220-7102.jpg?w=1060",
 
-                    },
-                    {
-                        "name": "Rawlings Baseball Glove",
-                        "image": "https://img.freepik.com/free-photo/flat-lay-still-life-sport-composition_23-2149006379.jpg?w=1060&t=st=1689852495~exp=1689853095~hmac=541235752ae071947fc7836b7fe2eca8a0f469a94dae9c5c808037d9265ebf4b",
-                    }
-                ]
-            }
-        ]
-    },
-]
+//                     },
+//                     {
+//                         "name": "Rawlings Baseball Glove",
+//                         "image": "https://img.freepik.com/free-photo/flat-lay-still-life-sport-composition_23-2149006379.jpg?w=1060&t=st=1689852495~exp=1689853095~hmac=541235752ae071947fc7836b7fe2eca8a0f469a94dae9c5c808037d9265ebf4b",
+//                     }
+//                 ]
+//             }
+//         ]
+//     },
+// ]
+
+
+
+export const FeedArray = {
+    "categories": [
+        {
+            "id": 1,
+            "name": "apple",
+            "slug": "apple",
+            "parent_id": null,
+            "brand_id": 1,
+            "thumbnail_image": "",
+            "description": null,
+            "is_home": true,
+            "createdAt": "2023-07-14T10:19:40.502Z",
+            "updatedAt": "2023-07-14T11:05:53.287Z",
+            "children": [
+                {
+                    "id": 2,
+                    "name": "Shope by brand",
+                    "slug": "laptop",
+                    "parent_id": 1,
+                    "brand_id": 1,
+                    "thumbnail_image": "",
+                    "description": null,
+                    "is_home": false,
+                    "createdAt": "2023-07-14T11:12:34.892Z",
+                    "updatedAt": "2023-07-14T11:12:34.893Z",
+                    "children": [
+                        {
+                            "id": 4,
+                            "name": "Andorid",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "name": "Mobile",
+                    "slug": "laptop",
+                    "parent_id": 1,
+                    "brand_id": 1,
+                    "thumbnail_image": "",
+                    "description": null,
+                    "is_home": false,
+                    "createdAt": "2023-07-14T11:12:34.892Z",
+                    "updatedAt": "2023-07-14T11:12:34.893Z",
+                    "children": [
+                        {
+                            "id": 4,
+                            "name": "Andorid",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "name": "Mobile Accessories",
+                    "slug": "laptop",
+                    "parent_id": 1,
+                    "brand_id": 1,
+                    "thumbnail_image": "",
+                    "description": null,
+                    "is_home": false,
+                    "createdAt": "2023-07-14T11:12:34.892Z",
+                    "updatedAt": "2023-07-14T11:12:34.893Z",
+                    "children": [
+                        {
+                            "id": 4,
+                            "name": "Andorid",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "name": "Multiple Products",
+                    "slug": "laptop",
+                    "parent_id": 1,
+                    "brand_id": 1,
+                    "thumbnail_image": "",
+                    "description": null,
+                    "is_home": false,
+                    "createdAt": "2023-07-14T11:12:34.892Z",
+                    "updatedAt": "2023-07-14T11:12:34.893Z",
+                    "children": [
+                        {
+                            "id": 1,
+                            "name": "Andorid",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        },
+                        {
+                            "id": 2,
+                            "name": "Andorid",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        },
+                        {
+                            "id": 3,
+                            "name": "Andorid",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        },
+                        {
+                            "id": 4,
+                            "name": "Andorid",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        },
+                        {
+                            "id": 5,
+                            "name": "Andorid",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        },
+                        {
+                            "id": 5,
+                            "name": "Andorid",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        },
+                        {
+                            "id": 5,
+                            "name": "Andorid",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        }
+
+                    ]
+                }
+            ]
+        },
+
+        {
+            "id": 1,
+            "name": "Electronics",
+            "slug": "apple",
+            "parent_id": null,
+            "brand_id": 1,
+            "thumbnail_image": "",
+            "description": null,
+            "is_home": true,
+            "createdAt": "2023-07-14T10:19:40.502Z",
+            "updatedAt": "2023-07-14T11:05:53.287Z",
+            "children": [
+                {
+                    "id": 2,
+                    "name": "Kitchen Products",
+                    "slug": "laptop",
+                    "parent_id": 1,
+                    "brand_id": 1,
+                    "thumbnail_image": "",
+                    "description": null,
+                    "is_home": false,
+                    "createdAt": "2023-07-14T11:12:34.892Z",
+                    "updatedAt": "2023-07-14T11:12:34.893Z",
+                    "children": [
+                        {
+                            "id": 4,
+                            "name": "Andorid",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "id": 1,
+            "name": "Cloths",
+            "slug": "apple",
+            "parent_id": null,
+            "brand_id": 1,
+            "thumbnail_image": "",
+            "description": null,
+            "is_home": true,
+            "createdAt": "2023-07-14T10:19:40.502Z",
+            "updatedAt": "2023-07-14T11:05:53.287Z",
+            "children": [
+                {
+                    "id": 2,
+                    "name": "Men's Tshirt",
+                    "slug": "laptop",
+                    "parent_id": 1,
+                    "brand_id": 1,
+                    "thumbnail_image": "",
+                    "description": null,
+                    "is_home": false,
+                    "createdAt": "2023-07-14T11:12:34.892Z",
+                    "updatedAt": "2023-07-14T11:12:34.893Z",
+                    "children": [
+                        {
+                            "id": 4,
+                            "name": "ADIDAS",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        },
+                        {
+                            "id": 5,
+                            "name": "NIKE",
+                            "slug": "android",
+                            "parent_id": 2,
+                            "brand_id": null,
+                            "thumbnail_image": "https://hanoot-bucket-dev.s3.me-central-1.amazonaws.com/category/1689746663050-2340965.jpg",
+                            "description": "android phone we have best ever",
+                            "is_home": false,
+                            "createdAt": "2023-07-19T06:04:24.000Z",
+                            "updatedAt": "2023-07-19T06:04:24.000Z"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

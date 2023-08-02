@@ -56,8 +56,6 @@ export const userRegister = (firebase_user_id, password) => {
 
 };
 
-
-
 export const updateProfile = (name, email) => {
     return new Promise((resolve, _reject) => {
         console.log('name', name)

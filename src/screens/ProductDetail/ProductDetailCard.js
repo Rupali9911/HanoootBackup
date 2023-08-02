@@ -86,7 +86,7 @@ const CircleView = (props) => {
             </View>
             </View>
             <Separator />
-            <ProductImageCarousel ProductImage={props.Image}/>
+            <ProductImageCarousel ProductImages={props.Image}/>
             <Separator />
 
 

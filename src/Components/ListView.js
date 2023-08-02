@@ -12,6 +12,17 @@ import { addToWishlist, removeWishlistItem } from '../screens/Store/actions/wish
 
 
 const ListView = (props) => {
+    const {
+        centerImage,
+        productName,
+        price,
+        discount,
+        averageRating,
+        noOfReview
+      } = props;
+
+    // console.log('averageRating : ', averageRating,noOfReview)
+
     const [isLiked, setLiked] = useState(false);
     const dispatch = useDispatch();
 
@@ -50,7 +61,7 @@ const ListView = (props) => {
             </View>
             <View style={[styles.imageContainer, props.imgContStyle]}>
                 <Image
-                    source={item.image}
+                    source={{uri: centerImage ? centerImage : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png'}}
                     style={[styles.productImg, props.imgStyle]}
                 />
             </View>
@@ -63,20 +74,18 @@ const ListView = (props) => {
                     </View>
 
                 }
-                <Text style={styles.productName} numberOfLines={2}>{item?.name}</Text>
-
-
+                <Text style={styles.productName} numberOfLines={2}>{productName}</Text>
 
                 {
-                    props.TotalPrice && <Text style={[styles.price, props.TotalPriceStyle]}>{item.price}</Text>
+                    price && <Text style={[styles.price, props.TotalPriceStyle]}>{price}</Text>
                 }
 
 
                 {
-                    props.DisCountPrice &&
+                    discount &&
                     <View style={{ flexDirection: 'row' }}>
-                        <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{item.discountPrice} </Text>
-                        {props.isDiscountPercent && <Text style={styles.ProductDiscPercent} numberOfLines={1}>{item.pricePercentOff}</Text>}
+                        <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{discount} </Text>
+                        {props.isDiscountPercent && <Text style={styles.ProductDiscPercent} numberOfLines={1}>{discount}</Text>}
                     </View>
                 }
 
@@ -86,12 +95,12 @@ const ListView = (props) => {
 
 
                 {
-                    props.isRating &&
+                    averageRating &&
 
                     <View style={styles.rowContainer}>
-                        <Text style={styles.rating}>{'4.0'}</Text>
+                        <Text style={styles.rating}>{averageRating}</Text>
                         <Image source={Images.star} style={styles.ratingImg} />
-                        <Text style={styles.ratingVal}>{'(79)'}</Text>
+                        <Text style={styles.noOfReview}>{`(${noOfReview})`}</Text>
                     </View>
                 }
             </View>
@@ -123,7 +132,7 @@ const styles = StyleSheet.create({
     },
     textView: {
         marginTop: SIZE(20),
-        maxWidth: wp(35)
+        // maxWidth: wp(35)
     },
     price: {
         fontFamily: fonts.VISBY_CF_REGULAR,
@@ -161,6 +170,7 @@ const styles = StyleSheet.create({
         lineHeight: 15,
         letterSpacing: 0.5,
         fontWeight: 500,
+        // backgroundColor: 'red'
         // maxWidth: wp(35)
     },
     productDiscountPrice: {
@@ -186,18 +196,20 @@ const styles = StyleSheet.create({
         lineHeight: 21,
         fontWeight: 800
     },
-    ratingVal: {
+    noOfReview: {
         fontSize: 11,
         lineHeight: 21,
         letterSpacing: 0.5,
         fontFamily: fonts.VISBY_CF_REGULAR,
-        fontWeight: 600
+        fontWeight: 500
     },
     ratingImg: {
-        height: SIZE(12), width: SIZE(12), resizeMode: 'contain'
+        height: SIZE(12), width: SIZE(12), resizeMode: 'contain',
+        width: wp('3%')
     },
     rowContainer: {
-        flexDirection: 'row', alignItems: 'center', gap: 3
+        flexDirection: 'row', alignItems: 'center', gap: 3,
+        // justifyContent: 'center'
     },
     priceBtnView: {
         // paddingVertical: 2, 

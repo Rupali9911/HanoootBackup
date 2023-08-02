@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import AppBackground from '../Components/AppBackground'
 import AppHeader from '../Components/AppHeader'
 import { hp, wp } from '../../constant/responsiveFunc'
@@ -7,60 +7,46 @@ import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
 import Images from '../../constant/Images'
 import { useNavigation } from '@react-navigation/native'
+// import { FeedArray } from '../../constant/DemoArray'
 import { FeedArray } from '../../constant/DemoArray'
+import { categoryLoadingStart, getCategoryList, categoryPageChange, getSubCategoryList } from '../Store/actions/categoryAction'
+import { useSelector, useDispatch } from 'react-redux';
+import Loader from '../../constant/Loader'
+import { capitalizeFirstLetter } from '../utils'
 
 const Category = () => {
     const [selectedFeedIndex, setSelectedFeedIndex] = useState(0)
-    const [showAll, setShowAll] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const [subCategoryIndex, setSubCategoryIndex] = useState(null);
-    const [selectedFeedItems, setSelectedFeedItems] = useState({
-        "category": "Popular",
-        "items": [
-            {
-                "products": [
-                    {
-                        "name": "Apple",
-                        "image": 'https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45',
-                    },
-                    {
-                        "name": "IOS",
-                        "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
-                    },
-                    {
-                        "name": "Android",
-                        "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
-                    },
-                    {
-                        "name": "Cable",
-                        "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
-                    },
-                    {
-                        "name": "Holder",
-                        "image": "https://img.freepik.com/free-vector/realistic-smartphone-display-with-apps_23-2148374064.jpg?t=st=1689927807~exp=1689928407~hmac=d9ea7a6aed574db24594ad3af3dd26c7870682ff2e10d7bba1187ba4e165ee45",
-                    }
-                ]
-            },
-        ]
-    });
+    const { isCatgListLoading, categoryList, subCategoryList, categoryPageNum, categoryTotalCounts } = useSelector(state => state.categoryReducer);
+    const dispatch = useDispatch();
 
     const navigation = useNavigation();
 
+    useEffect(() => {
+        dispatch(categoryLoadingStart());
+        getData(1);
+        dispatch(categoryPageChange(1));
+    }, [])
+
+    const getData = useCallback(page => {
+        dispatch(getCategoryList(page));
+    }, []);
 
 
-
-    const Categories = ({ item, index }) => {
+    const renderCategories = ({ item, index }) => {
         return (
             <TouchableOpacity style={styles.categorySection(selectedFeedIndex, index)}
                 onPress={() => {
                     setSelectedFeedIndex(index)
-                    setSelectedFeedItems(item)
+                    // setSelectedFeedItems(item)
+                    dispatch(getSubCategoryList(item))
                 }}
             >
                 <Text
                     style={styles.categoryText(selectedFeedIndex, index)}
                     numberOfLines={2}>
-                    {item?.category}
+                    {capitalizeFirstLetter(item?.name)}
                 </Text>
             </TouchableOpacity>
         );
@@ -73,10 +59,25 @@ const Category = () => {
                 data={props.data}
                 renderItem={props.renderItem}
                 keyExtractor={(item, index) => index.toString()}
+                onEndReached={props.onEndReached}
+                onEndReachedThreshold={props.onEndReachedThreshold}
+                ListFooterComponent={props.ListFooterComponent}
                 {...props}
             />
         );
     }
+
+    const handleFlatListEndReached = () => {
+        if (
+            !isCatgListLoading &&
+            categoryList?.rows.length !== categoryTotalCounts
+        ) {
+            let num = categoryPageNum + 1;
+            // dispatch(categoryLoadingStart());
+            getData(num);
+            dispatch(categoryPageChange(num));
+        }
+    };
 
     const toggleExpand = (index) => {
         setExpanded(!expanded);
@@ -103,7 +104,7 @@ const Category = () => {
 
     const SubCategoryListItems = (props) => {
         return (
-            <>
+            <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters', { category_id: subCategoryList?.id, headerTitle: subCategoryList?.name })}>
                 <Image
                     source={{ uri: props.image }}
                     style={styles.image}
@@ -114,13 +115,14 @@ const Category = () => {
                         style={styles.subCategoryText}
                     >{props.name}</Text>
                 }
-            </>
+            </TouchableOpacity>
         )
     }
 
     const ViewMoreButton = (props) => {
         return (
             <TouchableOpacity
+                style={styles.SubCategoryItemsContainer}
                 onPress={() => navigation.navigate('ViewMoreCategories', { item: props.navigation })}
             >
                 <Text numberOfLines={2}
@@ -130,83 +132,93 @@ const Category = () => {
         );
     }
 
-
     const RightComponentList = (subCategory, idx) => {
         return (
             <>
-                {subCategory?.title && <SubCategoriesTitle title={subCategory?.title} index={idx} />}
+                {subCategory?.name && <SubCategoriesTitle title={subCategory?.name} index={idx} />}
 
                 {expanded && subCategoryIndex === idx && (
-
                     <ListView
-                        data={subCategory?.products.slice(0, 6)}
+                        data={subCategory?.children.slice(0, 6)}
                         numColumns={3}
                         nestedScrollEnabled={false}
                         scrollEnabled={false}
                         renderItem={({ item, index }) => {
                             return (
-                                <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters')}>
-                                    {
-                                        index != 5 ?
-                                            <SubCategoryListItems
-                                                image={item?.image}
-                                                name={item?.name}
-                                            />
-                                            :
-                                            <View pointerEvents="none" >
-                                                <ViewMoreButton
-                                                    navigation={subCategory}
-                                                />
-                                            </View>
-                                    }
-                                </TouchableOpacity>
+                                index != 5 ?
+                                    <SubCategoryListItems
+                                        image={item?.thumbnail_image}
+                                        name={item?.name}
+                                        id={subCategory?.id}
+
+                                    />
+                                    :
+                                    <ViewMoreButton
+                                        navigation={subCategory}
+                                    />
                             )
                         }}
                         initialNumToRender={3}
                     />
                 )}
-
-                {selectedFeedItems?.items.length > 1 && <View style={styles.separator} />}
+                {
+                    subCategoryList?.children.length > 1 && <View style={styles.separator} />
+                }
             </>
         );
     }
 
-    return (
-        <AppBackground>
-            <AppHeader placeholderText={'What are you looking for?'} />
-            <View style={styles.container}>
-                <View style={styles.categoryContainer}>
-                    <ListView
-                        data={FeedArray}
-                        renderItem={Categories}
-                    />
-                </View>
 
-                <ScrollView
-                    horizontal={false}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    scrollEventThrottle={200}
-                    decelerationRate="fast"
-                    style={styles.subCategoryContainer}
-                >
+    const renderCategoryCollectionList = () => {
+        return (
+            <AppBackground>
+                <AppHeader placeholderText={'What are you looking for?'} />
+                <View style={styles.container}>
+                    <View style={styles.categoryContainer}>
+                        <ListView
+                            data={categoryList?.rows}
+                            renderItem={renderCategories}
+                            onEndReached={handleFlatListEndReached}
+                            onEndReachedThreshold={0.5}
+                        // ListFooterComponent={() => console.log('Footer Called')}
+                        />
+                    </View>
+
                     {
-                        selectedFeedItems ? (
-                            selectedFeedItems?.items.map((subCategory, _i) => {
-                                return (
-                                    subCategory?.products ?
+                        Object.keys(subCategoryList).length ?
+                            <ScrollView
+                                horizontal={false}
+                                showsHorizontalScrollIndicator={false}
+                                showsVerticalScrollIndicator={false}
+                                scrollEventThrottle={200}
+                                decelerationRate="fast"
+                                style={styles.subCategoryContainer}
+                            >
+                                {subCategoryList?.children.map((subCategory, _i) => {
+                                    return (
                                         <View key={_i} >
                                             {RightComponentList(subCategory, _i)}
                                         </View>
-                                        :
-                                        null
-                                );
-                            })
-                        ) : null
+                                    );
+                                })
+                                }
+
+                            </ScrollView>
+                            :
+                            null
                     }
-                </ScrollView>
-            </View>
-        </AppBackground>
+                </View>
+            </AppBackground>
+        );
+    }
+
+    return (
+        isCatgListLoading && categoryPageNum === 1 ?
+            (<Loader />) :
+            categoryList?.rows?.length > 0 ?
+                renderCategoryCollectionList()
+                :
+                null
     )
 }
 

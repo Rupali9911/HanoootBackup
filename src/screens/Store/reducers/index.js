@@ -4,13 +4,17 @@ import cartReducer from "./cartReducer";
 import checkoutReducer from "./checkoutReducer";
 import wishlistReducer from "./wishlistReducer";
 import userReducer from "./userReducer";
+import categoryReducer from "./categoryReducer";
+import productListReducer from "./productListReducer";
 
 const appReducer = combineReducers({
     userReducer,
     placeReducer,
     cartReducer,
     checkoutReducer,
-    wishlistReducer
+    wishlistReducer,
+    categoryReducer,
+    productListReducer
 })
 
 const rootReducer = (state, action) => {

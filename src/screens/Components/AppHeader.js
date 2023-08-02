@@ -12,6 +12,20 @@ export default function AppHeader(props) {
   const [isSearch, setSearch] = useState(false)
   const navigation = useNavigation();
 
+
+  const RightSideIcon = (props) => {
+    return (
+      <TouchableOpacity
+        style={[
+          styles.backContainer,
+          { alignItems: 'flex-end', paddingLeft: 0, paddingRight: wp('3%') },
+        ]}
+        onPress={props.onPress}>
+        <Image source={props.image} style={styles.rightIcon} />
+      </TouchableOpacity>
+    );
+  }
+
   return (
 
     <View style={[styles.container, props.mainContainerStyle]}>
@@ -46,7 +60,7 @@ export default function AppHeader(props) {
               width: 90,
               height: 60,
               resizeMode: 'contain'
-            }}/>
+            }} />
             :
             (
               <Text
@@ -70,21 +84,38 @@ export default function AppHeader(props) {
 
 
       <View style={{ alignItems: 'flex-end', justifyContent: 'center', height: '100%' }}>
-        {props.showRightIcon ? (
-          <TouchableOpacity
-            style={[
-              styles.backContainer,
-              { alignItems: 'flex-end', paddingLeft: 0, paddingRight: wp('3%') },
-            ]}
-            onPress={props.onPressRight}>
-            {props.rightIcon}
-          </TouchableOpacity>
-        ) : props.showRightComponent ? (
+        <View style={{ flexDirection: 'row' }}>
+          {
+            props.showLikeIcon &&
+            <RightSideIcon
+              onPress={props.onLikePress}
+              image={Images.Wishlist}
+            />
+          }
+
+          {
+            props.showSearchIcon &&
+            <RightSideIcon
+              onPress={props.onSearchPress}
+              image={Images.searchIcon}
+            />
+          }
+
+          {
+            props.showCartIcon &&
+            <RightSideIcon
+              onPress={props.onCartPress}
+              image={Images.cart}
+            />
+          }
+        </View>
+
+        {props.showRightComponent && (
           <Text
             style={[styles.title, { color: Colors.themeColor, paddingRight: 10 }]}
             onPressRightText
           >{'Cancel'}</Text>
-        ) : null}
+        )}
       </View>
 
 
@@ -183,9 +214,9 @@ const styles = StyleSheet.create({
     // alignItems: 'flex-start'
 
   },
-  likeIcon: {
-    height: 22,
-    width: 24,
+  rightIcon: {
+    height: 20,
+    width: 20,
     resizeMode: 'contain',
     tintColor: Colors.BLACK
   },
