@@ -8,10 +8,11 @@ import AuthHeader from './AuthHeader'
 import fonts from '../../constant/fonts'
 import AppButton from '../Components/AppButton'
 import { useNavigation } from '@react-navigation/native'
-import { signInWithPhoneNumber, confirmOtp } from '../../services/socialAuth'
+import { signInWithPhoneNumber, confirmOtp, updateDisplayName } from '../../services/socialAuth'
 import { setUserData } from '../Store/actions/userAction'
 import { useDispatch } from 'react-redux'
 import { userRegister } from '../../services/apis'
+import { saveUserDetails, updateNameWithSaveDetails } from '../../helpers/user'
 
 const otpObj = {
     otp1: "",
@@ -24,6 +25,7 @@ const otpObj = {
 
 const OtpVerification = ({ route }) => {
     const [authResult, setauthResult] = useState(route?.params?.authResult)
+    const isFromSignUp = route?.params?.isFromSignUp
     const phoneNumber = route?.params?.phoneNumber
     // console.log('route?.params?.authResult', route?.params?.authResult)
     const navigation = useNavigation();
@@ -154,16 +156,20 @@ const OtpVerification = ({ route }) => {
         //     })
 
         try {
-            const userDetails = await confirmOtp(authResult, otp)
-            console.log('Verify OTp response', userDetails?.user)
-            const userRegistered = await userRegister(userDetails?.user?.uid, '')
-            console.log('userRegistered', userRegistered)
-            if (userRegistered?.user) {
-                await updateDisplayName(userRegistered, name)
+            const userCredentials = await confirmOtp(authResult, otp)
+            console.log('Verify OTp response', userCredentials?.user)
+            if (isFromSignUp) {
+                await userRegister(userCredentials?.user?.uid, '')
+                console.log('userCredentials', userCredentials)
+                // if (userDetails?.user) {
+                //     await updateDisplayName(userDetails, name)
+                //     userDetails.user.displayName = name
+                // }
+                await updateNameWithSaveDetails(userCredentials, dispatch)
+            } else {
+                saveUserDetails(userCredentials?.user, dispatch)
             }
-            dispatch(setUserData(userDetails?.user))
-            // setauthResult(null)
-            // setOtpField(otpObj)
+            // dispatch(setUserData(userCredentials?.user))
             navigation.navigate('OtpVerifySuccess')
         }
         catch (error) {

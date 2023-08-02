@@ -1,6 +1,6 @@
 import {
     AUTH_SUCCESS,
-    AUTH_LOGOUT
+    UPDATE_NAME_EMAIL
 } from '../types'
 
 const initialState = {
@@ -8,16 +8,18 @@ const initialState = {
 }
 
 export default userReducer = (state = initialState, action) => {
+    console.log('state from userReducer', state, action?.payload)
+
     switch (action.type) {
         case AUTH_SUCCESS:
             return {
                 ...state,
                 userData: action.payload
             }
-        case AUTH_LOGOUT:
+        case UPDATE_NAME_EMAIL:
             return {
                 ...state,
-                userData: null
+                userData: { ...state.userData, displayName: action?.payload?.displayName, email: action?.payload?.email }
             }
         default:
             return state;

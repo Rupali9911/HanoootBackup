@@ -10,14 +10,15 @@ import AppInput from '../../../constant/AppInput';
 import AppButton from '../../Components/AppButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import AuthBottomContainer from '../AuthBottomContainer';
-import { maxLength32, maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName, maxLength50, validateEmail } from '../../utils';
+import { maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName, maxLength50, validateEmail } from '../../utils';
 import { isValidNumber } from 'react-native-phone-number-input';
 import AuthHeader from '../AuthHeader';
 import { useNavigation } from '@react-navigation/native';
 import CustomSwitch from '../customSwitch';
-import { checkPhoneNumber } from '../../../services/apis'
+import { checkPhoneNumberOrEmailExists, userRegister } from '../../../services/apis'
 import { createUserWithEmail, updateDisplayName, signInWithPhoneNumber } from '../../../services/socialAuth'
-import { setUserData } from '../../Store/actions/userAction'
+import { saveUserDetails, updateNameWithSaveDetails } from '../../../helpers/user';
+
 
 const Signup = () => {
     const [name, setName] = useState('')
@@ -55,8 +56,7 @@ const Signup = () => {
             //=============Email Validation================
             if (maxLength50(email)) {
                 errorList.emailErr = maxLength50(email)
-            }
-            else if (validateEmail(email)) {
+            } else if (validateEmail(email)) {
                 errorList.emailErr = validateEmail(email)
             }
 
@@ -76,10 +76,7 @@ const Signup = () => {
     }
 
     const signUpWithNumber = async () => {
-        const a = {}
-        console.log('Value of a', a)
-        return
-        // checkPhoneNumber(formattedNum, phoneNo)
+        // checkPhoneNumberOrEmailExists(formattedNum)
         //     .then((response) => {
         //         console.log('Response from Check phone number api', response)
         //         navigation.navigate('OtpVerification', {
@@ -92,12 +89,13 @@ const Signup = () => {
         //     })
 
         try {
-            await checkPhoneNumber(formattedNum, phoneNo)
-            const authResults = await signInWithPhoneNumber(formattedNum)(formattedNum, phoneNo)
+            await checkPhoneNumberOrEmailExists(formattedNum)
+            const authResults = await signInWithPhoneNumber(formattedNum)
 
             navigation.navigate('OtpVerification', {
                 authResult: authResults,
-                phoneNumber: formattedNum
+                phoneNumber: formattedNum,
+                isFromSignUp: true
             });
         }
         catch (error) {
@@ -107,12 +105,16 @@ const Signup = () => {
 
     const signUpWithEmail = async () => {
         try {
+            await checkPhoneNumberOrEmailExists(email)
             const userCredentials = await createUserWithEmail(email, password)
-            if (userCredentials?.user) {
-                await updateDisplayName(userCredentials, name)
-                userCredentials.user.displayName = name
-            }
-            dispatch(setUserData(userCredentials.user))
+            await userRegister(userCredentials?.user?.uid, password)
+            await updateNameWithSaveDetails(userCredentials, dispatch)
+            // if (userCredentials?.user) {
+            //     await updateDisplayName(userCredentials, name)
+            //     userCredentials.user.displayName = name
+            //     saveUserDetails(userCredentials?.user)
+            // }
+            //dispatch(setUserData(userCredentials.user))
             navigation.navigate('Home')
         }
         catch (error) {
@@ -203,7 +205,7 @@ const Signup = () => {
                                     required
                                     value={email}
                                     maxLength={50}
-                                    validate={[maxLength50, validatePhoneNo]}
+                                    validate={[maxLength50, validateEmail]}
                                     error={error['emailErr']}
                                 />
 
@@ -257,7 +259,9 @@ const Signup = () => {
                 <AuthBottomContainer
                     title={'Or Sign Up with'}
                     isAccountText={'Already have an account?'}
-                    button={' Sign in'}
+
+                    // button={' Sign in'}
+                    isSignUp={true}
                     onPressButton={() => navigation.navigate('Login')}
                 />
 

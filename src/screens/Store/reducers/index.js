@@ -7,7 +7,7 @@ import userReducer from "./userReducer";
 import categoryReducer from "./categoryReducer";
 import productListReducer from "./productListReducer";
 
-const RootReducer = combineReducers({
+const appReducer = combineReducers({
     userReducer,
     placeReducer,
     cartReducer,
@@ -17,4 +17,12 @@ const RootReducer = combineReducers({
     productListReducer
 })
 
-export default RootReducer;
+const rootReducer = (state, action) => {
+    console.log('root reducer called', state, action)
+    if (action.type === 'AUTH_LOGOUT') {
+        return appReducer(undefined, action);
+    }
+    return appReducer(state, action);
+};
+
+export default rootReducer;

@@ -18,6 +18,7 @@ import { isValidNumber } from 'react-native-phone-number-input';
 import { signInWithPhoneNumber, signInWithEmailAndPwd } from '../../../services/socialAuth'
 import { useDispatch } from 'react-redux'
 import { setUserData } from '../../Store/actions/userAction'
+import { saveUserDetails } from '../../../helpers/user'
 
 const Login = () => {
     const [phoneNo, setPhoneNo] = useState('')
@@ -62,7 +63,6 @@ const Login = () => {
         //================API Call Fuction================
         if (Object.keys(errorList).length == 0) {
             setError({});
-            // checkPhoneNumber(formattedNum)
             (mobileSwitch) ? signInWithNumber() : signInWithEmail()
         }
     }
@@ -73,7 +73,8 @@ const Login = () => {
             console.log('Response from signInWithNumber', result)
             navigation.navigate('OtpVerification', {
                 authResult: result,
-                phoneNumber: formattedNum
+                phoneNumber: formattedNum,
+                isFromSignUp: false
             });
         } catch (error) {
             console.log('Error from signInWithNumber', error)
@@ -86,7 +87,8 @@ const Login = () => {
             .then((response) => {
                 console.log('Response from signInWithEmailAndPwd', response)
                 console.log('Response from signInWithEmailAndPwd is user object exists', response?.user)
-                dispatch(setUserData(response?.user))
+                // dispatch(setUserData(response?.user))
+                saveUserDetails(response?.user, dispatch)
                 navigation.navigate('Home');
             })
     }
@@ -181,7 +183,8 @@ const Login = () => {
                 <AuthBottomContainer
                     title={'Or Sign In with'}
                     isAccountText={'Don’t have a account ?'}
-                    button={' Sign up'}
+                    // button={' Sign up'}
+                    isSignUp={false}
                     onPressButton={() => navigation.navigate('Signup')}
                 />
 

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AppBackground from '../Components/AppBackground'
 import Images from '../../constant/Images'
 import fonts from '../../constant/fonts'
@@ -8,17 +8,24 @@ import { useNavigation } from '@react-navigation/native'
 import { signOut } from '../../services/socialAuth'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearUserData } from '../Store/actions/userAction'
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const [rerender, setRerender] = useState(false)
-    // const { route } = props;
-    // const Login = route?.params?.LoggedIn;
-    const { userData } = useSelector((state) => state.userReducer);
+    const userData = useSelector((state) => state.userReducer.userData);
 
 
-    console.log('userData : ', userData)
+    useEffect(() => {
+        // Add your side effect code here
+        console.log('State changed:', userData);
+    }, [userData]);
+
+
+    // console.log('userData : ', userData)
+    const signUpAction = () => {
+        navigation.navigate('Signup')
+    }
 
     const ProfileDetail = () => {
         return (
@@ -35,7 +42,7 @@ const ProfileScreen = (props) => {
                             <Image source={Images?.pencilIcon} style={styles.pencilImg} />
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity style={styles.registerButton} onPress={() => navigation.navigate('Signup')}>
+                        <TouchableOpacity style={styles.registerButton} onPress={() => signUpAction()}>
                             <Text style={styles.register}>Register</Text>
                         </TouchableOpacity>
                 }
@@ -84,15 +91,12 @@ const ProfileScreen = (props) => {
     }
 
     const logout = () => {
-        signOut()
-            .then((response) => {
-                dispatch(clearUserData)
-                setRerender(!rerender)
-                console.log('user Logout Succesfully', response, userData)
-                setTimeout(() => {
-                    console.log('user Logout Succesfully', userData)
+        dispatch(clearUserData())
 
-                }, 5000)
+        signOut()
+            .then(async (response) => {
+                console.log('user Logout Succesfully', response, userData)
+                await EncryptedStorage.clear();
             })
     }
 

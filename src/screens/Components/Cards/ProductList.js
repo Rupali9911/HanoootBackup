@@ -2,12 +2,10 @@ import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from 'react
 import React, { useState } from 'react'
 import Colors from '../../../constant/Colors';
 import Images from '../../../constant/Images';
-import ProductHeader from './ProductHeader';
 import { hp, wp } from '../../../constant/responsiveFunc';
 import fonts from '../../../constant/fonts';
 import { LikeImage, ExpressView } from '../../../constant/ListConstant'
 import { useNavigation } from '@react-navigation/native';
-import ProductDetail from '../../ProductDetail';
 import CheckBox from 'react-native-check-box'
 
 
@@ -67,16 +65,16 @@ const ProductList = (props) => {
                     }
                     {
                         props.isLike ?
-                        <LikeImage /> :
-                        props.isCheckBox ?
-                        <CheckBox
-                            onClick={() => {
-                                toggleChecked(item.id);
-                            }}
-                            isChecked={isChecked(item.id)}
-                            checkBoxColor={Colors.themeColor}
-                            uncheckedCheckBoxColor={Colors.GRAY}
-                        /> : null
+                            <LikeImage /> :
+                            props.isCheckBox ?
+                                <CheckBox
+                                    onClick={() => {
+                                        toggleChecked(item.id);
+                                    }}
+                                    isChecked={isChecked(item.id)}
+                                    checkBoxColor={Colors.themeColor}
+                                    uncheckedCheckBoxColor={Colors.GRAY}
+                                /> : null
                     }
                 </View>
                 <View style={[styles.imageContainer, props.imgContStyle]}>
@@ -174,27 +172,27 @@ const ProductList = (props) => {
         //         data={props.Data}
         //         renderItem={renderProductCollection}
         //         keyExtractor={keyExtractor1}
-                
+
         //         horizontal
         //         showsHorizontalScrollIndicator={false}
         //         {...props}
         //         // numColumns={2}
-                
+
         //     />
         <>
             <FlatList
                 data={props.Data}
                 renderItem={renderProductCollection}
                 keyExtractor={keyExtractor1}
-                
+
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 {...props}
                 contentContainerStyle={{
                     // marginHorizontal: '5%'
                 }}
-                // numColumns={2}
-                
+            // numColumns={2}
+
             />
             {
                 props.isBrand && renderBrandProducts()

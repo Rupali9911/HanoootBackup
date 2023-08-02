@@ -10,9 +10,8 @@ const USER_REGISTER = `${API_BASE_URL}/api/v1/user/register`
 const CATEGORY_LIST = `${API_BASE_URL}/api/v1/category`
 const PRODUCT_LIST = `${API_BASE_URL}/api/v1/product`
 const PRODUCT_DETAIL_API = `${API_BASE_URL}/api/v1/product/detail`
-
-
-
+const UPDATE_PROFILE = `${API_BASE_URL}/api/v1/user/update-profile`
+const HELPNSUPPORT = `${API_BASE_URL}/api/v1/help-support`
 
 
 export {
@@ -21,5 +20,7 @@ export {
     USER_REGISTER,
     CATEGORY_LIST,
     PRODUCT_LIST,
-    PRODUCT_DETAIL_API
+    PRODUCT_DETAIL_API,
+    UPDATE_PROFILE,
+    HELPNSUPPORT
 };

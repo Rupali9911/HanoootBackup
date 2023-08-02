@@ -34,5 +34,6 @@ export const PRODUCT_LIST_PAGE_CHANGE = 'PRODUCT_LIST_PAGE_CHANGE';
 //====================USER REDUCER=====================
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+export const UPDATE_NAME_EMAIL = 'UPDATE_NAME_EMAIL';
 
 

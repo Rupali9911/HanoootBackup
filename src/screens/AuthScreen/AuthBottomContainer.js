@@ -6,9 +6,14 @@ import fonts from '../../constant/fonts'
 import Images from '../../constant/Images'
 import { useNavigation } from '@react-navigation/native';
 import { googleSignIn, appleSignIn } from '../../services/socialAuth'
+import { setUserData } from '../Store/actions/userAction'
+import { userRegister } from '../../services/apis'
+import { useDispatch } from 'react-redux'
+import { saveUserDetails } from '../../helpers/user'
 
 const AuthBottomContainer = (props) => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     const SocialIconSection = useCallback((props) => {
         return (
@@ -24,31 +29,60 @@ const AuthBottomContainer = (props) => {
 
     onPressGoggle = async () => {
         console.log('Goggle Sigin Tapped')
-        googleSignIn()
-            .then(response => {
-                console.log('response from googleSignIn', response)
-                navigation.navigate('Home')
-            })
-            .catch(error => {
-                console.log('Error from googleSignIn', error)
-            })
+        try {
+            const userDetails = await googleSignIn()
+            console.log('response from googleSignIn userCredentials', userDetails)
+            registerAndUpdateData(userDetails)
+        } catch (error) {
+            console.log('Error from googleSignIn', error)
+        }
+
+        // googleSignIn()
+        //     .then(response => {
+        //         console.log('response from googleSignIn', response)
+        //         if (props.isSignUp) {
+
+        //         }
+        //         navigation.navigate('Home')
+        //     })
+        //     .catch(error => {
+        //         console.log('Error from googleSignIn', error)
+        //     })
     }
 
     onPressFacebook = () => {
         console.log('Facebook Sigin Tapped')
     }
 
-    onPressApple = () => {
+    onPressApple = async () => {
         console.log('Apple Sigin Tapped')
-        appleSignIn()
-            .then(response => {
-                console.log('response from appleSignIn', response)
-                navigation.navigate('Home')
-            })
-            .catch(error => {
-                console.log('Error from appleSignIn', error)
-            })
+        try {
+            const userDetails = await appleSignIn()
+            console.log('response from appleSignIn userCredentials', userDetails)
+            registerAndUpdateData(userDetails)
+        } catch (error) {
+            console.log('Error from googleSignIn', error)
+        }
+        // appleSignIn()
+        //     .then(response => {
+        //         console.log('response from appleSignIn', response)
+        //         navigation.navigate('Home')
+        //     })
+        //     .catch(error => {
+        //         console.log('Error from appleSignIn', error)
+        //     })
     }
+
+    const registerAndUpdateData = async (userDetails) => {
+        if (props.isSignUp) {
+            // await checkPhoneNumberOrEmailExists(googleCredentials?.email)
+            await userRegister(userDetails?.user?.uid, '')
+        }
+        // dispatch(setUserData(userDetails.user))
+        saveUserDetails(userDetails.user, dispatch)
+        navigation.navigate('Home')
+    }
+
 
     return (
         <>
@@ -81,7 +115,7 @@ const AuthBottomContainer = (props) => {
             <View style={styles.rowContainer}>
                 <Text style={styles.termsPrivacy}>{props.isAccountText}</Text>
                 <TouchableOpacity onPress={props.onPressButton}>
-                    <Text style={[styles.termsPrivacy, { color: Colors.themeColor, fontWeight: 'bold' }]}>{props.button}</Text>
+                    <Text style={[styles.termsPrivacy, { color: Colors.themeColor, fontWeight: 'bold' }]}>{props?.isSignUp ? ' Sign in' : ' Sign up'}</Text>
                 </TouchableOpacity>
             </View>
 

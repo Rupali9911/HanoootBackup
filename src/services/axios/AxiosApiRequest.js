@@ -1,5 +1,5 @@
 // import NetInfo from '@react-native-community/netinfo';
-// import EncryptedStorage from 'react-native-encrypted-storage';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
 // import { NEW_BASE_URL } from '../common/constants';
 // import { modalAlert } from '../common/function';
@@ -9,26 +9,24 @@ import axios from 'axios';
 //=============== API Calling function ========================
 async function sendRequest(payload) {
   try {
-
-    console.log('payload check : ', payload)
-    // const token = await getAccessToken('ACCESS_TOKEN');
+    const token = await getAccessToken('ACCESS_TOKEN');
     payload.headers = payload.headers
-    // ? payload.headers.Authorization
-    //   ? payload.headers.Authorization === 'No'
-    //     ? getHeaders(payload.headers)
-    //     : payload.headers
-    //   : {
-    //     ...payload.headers,
-    //     Authorization: 'Bearer ' + token,
-    //   }
-    // : token
-    //   ? {
-    //     'Content-Type': 'application/json',
-    //     Authorization: 'Bearer ' + token,
-    //   }
-    //   : {
-    //     'content-type': 'application/json',
-    //   };
+      ? payload.headers.Authorization
+        ? payload.headers.Authorization === 'No'
+          ? getHeaders(payload.headers)
+          : payload.headers
+        : {
+          ...payload.headers,
+          Authorization: 'Bearer ' + token,
+        }
+      : token
+        ? {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        }
+        : {
+          'content-type': 'application/json',
+        };
     // const state = await NetInfo.fetch();
     // if (state.isConnected) {
     //   isAlert = false;
@@ -100,53 +98,53 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-// //================= Set Access Token =======================
-// export async function setAccesToken(value) {
-//   try {
-//     let sessionToken = null;
-//     const token = await EncryptedStorage.getItem('SESSION_TOKEN');
-//     if (token !== undefined) {
-//       sessionToken = JSON.parse(token);
-//       const newSessionToken = { ...sessionToken, accessToken: value };
-//       await EncryptedStorage.setItem(
-//         'SESSION_TOKEN',
-//         JSON.stringify(newSessionToken),
-//       );
-//     }
-//     return value;
-//   } catch (error) { }
-// }
+//================= Set Access Token =======================
+export async function setAccesToken(value) {
+  try {
+    let sessionToken = null;
+    const token = await EncryptedStorage.getItem('SESSION_TOKEN');
+    if (token !== undefined) {
+      sessionToken = JSON.parse(token);
+      const newSessionToken = { ...sessionToken, accessToken: value };
+      await EncryptedStorage.setItem(
+        'SESSION_TOKEN',
+        JSON.stringify(newSessionToken),
+      );
+    }
+    return value;
+  } catch (error) { }
+}
 
-// //================== Get Access Token =====================
-// export async function getAccessToken(tokenName) {
-//   try {
-//     let sessionToken = null;
-//     const token = await EncryptedStorage.getItem('SESSION_TOKEN');
-//     if (token !== undefined) {
-//       sessionToken = JSON.parse(token);
-//       return tokenName === 'ACCESS_TOKEN'
-//         ? sessionToken?.accessToken
-//         : sessionToken?.refreshToken;
-//     } else {
-//       return null;
-//     }
-//   } catch (error) {
-//     return null;
-//   }
-// }
+//================== Get Access Token =====================
+export async function getAccessToken(tokenName) {
+  try {
+    let sessionToken = null;
+    const token = await EncryptedStorage.getItem('SESSION_TOKEN');
+    if (token !== undefined) {
+      sessionToken = JSON.parse(token);
+      return tokenName === 'ACCESS_TOKEN'
+        ? sessionToken?.accessToken
+        : sessionToken?.refreshToken;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    return null;
+  }
+}
 
-// //================== Refresh Token API call =====================
-// export async function APIRefreshToken() {
-//   const token = await getAccessToken('ACCESS_TOKEN');
-//   const refreshToken = await getAccessToken('REFRESH_TOKEN');
-//   if (!token || !refreshToken) return undefined;
+//================== Refresh Token API call =====================
+export async function APIRefreshToken() {
+  const token = await getAccessToken('ACCESS_TOKEN');
+  const refreshToken = await getAccessToken('REFRESH_TOKEN');
+  if (!token || !refreshToken) return undefined;
 
-//   return sendRequest({
-//     url: `${NEW_BASE_URL}/auth/refresh-token`,
-//     method: 'POST',
-//     data: { token, refreshToken },
-//   });
-// }
+  return sendRequest({
+    url: `${NEW_BASE_URL}/auth/refresh-token`,
+    method: 'POST',
+    data: { token, refreshToken },
+  });
+}
 
 //=================== Get Headers =====================
 const getHeaders = header => {
