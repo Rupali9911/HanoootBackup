@@ -11,7 +11,7 @@ import Images from "../../constant/Images";
 import fonts from "../../constant/fonts";
 
 export default DeliveryType = React.memo((props) => {
-    console.log('chekc delivery type : ', props)
+    // console.log('chekc delivery type : ', props)
     const [toggle1, settoggle1] = useState();
     const [toggle2, settoggle2] = useState();
     //   constructor() {

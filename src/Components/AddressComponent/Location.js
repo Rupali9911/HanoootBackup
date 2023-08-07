@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Button, Image, StyleSheet, Text, View,PermissionsAndroid, Platform, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AppHeader from '../../screens/Components/AppHeader'
 import AppBackground from '../../screens/Components/AppBackground'
@@ -8,6 +8,8 @@ import Colors from '../../constant/Colors';
 import Images from '../../constant/Images';
 import AppButton from '../../screens/Components/AppButton';
 import AppPermission from '../universal/Permission';
+import Geolocation from 'react-native-geolocation-service';
+
 
 const Location = () => {
   const [getInitialState, setGetInitialState] = useState({
@@ -19,18 +21,114 @@ const Location = () => {
     },
   })
 
+  const hasPermissionIOS = async () => {
+    const openSetting = () => {
+      Linking.openSettings().catch(() => {
+        Alert.alert('Unable to open settings');
+      });
+    };
+    const status = await Geolocation.requestAuthorization('whenInUse');
 
-  // useEffect( ()=>{
+    if (status === 'granted') {
+      return true;
+    }
+
+    if (status === 'denied') {
+      Alert.alert('Location permission denied');
+    }
+
+    if (status === 'disabled') {
+      Alert.alert(
+        `Turn on Location Services to allow  to determine your location.`,
+        '',
+        [
+          { text: 'Go to Settings', onPress: openSetting },
+          { text: "Don't Use Location", onPress: () => {} },
+        ],
+      );
+    }
+
+    return false;
+  };
 
 
-  //  navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       console.log('Position -> ',position);
-  //     },
-  //     (error) => console.log(error)
-  //     // {enableHighAccuracy: false, timeout: 50000}
-  // );
-  // })
+  const hasLocationPermission = async () => {
+    if (Platform.OS === 'ios') {
+      const hasPermission = await hasPermissionIOS();
+      return hasPermission;
+    }
+
+    // if (Platform.OS === 'android' && Platform.Version < 23) {
+    //   return true;
+    // }
+
+    // const hasPermission = await PermissionsAndroid.check(
+    //   PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    // );
+
+    // if (hasPermission) {
+    //   return true;
+    // }
+
+    // const status = await PermissionsAndroid.request(
+    //   PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    // );
+
+    // if (status === PermissionsAndroid.RESULTS.GRANTED) {
+    //   return true;
+    // }
+
+    // if (status === PermissionsAndroid.RESULTS.DENIED) {
+    //   ToastAndroid.show(
+    //     'Location permission denied by user.',
+    //     ToastAndroid.LONG,
+    //   );
+    // } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
+    //   ToastAndroid.show(
+    //     'Location permission revoked by user.',
+    //     ToastAndroid.LONG,
+    //   );
+    // }
+
+    return false;
+  };
+
+
+
+  const getLocation = async () => {
+    const hasPermission = await hasLocationPermission();
+
+    if (!hasPermission) {
+      return;
+    }
+
+    Geolocation.getCurrentPosition(
+      position => {
+        // setLocation(position);
+        console.log(position);
+      },
+      error => {
+        Alert.alert(`Code ${error.code}`, error.message);
+        // setLocation(null);
+        console.log(error);
+      },
+      {
+        accuracy: {
+          android: 'high',
+          ios: 'best',
+        },
+        enableHighAccuracy: highAccuracy,
+        timeout: 15000,
+        maximumAge: 10000,
+        distanceFilter: 0,
+        forceRequestLocation: forceLocation,
+        forceLocationManager: useLocationManager,
+        showLocationDialog: locationDialog,
+      },
+    );
+  };
+
+
   const OverlayComponent = () => {
     return (
       <View style={styles.bottomView}>
@@ -45,16 +143,16 @@ const Location = () => {
 
   const onRegionChange = (region) => {
     // this.setState({ region });
-    console.log('onRegionChange : ', region)
+    // console.log('onRegionChange : ', region)
     setGetInitialState({ region: region })
   }
 
 
-  const onRegionChangeComplete = (region,details ) => {
-console.log('onRegionChangeComplete : ', region,details )
+  const onRegionChangeComplete = (region, details) => {
+    console.log('onRegionChangeComplete : ', region, details)
   }
 
-  console.log('get : ', getInitialState)
+  // console.log('get : ', getInitialState)
 
   return (
     <AppBackground>
@@ -62,7 +160,7 @@ console.log('onRegionChangeComplete : ', region,details )
         showBackButton
         title={'Pin Your Location'}
       />
-      <View style={styles.screenContainer}>
+      {/* <View style={styles.screenContainer}>
         <MapView
           style={styles.mapStyle}
           provider={PROVIDER_GOOGLE}
@@ -103,31 +201,9 @@ console.log('onRegionChangeComplete : ', region,details )
           Latitude: {getInitialState.region.latitude}{' '}
           Longitude: {getInitialState.region.longitude}
         </Text>
-      </View>
-
-      {/* <View style={styles.container}>
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          // style={{flex: 1 }}
-          region={getInitialState.region}
-          onRegionChange={region => onRegionChange(region)}
-        >
-          <MapView.Marker
-            coordinate={{
-              latitude: getInitialState.region.latitude,
-              longitude: getInitialState.region.longitude,
-            }}
-            title="My Marker"
-            description="Some description"
-          />
-        </MapView>
-        <View>
-          <Text>
-            Latitude: {getInitialState.region.latitude}{' '}
-            Longitude: {getInitialState.region.longitude}
-          </Text>
-        </View>
       </View> */}
+
+      <Button title="Get Location" onPress={getLocation} />
 
       <OverlayComponent />
     </AppBackground>
@@ -157,6 +233,6 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   mapStyle: {
-  ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject
   },
 })
