@@ -55,37 +55,37 @@ const OtpVerification = ({ route }) => {
     const renderOTPInput = () => {
         let inputs = [
             {
-                placeholder: "0",
+                placeholder: "",
                 stateName: "otp1",
                 maxLength: 1,
                 nextField: "otp2",
             },
             {
-                placeholder: "0",
+                placeholder: "",
                 stateName: "otp2",
                 maxLength: 1,
                 nextField: "otp3",
             },
             {
-                placeholder: "0",
+                placeholder: "",
                 stateName: "otp3",
                 maxLength: 1,
                 nextField: "otp4",
             },
             {
-                placeholder: "0",
+                placeholder: "",
                 stateName: "otp4",
                 maxLength: 1,
                 nextField: "otp5",
             },
             {
-                placeholder: "0",
+                placeholder: "",
                 stateName: "otp5",
                 maxLength: 1,
                 nextField: "otp6",
             },
             {
-                placeholder: "0",
+                placeholder: "",
                 stateName: "otp6",
                 maxLength: 1,
             },
@@ -101,19 +101,27 @@ const OtpVerification = ({ route }) => {
                         placeholder={input.placeholder}
                         maxLength={input.maxLength}
                         keyboardType="number-pad"
+                        underlineColorAndroid="transparent"
                         onChangeText={(text) => {
                             console.log('text', text)
                             setOtpField({ ...otpField, [input.stateName]: text })
-                            if (text.length === input.maxLength && input.nextField) {
-                                otpInput.current[index + 1]?.focus()
-                            }
-                            else if (text.length === 0) {
-                                otpInput.current[index - 1]?.focus()
-                            }
+                            // if (text.length === input.maxLength && input.nextField) {
+                            //     otpInput.current[index + 1]?.focus()
+                            // } else if (text.length === 0) {
+                            //     otpInput.current[index - 1]?.focus()
+                            // }
                         }}
                         onFocus={() => setIsFocus(true)}
                         ref={input => otpInput.current[index] = input}
                         value={otpField[input.stateName]}
+                        onKeyPress={({ nativeEvent }) => {
+                            console.log('nativeEvent', nativeEvent, otpField[input.stateName])
+                            if (nativeEvent.key === 'Backspace') {
+                                otpInput?.current[index - 1]?.focus()
+                            } else {
+                                otpInput?.current[index + 1]?.focus()
+                            }
+                        }}
                     />
                 </View>
             );
@@ -190,11 +198,9 @@ const OtpVerification = ({ route }) => {
                 <Text style={[styles.text, styles.grayColor]}>{'We have sent a OTP on below mobile'}</Text>
                 <Text style={[styles.rowContainer, { gap: 5 }]}>
                     <Text style={styles.text}>{phoneNumber}</Text>
-                    <TouchableOpacity onPress={() => changeNumber()}>
-                        <Text style={[styles.text, styles.themeColor]}>
-                            {' Change'}
-                        </Text>
-                    </TouchableOpacity>
+                    <Text suppressHighlighting={true} onPress={() => changeNumber()} style={[styles.text, styles.themeColor]}>
+                        {' Change'}
+                    </Text>
                 </Text>
 
 
@@ -206,7 +212,7 @@ const OtpVerification = ({ route }) => {
                             {seconds > 0 ? (
                                 <Text style={[styles.text, styles.grayColor]}>{`Resend OTP in ${seconds} seconds`}</Text>
                             ) : (
-                                <Button title="Resend OTP" onPress={handleResendOTP} style={styles.text} color={Colors.themeColor} />
+                                <Text suppressHighlighting={true} onPress={() => handleResendOTP()} style={[styles.text, styles.themeColor]}>Resend OTP</Text>
                             )}
                         </View>
                     </View>
@@ -218,7 +224,7 @@ const OtpVerification = ({ route }) => {
                     onPress={() => verifyOTP()
                     }
                 />
-                <Button title="Go Back" onPress={() => changeNumber()} style={styles.text} color={Colors.themeColor} />
+                <Text suppressHighlighting={true} onPress={() => changeNumber()} style={[styles.text, styles.themeColor]}>Go Back</Text>
             </View>
 
         </AppBackground>
@@ -231,7 +237,8 @@ const styles = StyleSheet.create({
     container: {
         marginHorizontal: '5%',
         marginVertical: '8%',
-        gap: 5
+        gap: 5,
+        alignItems: 'center'
     },
     title: {
         fontFamily: fonts.VisbyCF_Demibold,
@@ -247,7 +254,8 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
         textAlign: 'left',
         textAlign: 'center',
-        fontSize: 16
+        fontSize: 16,
+
     },
     themeColor: {
         color: Colors.themeColor
@@ -277,7 +285,10 @@ const styles = StyleSheet.create({
         padding: 0,
         margin: 0,
         textAlign: "center",
-        backgroundColor: Colors.WHITE
+        backgroundColor: Colors.WHITE,
+        paddingVertical: 0,
+        lineHeight: 20,
+        color: Colors.BLACK
     }),
     rowContainer: {
         flexDirection: 'row',

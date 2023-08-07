@@ -17,7 +17,7 @@ const AppBackground = props => {
         <SafeAreaView
           style={[
             styles.safeArea,
-            props.safeAreaColor && {backgroundColor: props.safeAreaColor},
+            props.safeAreaColor && { backgroundColor: props.safeAreaColor },
           ]}
         />
       )}
@@ -33,7 +33,7 @@ const AppBackground = props => {
         <SafeAreaView
           style={[
             styles.safeArea,
-            props.safeAreaColor && {backgroundColor: props.safeAreaColor},
+            props.safeAreaColor && { backgroundColor: props.safeAreaColor },
           ]}
         />
       )}

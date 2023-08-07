@@ -5,24 +5,19 @@ import Colors from './Colors';
 import { hp, wp } from './responsiveFunc';
 import Images from './Images';
 import PhoneInput from "react-native-phone-number-input";
+import { COLORS, SVGS } from '../constant'
+const { DropDownIcon } = SVGS
 
-
-
+const heightTextInput = hp('6%')
 
 const AppInput = (props) => {
     const [isFocus, setIsFocus] = useState(false)
     const phoneInput = useRef(null);
-
     const handleFocus = () => setIsFocus(true);
-
     const handleBlur = () => {
         setIsFocus(false);
     }
-
-    // console.log('check focus : ', props.success)
-
     const PasswordErrorRender = (props) => {
-        // console.log('Props', props)
         return (
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                 <Image
@@ -40,63 +35,6 @@ const AppInput = (props) => {
     }
 
     return (
-
-        // <View style={[styles.inputContainer, props.inputContainerStyle]}>
-        //     <Text style={[styles.label, props.labelStyle]}>{props.label}{props.required && <Text style={{ color: 'red' }}>*</Text>}</Text>
-        //     <View style={{ height: hp('6%'), flexDirection: 'row' }}>
-        //         <TextInput
-        //             style={[styles.input(isFocus), props.textInputStyle]}
-        //             placeholder={props.placeholder}
-        //             onChangeText={props.onChangeText}
-        //             value={props.value}
-        //             // secureTextEntry={props.secureTextEntry}
-        //             placeholderTextColor={Colors.GRAYDARK}
-        //             required={props.required}
-        //             // {...props}
-        //             // secureTextEntry={showPassword}
-        //             // onBlur={props.onBlur}
-        //             onBlur={handleBlur}
-        //             onFocus={handleFocus}
-        //             // onSubmitEditing={a => console.log(`onSubmitEditing: ${a}`) }
-        //             {...props}
-        //         />
-        //         {
-        //             props.isEyeIconShow &&
-        //             <View style={{
-        //                 right: '5%',
-        //                 position: 'absolute',
-        //                 alignItems: 'center',
-        //                 justifyContent: 'center',
-        //                 top: 0,
-        //                 bottom: 0
-        //             }}>
-        //                 <TouchableOpacity onPress={toggleShowPassword}>
-        //                     <Image source={showPassword && props.value ? Images.Eye : Images.EyeOff}
-        //                         style={{
-        //                             height: 20,
-        //                             width: 20,
-        //                             resizeMode: 'contain'
-        //                         }}
-        //                     />
-        //                 </TouchableOpacity>
-        //             </View>
-        //         }
-        //     </View>
-        //     {props.error && <Text style={styles.errorMessage}>{props.error}</Text>}
-        //     {props.success && <Text style={styles.successMessage}>{props.success}</Text>}
-        //     {
-        //         props.passwordError &&
-        //         <View style={{
-        //             marginVertical: '5%'
-        //         }}>
-        //             <PasswordErrorRender label={'Must include a letter'} />
-        //             <PasswordErrorRender label={'Must include a number'} />
-        //             <PasswordErrorRender label={'Must be 8 -30 characters'} />
-        //         </View>
-        //     }
-        // </View>
-
-
         <View style={styles.mainContainer}>
             <Text style={[styles.label, props.labelStyle]}>{props.label}{props.required && <Text style={{ color: 'red' }}>*</Text>}</Text>
 
@@ -124,7 +62,10 @@ const AppInput = (props) => {
                                 }}
                                 textContainerStyle={styles.countryCodePickerStyle(isFocus)}
                                 placeholder={props.placeholder}
-                            
+                                codeTextStyle={styles.codeText}
+                                renderDropdownImage={
+                                    <DropDownIcon style={styles.imgDropDwn} />
+                                }
                                 {...props}
                             />
                             :
@@ -144,46 +85,18 @@ const AppInput = (props) => {
                                 keyboardType={props.keyboardType}
                             />
                     }
-
-                    {/* <TextInput
-                        style={styles.input}
-                        placeholder={props.placeholder}
-                        onChangeText={props.onChangeText}
-                        value={props.value}
-                        secureTextEntry={props.secureTextEntry}
-                        placeholderTextColor={Colors.GRAYDARK}
-                        required={props.required}
-                        {...props}
-                        // secureTextEntry={showPassword}
-                        // onBlur={props.onBlur}
-                        onBlur={handleBlur}
-                        onFocus={handleFocus}
-                    /> */}
                     {
                         props.rightComponent &&
-                        <View style={{
-                            right: '5%',
-                            position: 'absolute',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            top: 0,
-                            bottom: 0
-                        }}>
+                        <View style={styles.rightComp}>
                             <TouchableOpacity onPress={props.onPasswordPress}>
                                 <Image source={props.secureTextEntry ? Images.Eye : Images.EyeOff}
-                                    style={{
-                                        height: 20,
-                                        width: 20,
-                                        resizeMode: 'contain'
-                                    }}
+                                    style={styles.imgEye}
                                 />
                             </TouchableOpacity>
                         </View>
                     }
-
                 </View>
             </View>
-
             {props.error && <Text style={styles.errorMessage}>{props.error}</Text>}
             {props.success && <Text style={styles.successMessage}>{props.success}</Text>}
             {
@@ -196,11 +109,7 @@ const AppInput = (props) => {
                     <PasswordErrorRender label={'Must be 8 -30 characters'} isSuccess={props.passwordSuccess} />
                 </View>
             }
-
         </View>
-
-
-
     );
 };
 
@@ -212,19 +121,18 @@ const styles = StyleSheet.create({
         marginTop: '5%'
     },
     label: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: fonts.VISBY_CF_REGULAR,
         lineHeight: 19,
         letterSpacing: 0.5,
         marginBottom: 5,
         fontWeight: '500',
-        color: Colors.BLACK
+        color: Colors.PRICEGRAY,
+        fontSize: 14
     },
     container: {
-        // flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        height: hp('6%'),
-        // backgroundColor: 'yellow'
+        height: heightTextInput,
     },
     inputContainer: isFocus => ({
         flexDirection: 'row',
@@ -235,7 +143,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 100,
         backgroundColor: Colors.WHITE,
-        height: hp('6%'),
+        height: heightTextInput,
     }),
     imageStyle: {
         padding: 10,
@@ -245,14 +153,15 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch',
         alignItems: 'center',
     },
-
     input: {
         flex: 1,
         fontFamily: fonts.VisbyCF_Medium,
         fontWeight: '500',
         letterSpacing: 0.5,
-        // padding: 0
-        // backgroundColor: 'red'
+        width: '100%',
+        height: heightTextInput,
+        alignSelf: "center",
+        color: Colors.BLACK
     },
     errorMessage: {
         fontSize: 14,
@@ -267,92 +176,48 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     passwordError: {
-        //         //styleName: English/Small Text Medium;
-        // font-family: Visby CF;
-        // font-size: 12px;
-        // font-weight: 500;
-        // line-height: 17px;
-        // letter-spacing: 0.005em;
-        // text-align: left;
-
-
         fontFamily: fonts.VisbyCF_Medium,
         fontSize: 12,
         fontWeight: 500,
         letterSpacing: 0.5,
         textAlign: 'left',
         color: Colors.GRAYDARK
-
     },
     countryCodePickerStyle: isFocus => ({
-        height: hp('6%'),
+        height: heightTextInput,
         borderTopColor: isFocus ? Colors.themeColor : Colors.GRAY,
         borderBottomColor: isFocus ? Colors.themeColor : Colors.GRAY,
         borderTopWidth: 1,
         borderBottomWidth: 1,
-        backgroundColor: Colors.WHITE
-
+        backgroundColor: COLORS.WHITE
     }),
     countryButtonPicker: {
-        width: 70,
+        width: 50,
         borderRightColor: Colors.GRAY,
-        borderRightWidth: 1
+        borderRightWidth: 1,
+    },
+    rightComp: {
+        right: '5%',
+        position: 'absolute',
+        alignItems: 'center',
+        justifyContent: 'center',
+        top: 0,
+        bottom: 0
+    },
+    imgEye: {
+        height: 20,
+        width: 20,
+        resizeMode: 'contain'
+    },
+    imgDropDwn: {
+        right: 5
+    },
+    codeText: {
+        fontFamily: fonts.VisbyCF_Medium,
+        fontWeight: '500',
+        letterSpacing: 0.5,
+        height: heightTextInput,
+        lineHeight: Platform.OS === 'android' ? heightTextInput - 7 : heightTextInput,
     }
-    // borderTopColor: isFocus ? Colors.themeColor : Colors.GRAY,
-    // borderBottomColor: isFocus ? Colors.themeColor : Colors.GRAY,
-
-    // borderTopWidth: 1,
-    // borderBottomWidth: 1,
-    // backgroundColor: Colors.WHITE,
-    // height: hp('6%'),
-
-
-
-    // container: {
-    //     flexDirection: 'column',
-    //     marginVertical: 10,
-    //   },
-    //   labelContainer: {
-    //     marginBottom: 5,
-    //   },
-    //   label: {
-    //     fontSize: 16,
-    //   },
-    //   inputContainer: {
-    //     flexDirection: 'row',
-    //     alignItems: 'center',
-    //     borderWidth: 1,
-    //     borderColor: '#ccc',
-    //     padding: 10,
-    //     borderRadius: 5,
-    //   },
-    //   input: {
-    //     flex: 1,
-    //   },
-    //   icon: {
-    //     fontSize: 16,
-    //     paddingHorizontal: 10,
-    //   },
-    //   modalContainer: {
-    //     flex: 1,
-    //     backgroundColor: '#fff',
-    //   },
-    //   picker: {
-    //     flex: 1,
-    //   },
-    //   errorContainer: {
-    //     marginTop: 5,
-    //   },
-    //   errorMessage: {
-    //     fontSize: 12,
-    //     color: '#f00',
-    //   },
-    //   successContainer: {
-    //     marginTop: 5,
-    //   },
-    //   successMessage: {
-    //     fontSize: 12,
-    //     color: '#0f0',
-    //   },
 
 })
