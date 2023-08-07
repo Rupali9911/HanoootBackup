@@ -1,6 +1,7 @@
 export default {
     themeColor: '#3777BC',
     WHITE: '#FEFEFE',
+    WHITE1: '#FFFFFF',
     BLACK5: '#484848',
     BLACK: '#000',
     // GRAYRGBA: opacity => `rgba(231, 229, 229,${opacity})`,

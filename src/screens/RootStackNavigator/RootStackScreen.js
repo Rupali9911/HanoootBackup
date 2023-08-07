@@ -23,9 +23,10 @@ import Wishlist from '../ProfileScreen/Wishlist';
 import Payment from '../ProfileScreen/Payment';
 import MyAddress from '../ProfileScreen/MyAddress';
 // import AddNewAddress from '../ProfileScreen/MyAddress/AddNewAddress';
-import Location from '../../Components/MyAddress/Location';
-import NewAddress from '../../Components/MyAddress/NewAddress';
-import ToastPages from '../../Components/MyAddress/ToastPages';
+import Location from '../../Components/AddressComponent/Location';
+import NewAddress from '../../Components/AddressComponent/NewAddress';
+import ToastPages from '../../Components/AddressComponent/ToastPages';
+import AddressDetail from '../../Components/AddressComponent';
 import ChangePassword from '../ProfileScreen/ChangePassword';
 import ChangePasswordSuccess from '../ProfileScreen/ChangePassword/ChangePasswordSuccess';
 import LanguageScreen from '../ProfileScreen/Language';
@@ -43,6 +44,7 @@ import ForgotPassword from '../AuthScreen/ForgotPassword';
 import EmailLinkSuccess from '../AuthScreen/ForgotPassword/EmailLinkSuccess';
 import ViewMoreCategories from '../Categories/ViewMoreCategories';
 import ProductListWithFilters from '../Components/ProductListWithFilters';
+import ToastScreen from '../../Components/universal/Toast/ToastScreen';
 
 const Stack = createStackNavigator();
 
@@ -90,6 +92,8 @@ export default function RootStackScreen() {
             <Stack.Screen name="EmailLinkSuccess" component={EmailLinkSuccess} />
             <Stack.Screen name="ViewMoreCategories" component={ViewMoreCategories} />
             <Stack.Screen name="ProductListWithFilters" component={ProductListWithFilters} />
+            <Stack.Screen name="AddressDetailScreen" component={AddressDetail} />
+            <Stack.Screen name="ToastScreen" component={ToastScreen} />
         </Stack.Navigator>
     )
 }

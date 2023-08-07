@@ -17,7 +17,7 @@ async function sendRequest(payload) {
           : payload.headers
         : {
           ...payload.headers,
-          Authorization: 'Bearer ' + token,
+          Authorization: token, 
         }
       : token
         ? {

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import ToastPages from '../../../Components/MyAddress/ToastPages'
+import ToastPages from '../../../Components/AddressComponent/ToastPages'
 import { useNavigation } from '@react-navigation/native'
 
 const ChangePasswordSuccess = () => {
