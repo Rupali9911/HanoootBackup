@@ -39,7 +39,10 @@ const NewAddress = (props) => {
 
   });
   const [errorMsg, setErrorMsg] = useState('')
-  const [countryValue, setCountryValue] = useState()
+  const [cityValue, setCityName] = useState()
+
+
+  console.log('editDataDetail : ', editDataDetail)
 
   useEffect(() => {
     if (editDataDetail) {
@@ -55,6 +58,7 @@ const NewAddress = (props) => {
         latitude: editDataDetail?.latitude,
         longitude: editDataDetail?.longitude,
       });
+      setCityName(editDataDetail?.city)
     }
   }, [isFocused]);
 
@@ -96,7 +100,7 @@ const NewAddress = (props) => {
 
       const data = {
         // city: inputFields?.city?.name,
-        city: 'Bihar',
+        city: inputFields?.city,
         street: inputFields?.street,
         building: inputFields?.building,
         house: inputFields?.house,
@@ -159,13 +163,13 @@ const NewAddress = (props) => {
         <ProductHeader title={'Address Detail'} />
         <View style={{ zIndex: 1 }}>
         <DropdownPicker
-          onSetCountry={(country) => {
-            console.log('country value : ', country);//{"code": "KA", "name": "Bangalore"}
-            handleInputChange('city', country)
-            setErrorMsg({ ...errorMsg, ['country']: null })
+          onSetCountry={(city) => {
+            console.log('country value : ', city);//{"code": "KA", "name": "Bangalore"}
+            handleInputChange('city', city)
+            setErrorMsg({ ...errorMsg, ['city']: null })
           }}
-          SetValue={setCountryValue}
-          Value={countryValue}
+          SetValue={setCityName}
+          Value={cityValue}
           error={errorMsg['city']}
         />
         </View>

@@ -1,4 +1,4 @@
-import { Button, Image, StyleSheet, Text, View,PermissionsAndroid, Platform, Linking } from 'react-native'
+import { Button, Image, StyleSheet, Text, View,PermissionsAndroid, Platform, Linking,Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AppHeader from '../../screens/Components/AppHeader'
 import AppBackground from '../../screens/Components/AppBackground'
@@ -9,13 +9,48 @@ import Images from '../../constant/Images';
 import AppButton from '../../screens/Components/AppButton';
 import AppPermission from '../universal/Permission';
 import Geolocation from 'react-native-geolocation-service';
+import {
+  openSettings,
+  PERMISSIONS,
+  RESULTS,
+  requestMultiple,
+} from 'react-native-permissions';
+
+
 
 
 const Location = () => {
+  
+  const chechPermisssion = async() => {
+    const status = await requestMultiple([
+      PERMISSIONS.IOS.LOCATION_ALWAYS,
+      PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+    ])
+    console.log('checked status : ', status)
+
+    if (status[PERMISSIONS.IOS.LOCATION_ALWAYS] === RESULTS.GRANTED || status[PERMISSIONS.IOS.LOCATION_WHEN_IN_USE] === RESULTS.GRANTED) {
+      return true;
+    }
+    else{
+      Alert.alert(
+        `Turn on Location Services to determine your location.`,
+        '',
+        [
+          { text: 'Go to Settings', onPress: openSettings },
+          { text: "Don't Use Location", onPress: () => {} },
+        ],
+      );
+    }
+  }
+
+  useEffect(() => {
+    chechPermisssion()
+  }, [])
+
   const [getInitialState, setGetInitialState] = useState({
     region: {
       latitude: 22.7196,
-      longitude: 75.8577,
+      longitude: 75.1577,
       latitudeDelta: 0.015,
       longitudeDelta: 0.0121,
     },
@@ -33,11 +68,11 @@ const Location = () => {
       return true;
     }
 
-    if (status === 'denied') {
-      Alert.alert('Location permission denied');
-    }
+    // if (status === 'denied') {
+    //   Alert.alert('Location permission denied');
+    // }
 
-    if (status === 'disabled') {
+    if (status === 'disabled' || status === 'denied') {
       Alert.alert(
         `Turn on Location Services to allow  to determine your location.`,
         '',
@@ -55,6 +90,7 @@ const Location = () => {
   const hasLocationPermission = async () => {
     if (Platform.OS === 'ios') {
       const hasPermission = await hasPermissionIOS();
+      console.log(hasPermission)
       return hasPermission;
     }
 
@@ -106,6 +142,7 @@ const Location = () => {
       position => {
         // setLocation(position);
         console.log(position);
+        // setGetInitialState({})
       },
       error => {
         Alert.alert(`Code ${error.code}`, error.message);
@@ -117,13 +154,13 @@ const Location = () => {
           android: 'high',
           ios: 'best',
         },
-        enableHighAccuracy: highAccuracy,
+        enableHighAccuracy: true,
         timeout: 15000,
         maximumAge: 10000,
         distanceFilter: 0,
-        forceRequestLocation: forceLocation,
-        forceLocationManager: useLocationManager,
-        showLocationDialog: locationDialog,
+        forceRequestLocation: true,
+        // forceLocationManager: useLocationManager,
+        showLocationDialog: true,
       },
     );
   };
@@ -160,7 +197,7 @@ const Location = () => {
         showBackButton
         title={'Pin Your Location'}
       />
-      {/* <View style={styles.screenContainer}>
+      <View style={styles.screenContainer}>
         <MapView
           style={styles.mapStyle}
           provider={PROVIDER_GOOGLE}
@@ -201,7 +238,7 @@ const Location = () => {
           Latitude: {getInitialState.region.latitude}{' '}
           Longitude: {getInitialState.region.longitude}
         </Text>
-      </View> */}
+      </View>
 
       <Button title="Get Location" onPress={getLocation} />
 

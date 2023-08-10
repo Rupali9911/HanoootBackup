@@ -2,12 +2,15 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Images from '../../constant/Images'
 import fonts from '../../constant/fonts'
+import { Rating, AirbnbRating } from 'react-native-ratings';
+import Colors from '../../constant/Colors';
 
-const Rating = (props) => {
-    const Rating = [1, 2, 3, 4, 5]
+
+const UserRating = (props) => {
+    // const Rating = [1, 2, 3, 4, 5]
     return (
         <>
-            <View style={styles.container}>
+            {/* <View style={styles.container}>
                 {
                     props.RatingReview ? <Text style={styles.ratingOutofFive}>
                         4.9
@@ -28,12 +31,35 @@ const Rating = (props) => {
                     }
 
                 </View>
+            </View> */}
+            <View style={styles.container}>
+                {
+                    props.isRatingText ? <Text style={styles.rating}>
+                        {props.startingValue}
+                    </Text> : null
+                }
+                <View>
+                    <Rating
+                        type='custom'
+                        readonly={true}
+                        startingValue={props.startingValue}
+                        ratingCount={5}
+                        imageSize={10}
+                        ratingColor={Colors.YELLOW}
+                        ratingBackgroundColor={Colors.GRAY}
+                    />
+                    {
+                        props.reviewText ? <Text style={styles.review}>
+                            {`Based on ${props.reviewText} Ratings`}
+                        </Text> : null
+                    }
+                </View>
             </View>
         </>
     )
 }
 
-export default Rating;
+export default UserRating;
 
 const styles = StyleSheet.create({
     container: {
@@ -41,14 +67,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 10
     },
-    ratingOutofFive: {
+    rating: {
         fontFamily: fonts.VisbyCF_Bold,
         fontSize: 28
     },
-    ratingImg: {
-        height: 10, width: 10, resizeMode: 'contain'
-    },
-    bottomLine: {
+    review: {
         fontFamily: fonts.VisbyCF_Medium, fontSize: 12
     }
 

@@ -18,6 +18,6 @@ const styles = StyleSheet.create({
     width: wp(100), 
     height: hp(19), 
     resizeMode: 'stretch',
-    marginVertical: '5%'
+    // marginVertical: '5%'
   }
 })

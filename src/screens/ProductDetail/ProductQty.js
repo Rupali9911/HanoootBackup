@@ -4,6 +4,7 @@ import Colors from '../../constant/Colors';
 import { hp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
 import Images from '../../constant/Images';
+import ProductCounter from '../../constant/ProductCounter';
 
 // export default function ButtonView() {
 
@@ -73,17 +74,18 @@ const ProductQuantity = (props) => {
         <View style={styles.container}>
             <Text style={styles.qtyText}>Qty : </Text>
             <View style={styles.buttonWithCounter}>
-                {/* {Decrement()}
+                {/* {/* {Decrement()}
                  */}
-                <Quantity onPress={() => decrementCounter()} Image={Images.MinusIcon} />
+                {/* <Quantity onPress={() => decrementCounter()} Image={Images.MinusIcon} />
                 <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={styles.counter}>{counter}</Text>
-                </View>
+                </View> */}
                 {/* {Increment()} */}
-                <Quantity onPress={() => incrementCounter()} Image={Images.PlusWhiteIcon} />
-
+                {/* <Quantity onPress={() => incrementCounter()} Image={Images.PlusWhiteIcon} /> */}
+                <ProductCounter />
             </View>
         </View>
+        // <ProductCounter />
     )
 }
 

@@ -9,11 +9,13 @@ import { hp } from '../../../constant/responsiveFunc'
 import Colors from '../../../constant/Colors'
 import { useNavigation } from '@react-navigation/native';
 import ListReview from './ReviewList'
+import UserRating from '../rating'
 
 
 const UserReview = (props) => {
+    const {data} = props;
 
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
 
 
 
@@ -24,28 +26,16 @@ const UserReview = (props) => {
                 {/* <Separator /> */}
                 <View style={{ paddingHorizontal: '5%', paddingVertical: '2%' }}>
                     <Text style={styles.Heading}>User Reviews</Text>
-                    <Rating
-                        RatingReview
-                        isBottomLine
-                        ImageStyle={{ height: 15, width: 15 }}
-                    />
+                    <UserRating 
+                    startingValue={data?.average_rating}
+                    isRatingText
+                    reviewText={data?.number_of_reviews}
+                     />
                 </View>
-                {/* <Separator /> */}
-                {/* <FlatList
-                    data={ReviewList}
-                    renderItem={UserReviewList}
-                    keyExtractor={keyExtractor}
-                    initialNumToRender={2}
-                /> */}
+{/*                
                 <ListReview List={ReviewList.slice(0, 5)} />
 
-                {/* <View
-                    style={{
-                        backgroundColor: 'red',
-                        marginHorizontal: '5%',
-                        marginVertical: '2%'
-                    }}
-                > */}
+             
                     <TouchableOpacity onPress={() =>
                         navigation.navigate('UserReview', { Product: props.Item })
                         
@@ -59,23 +49,8 @@ const UserReview = (props) => {
                     }}
                     >
                     <Text style={styles.ButtonText}>SEE MORE</Text>
-                </TouchableOpacity>
-            {/* </View > */}
-
-            {/* <View styles={{
-                        marginVertical: '2%',
-                        marginHorizontal: '5%',
-                        borderWidth: 1,
-                        backgroundColor: 'red'
-                }}>
-                <TouchableOpacity onPress={() => 
-                    navigation.navigate('UserReview', {Product: props.Item})   
-                }
-                >
-                    <Text style={styles.ButtonText}>See More</Text>
-                </TouchableOpacity>
-                </View> */}
-            {/* <Separator /> */}
+                </TouchableOpacity> */}
+           
         </View >
            
         </>

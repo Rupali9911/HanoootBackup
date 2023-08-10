@@ -4,12 +4,19 @@ import Colors from '../../constant/Colors';
 import { hp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
 
-const ProductDelivery = () => {
+const ProductDelivery = (props) => {
+    const { data } = props;
+
+    const getTime = (val) => {
+        const time = val.split('.');
+        return `${time[0]}hr ${time[1]}mins.`
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Estimated Delivery on <Text style={{ color: Colors.BLACK }}>{'Sunday, 5 February.'}</Text></Text>
-            <Text style={styles.text}>Order Within  <Text style={{ color: Colors.BLACK }}>{'8hr 40 mins.'}</Text></Text>
-            <Text style={[styles.text, { color: Colors.themeColor }]}>{'Bagdad - Sign In for better delivery estimate'}</Text>
+            <Text style={styles.text}>Estimated Delivery on <Text style={{ color: Colors.BLACK }}>{data?.delivery}</Text></Text>
+            <Text style={styles.text}>Order Within  <Text style={{ color: Colors.BLACK }}>{data?.time ? getTime(data?.time) : null}</Text></Text>
+            <Text style={[styles.text, { color: Colors.themeColor }]}>{`${data?.city} - Sign In for better delivery estimate`}</Text>
         </View>
     )
 }
