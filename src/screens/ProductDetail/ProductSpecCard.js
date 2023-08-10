@@ -10,36 +10,89 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const ProductSpecCard = (props) => {
+    const { data } = props;
     const navigation = useNavigation();
 
-    const rows = [
-        ['Brand', 'Apple'],
-        ['Modal Name', 'm344tkdf'],
-        ['Wireless Career', 'Unlock for all career'],
-        ['Operating System', 'IOS 16'],
-        ['Cellular Technology', '5G'],
-    ];
+    // const rows = [
+    //     ['Brand', 'Apple'],
+    //     ['Modal Name', 'm344tkdf'],
+    //     ['Wireless Career', 'Unlock for all career'],
+    //     ['Operating System', 'IOS 16'],
+    //     ['Cellular Technology', '5G'],
+    // ];
+
+    // const res = [];
+    // const dataa = { "Model name": "Apple AirPods (3rd\xa0generation)", "Form factor": "In Ear", "Connectivity technology": "Wireless" }
+    // // console.log('data : ', dataa)
+
+    // const mappedObj = Object.keys(dataa).map((key) => {
+    //     return {
+    //         [key]: dataa[key]
+    //     };
+    // });
+    // res.push(dataa)
+    // console.log('jsonString : ', mappedObj)
+    const renderdata = () => {
+        // '{"Model name":"MMTN2ZM/A","Form factor":"In Ear","Connectivity technology":"Wired"}'
+        // const tableData = JSON.parse(data?.ManagementOtherField?.others);
+        const tableData = JSON.parse('{"Model name":"MMTN2ZM/A","Form factor":"In Ear","Connectivity technology":"Wired"}');
+        // console.log('Table Data : ', tableData, typeof (tableData))
+        // const b = JSON.parse(tableData)
+        // console.log('check table data : ', typeof(tableData), typeof(b), tableData)
+        return (
+            tableData &&
+            Object.keys(tableData).map((key) => {
+                return (
+                    <DataTable.Row key={key}>
+                        <DataTable.Cell style={{ justifyContent: 'flex-start', }}><Text style={[styles.tableRowData, { color: Colors.GRAYDARK }]}>{[key]}</Text></DataTable.Cell>
+                        <DataTable.Cell numeric style={{ justifyContent: 'flex-start' }}><Text style={styles.tableRowData}>{tableData[key]}</Text></DataTable.Cell>
+                    </DataTable.Row>
+                );
+            })
+        )
+    }
 
     const ProductInfo = () => {
+        // const tableData = data?.ManagementOtherField?.others;
+
+        // if(tableData){
+        //    const a = JSON.parse(tableData)
+        //    console.log('a : ', a)
+
+        // }
+        // const rows = tableData && JSON.parse(tableData);
+        // console.log('this is tabel data : ', tableData)
         return (
             <>
                 <View style={styles.BorderView}>
                     <View style={styles.tableHeaderCont}>
-                        <Text style={styles.tableItemName}>Apple iPhone 14 Pro</Text>
-                        <Text style={styles.tableItemName}>$ 5,000.00</Text>
+                        <Text style={styles.tableItemName}>{data?.title}</Text>
+                        <Text style={styles.tableItemName}>{data?.ManagementProductPricing?.hanooot_price}</Text>
                         <Text style={[styles.tableItemName, { color: Colors.GRAYDARK, fontSize: 12 }]}>Essential information</Text>
                     </View>
                     <View style={styles.Separator} />
                     <DataTable>
+                        {renderdata()
+                        }
+
                         {
-                            rows.map((items, index) => {
-                                return (
-                                    <DataTable.Row key={`_${index}`}>
-                                        <DataTable.Cell style={{ justifyContent: 'flex-start', }}><Text style={[styles.tableRowData, { color: Colors.GRAYDARK }]}>{items[0]}</Text></DataTable.Cell>
-                                        <DataTable.Cell numeric style={{ justifyContent: 'flex-start' }}><Text style={styles.tableRowData}>{items[1]}</Text></DataTable.Cell>
-                                    </DataTable.Row>
-                                );
-                            })
+                            // mappedObj.map((items, index) => {
+                            //     return (
+                            //         <DataTable.Row key={`_${index}`}>
+                            //             <DataTable.Cell style={{ justifyContent: 'flex-start', }}><Text style={[styles.tableRowData, { color: Colors.GRAYDARK }]}>{index}</Text></DataTable.Cell>
+                            //             <DataTable.Cell numeric style={{ justifyContent: 'flex-start' }}><Text style={styles.tableRowData}>{items[index]}</Text></DataTable.Cell>
+                            //         </DataTable.Row>
+                            //     );
+                            // })
+
+                            // rows && Object.keys(rows).map((key) => {
+                            //     return (
+                            //         <DataTable.Row key={key}>
+                            //             <DataTable.Cell style={{ justifyContent: 'flex-start', }}><Text style={[styles.tableRowData, { color: Colors.GRAYDARK }]}>{[key]}</Text></DataTable.Cell>
+                            //             <DataTable.Cell numeric style={{ justifyContent: 'flex-start' }}><Text style={styles.tableRowData}>{rows[key]}</Text></DataTable.Cell>
+                            //         </DataTable.Row>
+                            //     );
+                            // })
                         }
 
                     </DataTable>
@@ -61,8 +114,8 @@ const ProductSpecCard = (props) => {
 
                     </View>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('OtherSellers', {Product: props.Item})}
-                        style={{position: 'absolute', right: 15}}
+                        onPress={() => navigation.navigate('OtherSellers', { Product: props.Item })}
+                        style={{ position: 'absolute', right: 15 }}
                     >
                         <Image source={Images.ForwardIcon} style={styles.offerFwdIcon} />
                     </TouchableOpacity>
@@ -82,17 +135,17 @@ const ProductSpecCard = (props) => {
                 <View style={{ flexDirection: 'row', }}>
                     <View style={{ width: '30%', gap: 10 }}>
                         <Text style={styles.cardDetails}>Fulfilled by</Text>
-                        <Text style={styles.cardDetails}>Sort by</Text>
+                        {/* <Text style={styles.cardDetails}>Sort by</Text> */}
                     </View>
                     <View style={{ width: '60%', gap: 10 }}>
                         <Text style={styles.cardDetails}>Hanooot</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('SellerReview')}>
+                        {/* <TouchableOpacity onPress={() => navigation.navigate('SellerReview')}>
                             <Text style={[styles.cardDetails, { color: Colors.themeColor }]}>Ecom Nation</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                 </View>
                 <Separator />
-                {BestOffers()}
+                {/* {BestOffers()} */}
                 {ProductInfo()}
 
             </View>

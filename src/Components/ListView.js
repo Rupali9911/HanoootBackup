@@ -18,94 +18,160 @@ const ListView = (props) => {
         price,
         discount,
         averageRating,
-        noOfReview
-      } = props;
+        noOfReview,
+        detailId,
+        isLike,
+        isCheckBox,
+        isExpress,
+        categoryId
+    } = props;
 
     // console.log('averageRating : ', averageRating,noOfReview)
 
     const [isLiked, setLiked] = useState(false);
+    const [checkedItems, setCheckedItems] = useState([]);
+    const [totalProductPrice, setTotalProductPrice] = useState(0);
+    const [totalCost, setTotalCost] = useState(0)
     const dispatch = useDispatch();
 
-    const { item } = props;
+    // const { item } = props;
     const navigation = useNavigation();
 
-    return (
-        <TouchableOpacity
-            style={[styles.ProductListContainer, props.ViewContStyle]}
-            onPress={() => navigation.navigate('ProductDetail', { item: item })}
-        >
 
-            <View style={styles.topLine}>
-                {
-                    props.isExpress && <ExpressView />
-                }
-                {
-                    props.isLike ?
-                        <LikeImage
+    const handleCheckboxChange = (id, price) => {
+        // const { id, name } = item;
+
+        // console.log('chekc id & price : ', id, price)
+        let arr = [];
+        let newTotalPrice;
+
+
+        if (checkedItems.includes(id)) {
+            newTotalPrice = totalProductPrice - price;
+            setCheckedItems(checkedItems.filter((checkedItem) => checkedItem !== id));
+            setTotalCost((total) => total - parseInt(price));
+
+            //   setTotalProductPrice(Number(totalProductPrice) - Number(price))
+            // setTotalProductPrice(prevPrice => { Number(prevPrice).concat(Number(price)) })
+            // console.log(Number(totalProductPrice).concat(Number(totalProductPrice)))
+        } else {
+            newTotalPrice = totalProductPrice + price;
+            setCheckedItems([...checkedItems, id]);
+            setTotalCost((total) => total + parseInt(price));
+            // setTotalProductPrice(Number(totalProductPrice) + Number(price))
+            // console.log(Number(totalProductPrice) + Number(price))
+        }
+
+
+        setTotalProductPrice(newTotalPrice)
+        // props.productPriceTotal(totalProductPrice, checkedItems );
+        // console.log('check here : ', totalProductPrice, checkedItems)
+        // console.log('Total Price : ', totalProductPrice);
+        console.log('total price : ', totalCost)
+    };
+
+    return (
+        <View style={[props.mainContainer]}>
+            <TouchableOpacity
+                style={[styles.ProductListContainer, props.ViewContStyle]}
+                onPress={() => navigation.navigate('ProductDetail', { id: detailId })}
+            >
+
+                <View style={styles.topLine}>
+                    {
+                        isExpress && <ExpressView />
+                    }
+                    {/* {
+                        props.isLike ?
+                            <LikeImage
+                                onPress={() => {
+                                    setLiked(!isLiked);
+                                    !isLiked ? dispatch(addToWishlist(item)) : dispatch(removeWishlistItem(item));
+                                }}
+                                imgStyle={{ tintColor: isLiked ? Colors.RED : Colors.BLACK }}
+                            /> :
+                            props.isCheckBox ?
+                                <CheckBox
+                                    onClick={() => {
+                                        toggleChecked(item.id);
+                                    }}
+                                    isChecked={isChecked(item.id)}
+                                    checkBoxColor={Colors.themeColor}
+                                    uncheckedCheckBoxColor={Colors.GRAY}
+                                /> : null
+                    } */}
+                    {
+                        isLike ? <LikeImage
                             onPress={() => {
                                 setLiked(!isLiked);
                                 !isLiked ? dispatch(addToWishlist(item)) : dispatch(removeWishlistItem(item));
                             }}
                             imgStyle={{ tintColor: isLiked ? Colors.RED : Colors.BLACK }}
-                        /> :
-                        props.isCheckBox ?
+                        /> : null
+                    }
+                    {
+                        isCheckBox ?
                             <CheckBox
                                 onClick={() => {
-                                    toggleChecked(item.id);
+                                    // toggleChecked(item.id);
+                                    handleCheckboxChange(detailId, 20)
+
                                 }}
-                                isChecked={isChecked(item.id)}
+                                isChecked={checkedItems.includes(detailId) || false}
                                 checkBoxColor={Colors.themeColor}
                                 uncheckedCheckBoxColor={Colors.GRAY}
                             /> : null
-                }
-            </View>
-            <View style={[styles.imageContainer, props.imgContStyle]}>
-                <Image
-                    source={{uri: centerImage ? centerImage : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png'}}
-                    style={[styles.productImg, props.imgStyle]}
-                />
-            </View>
-            <View style={[styles.textView, props.TextViewStyle]}>
-                {
-                    props.isPriceButton &&
+                    }
+                </View>
+                <View style={[styles.imageContainer, props.imgContStyle]}>
+                    <Image
+                        source={{ uri: centerImage ? centerImage : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }}
+                        style={[styles.productImg, props.imgStyle]}
+                    />
+                </View>
 
-                    <View style={styles.priceBtnView}>
-                        <Text style={styles.priceBtnText}>{'50% Off'}</Text>
-                    </View>
+                <View style={[styles.textView, props.TextViewStyle]}>
+                    <Text>{totalCost}</Text>
+                    {
+                        props.isPriceButton &&
 
-                }
-                <Text style={styles.productName} numberOfLines={2}>{productName}</Text>
+                        <View style={styles.priceBtnView}>
+                            <Text style={styles.priceBtnText}>{'50% Off'}</Text>
+                        </View>
 
-                {
-                    price && <Text style={[styles.price, props.TotalPriceStyle]}>{price}</Text>
-                }
+                    }
+                    <Text style={styles.productName} numberOfLines={2}>{productName}</Text>
 
-
-                {
-                    discount &&
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{discount} </Text>
-                        {props.isDiscountPercent && <Text style={styles.ProductDiscPercent} numberOfLines={1}>{discount}</Text>}
-                    </View>
-                }
-
-                {
-                    props.PriceInGreen && <Text style={[styles.price, { color: Colors.PRICEGREEN }]}>{item.price}</Text>
-                }
+                    {
+                        price && <Text style={[styles.price, props.TotalPriceStyle]}>{price}</Text>
+                    }
 
 
-                {
-                    averageRating &&
+                    {
+                        discount &&
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{discount} </Text>
+                            {props.isDiscountPercent && <Text style={styles.ProductDiscPercent} numberOfLines={1}>{discount}</Text>}
+                        </View>
+                    }
 
-                    <View style={styles.rowContainer}>
-                        <Text style={styles.rating}>{averageRating}</Text>
-                        <Image source={Images.star} style={styles.ratingImg} />
-                        <Text style={styles.noOfReview}>{`(${noOfReview})`}</Text>
-                    </View>
-                }
-            </View>
+                    {/* {
+                        props.PriceInGreen && <Text style={[styles.price, { color: Colors.PRICEGREEN }]}>{item.price}</Text>
+                    } */}
 
-        </TouchableOpacity>
+                    {
+                        averageRating &&
+
+                        <View style={styles.rowContainer}>
+                            <Text style={styles.rating}>{averageRating}</Text>
+                            <Image source={Images.star} style={styles.ratingImg} />
+                            <Text style={styles.noOfReview}>{`(${noOfReview})`}</Text>
+                        </View>
+                    }
+                </View>
+
+            </TouchableOpacity>
+        </View>
     )
 }
 
@@ -123,11 +189,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         borderRadius: SIZE(10),
         elevation: 5,
-        backgroundColor: 'white',
+        backgroundColor: Colors.WHITE1,
         paddingVertical: SIZE(15),
         paddingHorizontal: SIZE(10),
-        verticalAlign: 'top',
+        // verticalAlign: 'top',
         overflow: 'hidden',
+        alignContent: 'flex-start',
+        width: wp(33)
     },
     textView: {
         marginTop: SIZE(20),
@@ -213,9 +281,9 @@ const styles = StyleSheet.create({
     priceBtnView: {
         // paddingVertical: 2, 
         // paddingHorizontal: 10, 
-        backgroundColor: Colors.RED, 
-        width: 60, 
-        borderRadius: 10, 
+        backgroundColor: Colors.RED,
+        width: 60,
+        borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: SIZE(1)

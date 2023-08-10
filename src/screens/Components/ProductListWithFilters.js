@@ -42,15 +42,18 @@ const ProductListWithFilters = (props) => {
 
 
     const renderItem = ({ item, index }) => {
+        // console.log('reder item : ', item?.product_details_id)
         return (
             <ListView
                 item={item}
                 centerImage={item?.product_image}
                 productName={item?.title}
-                price={item?.ManagementProductPricing.hanooot_price}
+                price={item?.ManagementProductPricing?.hanooot_price}
                 // discount={item?.ManagementProductPricing.hanooot_discount}
-                averageRating={item?.ManagementProductReview.average_rating}
-                noOfReview={item?.ManagementProductReview.number_of_reviews}
+                averageRating={item?.ManagementProductReview?.average_rating}
+                noOfReview={item?.ManagementProductReview?.number_of_reviews}
+                detailId={item?.product_details_id}
+                // categoryId={item?.category_id}
                 isExpress
                 isLike
                 ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), }}

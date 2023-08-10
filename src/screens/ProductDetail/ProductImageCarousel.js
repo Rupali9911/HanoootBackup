@@ -7,12 +7,13 @@ import { hp, wp } from '../../constant/responsiveFunc'
 import Colors from '../../constant/Colors'
 
 const ProductImageCarousel = (props) => {
+    // console.log('props?.data.length : ', props?.data.length, props?.data)
 
-    const renderProductImages = () => {
+    const renderItem = ({item, index}) => {
         return (
-                <View style={{ padding: 10 }}>
+                <View style={{ padding: 10 }} key={index}>
                     <Image
-                        source={props.ProductImage}
+                        source={{uri: item}}
                         style={styles.image}
                     />
                 </View>
@@ -22,9 +23,9 @@ const ProductImageCarousel = (props) => {
     return (
         <View style={{ alignItems: 'center' }}>
             <Carousels
-                Data={ProductImages}
-                renderItem={renderProductImages}
-                dotsLength={7}
+                Data={props?.data}
+                renderItem={renderItem}
+                dotsLength={props?.data?.length}
                 loop={true}
                 autoplay={true}
                 sliderWidth={wp(55)}
@@ -37,11 +38,6 @@ const ProductImageCarousel = (props) => {
 export default ProductImageCarousel;
 
 const styles = StyleSheet.create({
-    separator: {
-        backgroundColor: Colors.RED,
-        height: 1,
-        width: wp(100)
-    },
     image: {
         height: hp(25), 
         width: wp(55), 

@@ -574,9 +574,11 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.20.0):
+  - RNScreens (3.24.0):
     - React-Core
     - React-RCTImage
+  - RNShare (9.2.3):
+    - React-Core
   - RNSVG (13.11.0):
     - React-Core
   - RNVectorIcons (9.2.0):
@@ -667,6 +669,7 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -809,6 +812,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNShare:
+    :path: "../node_modules/react-native-share"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
@@ -895,7 +900,8 @@ SPEC CHECKSUMS:
   RNGoogleSignin: ccaa4a81582cf713eea562c5dd9dc1961a715fd0
   RNPermissions: 053329a3413dafcd6c77d64ab0e23363c8269188
   RNReanimated: 49cdb63e767bb7e743ff4c12f7d85722c0d008f2
-  RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
+  RNScreens: b21dc57dfa2b710c30ec600786a3fc223b1b92e7
+  RNShare: da6d90b6dc332f51f86498041d6e34211f96b630
   RNSVG: 03e4d258ca355d7836a0a5dd4d4dc63c1eb49cbb
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
