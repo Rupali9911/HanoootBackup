@@ -423,6 +423,8 @@ PODS:
     - React-Core
   - react-native-encrypted-storage (4.0.3):
     - React-Core
+  - react-native-geolocation-service (5.3.1):
+    - React
   - react-native-google-maps (1.7.1):
     - Google-Maps-iOS-Utils (= 4.1.0)
     - GoogleMaps (= 7.4.0)
@@ -541,7 +543,9 @@ PODS:
   - RNGoogleSignin (10.0.1):
     - GoogleSignIn (~> 7.0)
     - React-Core
-  - RNReanimated (3.4.1):
+  - RNPermissions (3.8.4):
+    - React-Core
+  - RNReanimated (3.4.2):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -573,7 +577,7 @@ PODS:
   - RNScreens (3.20.0):
     - React-Core
     - React-RCTImage
-  - RNSVG (13.10.0):
+  - RNSVG (13.11.0):
     - React-Core
   - RNVectorIcons (9.2.0):
     - React-Core
@@ -632,6 +636,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
+  - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - "react-native-progress-view (from `../node_modules/@react-native-community/progress-view`)"
@@ -659,6 +664,7 @@ DEPENDENCIES:
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -741,6 +747,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/blur"
   react-native-encrypted-storage:
     :path: "../node_modules/react-native-encrypted-storage"
+  react-native-geolocation-service:
+    :path: "../node_modules/react-native-geolocation-service"
   react-native-google-maps:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
@@ -795,6 +803,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNGoogleSignin:
     :path: "../node_modules/@react-native-google-signin/google-signin"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -855,6 +865,7 @@ SPEC CHECKSUMS:
   React-logger: 342f358b8decfbf8f272367f4eacf4b6154061be
   react-native-blur: cfdad7b3c01d725ab62a8a729f42ea463998afa2
   react-native-encrypted-storage: db300a3f2f0aba1e818417c1c0a6be549038deb7
+  react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-google-maps: dd12cdd86b8e3fedbbb671676aedaa2f656e2ccd
   react-native-maps: 667f9b975549c6fa9b1631bf859440f68ebd3b8f
   react-native-progress-view: ebf261a1919bfa385db03a3c423289d17f4b87ed
@@ -882,14 +893,15 @@ SPEC CHECKSUMS:
   RNFBAuth: 7f10a8eb8b55ec604946d071bdd9a228d80c4486
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNGoogleSignin: ccaa4a81582cf713eea562c5dd9dc1961a715fd0
-  RNReanimated: 6c5ec9e66b9d6a14e3f57c5f607f7c5169b6607e
+  RNPermissions: 053329a3413dafcd6c77d64ab0e23363c8269188
+  RNReanimated: 49cdb63e767bb7e743ff4c12f7d85722c0d008f2
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
-  RNSVG: 80584470ff1ffc7994923ea135a3e5ad825546b9
+  RNSVG: 03e4d258ca355d7836a0a5dd4d4dc63c1eb49cbb
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 549e76ee4a2ff70fa1ff24a022ce9712fe5bc9ab
+PODFILE CHECKSUM: 15b7e58fa6ffca1be33107cf7a3bc9ab49d7d773
 
 COCOAPODS: 1.12.1

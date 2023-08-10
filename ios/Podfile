@@ -29,6 +29,10 @@ pod 'react-native-google-maps', :path => rn_maps_path
 pod 'GoogleUtilities', :modular_headers => true;
 pod 'FirebaseCore', :modular_headers => true
 
+pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+
+
+
 
   config = use_native_modules!
 

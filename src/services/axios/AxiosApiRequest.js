@@ -10,7 +10,6 @@ import axios from 'axios';
 async function sendRequest(payload) {
   try {
     const token = await getAccessToken('ACCESS_TOKEN');
-    console.log('payload check : ', payload)
     payload.headers = payload.headers
       ? payload.headers.Authorization
         ? payload.headers.Authorization === 'No'
@@ -18,7 +17,7 @@ async function sendRequest(payload) {
           : payload.headers
         : {
           ...payload.headers,
-          Authorization: 'Bearer ' + token,
+          Authorization: token, 
         }
       : token
         ? {

@@ -1,21 +1,27 @@
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
-import MyAddresss from '../../../Components/MyAddress'
+import { Image, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import AddressDetail from '../../../Components/AddressComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import EmptyDetailScreen from '../../../Components/EmptyDetailScreen';
 import Images from '../../../constant/Images';
 import AppBackground from '../../Components/AppBackground';
 import AppHeader from '../../Components/AppHeader';
-import { hp, wp } from '../../../constant/responsiveFunc';
-import { useNavigation } from '@react-navigation/native';
+import { wp } from '../../../constant/responsiveFunc';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Colors from '../../../constant/Colors';
-
+import { fetchAddressDetails } from '../../Store/actions/checkoutAction';
+import Loader from '../../../constant/Loader';
 
 const MyAddress = () => {
-    const [toastVisible, setToastVisible] = useState(false)
 
-    const { ADDRESS_DETAIL } = useSelector(state => state.checkoutReducer);
+    const { addressRecordList, isAddresDetailLoading } = useSelector(state => state.checkoutReducer);
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchAddressDetails())
+    }, [isFocused])
 
     return (
         <AppBackground>
@@ -24,31 +30,31 @@ const MyAddress = () => {
                 title={'My Address'}
             />
             {
-                ADDRESS_DETAIL.length ?
-                    <MyAddresss
-                        // onPressEdit={() => navigation.navigate('AddNewAddress')}
-                        isToastShow={(value) => setToastVisible(value)}
-                        isProfileScreen
-
-                    />
-                    : <EmptyDetailScreen
-                        image={Images.EmptyAddress}
-                        title={'Whare is your saved address?'}
-                        description={'Add an address so we can get cracking on the delivery!'}
-                        buttonLabel={'Add Address'}
-                        imgStyle={{
-                            width: wp(73)
-                        }}
-                        onpress={() => navigation.navigate('NewAddress', { PROFILE: true })}
-                    />
+                isAddresDetailLoading ?
+                    <Loader />
+                    :
+                    addressRecordList.length > 0 ?
+                        <AddressDetail
+                            profile={true}
+                        />
+                        : <EmptyDetailScreen
+                            image={Images.EmptyAddress}
+                            title={'Whare is your saved address?'}
+                            description={'Add an address so we can get cracking on the delivery!'}
+                            buttonLabel={'Add Address'}
+                            imgStyle={{
+                                width: wp(73)
+                            }}
+                            onpress={() => navigation.navigate('NewAddress', { isProfileScreen: true })}
+                        />
             }
             {
-                ADDRESS_DETAIL.length ?
+                addressRecordList.length ?
                     <TouchableOpacity
-                        style={[styles.submitButton, { zIndex: toastVisible ? -1 : 1 }]}
-                        onPress={() => navigation.navigate('NewAddress', { PROFILE: true })}>
+                        style={[styles.addButton]}
+                        onPress={() => navigation.navigate('NewAddress', { isProfileScreen: true })}>
                         <Image
-                            source={Images.PlusWhiteIcon} style={{ height: 21, width: 21, resizeMode: 'contain' }} />
+                            source={Images.PlusWhiteIcon} style={styles.image} />
                     </TouchableOpacity>
                     : null
             }
@@ -61,33 +67,19 @@ const MyAddress = () => {
 export default MyAddress;
 
 const styles = StyleSheet.create({
-    mainConatinerStyle: {
-        flexDirection: 'column',
-        flex: 1,
-        backgroundColor: 'red'
-    },
-    floatingMenuButtonStyle: {
-        alignSelf: 'flex-end',
-        position: 'absolute',
-        bottom: 35
-    },
-    submitButton: {
-        // height: 85,
+    addButton: {
         flex: 1,
         backgroundColor: Colors.YELLOW1,
-        // borderColor: "#555555",
-        // borderWidth: 0,
-        // borderRadius: 0,
-        // marginTop: 200,
         height: 48,
         width: 48,
         borderRadius: 48 / 2,
         justifyContent: "center",
         alignItems: 'center',
-
         position: 'absolute',
-        bottom: 20,
-        right: 20,
-        // zIndex: 0
+        bottom: '5%',
+        right: '5%',
+    },
+    image: {
+        height: 21, width: 21, resizeMode: 'contain'
     }
 })

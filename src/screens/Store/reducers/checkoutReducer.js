@@ -3,30 +3,44 @@ import { REMOVE_ADDRESS } from "../types";
 import { UPDATE_ADDRESS } from "../types";
 
 const initialState = {
-    ADDRESS_DETAIL: [],
+    isAddresDetailLoading: true,
+    addressRecordList: [],
     addressType: ''
 }
 
 const checkoutReducer = (state = initialState, action) => {
     // console.log('Check reducer state and action : ', state, '********Action Call*******', action)
     switch (action.type) {
+        // case ADDRESS_DETAIL:
+        //     return {
+        //         ...state,
+        //         // ADDRESS_DETAIL: [...state.ADDRESS_DETAIL, ...action.payload]
+        //         ADDRESS_DETAIL: [...state.ADDRESS_DETAIL, {
+        //             id: `id_${Math.floor(Math.random() * 100) + 1}`,
+        //             Value: action.payload
+        //         }],
+        //     addressType: 'Add_NEW_ADDRESS'
+        //     }
+
         case ADDRESS_DETAIL:
             return {
                 ...state,
-                // ADDRESS_DETAIL: [...state.ADDRESS_DETAIL, ...action.payload]
-                ADDRESS_DETAIL: [...state.ADDRESS_DETAIL, {
-                    id: `id_${Math.floor(Math.random() * 100) + 1}`,
-                    Value: action.payload
-                }],
+                addressRecordList: action.payload.address,
+                isAddresDetailLoading: false,
                 addressType: 'Add_NEW_ADDRESS'
-            }
+            };
+
+
+
+
         case REMOVE_ADDRESS:
             console.log('action.payload : ', action.payload)
             return {
                 ...state,
                 ADDRESS_DETAIL: [
-                    ...state.ADDRESS_DETAIL.filter(item => item.id !== action.payload.id)
+                    ...state.ADDRESS_DETAIL.filter(item => item.id !== action.payload)
                 ],
+                isAddresDetailLoading: false,
                 addressType: 'REMOVE_ADDRESS'
             }
         case UPDATE_ADDRESS:

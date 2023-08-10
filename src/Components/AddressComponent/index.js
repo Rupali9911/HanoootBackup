@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, Modal } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
+import React, {  useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import EmptyDetailScreen from '../EmptyDetailScreen';
 import fonts from '../../constant/fonts';
 import Images from '../../constant/Images';
 import Colors from '../../constant/Colors';
@@ -9,42 +8,30 @@ import AppButton from '../../screens/Components/AppButton';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import RadioButton from 'react-native-radio-button';
 import { hp, wp } from '../../constant/responsiveFunc';
-import { removeAddress } from '../../screens/Store/actions/checkoutAction';
-import { BlurView } from "@react-native-community/blur";
-import Toast from 'react-native-toast-message';
+import { removeAddressDetails } from '../../screens/Store/actions/checkoutAction';
+import AppModal from '../universal/Modal';
 
-
-const MyAddresss = (props) => {
+const AddressDetail = (props) => {
     const [id, setId] = useState();
     const [checked, setChecked] = useState(0)
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { ADDRESS_DETAIL, addressType } = useSelector(state => state.checkoutReducer);
+    const { addressRecordList } = useSelector(state => state.checkoutReducer);
     const dispatch = useDispatch();
-    const isFocused = useIsFocused();
-
     const navigation = useNavigation();
 
-    const isProfile = props.isProfileScreen;
-
-    // console.log('Check isProfileNavigate on address screen : ', props.isProfileScreen);
-    console.log('check address type : ', addressType)
-
-    useEffect(() => {
-        addressType != '' && !isProfile ? showToast() : null;
-    }, [isFocused])
 
     const EditRemoveButton = (props) => {
         return (
             <View style={styles.buttonView}>
                 <TouchableOpacity style={styles.ButtonTouchable}
-                    onPress={() => navigation.navigate('NewAddress', { EDIT_DETAIL: props.item, PROFILE: isProfile })}
+                    onPress={() => navigation.navigate('NewAddress', { editData: props.item, isProfileScreen: props.profile })}
                 >
                     <Text style={styles.buttonText}>EDIT</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.ButtonTouchable}
                     onPress={() => {
-                        setId(props.item);
+                        setId(props.item?.id);
                         setModalVisible(true);
                     }}
                 >
@@ -58,37 +45,14 @@ const MyAddresss = (props) => {
         setChecked(index);
     }
 
-    const toastConfig = {
-        info: ({ props }) => (
-            <View style={styles.toastMsgContainer}>
-                <Image source={props.type === 'REMOVE_ADDRESS' ? Images.deleteIcon : Images.ToastSuccess} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
-                <View>
-                    <Text style={styles.toastMsgText}>{`${props.type === 'Add_NEW_ADDRESS' ? `New Address Added Successfully!` : props.type === 'UPDATE_ADDRESS' ? `Address Updated Successfully!` : `Address removed successfully!`}`}</Text>
-                </View>
-            </View>
-        )
-    };
-
-    const showToast = () => {
-        Toast.show({
-            type: 'info',
-            props: {
-                type: addressType,
-            }
-        });
-    }
-
-
-
-
     const renderItem = ({ item, index }) => {
         return (
             <View style={{ marginTop: hp('1%') }}>
                 <View style={styles.DeliveryCard}>
                     <View style={styles.rowCont}>
-                        <View style={{ flexDirection: 'row', gap: 10 }}>
+                        <View style={{ flexDirection: 'row', gap: 10, maxWidth: '80%' }}>
                             {
-                                props.isRadioButton &&
+                                props.showRadioButton &&
                                 <RadioButton
                                     innerColor={Colors.themeColor}
                                     outerColor={Colors.GRAY}
@@ -98,32 +62,25 @@ const MyAddresss = (props) => {
                                     size={10}
                                 />
                             }
-                            <Text style={styles.deliverUserName} numberOfLines={2}>{item?.Value?.name}</Text>
+                            <Text style={styles.deliverUserName} numberOfLines={2}>{item?.name ? item?.name : 'UserName'}</Text>
                         </View>
                         <View style={styles.deliveryLocation}>
-                            <Text style={styles.deliveryType}>{item?.Value?.saveAddAs}</Text>
+                            <Text style={styles.deliveryType}>{item?.address_type}</Text>
                         </View>
                     </View>
-                    <Text style={styles.deliverUserAdd}>{`${item?.Value?.houseFlatNo} ${item?.Value?.buildingType}, ${item?.Value?.nearByLandMark}`}</Text>
-                    <Text style={styles.deliverUserAdd}>{item?.Value?.phoneNo}</Text>
+                    <Text style={styles.deliverUserAdd}>{`${item?.house} ${item?.building}, ${item?.landmark}`}</Text>
+                    <Text style={styles.deliverUserAdd}>{item?.phone_number}</Text>
                 </View>
 
                 <View style={{ backgroundColor: Colors.WHITE }} >
                     <EditRemoveButton
                         item={item}
                         index={index}
+                        profile={props.profile}
+
                     />
                 </View>
-
-
-
-
-
             </View>
-
-
-
-
         );
     }
 
@@ -145,76 +102,58 @@ const MyAddresss = (props) => {
     }
 
 
+    const RemoveModalContent = (props) => {
+        return (
+            <View style={styles.modalContainer}>
+                <Text style={styles.removeHeading}>Remove Address</Text>
+                <Text style={styles.removeDesc}>Are you sure you want to remove this address from your address book?</Text>
+                <View style={styles.modalBtnCont}>
+                    <TouchableOpacity
+                        onPress={props.onCancelPress}
+                        style={styles.btnViewCont}
+                    >
+                        <Text style={styles.modalBtnText}>No</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={props.onRemovePress}
+                        style={[styles.btnViewCont, { backgroundColor: Colors.themeColor }]}
+                    >
+                        <Text style={[styles.modalBtnText, { color: Colors.WHITE }]}>Yes, Remove it</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+        );
+    }
 
     return (
         <>
             <FlatList
-                data={ADDRESS_DETAIL}
+                data={addressRecordList}
                 renderItem={renderItem}
                 keyExtractor={keyExtractor}
-                ListFooterComponent={props.isFooterShow && renderFooter}
+                ListFooterComponent={props.showBottomButton && renderFooter}
             />
-
-            <Modal
+            <AppModal
                 visible={modalVisible}
-                animationType="slide"
-                transparent={true}
-                onRequestClose={() => {
-                    setModalVisible(false);
-                }}
-                statusBarTranslucent={true}
-                activeOpacity={0.9}
-            >
-                <BlurView
-                    style={styles.absolute}
-                    blurType="light"
-                    blurAmount={1}
-                    reducedTransparencyFallbackColor={"white"}
+                onRequestClose={() => setModalVisible(false)}>
+                <RemoveModalContent
+                    onCancelPress={() => {
+                        setModalVisible(false);
+                    }}
+                    onRemovePress={() => {
+                        dispatch(removeAddressDetails(id));
+                        setModalVisible(false);
+                    }}
                 />
-                <View style={styles.modalMainCont}>
-                    <View style={styles.modalContainer}>
-                        <Text style={styles.removeHeading}>Remove Address</Text>
-                        <Text style={styles.removeDesc}>Are you sure you want to remove this address from your address book?</Text>
-                        <View style={styles.modalBtnCont}>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    setModalVisible(false);
-                                }}
-                                style={styles.btnViewCont}
-                            >
-                                <Text style={styles.modalBtnText}>No</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    dispatch(removeAddress(id));
-                                    setModalVisible(false);
-                                    showToast();
-                                }}
-                                style={[styles.btnViewCont, { backgroundColor: Colors.themeColor }]}
-                            >
-                                <Text style={[styles.modalBtnText, { color: Colors.WHITE }]}>Yes, Remove it</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                    </View>
-                </View>
-            </Modal>
-
-            <Toast
-                config={toastConfig}
-                position="bottom"
-                visibilityTime={2000}
-                autoHide={true}
-                onShow={() => props.isToastShow(true)}
-                onHide={() => props.isToastShow(false)}
-            />
+            </AppModal>
 
         </>
 
     )
 }
 
-export default MyAddresss
+export default AddressDetail
 
 const styles = StyleSheet.create({
     container: {
@@ -308,17 +247,26 @@ const styles = StyleSheet.create({
         flex: 1, justifyContent: "center", alignItems: "center"
     },
     modalContainer: {
-        backgroundColor: "white", padding: 25, height: hp(20), marginHorizontal: 20, borderRadius: 5, width: wp(90)
+        backgroundColor: Colors.WHITE1,
+        padding: 20,
+        height: hp(20),
+        // marginHorizontal: 20, 
+        borderRadius: 4,
+        width: wp(85),
+        gap: 10
     },
     removeHeading: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: fonts.VISBY_CF_REGULAR,
         fontWeight: 600,
         fontSize: 16,
         lineHeight: 21,
         letterSpacing: 0.5
+
+
+
     },
     removeDesc: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: fonts.VISBY_CF_REGULAR,
         fontWeight: 500,
         letterSpacing: 0.5,
         lineHeight: 19,
@@ -340,10 +288,12 @@ const styles = StyleSheet.create({
         borderColor: Colors.themeColor
     },
     modalBtnText: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: fonts.VISBY_CF_REGULAR,
         fontWeight: 500,
         fontSize: 12,
         letterSpacing: 0.5,
+        textAlign: 'center',
+        color: Colors.themeColor
     },
 
     DeliveryCard: {

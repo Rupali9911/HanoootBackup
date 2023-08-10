@@ -106,7 +106,7 @@ android {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
+            universalApk false   // If true, also generate a universal APK
             include (*reactNativeArchitectures())
         }
     }
@@ -117,11 +117,11 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-         release {
-                storeFile file('release.keystore')
-                storePassword 'Hanooot'
-                keyAlias 'Hanoootapp'
-                keyPassword 'Hanooot'
+        release {
+            storeFile file('release.keystore')
+            storePassword 'Hanooot'
+            keyAlias 'androidreleasekey'
+            keyPassword 'Hanooot'
         }
     }
     buildTypes {

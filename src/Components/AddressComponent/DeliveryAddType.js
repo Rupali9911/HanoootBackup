@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 // import Colors from "../../../constant/Colors";
 // import Images from "../../../constant/Images";
@@ -10,9 +10,10 @@ import Colors from "../../constant/Colors";
 import Images from "../../constant/Images";
 import fonts from "../../constant/fonts";
 
-export default DeliveryType = (props) => {
-    const [toggle1, settoggle1] = useState(false);
-    const [toggle2, settoggle2] = useState(false);
+export default DeliveryType = React.memo((props) => {
+    console.log('chekc delivery type : ', props)
+    const [toggle1, settoggle1] = useState();
+    const [toggle2, settoggle2] = useState();
     //   constructor() {
     //     super();
     //     this.state = {
@@ -20,6 +21,10 @@ export default DeliveryType = (props) => {
     //       toggle2: false,
     //     };
     //   }
+
+    useEffect(() => {
+        props.isSelected === 'Home' ? settoggle1(true) : props.isSelected === 'Office' ? settoggle2(true) : null
+    }, [props.isSelected])
 
 
     toggleButton1 = () => {
@@ -57,6 +62,9 @@ export default DeliveryType = (props) => {
                 style={
                     toggle1 ? styles.pressedButton : styles.unpressedButton
                 }
+                // style={
+                //      ? styles.pressedButton : styles.unpressedButton
+                // }
                 onPress={() => {
                     toggleButton1();
                     props.onPress('Home')
@@ -86,7 +94,7 @@ export default DeliveryType = (props) => {
             </TouchableOpacity>
         </View>
     );
-}
+})
 
 const styles = StyleSheet.create({
     container: {

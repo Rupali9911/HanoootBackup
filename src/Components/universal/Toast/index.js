@@ -24,23 +24,27 @@ const toastConfig = {
     ),
     info: ({ text1, props }) => (
         <View style={styles.msgContaniner}>
-            <Image source={props.image} style={styles.img} />
+            <Image source={props.imageType == 'SUCCESS' ? Images.ToastSuccess : props.imageType === 'REMOVE' ?  Images.deleteIcon : Images.Eye} style={styles.img} />
             <View>
-                <Text style={styles.msgText}>{props.msg1}</Text>
+                <Text style={styles.msgText}>{props.text1}</Text>
                 {
-                    props.msg2 && <Text style={styles.msgText}>{props.msg2}</Text>
+                    props.text2 && <Text style={styles.msgText}>{props.text2}</Text>
                 }
             </View>
         </View>
     )
 };
 
-export const showInfoToast = (props) => {
+export const showInfoToast = (imageType, message1, message2) => {
     Toast.show({
         type: 'info',
         props: {
-            image: Images.ToastSuccess,
-            msg1: props?.message ? props?.message : 'Hello'
+            // image: props.imgType,
+            // text1: props?.message ? props?.message : 'Hello'
+
+            imageType: imageType,
+            text1: message1 ? message1 : null,
+            text2: message2 ? message2 : null
         }
     });
 }
