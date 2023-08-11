@@ -10,6 +10,7 @@ import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding'
 import { GOOGLE_API_KEY } from '../../utility/apiUrls';
 import { SVGS } from '../../constant'
+import { useNavigation } from '@react-navigation/native';
 
 const { MarkerIconBlue, MarkerIconYellow } = SVGS
 
@@ -20,24 +21,36 @@ import {
   requestMultiple,
 } from 'react-native-permissions';
 
-const Location = () => {
-  const [address, setAddress] = useState('')
+const Location = (props) => {
+  const updateRegion = props?.route?.params?.updateAddress;
+  const [address, setAddress] = useState(updateRegion ? updateRegion?.address : '')
   const [getInitialState, setGetInitialState] = useState({
     region: {
-      latitude: 33.2232,
-      longitude: 43.6793,
+      latitude: updateRegion ? Number(updateRegion?.latitude) : 22.7196,
+      longitude: updateRegion ? Number(updateRegion?.longitude) : 75.1577,
       latitudeDelta: 0.0022,
       longitudeDelta: 0.0022,
     },
   })
+  const navigation = useNavigation();
   Geocoder.init(GOOGLE_API_KEY);
 
   useEffect(() => {
-    chechPermisssion()
+
+    !updateRegion && chechPermisssion()
     // const result = await launchImageLibrary();
     // const home = await launchCamera();
   }, [])
 
+  const goBack = () => {
+    const data = {
+      latitude: getInitialState?.region?.latitude?.toString(),
+      longitude: getInitialState?.region?.longitude?.toString(),
+      address: address
+    }
+    navigation.goBack();
+    props?.route?.params?.onGoBack(data);
+  };
 
   const chechPermisssion = async () => {
     if (Platform.OS === 'ios') {
@@ -122,7 +135,7 @@ const Location = () => {
         maximumAge: 10000,
         distanceFilter: 0,
         forceRequestLocation: true,
-        // forceLocationManager: useLocationManager,
+        forceLocationManager: useLocationManager,
         showLocationDialog: true,
       },
     );
@@ -137,7 +150,13 @@ const Location = () => {
           <MarkerIconBlue />
           <Text>{address}</Text>
         </View>
-        <AppButton label={'Confirm Location'} />
+        <AppButton label={'Confirm Location'}
+
+
+          onPress={goBack}
+
+
+        />
       </View>
     );
   }
@@ -221,6 +240,9 @@ const Location = () => {
     </AppBackground>
   )
 }
+
+// Location.getData = 'getData form child component';
+
 
 export default Location
 

@@ -429,7 +429,7 @@ const DropdownPicker = (props) => {
     // }
   }, []);
 
-  console.log('this is value to show : ', value, setValue)
+  // console.log('this is value to show : ', value, setValue)
 
   return (
     <>
@@ -479,7 +479,7 @@ const DropdownPicker = (props) => {
           onChangeValue={(value) => {
             console.log('value : ', value)
             const country = items.find(item => item.value == value);
-            console.log('vacountrylue : ', country)
+            // console.log('vacountrylue : ', country)
             if (country) {
               // props.onSetCountry && props.onSetCountry({
               //   // code: value,
