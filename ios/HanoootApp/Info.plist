@@ -48,12 +48,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>For location permission request</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>For location permission request</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>For precise address allocation</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-  	<string>For location permission request</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-  	<string>For location permission request</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Kanit-Black.ttf</string>

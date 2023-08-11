@@ -2,6 +2,7 @@ import { API_BASE_URL } from './constants.js';
 
 //Other Configs
 const GOOGLE_CLIENT_ID = '154905673298-1ojcgdc10gsfbat0l7d3aqivo0kd8lk0.apps.googleusercontent.com';
+const GOOGLE_API_KEY = 'AIzaSyBrzXVff2NFocJdPwtn3fLyTR8vLkZpJQE';
 
 
 //APIs
@@ -35,5 +36,6 @@ export {
     FETCH_ADDRESS_DETAIL,
     UPDATE_ADDRESS_DETAIL,
     DELETE_ADDRESS_DETAIL,
-    WISHLIST_API
+    WISHLIST_API,
+    GOOGLE_API_KEY
 };

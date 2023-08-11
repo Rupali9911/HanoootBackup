@@ -3,14 +3,15 @@ import React, { useEffect, useState } from 'react'
 import AppHeader from '../../screens/Components/AppHeader'
 import AppBackground from '../../screens/Components/AppBackground'
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import { hp } from '../../constant/responsiveFunc';
 import Colors from '../../constant/Colors';
-import Images from '../../constant/Images';
 import AppButton from '../../screens/Components/AppButton';
 import AppPermission from '../universal/Permission';
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding'
+import { GOOGLE_API_KEY } from '../../utility/apiUrls';
+import { SVGS } from '../../constant'
 
+const { MarkerIconBlue, MarkerIconYellow } = SVGS
 
 import {
   openSettings,
@@ -23,120 +24,71 @@ const Location = () => {
   const [address, setAddress] = useState('')
   const [getInitialState, setGetInitialState] = useState({
     region: {
-      latitude: 22.7196,
-      longitude: 75.1577,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
+      latitude: 33.2232,
+      longitude: 43.6793,
+      latitudeDelta: 0.0022,
+      longitudeDelta: 0.0022,
     },
   })
-  Geocoder.init('AIzaSyBrzXVff2NFocJdPwtn3fLyTR8vLkZpJQE');
+  Geocoder.init(GOOGLE_API_KEY);
 
   useEffect(() => {
     chechPermisssion()
-    getLocation()
+    // const result = await launchImageLibrary();
+    // const home = await launchCamera();
   }, [])
 
 
   const chechPermisssion = async () => {
-    const status = await requestMultiple([
-      PERMISSIONS.IOS.LOCATION_ALWAYS,
-      PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
-    ])
-    console.log('checked status : ', status)
+    if (Platform.OS === 'ios') {
+      const status = await requestMultiple([
+        PERMISSIONS.IOS.LOCATION_ALWAYS,
+        PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+      ])
+      console.log('checked status : ', status)
 
-    if (status[PERMISSIONS.IOS.LOCATION_ALWAYS] === RESULTS.GRANTED || status[PERMISSIONS.IOS.LOCATION_WHEN_IN_USE] === RESULTS.GRANTED) {
-      return true;
-    }
-    else {
-      Alert.alert(
-        `Turn on Location Services to determine your location.`,
-        '',
-        [
-          { text: 'Go to Settings', onPress: openSettings },
-          { text: "Don't Use Location", onPress: () => { } },
-        ],
-      );
+      if (status[PERMISSIONS.IOS.LOCATION_ALWAYS] === RESULTS.GRANTED || status[PERMISSIONS.IOS.LOCATION_WHEN_IN_USE] === RESULTS.GRANTED) {
+        getLocation()
+        return true;
+      }
+      else {
+        Alert.alert(
+          `Turn on Location Services to determine your location.`,
+          '',
+          [
+            { text: 'Go to Settings', onPress: openSettings },
+            { text: "Don't Use Location", onPress: () => { } },
+          ],
+        );
+      }
+    } else {
+      const status = await requestMultiple([
+        PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+
+      ])
+      console.log('checked status : ', status)
+
+      if (status[PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION] === RESULTS.GRANTED) {
+        getLocation()
+        return true;
+      }
+      else {
+        Alert.alert(
+          `Turn on Location Services to determine your location.`,
+          '',
+          [
+            { text: 'Go to Settings', onPress: openSettings },
+            { text: "Don't Use Location", onPress: () => { } },
+          ],
+        );
+      }
     }
   }
-
-  const hasPermissionIOS = async () => {
-    const openSetting = () => {
-      Linking.openSettings().catch(() => {
-        Alert.alert('Unable to open settings');
-      });
-    };
-    const status = await Geolocation.requestAuthorization('whenInUse');
-
-    if (status === 'granted') {
-      return true;
-    }
-
-    // if (status === 'denied') {
-    //   Alert.alert('Location permission denied');
-    // }
-
-    if (status === 'disabled' || status === 'denied') {
-      Alert.alert(
-        `Turn on Location Services to allow  to determine your location.`,
-        '',
-        [
-          { text: 'Go to Settings', onPress: openSetting },
-          { text: "Don't Use Location", onPress: () => { } },
-        ],
-      );
-    }
-
-    return false;
-  };
-
-
-  const hasLocationPermission = async () => {
-    if (Platform.OS === 'ios') {
-      const hasPermission = await hasPermissionIOS();
-      console.log(hasPermission)
-      return hasPermission;
-    }
-
-    // if (Platform.OS === 'android' && Platform.Version < 23) {
-    //   return true;
-    // }
-
-    // const hasPermission = await PermissionsAndroid.check(
-    //   PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    // );
-
-    // if (hasPermission) {
-    //   return true;
-    // }
-
-    // const status = await PermissionsAndroid.request(
-    //   PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    // );
-
-    // if (status === PermissionsAndroid.RESULTS.GRANTED) {
-    //   return true;
-    // }
-
-    // if (status === PermissionsAndroid.RESULTS.DENIED) {
-    //   ToastAndroid.show(
-    //     'Location permission denied by user.',
-    //     ToastAndroid.LONG,
-    //   );
-    // } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
-    //   ToastAndroid.show(
-    //     'Location permission revoked by user.',
-    //     ToastAndroid.LONG,
-    //   );
-    // }
-
-    return false;
-  };
 
   const getAddressFromCoordinates = (lat, long) => {
     Geocoder.from(lat, long)
       .then(json => {
-        var addressComponent = json.results[0].address_components[0];
-
+        // var addressComponent = json.results[0].address_components[0];
         // console.log(addressComponent);
         console.log('Complete response from Geocoder', json?.results[0]?.formatted_address);
         setAddress(json?.results[0]?.formatted_address)
@@ -147,12 +99,6 @@ const Location = () => {
   }
 
   const getLocation = async () => {
-    const hasPermission = await hasLocationPermission();
-
-    if (!hasPermission) {
-      return;
-    }
-
     Geolocation.getCurrentPosition(
       position => {
         // setLocation(position);
@@ -162,7 +108,7 @@ const Location = () => {
         getAddressFromCoordinates(position?.coords.latitude, position?.coords.longitude)
       },
       error => {
-        Alert.alert(`Code ${error.code}`, error.message);
+        //Alert.alert(`Code ${error.code}`, error.message);
         // setLocation(null);
         console.log(error);
       },
@@ -187,8 +133,9 @@ const Location = () => {
     return (
       <View style={styles.bottomView}>
         <View style={{ flexDirection: 'row', gap: 5 }}>
-          <Image source={Images.LocationIcon} style={{ height: 20, width: 15, resizeMode: 'contain', tintColor: Colors.themeColor }} />
-          <Text numberOfLines={2}>{address}</Text>
+          {/* <Image source={Images.LocationIcon} style={{ height: 20, width: 15, resizeMode: 'contain', tintColor: Colors.themeColor }} /> */}
+          <MarkerIconBlue />
+          <Text>{address}</Text>
         </View>
         <AppButton label={'Confirm Location'} />
       </View>
@@ -209,8 +156,10 @@ const Location = () => {
   // console.log('get : ', getInitialState)
 
   const onMapPress = (event) => {
-    setGetInitialState({ region: { latitude: event?.nativeEvent.coordinate.latitude, longitude: event?.nativeEvent.coordinate.longitude } })
-    getAddressFromCoordinates(event?.nativeEvent.coordinate.latitude, event?.nativeEvent.coordinate.longitude)
+    if (event?.nativeEvent?.coordinate) {
+      setGetInitialState({ region: { latitude: event?.nativeEvent.coordinate.latitude, longitude: event?.nativeEvent.coordinate.longitude } })
+      getAddressFromCoordinates(event?.nativeEvent.coordinate.latitude, event?.nativeEvent.coordinate.longitude)
+    }
   }
 
   return (
@@ -222,7 +171,7 @@ const Location = () => {
       <View style={styles.screenContainer}>
         <MapView
           style={styles.mapStyle}
-          // provider={PROVIDER_GOOGLE}
+          provider={PROVIDER_GOOGLE}
           // initialRegion={{
           //   latitude: 37.78825,
           //   longitude: -122.4324,
@@ -246,13 +195,16 @@ const Location = () => {
         // scrollEnabled={false}
         >
           <Marker
+            tappable={false}
             coordinate={{
               latitude: getInitialState.region.latitude,
               longitude: getInitialState.region.longitude,
             }}
-            title="My Marker"
-            description="Some description"
-          />
+            title=""
+            description=""
+          >
+            <MarkerIconYellow />
+          </Marker>
 
         </MapView>
       </View>
@@ -283,7 +235,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   bottomView: {
-    height: hp('15%'),
+    // height: hp('15%'),
     backgroundColor: Colors.WHITE,
     padding: '5%',
     alignItems: 'center'
