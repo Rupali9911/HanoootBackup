@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from 'react-native'
+import { StyleSheet, View, ScrollView, Button, Image, Text, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import ProductHeader from '../../screens/Components/Cards/ProductHeader';
 import AppHeader from '../../screens/Components/AppHeader';
@@ -15,6 +15,9 @@ import DeliveryType from './DeliveryAddType';
 import { AddNewAddressAPICall, updateAddressAPICall } from '../../services/apis/AddressAPI';
 import { showInfoToast } from '../universal/Toast';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Location from './Location';
+import fonts from '../../constant/fonts';
+import Colors from '../../constant/Colors';
 
 
 
@@ -36,6 +39,12 @@ const NewAddress = (props) => {
     city: '',
     latitude: "189.98.89",
     longitude: "31238.3213",
+    locationDetail: {
+      latitude: '',
+      longitude: '',
+      address: ''
+    }
+
 
   });
   const [errorMsg, setErrorMsg] = useState('')
@@ -55,8 +64,13 @@ const NewAddress = (props) => {
         phone_number: editDataDetail?.phone_number,
         address_type: editDataDetail?.address_type,
         city: editDataDetail?.city,
-        latitude: editDataDetail?.latitude,
-        longitude: editDataDetail?.longitude,
+        latitude: editDataDetail?.locationDetail?.latitude,
+        longitude: editDataDetail?.locationDetail?.longitude,
+        locationDetail:  {
+          latitude: editDataDetail?.latitude,
+          longitude: editDataDetail?.longitude,
+          // address: ''
+        }
       });
       setCityName(editDataDetail?.city)
     }
@@ -105,8 +119,8 @@ const NewAddress = (props) => {
         building: inputFields?.building,
         house: inputFields?.house,
         landmark: inputFields?.landmark,
-        latitude: inputFields?.latitude,
-        longitude: inputFields?.latitude,
+        latitude: inputFields?.locationDetail?.latitude,
+        longitude: inputFields?.locationDetail?.longitude,
         name: inputFields?.name,
         phone_number: inputFields?.phone_number,
         address_type: inputFields?.address_type
@@ -131,7 +145,7 @@ const NewAddress = (props) => {
         navigation.navigate('ToastScreen', { title: 'Address Saved Successfully!' })
         :
         (navigation.navigate('CheckoutScreen'),
-         showInfoToast('SUCCESS', 'response?.message'))
+          showInfoToast('SUCCESS', 'response?.message'))
     }
     catch (error) {
       console.log('Error from add new address api ', error)
@@ -154,6 +168,14 @@ const NewAddress = (props) => {
   }
 
 
+  // console.log( onConfirmLocation={(val) => {console.log('onConfirmLocation : ', val)}})
+
+  const onChildDataChange = (data) => {
+    // setDataFromChild(data);
+    console.log('onChildDataChange : ', data)
+  };
+
+
   return (
     <AppBackground>
       <AppHeader
@@ -162,16 +184,16 @@ const NewAddress = (props) => {
       <ScrollView>
         <ProductHeader title={'Address Detail'} />
         <View style={{ zIndex: 1 }}>
-        <DropdownPicker
-          onSetCountry={(city) => {
-            console.log('country value : ', city);//{"code": "KA", "name": "Bangalore"}
-            handleInputChange('city', city)
-            setErrorMsg({ ...errorMsg, ['city']: null })
-          }}
-          SetValue={setCityName}
-          Value={cityValue}
-          error={errorMsg['city']}
-        />
+          <DropdownPicker
+            onSetCountry={(city) => {
+              console.log('country value : ', city);//{"code": "KA", "name": "Bangalore"}
+              handleInputChange('city', city)
+              setErrorMsg({ ...errorMsg, ['city']: null })
+            }}
+            SetValue={setCityName}
+            Value={cityValue}
+            error={errorMsg['city']}
+          />
         </View>
         <KeyboardAwareScrollView>
           <AppInput
@@ -214,14 +236,81 @@ const NewAddress = (props) => {
             error={errorMsg['landmark']}
           />
 
-          <AppButton
-            isEmptyBG
-            label={'Pin Your Location'}
-            leftSideImg
-            ImgURI={Images.PinLocation}
-            containerStyle={{ marginVertical: "6%" }}
-            onPress={() => navigation.navigate('Location')}
-          />
+          {
+            inputFields?.locationDetail?.address || inputFields?.locationDetail?.latitude || inputFields?.locationDetail?.longitude
+            // Object.keys(inputFields?.locationDetail).length
+            ?
+              (
+                <View style={{ flexDirection: 'row', margin: '5%' }}>
+                  <Image
+                    source={Images.MapImage}
+                    style={{ width: 85, height: 85 }}
+                  />
+                  <View style={{ flex: 1, margin: 10, justifyContent: 'space-between' }}>
+                    <Text style={{
+                      fontFamily: fonts.VISBY_CF_REGULAR,
+                      fontWeight: 500,
+                      letterSpacing: 0.5,
+                      textAlign: 'left'
+                    }} numberOfLines={2}>Address: {inputFields?.locationDetail?.address}</Text>
+                    <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('Location', {
+                        updateAddress: inputFields.locationDetail,
+                        onGoBack: (data) => {
+                          console.log('location data : ', data), setInputFields({
+                            ...inputFields, locationDetail: {
+                              latitude: data?.latitude,
+                              longitude: data?.longitude,
+                              address: data?.address
+                            }
+                          })
+                        }
+                      });
+                    }}
+                    >
+                      <Text style={{
+                        fontFamily: fonts.VISBY_CF_REGULAR,
+                        fontWeight: 500,
+                        letterSpacing: 0.5,
+                        textAlign: 'left',
+                        color: Colors.themeColor
+                      }}>Update</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )
+              :
+              (
+                <AppButton
+                  isEmptyBG
+                  label={'Pin Your Location'}
+                  leftSideImg
+                  ImgURI={Images.PinLocation}
+                  containerStyle={{ marginVertical: "6%" }}
+                  // onPress={() => navigation.navigate('Location')}
+                  onPress={() => {
+                    navigation.navigate('Location', {
+                      onGoBack: (data) => {
+                        console.log('location data : ', data), setInputFields({
+                          ...inputFields, locationDetail: {
+                            latitude: data?.latitude,
+                            longitude: data?.longitude,
+                            address: data?.address
+                          }
+                        })
+                      }
+                    });
+                  }}
+
+                />
+              )
+          }
+
+
+
+
+
 
           <ProductHeader title={'Delivery Contact Detail'} />
 

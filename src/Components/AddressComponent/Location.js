@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react'
 import AppHeader from '../../screens/Components/AppHeader'
 import AppBackground from '../../screens/Components/AppBackground'
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import { hp } from '../../constant/responsiveFunc';
+import { hp, wp } from '../../constant/responsiveFunc';
 import Colors from '../../constant/Colors';
 import Images from '../../constant/Images';
 import AppButton from '../../screens/Components/AppButton';
 import AppPermission from '../universal/Permission';
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding'
+import { useNavigation } from '@react-navigation/native';
 
 
 import {
@@ -19,21 +20,23 @@ import {
   requestMultiple,
 } from 'react-native-permissions';
 
-const Location = () => {
-  const [address, setAddress] = useState('')
+const Location = (props) => {
+  const updateRegion = props?.route?.params?.updateAddress;
+  const [address, setAddress] = useState(updateRegion ? updateRegion?.address : '')
   const [getInitialState, setGetInitialState] = useState({
     region: {
-      latitude: 22.7196,
-      longitude: 75.1577,
+      latitude: updateRegion ? Number(updateRegion?.latitude) : 22.7196,
+      longitude: updateRegion ? Number(updateRegion?.longitude) : 75.1577,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     },
   })
+  const navigation = useNavigation();
   Geocoder.init('AIzaSyBrzXVff2NFocJdPwtn3fLyTR8vLkZpJQE');
 
   useEffect(() => {
-    chechPermisssion()
-    getLocation()
+    // chechPermisssion()
+    !updateRegion && getLocation();
   }, [])
 
 
@@ -89,6 +92,16 @@ const Location = () => {
     return false;
   };
 
+
+  const goBack = () => {
+    const data = {
+      latitude: getInitialState?.region?.latitude?.toString(),
+      longitude: getInitialState?.region?.longitude?.toString(),
+      address: address
+    }
+    navigation.goBack();
+    props?.route?.params?.onGoBack(data);
+  };
 
   const hasLocationPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -147,6 +160,7 @@ const Location = () => {
   }
 
   const getLocation = async () => {
+    console.log('getLocation called')
     const hasPermission = await hasLocationPermission();
 
     if (!hasPermission) {
@@ -176,7 +190,7 @@ const Location = () => {
         maximumAge: 10000,
         distanceFilter: 0,
         forceRequestLocation: true,
-        // forceLocationManager: useLocationManager,
+        forceLocationManager: useLocationManager,
         showLocationDialog: true,
       },
     );
@@ -186,11 +200,17 @@ const Location = () => {
   const OverlayComponent = () => {
     return (
       <View style={styles.bottomView}>
-        <View style={{ flexDirection: 'row', gap: 5 }}>
-          <Image source={Images.LocationIcon} style={{ height: 20, width: 15, resizeMode: 'contain', tintColor: Colors.themeColor }} />
+        <View style={{ flexDirection: 'row', gap: 10 }}>
+          <Image source={Images.LocationIcon} style={{ height: hp(2.46), width: wp(4), resizeMode: 'contain', tintColor: Colors.themeColor }} />
           <Text numberOfLines={2}>{address}</Text>
         </View>
-        <AppButton label={'Confirm Location'} />
+        <AppButton label={'Confirm Location'} 
+
+
+        onPress={goBack}
+        
+        
+        />
       </View>
     );
   }
@@ -269,6 +289,9 @@ const Location = () => {
     </AppBackground>
   )
 }
+
+// Location.getData = 'getData form child component';
+
 
 export default Location
 
