@@ -1,5 +1,5 @@
-import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_DETAIL_DATA_LOADING } from "../types";
-import { ProductListAPICall, ProductDetailAPICall } from "../../../services/apis/ProductAPI";
+import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET } from "../types";
+import { ProductListAPICall, ProductDetailAPICall,ProductFilterAPICall } from "../../../services/apis/ProductAPI";
 
 export const productListLoadingStart = bool => ({
     type: PRODUCT_LIST_LOADING,
@@ -27,6 +27,11 @@ export const productListPageChange = page => ({
 
 //=====================Product Detail API Call=================
 
+
+export const productDetailReset = () => ({
+    type: PRODUCT_DETAIL_DATA_RESET,
+});
+
 export const productDetailLoading = () => ({
     type: PRODUCT_DETAIL_DATA_LOADING,
     // payload: bool
@@ -37,6 +42,12 @@ export const productDetailDataSuccess = data => ({
     payload: data,
 });
 
+//=====================Product Detail filter by category API Call=================
+
+export const productFilterByCategorySuccess = data => ({
+    type: PRODUCT_FILTER_BY_CATEGORY_SUCCESS,
+    payload: data,
+});
 
 export const getProductList = (page, categoryId) => {
     // console.log('sdhjfs')
@@ -84,12 +95,18 @@ export const getProductList = (page, categoryId) => {
 export const getProductDetail = (id) => {
     try {
         return async dispatch => {
-            dispatch(productDetailLoading())
+           
             await ProductDetailAPICall(id).
-                then((response) => {
+                then(async (response) => {
                     // console.log('response from product detail api call : ', response)
                     if (response?.success === true) {
                         dispatch(productDetailDataSuccess(response?.data));
+                        const filterResp = await ProductFilterAPICall(response?.data?.category_id);
+                        console.log('filterResp : ',filterResp)
+                        if(filterResp?.success === true){
+                            console.log('data from filter list resonse : ', filterResp?.data)
+                            dispatch(productFilterByCategorySuccess(filterResp?.data));
+                        }
                     }
                 }).
                 catch((err) => { console.log('error from product list api ', err) })

@@ -48,3 +48,24 @@ export const ProductDetailAPICall = (id) => {
         })
     })
 }
+
+
+export const ProductFilterAPICall = (category_id) => {
+    return new Promise((resolve, _reject) => {
+        sendRequest({
+            url: `${PRODUCT_API}/filter`,
+            method: 'GET',
+            params: {
+                category_id: category_id
+            }
+        }).
+        then((response) => {
+            console.log('Response from product Filter API : ', response);
+            resolve(response);
+        }).
+        catch((error) => {
+            console.log('Error from product Filter API : ', error);
+            _reject(error)
+        })
+    })
+}

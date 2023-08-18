@@ -21,6 +21,9 @@ const FETCH_ADDRESS_DETAIL = `${API_BASE_URL}/api/v1/address`
 const UPDATE_ADDRESS_DETAIL = `${API_BASE_URL}/api/v1/address/update`
 const DELETE_ADDRESS_DETAIL = `${API_BASE_URL}/api/v1/address`
 
+const CART_API = `${API_BASE_URL}/api/v1/cart`
+
+// https://api.hanooot.com/api/v1/cart
 
 // https://api.hanooot.com/api/v1/address/update
 
@@ -36,5 +39,6 @@ export {
     FETCH_ADDRESS_DETAIL,
     UPDATE_ADDRESS_DETAIL,
     DELETE_ADDRESS_DETAIL,
-    WISHLIST_API
+    WISHLIST_API,
+    CART_API 
 };

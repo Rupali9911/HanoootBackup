@@ -8,7 +8,9 @@ const ProductDelivery = (props) => {
     const { data } = props;
 
     const getTime = (val) => {
-        const time = val.split('.');
+        let newStr = val.replace(/-/g, "").trim();
+        const time = newStr.split(' ');
+
         return `${time[0]}hr ${time[1]}mins.`
     }
 

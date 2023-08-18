@@ -97,13 +97,13 @@ export const deleteAddressAPICall = (deleteId) => {
             .then(async (response) => {
                 // console.log('Response from ADD_NEW_ADDRESS api', response, response?.success, response?.success === true)
                 console.log('Response from DELETE_ADDRESS_DETAIL api', response)
-                // if (response?.success === true) {
+                if (response?.success === true) {
                     resolve(response)
 
                     showInfoToast('REMOVE', response?.message)
                 // } else {
                 //     showErrorToast('Auth Error', response?.message)
-                // }
+                }
             })
             .catch(error => {
                 console.log('Error from DELETE_ADDRESS_DETAIL api', error)

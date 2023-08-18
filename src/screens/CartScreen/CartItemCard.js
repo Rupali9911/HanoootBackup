@@ -12,149 +12,149 @@ import { removeCartItem } from '../Store/actions/cartAction'
 import { setCartLabel } from '../Store/actions/cartAction'
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import Images from '../../constant/Images'
+import { removeItemsFromCart } from '../Store/actions/cartAction'
+import { wp, hp } from '../../constant/responsiveFunc'
 
 
 
 
 const CartItemCard = (props) => {
-    const { CART } = props;
     const dispatch = useDispatch();
+    const [signleProductPrice, setSigleProductPrice] = useState()
+
+    const { cartItems, cartData } = useSelector(state => state.cartReducer);
 
     const keyExtractor = (item, index) => {
         return index;
     };
 
+    console.log('signleProductPrice : ', signleProductPrice)
 
+    const renderTitle = (key) => {
+        switch (key) {
+            case 'variant_size':
+                return 'Size'
+            case 'variant_color':
+                return 'Color'
+            case 'variant_style':
+                return 'Style'
+            case 'variant_model':
+                return 'Modal'
+            case 'variant_material':
+                return 'Material'
+            case 'platform':
+                return 'Platform'
+            case 'edition':
+                return 'Edition'
+            case 'configuration':
+                return 'Configuration'
+            case 'variant_book':
+                return 'Book'
+            default:
+                return null;
+        }
+    }
 
-    const toastConfig = {
-        /*
-          Overwrite 'success' type,
-          by modifying the existing `BaseToast` component
-        */
-        success: (props) => (
-            <BaseToast
-                {...props}
-                style={{ borderLeftColor: 'pink' }}
-                contentContainerStyle={{ paddingHorizontal: 15 }}
-                text1Style={{
-                    fontSize: 15,
-                    fontWeight: '400'
-                }}
-            />
-        ),
-        /*
-          Overwrite 'error' type,
-          by modifying the existing `ErrorToast` component
-        */
-        error: (props) => (
-            <ErrorToast
-                {...props}
-                text1Style={{
-                    fontSize: 17
-                }}
-                text2Style={{
-                    fontSize: 15
-                }}
-            />
-        ),
-        /*
-          Or create a completely new type - `tomatoToast`,
-          building the layout from scratch.
-      
-          I can consume any custom `props` I want.
-          They will be passed when calling the `show` method (see below)
-        */
-        info: ({ text1, props }) => (
-            //   <View style={{ height: 60, width: '100%', backgroundColor: 'tomato' }}>
-            //     <Text>{text1}</Text>
-            //     <Text>{props.uuid}</Text>
-            //   </View>
+    const renderDescription = (str) => {
+        if (str.includes(':')) {
+            return str.split(':')[1];
+        }
+        return str;
+    }
 
-            <View style={styles.toastMsgContainer}>
-                <Image source={props.image} style={{ height: 20, width: 20 }} />
-                <View>
-                    <Text
-                        style={styles.toastMsgText}
-                    >{props.msg1}</Text>
-                    {
-                        props.msg2 && <Text style={styles.toastMsgText}>{props.msg2}</Text>
+    const getVariations = (data) => {
+        if (Object.keys(data).length > 0) {
+            return (
+                Object.keys(data).map(key => {
+                    if (data[key] && key !== 'updatedAt' && key !== 'createdAt' && key !== 'id' && key !== 'variants' && key !== 'variant_item_package_quantity') {
+                        return <Text key={key} style={styles.itemDetail}>{`${renderTitle(key)} : `}<Text style={{ color: Colors.PRICEGRAY }}>{renderDescription(data[key])}</Text></Text>
                     }
-                    
-                </View>
+                })
+            )
+        }
+    }
+
+    const getTime = (val) => {
+        if (val.includes('-')) {
+            let newStr = val.replace(/-/g, "").trim();
+            const time = newStr.split(' ');
+
+            return `${time[0]}hr ${time[1]}mins.`
+        }
+
+    }
+
+    const getDeliveryInfo = () => {
+        return (
+            <>
+                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Estimated Delivery on <Text style={{ color: Colors.BLACK }}>{cartData?.deliveryDays?.delivery}</Text></Text>
+                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Order Within  <Text style={{ color: Colors.BLACK }}>{getTime(cartData?.deliveryDays?.time)}</Text></Text>
+            </>
+        )
+    }
+
+    const getExpressView = () => {
+        return (
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.itemDetail}>Fullfilled by <Text>Hanooot </Text></Text>
+                <ExpressView />
             </View>
         )
-    };
-
-    const showToast = () => {
-        // Toast.show({
-        //     type: 'info',
-        //     text1: message,
-        //     text2: message2
-
-        // });
-        Toast.show({
-            type: 'info',
-
-            // And I can pass any custom props I want
-            props: {
-                image: Images.ToastSuccess,
-                msg1: "Product Removed Successfully!"
-            }
-        });
     }
 
     const renderItem = ({ item, index }) => {
         return (
             <View style={styles.mainContainer}>
-                <View style={{ flexDirection: 'row', padding: 20 }}>
-                    <View>
-                        <Image source={item.image} style={{ height: 60, width: 60, resizeMode: 'contain', margin: '2%' }} />
+                <View style={{ flexDirection: 'row', padding: '5%', }}>
+                    <View style={{ width: '20%', alignContent: 'center' }}>
+                        <Image source={item?.ManagementProduct?.images} style={{ height: hp(8), width: wp(16), resizeMode: 'contain', margin: '2%' }} />
                     </View>
-                    <View style={{ gap: 5 }}>
-                        <Text style={styles.itemName} numberOfLines={2}>{item.name}</Text>
-                        <Text style={styles.itemDetail}>Memory : <Text style={{ color: Colors.PRICEGRAY }}>{'128 GB'}</Text></Text>
-                        <Text>Color : <Text style={{ color: Colors.PRICEGRAY }}>{'Purple Black'}</Text></Text>
-                        <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Estimated Delivery on <Text style={{ color: Colors.BLACK }}>{'Sunday, 5 February.'}</Text></Text>
-                        <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Order Within  <Text style={{ color: Colors.BLACK }}>{'8hr 40 mins.'}</Text></Text>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={styles.itemDetail}>Fullfilled by <Text>Hanooot </Text></Text>
-                            <ExpressView />
-                        </View>
-                        <Text style={styles.itemDetail} >Sold by <Text style={{ color: Colors.themeColor }}>Ecom Nation</Text></Text>
-                        <Text style={styles.itemName} >{item.price}</Text>
+                    <View style={{ gap: 5, width: '80%' }}>
+                        <Text style={styles.itemName} >{item?.ManagementProduct?.title}</Text>
+                        {getVariations(item?.ManagementProduct?.ManagementProductVariantStyle)}
+                        {getDeliveryInfo()}
+                        {getExpressView()}
+                        {/* <Text style={styles.itemDetail} >Sold by <Text style={{ color: Colors.themeColor }}>Ecom Nation</Text></Text> */}
+                        <Text style={styles.itemName} >{item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
                     </View>
                 </View>
                 <CartItemQuantity
-                    onRemove={() => {
-                        dispatch(removeCartItem(item));
-                        showToast();
-                        dispatch(setCartLabel('Add to Cart'));
+                    onRemovePress={() => {
+                        dispatch(removeItemsFromCart(item?.product_id))
                     }}
+                    productId={item?.product_id}
+                // getData={(data) => {setSigleProductPrice(data?.total_cost)}}
                 />
             </View>
         );
     }
 
     return (
-        <ScrollView style={{}}>
-            <Text style={styles.deliveryLine}>Deliver to Japan-Iraq</Text>
-            <FlatList
-                data={CART}
-                renderItem={renderItem}
-                keyExtractor={keyExtractor}
-                scrollEnabled={false}
-            />
-            <Coupon />
-            <CartTotal />
+        // <ScrollView style={{}}>
+        //     <Text style={styles.deliveryLine}>Deliver to Japan-Iraq</Text>
+        //     <FlatList
+        //         data={CART}
+        //         renderItem={renderItem}
+        //         keyExtractor={keyExtractor}
+        //         scrollEnabled={false}
+        //     />
+        //     <Coupon />
+        //     <CartTotal />
 
-            <Toast 
-                config={toastConfig}
-                position="bottom"
-                visibilityTime={10000}
-                autoHide={true}
-            />
+        //     <Toast 
+        //         config={toastConfig}
+        //         position="bottom"
+        //         visibilityTime={10000}
+        //         autoHide={true}
+        //     />
 
-        </ScrollView>
+        // </ScrollView>
+        <FlatList
+            data={cartItems}
+            renderItem={renderItem}
+            keyExtractor={keyExtractor}
+        // scrollEnabled={false}
+        />
 
     )
 }
@@ -164,6 +164,10 @@ export default CartItemCard;
 const styles = StyleSheet.create({
     mainContainer: {
         backgroundColor: Colors.WHITE,
+        flex: 1,
+        width: wp(100),
+        // padding: '5%',
+        // flexDirection: 'row'
     },
     itemName: {
         fontWeight: 700,

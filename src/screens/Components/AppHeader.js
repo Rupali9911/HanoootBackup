@@ -177,7 +177,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.WHITE,
     borderBottomColor: Colors.GRAY,
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    justifyContent: 'center'
   },
   titleContainer: {
     alignItems: 'center',

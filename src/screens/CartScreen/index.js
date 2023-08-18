@@ -10,60 +10,54 @@ import Colors from '../../constant/Colors'
 import { useIsFocused } from '@react-navigation/native';
 import fonts from '../../constant/fonts'
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Images from '../../constant/Images'
+import { getItemsFromCart, cartLoadingStart, cartItemReset } from '../Store/actions/cartAction'
+import Loader from '../../constant/Loader'
 
 const CartScreen = (props) => {
 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const { cartItems } = useSelector(state => state.cartReducer);
+
+  const { isCartDataLoading, cartItems, cartItemFail, cartPageNo, cartTotalCount, cartData } = useSelector(state => state.cartReducer);
 
   useEffect(() => {
+    dispatch(cartItemReset())
+    dispatch(cartLoadingStart(true))
+    dispatch(getItemsFromCart())
   }, [isFocused]);
+
+
+  console.log('this is cart data : ', cartData)
+  
+  const renderNoDataFound = () => {
+    return (
+      <View style={styles.sorryMessageCont}>
+        <Text style={styles.sorryMessage}>{'No data found'}</Text>
+      </View>
+    );
+  }
 
   return (
     <AppBackground>
       <AppHeader
         showBackButton
-        title={`Cart (${cartItems.length} item)`}
-        titleComponentStyle={{alignItems: 'flex-start'}}
-        showRightIcon
-        rightIcon={
-          <Image
-              source={Images.Wishlist}
-              style={{
-                  height: 20,
-                  width: 20,
-                  resizeMode: 'contain',
-                  tintColor: Colors.BLACK
-              }}
-          />
-      }
-        // titleContainerStyle={{margin: '5%'}}
+        title={`Cart (${cartItems.length ? cartItems.length : 0} item)`}
+        showLikeIcon
+        titleComponentStyle={{ alignItems: 'flex-start' }}
       />
-      {/* <View
-        // style={{flex: 1}}
-      > */}
-        {
-          cartItems.length > 0
-            ?
-            <CartItemCard CART={cartItems} />
-            :
-            <EmptyCart />
-        }
-      {/* </View> */}
-
       {
-        cartItems.length > 0 &&
-        <View style={styles.buttonContainer}>
-          <AppButton
-            label={'Proceed Checkout'}
-            onPress={() => navigation.navigate('CheckoutScreen')}
-          />
-        </View>
+        isCartDataLoading && cartPageNo === 1 ?
+          <Loader /> :
+          cartItems?.length !== 0 ?
+              <CartItemCard />
+            :
+              renderNoDataFound()
       }
+
     </AppBackground>
 
   )
@@ -82,5 +76,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE,
     paddingVertical: '2%',
     // zIndex: -1
+  },
+  sorryMessageCont: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sorryMessage: {
+    fontSize: 15,
+    fontFamily: fonts.VisbyCF_Demibold,
   },
 })

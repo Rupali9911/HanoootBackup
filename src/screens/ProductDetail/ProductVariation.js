@@ -123,6 +123,38 @@ const ProductVariation = (props) => {
 
     // console.log( Object.keys(variants).length ? 'data hai ' : 'data ni hai') 
 
+    const renderTitle = (key) => {
+        switch (key) {
+            case 'variant_size':
+                return 'Size'
+            case 'variant_color':
+                return 'Color'
+            case 'variant_style':
+                return 'Style'
+            case 'variant_model':
+                return 'Modal'
+            case 'variant_material':
+                return 'Material'
+            case 'platform':
+                return 'Platform'
+            case 'edition':
+                return 'Edition'
+            case 'configuration':
+                return 'Configuration'
+            case 'variant_book':
+                return 'Book'
+            default:
+                return null;
+        }
+    }
+
+    const renderDescription = (str) => {
+        if(str.includes(':')){
+          return str.split(':')[1];
+        }
+        return str;
+      }
+
     const renderVariantions = () => {
         return (
             Object.keys(variants).map(key => {
@@ -130,14 +162,14 @@ const ProductVariation = (props) => {
                     return (
                         <View key={key}>
                             <View style={styles.mainCont}>
-                                <Text style={styles.heading}>{key}</Text>
+                                <Text style={styles.heading}>{renderTitle(key)}</Text>
                                 <View style={styles.container}
-                                    onPress={() => {}}>
+                                    onPress={() => { }}>
                                     <Text style={{
                                         borderColor: Colors.themeColor,
                                         color: Colors.themeColor,
                                         ...styles.item
-                                    }}>{variants[key]}</Text>
+                                    }}>{renderDescription(variants[key])}</Text>
                                 </View>
                             </View>
                         </View>
@@ -145,7 +177,7 @@ const ProductVariation = (props) => {
                 }
             })
         );
-        
+
     }
 
 
@@ -153,9 +185,9 @@ const ProductVariation = (props) => {
     return (
 
         Object.keys(variants)?.length > 0
-        ?
+            ?
             renderVariantions()
-        : null
+            : null
     )
 }
 

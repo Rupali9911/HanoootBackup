@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { hp, wp } from '../../constant/responsiveFunc';
 import Colors from '../../constant/Colors';
 import fonts from '../../constant/fonts';
@@ -13,13 +13,14 @@ import { Rating, AirbnbRating } from 'react-native-ratings';
 
 
 const ProductDetailCard = (props) => {
-    const { carouselData, title, avgRating, noOfReview, price, discount, categoryName } = props;
+    const [isLike, setLike] = useState(props?.isItemLiked)
+    const { carouselData, title, avgRating, noOfReview, price, discount, categoryName, isItemLiked } = props;
 
 
     const addToWishlistProduct = async () => {
         try {
             await addToWishlistAPICall(props.productId);
-
+            setLike(!isLike);
         }
         catch (error) {
             console.log('Error from add to wishlist API api ', error)
@@ -59,7 +60,7 @@ const ProductDetailCard = (props) => {
     //         }
     //     ]
 
-    const CircleView = (props) => {
+    const ShareWishlistView = (props) => {
         return (
             <View style={[styles.circleView, props.contStyle]}>
                 <TouchableOpacity
@@ -67,7 +68,7 @@ const ProductDetailCard = (props) => {
                 >
                     <Image
                         source={props.Image}
-                        style={{ height: 20, width: 20, tintColor: Colors.GRAY, resizeMode: 'center' }}
+                        style={[{ height: 20, width: 20, resizeMode: 'center', tintColor: Colors.GRAY}, props.imageStyle]}
                     />
                 </TouchableOpacity>
             </View>
@@ -152,8 +153,6 @@ const ProductDetailCard = (props) => {
                     {/* <Rating />
                      */}
                     <RatingAndReview />
-
-
                 </View>
 
                 <Text style={styles.productName} numberOfLines={2}>{title}</Text>
@@ -178,8 +177,8 @@ const ProductDetailCard = (props) => {
 
 
             <View style={styles.wishListCotainer}>
-                <CircleView Image={Images.Wishlist} onPress={addToWishlistProduct} />
-                <CircleView Image={Images.ShareIcon} />
+                <ShareWishlistView Image={isLike ? Images.CartImage : Images.Wishlist} onPress={addToWishlistProduct}  />
+                <ShareWishlistView Image={Images.ShareIcon} />
             </View>
 
             <View style={{ paddingHorizontal: 20 }}>
@@ -246,7 +245,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderTopRightRadius: 50,
         borderBottomRightRadius: 50,
-        paddingHorizontal: '1%'
+        paddingHorizontal: wp(1.2)
     },
     logoStyle: {
         height: 15,

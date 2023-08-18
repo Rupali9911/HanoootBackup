@@ -34,7 +34,7 @@ export const LikeImage = (props) => {
         
             // style={{backgroundColor: 'red'}}
         >
-            <Image source={Images.Wishlist} style={[styles.like, props.imgStyle]}/>
+            <Image source={props.image} style={[styles.like, props.imgStyle]}/>
         </TouchableOpacity>
 
     )
