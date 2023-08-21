@@ -16,13 +16,17 @@ const initialState = {
 }
 
 const cartReducer = (state = initialState, action) => {
-    // console.log('Check reducer state and action : ', state, action)
+    console.log('Check reducer state and action : ', state, action)
+    // console.log('Check action DATA : ', [...state.cartItems, ...action.payload])
+    
+
     switch (action.type) {
 
         case CART_ITEM_LOADING:
             return { ...state, isCartDataLoading: true };
 
         case ADD_TO_CART:
+            console.log('Check action DATA : ', action.payload.CartProducts, state.cartItems)
             return {
                 ...state,
                 cartItems: [...state.cartItems, ...action.payload.CartProducts],
@@ -58,7 +62,7 @@ const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cartItems: [
-                    ...state.cartItems.filter(item => item.id !== action.payload.id),
+                    ...state.cartItems.filter(item => item.product_id !== action.payload),
                 ],
             }
         case CART_BUTTON_LABEL:

@@ -31,14 +31,14 @@ export const AddtoCartAPICall = (product_id, quantity) => {
     })
 }
 
-export const getCartItemAPICall = () => {
+export const getCartItemAPICall = (page) => {
     return new Promise((resolve, _reject) => {
         sendRequest({
             url: CART_API,
             method: 'GET',
             parmas: {
-                pageNumber: 1,
-                pageSize: 20
+                pageNumber: page,
+                pageSize: 1000
             }
         }).
         then((response) => {

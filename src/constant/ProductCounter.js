@@ -20,13 +20,16 @@ const ProductCounter = (props) => {
             console.log(response)
             if (response?.success) {
                 setCounter(counter + 1);  
-                props.getCountValue(Number(counter + 1) || Number(1))
-                props.onIncPressed('hello')
+                props.getCountValue(incVal)
+                dispatch(getItemsFromCart())
+                // props.onIncrementPress
+                // props.onIncPressed(dispatch(getItemsFromCart()))
                 // props.getCountClickData(response?.data)
                 // dispatch(getItemsFromCart())
+
             }
         }
-        catch (error) {
+        catch (error) { 
             // console.log('error  from add to cart api : ', error)
         }
     };
@@ -39,7 +42,7 @@ const ProductCounter = (props) => {
                 const response = await AddtoCartAPICall(props.productId, decVal)
                 if (response?.success) {
                     setCounter(counter - 1);
-                    props.getCountValue(Number(counter - 1) || Number(1))
+                    props.getCountValue(decVal)
                     props.getCountClickData(response?.data)
 
                 }
@@ -55,6 +58,16 @@ const ProductCounter = (props) => {
         // props.getCountValue(Number(counter - 1) || Number(0))
 
     };
+
+    const updateCounter =(isAdd)=>{
+        props.onIncrementPress
+        if(isAdd){
+            console.log('isADD', isAdd)
+            incrementCounter()
+        }else{
+            decrementCounter()
+        }
+    }
 
     const Quantity = useCallback((props) => {
         return (
@@ -73,12 +86,12 @@ const ProductCounter = (props) => {
 
     return (
         <View style={styles.container}>
-            <Quantity onPress={() => decrementCounter()} Image={Images.MinusIcon} />
+            <Quantity onPress={() => updateCounter(false)} Image={Images.MinusIcon} />
 
             <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={styles.counter}>{counter}</Text>
             </View>
-            <Quantity onPress={() => incrementCounter()} Image={Images.PlusWhiteIcon} />
+            <Quantity onPress={() => updateCounter(true)} Image={Images.PlusWhiteIcon} />
         </View>
     )
 }

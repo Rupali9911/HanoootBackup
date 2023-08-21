@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import Coupon from './Coupon';
 import CartTotal from './CartTotal'
 import { useDispatch, useSelector } from 'react-redux';
-import { removeCartItem } from '../Store/actions/cartAction'
+import { getItemsFromCart, removeCartItem } from '../Store/actions/cartAction'
 import { setCartLabel } from '../Store/actions/cartAction'
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import Images from '../../constant/Images'
@@ -28,7 +28,7 @@ const CartItemCard = (props) => {
         return index;
     };
 
-    console.log('signleProductPrice : ', signleProductPrice)
+    // console.log('signleProductPrice : ', signleProductPrice)
 
     const renderTitle = (key) => {
         switch (key) {
@@ -102,6 +102,9 @@ const CartItemCard = (props) => {
         )
     }
 
+
+    console.log('cartItems : ', cartItems)
+
     const renderItem = ({ item, index }) => {
         return (
             <View style={styles.mainContainer}>
@@ -118,11 +121,15 @@ const CartItemCard = (props) => {
                         <Text style={styles.itemName} >{item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
                     </View>
                 </View>
+
+
                 <CartItemQuantity
                     onRemovePress={() => {
                         dispatch(removeItemsFromCart(item?.product_id))
+                        // dispatch(getItemsFromCart())
                     }}
                     productId={item?.product_id}
+                    onIncrement={() => {console.log('helooo : ')}}
                 // getData={(data) => {setSigleProductPrice(data?.total_cost)}}
                 />
             </View>

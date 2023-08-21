@@ -70,10 +70,11 @@ export const addItemsToCart = (product_id, qty) => {
 }
 
 
-export const getItemsFromCart = () => {
+export const getItemsFromCart = (page) => {
+  console.log('cakled')
   try {
     return async dispatch => {
-      await getCartItemAPICall().
+      await getCartItemAPICall(page).
         then((response) => {
           // dispatch(changeCartButtonLabel('View Cart'))
           console.log('Response Checked : ', response?.data)
@@ -95,13 +96,27 @@ export const removeItemsFromCart = (product_id) => {
   try {
     return async dispatch => {
       await removeCartItemAPICall(product_id).
-        then((response) => {
-          // dispatch(changeCartButtonLabel('View Cart'))
-          console.log('Response Checked : ', response?.data)
-          if (response?.success) {
-            // dispatch(getItemsFromCart())
-          }
-        }).
+      then(async (response) => {
+        console.log('Response Checked : ', response?.data)
+        if(response?.success === true){
+            // dispatch(setAddressDetails(response?.data))
+
+            // await dispatch(getItemsFromCart())
+            dispatch(removeCartItem(product_id))
+
+            // showInfoToast('REMOVE', response?.message)
+            
+        }
+    }).
+
+
+        // then((response) => {
+        //   // dispatch(changeCartButtonLabel('View Cart'))
+        //   console.log('Response Checked : ', response?.data)
+        //   if (response?.success) {
+        //     dispatch(getItemsFromCart())
+        //   }
+        // }).
         catch((err) => { console.log('Error Checked : ', err) })
     }
   }

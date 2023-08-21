@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import AppModal from '../../constant/AppModal'
 import EmptyCart from './EmptyCart'
 import AppBackground from '../Components/AppBackground'
@@ -12,7 +12,7 @@ import fonts from '../../constant/fonts'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import Images from '../../constant/Images'
-import { getItemsFromCart, cartLoadingStart, cartItemReset } from '../Store/actions/cartAction'
+import { getItemsFromCart, cartLoadingStart, cartItemReset, cartDataLPageChange } from '../Store/actions/cartAction'
 import Loader from '../../constant/Loader'
 
 const CartScreen = (props) => {
@@ -25,14 +25,21 @@ const CartScreen = (props) => {
   const { isCartDataLoading, cartItems, cartItemFail, cartPageNo, cartTotalCount, cartData } = useSelector(state => state.cartReducer);
 
   useEffect(() => {
-    dispatch(cartItemReset())
     dispatch(cartLoadingStart(true))
-    dispatch(getItemsFromCart())
+    dispatch(cartItemReset())
+    // dispatch(getItemsFromCart())
+    getCartedProducts(1)
+    dispatch(cartDataLPageChange(1));
+
   }, [isFocused]);
+
+  const getCartedProducts = useCallback(page => {
+    dispatch(getItemsFromCart(page));
+  }, []);
 
 
   console.log('this is cart data : ', cartData)
-  
+
   const renderNoDataFound = () => {
     return (
       <View style={styles.sorryMessageCont}>
@@ -50,12 +57,12 @@ const CartScreen = (props) => {
         titleComponentStyle={{ alignItems: 'flex-start' }}
       />
       {
-        isCartDataLoading && cartPageNo === 1 ?
+        isCartDataLoading && cartPageNo === 1  ?
           <Loader /> :
           cartItems?.length !== 0 ?
-              <CartItemCard />
+            <CartItemCard />
             :
-              renderNoDataFound()
+            renderNoDataFound()
       }
 
     </AppBackground>
