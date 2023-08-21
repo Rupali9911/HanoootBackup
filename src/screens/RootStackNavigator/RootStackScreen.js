@@ -44,6 +44,7 @@ import ForgotPassword from '../AuthScreen/ForgotPassword';
 import EmailLinkSuccess from '../AuthScreen/ForgotPassword/EmailLinkSuccess';
 import ViewMoreCategories from '../Categories/ViewMoreCategories';
 import ProductListWithFilters from '../Components/ProductListWithFilters';
+import Splash from '../Splash'
 import ToastScreen from '../../Components/universal/Toast/ToastScreen';
 
 const Stack = createStackNavigator();
@@ -52,6 +53,7 @@ export default function RootStackScreen() {
     return (
         <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Home" component={TabComponent} />
+            <Stack.Screen name="Splash" component={Splash} />
             <Stack.Screen name="ProductDetail" component={ProductDetail} />
             <Stack.Screen name="CartScreen" component={CartScreen} />
             <Stack.Screen name="UserReview" component={ReviewMainPage} />

@@ -61,7 +61,7 @@ const AuthBottomContainer = (props) => {
             console.log('response from appleSignIn userCredentials', userDetails)
             registerAndUpdateData(userDetails)
         } catch (error) {
-            console.log('Error from googleSignIn', error)
+            console.log('Error from appleSignIn', error)
         }
         // appleSignIn()
         //     .then(response => {
@@ -109,16 +109,11 @@ const AuthBottomContainer = (props) => {
                         Text={'Apple'}
                     />
                 }
-
             </View>
-
             <View style={styles.rowContainer}>
                 <Text style={styles.termsPrivacy}>{props.isAccountText}</Text>
-                <TouchableOpacity onPress={props.onPressButton}>
-                    <Text style={[styles.termsPrivacy, { color: Colors.themeColor, fontWeight: 'bold' }]}>{props?.isSignUp ? ' Sign in' : ' Sign up'}</Text>
-                </TouchableOpacity>
+                <Text suppressHighlighting={true} onPress={props.onPressButton} style={[styles.termsPrivacy, { color: Colors.themeColor, fontWeight: 'bold' }]}>{props?.isSignUp ? ' Sign in' : ' Sign up'}</Text>
             </View>
-
         </>
     )
 }

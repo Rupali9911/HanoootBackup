@@ -42,13 +42,12 @@ export default function TabComponent() {
                 lazy: true,
                 tabBarVisible: true,
                 tabBarStyle: {
-                    paddingVertical: hp('1%'),
+                    // paddingVertical: hp('1%'),
                 },
                 tabBarActiveTintColor: Colors.themeColor,
                 tabBarIcon: ({ focused, color }) => {
                     let iconName;
-
-                    if (route.name === 'Home') {
+                    if (route.name === 'HomeTab') {
                         iconName = focused ? Images.homeSelected : Images.home;
                     } else if (route.name === 'Category') {
                         iconName = focused ? Images.categorySelected : Images.categories;
@@ -61,7 +60,7 @@ export default function TabComponent() {
                         <Image
                             source={iconName}
                             resizeMode="contain"
-                            style={{ width: wp(5), height: hp(2), }}
+                            style={{ width: wp(6), height: hp(2.5) }}
                         />
                     );
                 },
@@ -71,7 +70,6 @@ export default function TabComponent() {
             <Tab.Screen name="Category" component={Category} />
             <Tab.Screen name="Cart" component={CartScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
-
         </Tab.Navigator>
     )
 }

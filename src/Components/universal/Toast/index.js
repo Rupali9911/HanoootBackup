@@ -19,7 +19,7 @@ const toastConfig = {
             {...props}
             text1Style={styles.txtError}
             text2Style={styles.txtError1}
-            text2NumberOfLines={2}
+            text2NumberOfLines={1}
         />
     ),
     info: ({ text1, props }) => (

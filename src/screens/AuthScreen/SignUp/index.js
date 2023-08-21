@@ -148,7 +148,7 @@ const Signup = () => {
         <AppBackground
             safeAreaColor={Colors.themeColor}
         >
-            <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('10%') }} />
+            <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('15%') }} />
             <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'>
                 <AuthHeader title={'Register to Hanooot'} />
 
@@ -237,16 +237,12 @@ const Signup = () => {
 
 
 
-                <View style={{ marginHorizontal: '3%', marginVertical: '5%' }}>
+                <View style={{ marginHorizontal: '5%', marginVertical: '5%' }}>
                     <Text style={styles.termsPrivacy} >
                         By Continuing, you agree to Hanooot
-                        <TouchableOpacity onPress={() => console.log('Terms & Condition')}>
-                            <Text style={{ color: Colors.themeColor }} > Terms and Conditions </Text>
-                        </TouchableOpacity>
+                        <Text suppressHighlighting={true} onPress={() => console.log('Terms & Condition')} style={{ color: Colors.themeColor }} > Terms and Conditions </Text>
                         and
-                        <TouchableOpacity onPress={() => console.log('Privacy Policy')}>
-                            <Text style={{ color: Colors.themeColor }} > Privacy Policy </Text>
-                        </TouchableOpacity>
+                        <Text suppressHighlighting={true} onPress={() => console.log('Privacy Policy')} style={{ color: Colors.themeColor }} > Privacy Policy </Text>
                     </Text>
                 </View>
 
@@ -259,7 +255,6 @@ const Signup = () => {
                 <AuthBottomContainer
                     title={'Or Sign Up with'}
                     isAccountText={'Already have an account?'}
-
                     // button={' Sign in'}
                     isSignUp={true}
                     onPressButton={() => navigation.navigate('Login')}

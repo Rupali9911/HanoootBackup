@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
         padding: 20,
         paddingTop: 20,
         lineHeight: 21,
-        letterSpacing: 0.5
+        letterSpacing: 0.5,
+        color: Colors.BLACK
     },
     textAreaContainer: {
         marginHorizontal: '5%',

@@ -98,7 +98,7 @@ const Login = () => {
     return (
         <AppBackground
             safeAreaColor={Colors.themeColor}>
-            <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('10%') }} />
+            <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('15%') }} />
 
             <KeyboardAwareScrollView>
                 <AuthHeader
@@ -169,7 +169,7 @@ const Login = () => {
 
                 <AppButton label={'Sign In'} containerStyle={{ marginVertical: '5%' }} onPress={Login} />
 
-                <View style={styles.rowContainer}>
+                {/* <View style={styles.rowContainer}>
                     <ToggleSwitch
                         isOn={isEnabled}
                         onColor={Colors.themeColor}
@@ -178,7 +178,7 @@ const Login = () => {
                         onToggle={(isOn) => setIsEnabled(isOn)}
                     />
                     <Text style={[styles.text, { color: Colors.GRAY3 }]}>Keep me signed in</Text>
-                </View>
+                </View> */}
 
                 <AuthBottomContainer
                     title={'Or Sign In with'}
