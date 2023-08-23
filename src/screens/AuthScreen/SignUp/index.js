@@ -91,11 +91,13 @@ const Signup = () => {
         try {
             await checkPhoneNumberOrEmailExists(formattedNum)
             const authResults = await signInWithPhoneNumber(formattedNum)
+            console.log('Name from Signup screen', name)
 
             navigation.navigate('OtpVerification', {
                 authResult: authResults,
                 phoneNumber: formattedNum,
-                isFromSignUp: true
+                isFromSignUp: true,
+                name: name
             });
         }
         catch (error) {
@@ -108,7 +110,7 @@ const Signup = () => {
             await checkPhoneNumberOrEmailExists(email)
             const userCredentials = await createUserWithEmail(email, password)
             await userRegister(userCredentials?.user?.uid, password)
-            await updateNameWithSaveDetails(userCredentials, dispatch)
+            await updateNameWithSaveDetails(userCredentials, name, dispatch)
             // if (userCredentials?.user) {
             //     await updateDisplayName(userCredentials, name)
             //     userCredentials.user.displayName = name

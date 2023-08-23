@@ -192,6 +192,52 @@ export const updateDisplayName = (userCredentials, name) => {
     })
 }
 
+
+reauthenticate = (currentPassword) => {
+    var user = auth().currentUser;
+    var cred = auth.EmailAuthProvider.credential(
+        user.email, currentPassword);
+    return user.reauthenticateWithCredential(cred);
+}
+
+export const updatePasswordOnFirebase = (currentPassword, newPassword) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const emailCred = auth.EmailAuthProvider.credential(auth().currentUser.email, currentPassword);
+            auth().currentUser.reauthenticateWithCredential(emailCred)
+                .then(() => {
+                    auth().currentUser.updatePassword(newPassword).then((response) => {
+                        console.log('Response from updatePassword', response)
+                        resolve()
+                    })
+                        .catch(error => {
+                            console.log('error from currentUser.updatePassword', error)
+                            handleAuthError(error)
+                        });
+                })
+                .catch(error => {
+                    console.log('error from reauthenticateWithCredential', error)
+                    handleAuthError(error)
+                });
+
+            // reauthenticate(currentPassword).then(() => {
+            //     var user = auth().currentUser;
+            //     user.updatePassword(newPassword).then(() => {
+            //         console.log("Password updated!");
+            //     }).catch((error) => {
+            //         console.log(error);
+            //         handleAuthError(error)
+            //     });
+            // }).catch((error) => {
+            //     console.log(error); handleAuthError(error)
+            // });
+        } catch (error) {
+            console.log(error)
+            handleAuthError(error)
+        }
+    })
+}
+
 export const signOut = () => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -207,7 +253,7 @@ export const signOut = () => {
 
 export const handleAuthError = (error) => {
     var errorMessage = ''
-
+    console.log(error?.message)
     switch (error.code) {
         case "auth/missing-phone-number":
             errorMessage = "Missing Phone Number";
@@ -246,7 +292,7 @@ export const handleAuthError = (error) => {
         case "ERROR_WRONG_PASSWORD":
         case "wrong-password":
         case "auth/wrong-password":
-            errorMessage = "Wrong email/password combination.";
+            errorMessage = error?.message ? error?.message.replace('[auth/wrong-password] ', '') : "Wrong email/password combination.";
             break;
 
         case "ERROR_USER_NOT_FOUND":

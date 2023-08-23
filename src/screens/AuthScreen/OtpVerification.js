@@ -27,6 +27,8 @@ const OtpVerification = ({ route }) => {
     const [authResult, setauthResult] = useState(route?.params?.authResult)
     const isFromSignUp = route?.params?.isFromSignUp
     const phoneNumber = route?.params?.phoneNumber
+    const name = route?.params?.name
+
     // console.log('route?.params?.authResult', route?.params?.authResult)
     const navigation = useNavigation();
     const dispatch = useDispatch()
@@ -173,7 +175,9 @@ const OtpVerification = ({ route }) => {
                 //     await updateDisplayName(userDetails, name)
                 //     userDetails.user.displayName = name
                 // }
-                await updateNameWithSaveDetails(userCredentials, dispatch)
+                console.log('Name from OTP verification', name)
+
+                await updateNameWithSaveDetails(userCredentials, name, dispatch)
             } else {
                 saveUserDetails(userCredentials?.user, dispatch)
             }

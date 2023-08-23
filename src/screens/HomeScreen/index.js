@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View, ScrollView, Image, FlatList, TouchableOpacity } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, ScrollView, Image, FlatList, TouchableOpacity, Share } from 'react-native';
 import React from 'react';
 import AppHeader from '../Components/AppHeader';
 import AppBackground from '../Components/AppBackground';
@@ -26,7 +26,120 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
    const navigation = useNavigation();
+   // const onShare = async () => {
+   //    let productName = 'iPhone'
+   //    let productUrl = 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80'
+   //    try {
+   //       const result = await Share.share({
+   //          title: 'Product Detail',
+   //          url: productUrl,
+   //          message: productName + ' ' + productUrl,
+   //       });
+   //       if (result.action === Share.sharedAction) {
+   //          if (result.activityType) {
+   //             // shared with activity type of result.activityType
+   //          } else {
+   //             // shared
+   //          }
+   //       } else if (result.action === Share.dismissedAction) {
+   //          // dismissed
+   //       }
+   //    } catch (error) {
+   //       console.log('Share error', error)
+   //    }
+   // };
 
+   // // const onShare = async () => {
+   // //    console.log('Share called')
+   // //    try {
+   // //       const result = await Share.share(options);
+   // //       if (result.action === Share.sharedAction) {
+   // //          if (result.activityType) {
+   // //             // shared with activity type of result.activityType
+   // //          } else {
+   // //             // shared
+   // //          }
+   // //       } else if (result.action === Share.dismissedAction) {
+   // //          // dismissed
+   // //       }
+   // //    } catch (error) {
+   // //       Alert.alert(error.message);
+   // //    }
+   // // };
+
+   // const shareTheProductDetails = () => {
+
+   //    // var imageUrl = 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
+   //    // let shareImage = {
+   //    //    title: 'Title', //string
+   //    //    message:
+   //    //       'Description ',
+   //    //    url: imageUrl,
+   //    //    // urls: [imageUrl, imageUrl], // eg.'http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg',
+   //    // };
+   //    // Share.open(shareImage)
+   //    //    .then((res) => {
+   //    //       console.log(res);
+   //    //    })
+   //    //    .catch((err) => {
+   //    //       err && console.log(err);
+   //    //    });
+
+
+   //    let imagePath = 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
+   //    RNFetchBlob.config({
+   //       fileCache: true,
+   //    })
+   //       .fetch('GET', imagePath)
+   //       // the image is now dowloaded to device's storage
+   //       .then((resp) => {
+   //          // the image path you can use it directly with Image component
+   //          imagePath = resp.path();
+   //          return resp.readFile('base64');
+   //       })
+   //       .then((base64Data) => {
+   //          // here's base64 encoded image
+   //          var imageUrl = 'data:image/png;base64,' + base64Data;
+   //          // let shareImage = {
+   //          //    title: 'Title', //string
+   //          //    message:
+   //          //       'Description ',
+   //          //    url: imageUrl,
+   //          //    // urls: [imageUrl, imageUrl], // eg.'http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg',
+   //          // };
+
+   //          Share.open(
+   //             {
+   //                message: "This is the testing. Please check",
+   //                title: 'Share',
+   //                url: 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
+   //                type: 'image/jpg',
+   //                activityItemSources: [
+   //                   {
+   //                      linkMetadata: { image: 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80' },
+   //                   },
+   //                ],
+   //             },
+   //             {
+   //                // Android only:
+   //                dialogTitle: 'Share',
+   //                // iOS only:
+   //                excludedActivityTypes: ['com.apple.UIKit.activity.PostToTwitter'],
+   //             },
+   //          );
+
+
+   //          // Share.open(shareImage)
+   //          //    .then((res) => {
+   //          //       console.log(res);
+   //          //    })
+   //          //    .catch((err) => {
+   //          //       err && console.log(err);
+   //          //    });
+   //          // remove the file from storage
+   //          return fs.unlink(imagePath);
+   //       });
+   // }
 
    const renderProductList = ({ item, index }) => {
       return (
@@ -64,6 +177,9 @@ export default function HomeScreen() {
    return (
       <AppBackground >
          <AppHeader placeholderText={'Search'} />
+         {/* <TouchableOpacity onPress={() => { onShare() }}>
+            <Text>{'Share'}</Text>
+         </TouchableOpacity> */}
          <ScrollView showsVerticalScrollIndicator={false}
             nestedScrollEnabled={true}
             style={{ flex: 1, zIndex: -1 }}>

@@ -32,7 +32,7 @@ const ProfileScreen = (props) => {
             <View style={styles.profileDetail}>
                 <View style={{ flex: 1 }}>
                     <Text style={styles.userName}>{userData ? userData.displayName : 'Hey There,'}</Text>
-                    <Text style={styles.userEmail}>{userData ? userData.email : 'Nice to meet you!'}</Text>
+                    <Text style={styles.userEmail}>{userData ? userData.email || userData.phoneNumber : 'Nice to meet you!'}</Text>
                 </View>
 
                 {
@@ -138,7 +138,7 @@ const ProfileScreen = (props) => {
 
                 <HeadingComponent Title={'SETTING'} />
                 {
-                    userData && <ListItem
+                    userData && userData?.phoneNumber === null && <ListItem
                         Image={Images.ChangePassword}
                         title={'Change Password'}
                         onPress={() => navigation.navigate('ChangePassword')}

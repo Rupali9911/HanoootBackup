@@ -12,11 +12,17 @@ export const saveUserDetails = async (userDetails, dispatch) => {
     return
 }
 
-export const updateNameWithSaveDetails = async (userCredentials, dispatch) => {
+export const updateNameWithSaveDetails = async (userCredentials, name, dispatch) => {
+    console.log('Name to updateNameWithSaveDetails', name)
+    console.log('userCredentials', userCredentials)
+
     if (userCredentials?.user) {
         await updateDisplayName(userCredentials, name)
-        userCredentials.user.displayName = name
-        saveUserDetails(userCredentials?.user, dispatch)
+        let user = userCredentials.user
+        console.log('User object', user)
+        user.displayName = name
+        console.log('User', user)
+        saveUserDetails(user, dispatch)
     }
     return
 }

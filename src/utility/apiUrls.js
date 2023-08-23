@@ -13,6 +13,7 @@ const CATEGORY_LIST = `${API_BASE_URL}/api/v1/category`
 const PRODUCT_API = `${API_BASE_URL}/api/v1/product`
 
 const UPDATE_PROFILE = `${API_BASE_URL}/api/v1/user/update-profile`
+const UPDATE_PASSWORD = `${API_BASE_URL}/api/v1/user/update-password`
 const HELPNSUPPORT = `${API_BASE_URL}/api/v1/help-support`
 
 const WISHLIST_API = `${API_BASE_URL}/api/v1/wishlist`
@@ -37,5 +38,6 @@ export {
     UPDATE_ADDRESS_DETAIL,
     DELETE_ADDRESS_DETAIL,
     WISHLIST_API,
-    GOOGLE_API_KEY
+    GOOGLE_API_KEY,
+    UPDATE_PASSWORD
 };

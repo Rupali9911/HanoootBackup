@@ -75,6 +75,12 @@ export const validateBlankPassword = value => {
     }
 };
 
+export const validateOnlyPassword = value => {
+    if (!passwordRegex.test(value)) {
+        return 'Please enter a valid password';
+    }
+};
+
 export const validateEmail = value => {
     if (!value.trim().length) {
         return 'Email is required';

@@ -1,4 +1,4 @@
-import { CHECK_PHONE_NUMBER, USER_REGISTER, UPDATE_PROFILE, HELPNSUPPORT } from '../../utility/apiUrls'
+import { CHECK_PHONE_NUMBER, USER_REGISTER, UPDATE_PROFILE, HELPNSUPPORT, UPDATE_PASSWORD } from '../../utility/apiUrls'
 import sendRequest from '../../services/axios/AxiosApiRequest'
 import { showErrorToast, showSuccessToast } from '../../Components/universal/Toast'
 
@@ -74,6 +74,7 @@ export const updateProfile = (name, email) => {
                     resolve(response)
                 } else {
                     showErrorToast('Auth Error', response?.message)
+                    _reject(response)
                 }
             })
             .catch(error => {
@@ -81,7 +82,31 @@ export const updateProfile = (name, email) => {
                 _reject(error)
             })
     })
+};
 
+export const updatePassword = (pwd) => {
+    return new Promise((resolve, _reject) => {
+        console.log('pwd', pwd)
+        sendRequest({
+            url: UPDATE_PASSWORD,
+            method: 'POST',
+            data: {
+                password: pwd
+            }
+        })
+            .then((response) => {
+                console.log('Response from UPDATE_PASSWORD api', response)
+                if (response?.success === true) {
+                    resolve(response)
+                } else {
+                    showErrorToast('Auth Error', response?.message)
+                }
+            })
+            .catch(error => {
+                console.log('Error from UPDATE_PASSWORD api', error)
+                _reject(error)
+            })
+    })
 };
 
 export const helpNSupport = (name, email, description) => {

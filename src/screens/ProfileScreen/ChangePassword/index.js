@@ -7,6 +7,9 @@ import fonts from '../../../constant/fonts';
 import Colors from '../../../constant/Colors';
 import AppButton from '../../Components/AppButton';
 import { useNavigation } from '@react-navigation/native';
+import { updatePasswordOnFirebase } from '../../../services/socialAuth';
+import { validateOnlyPassword } from '../../utils';
+import { updatePassword } from '../../../services/apis';
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState('');
@@ -46,7 +49,7 @@ const ChangePassword = () => {
     setError(errList);
   }
 
-  const ChangePassword = () => {
+  const ChangePassword = async () => {
     let errorList = {};
     !oldPassword ?
       errorList["oldPassword"] = 'Enter your old password' :
@@ -54,10 +57,18 @@ const ChangePassword = () => {
         !confirmPassword ? errorList["confirmPassword"] = 'Enter your confirm password' :
           newPassword !== confirmPassword ? errorList["confirmPassword"] = 'Password are not matched!!' : {};
 
+    if (validateOnlyPassword(newPassword)) {
+      errorList["newPassword"] = validateOnlyPassword(newPassword)
+    }
+
+    if (validateOnlyPassword(confirmPassword)) {
+      errorList["confirmPassword"] = validateOnlyPassword(confirmPassword)
+    }
     setError(errorList)
     if (Object.keys(errorList).length == 0) {
       setError({});
-      // navigation.navigate('ChangePasswordSuccess')
+      await updatePasswordOnFirebase(oldPassword, newPassword)
+      await updatePassword(newPassword)
       navigation.navigate('ToastMessageScreen', { title: 'Password Updated Successfully!', navigate: 'ProfileScreen' })
     }
   }
@@ -76,7 +87,7 @@ const ChangePassword = () => {
           // !oldPassword ? error["oldPassword"] = '' : null
         }}
         error={error["oldPassword"]}
-        maxLength={9}
+      // maxLength={9}
       // onBlur={() => {
       //   validPasswordString(oldPassword)
       // }}
@@ -91,7 +102,7 @@ const ChangePassword = () => {
           setNewPassword(newPassword);
           !newPassword ? error["newPassword"] = '' : null
         }}
-        maxLength={9}
+        // maxLength={9}
         error={error["newPassword"]}
         onBlur={() => {
           validPasswordString(newPassword)
@@ -109,7 +120,7 @@ const ChangePassword = () => {
           // !confirmPassword ? error["confirmPassword"] = '' : null
         }}
         // onChangeText={newPassword => setNewPassword(newPassword)}
-        maxLength={9}
+        // maxLength={9}
         error={error["confirmPassword"]}
       // onBlur={() => {
       //   comparePasswords(confirmPassword)
