@@ -115,6 +115,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import fonts from '../../constant/fonts';
 import Colors from '../../constant/Colors';
+import { hp } from '../../constant/responsiveFunc';
 
 const ProductVariation = (props) => {
     const { variants } = props;
@@ -196,7 +197,7 @@ export default ProductVariation
 const styles = StyleSheet.create({
     mainCont: {
         marginHorizontal: '5%',
-        marginVertical: '2%',
+        marginVertical: '1%',
         rowGap: 5
     },
     heading: {
@@ -209,16 +210,23 @@ const styles = StyleSheet.create({
     item: {
         fontWeight: 500,
         fontFamily: fonts.VisbyCF_Medium,
-        lineHeight: 19,
+        // lineHeight: 19,
         letterSpacing: 0.5,
         paddingVertical: 10,
         paddingHorizontal: 14,
         borderRadius: 6,
-        fontSize: 16,
+        // fontSize: 14,
         borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     container: {
-        flex: 1, flexDirection: 'row',
-        margin: 5
+        flex: 1,
+        flexDirection: 'row',
+        // margin: 5,
+        height: hp(4.80),
+        alignItems: 'center',
+        // justifyContent: 'center'
+        // backgroundColor: 'red'
     },
 })

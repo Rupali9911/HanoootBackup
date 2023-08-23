@@ -1,5 +1,5 @@
-import { FlatList, Image, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { FlatList, Image, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState, useCallback } from 'react'
 import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
 import { ExpressView } from '../../constant/ListConstant'
@@ -14,6 +14,7 @@ import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import Images from '../../constant/Images'
 import { removeItemsFromCart } from '../Store/actions/cartAction'
 import { wp, hp } from '../../constant/responsiveFunc'
+import { AddtoCartAPICall } from '../../services/apis/CartAPI'
 
 
 
@@ -21,6 +22,8 @@ import { wp, hp } from '../../constant/responsiveFunc'
 const CartItemCard = (props) => {
     const dispatch = useDispatch();
     const [signleProductPrice, setSigleProductPrice] = useState()
+    const [counter, setCounter] = useState(1);
+
 
     const { cartItems, cartData } = useSelector(state => state.cartReducer);
 
@@ -102,15 +105,79 @@ const CartItemCard = (props) => {
         )
     }
 
+    const incrementCounter = async (productId) => {
+        try {
+            const incVal = Number(counter + 1) || Number(1);
+            const response = await AddtoCartAPICall(productId, incVal)
+            // console.log(response)
+            if (response?.success) {
+                setCounter(counter + 1);
+                dispatch(getItemsFromCart(1))
+                // props.getCountValue(incVal)
+                // props.onIncPressed(response?.data)
+                // dispatch(getItemsFromCart())
+                // props.onIncrementPress
+                // props.onIncPressed(dispatch(getItemsFromCart()))
+                // props.getCountClickData(response?.data)
+                // dispatch(getItemsFromCart())
 
-    console.log('cartItems : ', cartItems)
+            }
+        }
+        catch (error) {
+            // console.log('error  from add to cart api : ', error)
+        }
+    };
+
+
+    const decrementCounter = async (productId) => {
+
+        try {
+            if (counter !== 1) {
+                const decVal = Number(counter - 1) || Number(1)
+                const response = await AddtoCartAPICall(productId, decVal)
+                if (response?.success) {
+                    setCounter(counter - 1);
+                    dispatch(getItemsFromCart(1))
+                    // props.getCountValue(decVal)
+                    // props.getCountClickData(response?.data)
+
+                }
+            }
+        }
+        catch (error) {
+            // console.log('error  from add to cart api : ', error)
+        }
+        // props.onIncrement
+        // props.onDecrementPress
+
+        // setCounter(counter - 1);
+        // props.getCountValue(Number(counter - 1) || Number(0))
+
+    };
+
+
+    const Quantity = useCallback((props) => {
+        return (
+          <TouchableOpacity
+            style={[styles.buttonView, { backgroundColor: props.Image === Images.MinusIcon ? Colors.GRAYDARK : Colors.themeColor }]}
+            onPress={
+              props.onPress
+            }
+          >
+            <Image source={props.Image} style={{ height: 12, width: 12, resizeMode: 'contain' }} />
+          </TouchableOpacity>
+        );
+      }, [])
+
+
+    console.log('cartItems : ', JSON.stringify(cartItems))
 
     const renderItem = ({ item, index }) => {
         return (
             <View style={styles.mainContainer}>
                 <View style={{ flexDirection: 'row', padding: '5%', }}>
                     <View style={{ width: '20%', alignContent: 'center' }}>
-                        <Image source={item?.ManagementProduct?.images} style={{ height: hp(8), width: wp(16), resizeMode: 'contain', margin: '2%' }} />
+                        <Image source={{uri: item?.ManagementProduct?.images[0]}} style={{ height: hp(8), width: wp(16), resizeMode: 'contain', margin: '2%' }} />
                     </View>
                     <View style={{ gap: 5, width: '80%' }}>
                         <Text style={styles.itemName} >{item?.ManagementProduct?.title}</Text>
@@ -118,7 +185,7 @@ const CartItemCard = (props) => {
                         {getDeliveryInfo()}
                         {getExpressView()}
                         {/* <Text style={styles.itemDetail} >Sold by <Text style={{ color: Colors.themeColor }}>Ecom Nation</Text></Text> */}
-                        <Text style={styles.itemName} >{item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
+                        <Text style={styles.itemName} >{item?.price ? item?.price : 0}</Text>
                     </View>
                 </View>
 
@@ -129,10 +196,44 @@ const CartItemCard = (props) => {
                         // dispatch(getItemsFromCart())
                     }}
                     productId={item?.product_id}
-                    onIncrement={() => {console.log('helooo : ')}}
-                // getData={(data) => {setSigleProductPrice(data?.total_cost)}}
+                    onIncrement={(data) => {
+                        if(data?.success === true){
+                            dispatch(getItemsFromCart(1))
+                        }
+                    }}
+                    getCount={(val) => {console.log(val)}}
+                    quantity={item?.quantity}
+                    // Increment={() => {console.log('pressed')}}
+                    // getData={(data) => {setSigleProductPrice(data?.total_cost)}}
+                    // onIcrementPressed={() => {incrementCounter(item?.product_id); setCounter(counter+1)}}
+                    // onDcrementPressed={() => decrementCounter(item?.product_id)}
+                    // counter={counter}
                 />
+
+                
+
+                {/* <View style={styles.mainQtyContainer}>
+                    <Text style={styles.Text}>Qty : </Text>
+            
+                    <View style={styles.container}>
+                        <Quantity onPress={() => decrementCounter(item?.product_id)} Image={Images.MinusIcon} />
+
+                        <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={styles.counter}>{counter}</Text>
+                        </View>
+                        <Quantity onPress={() => incrementCounter(item?.product_id)} Image={Images.PlusWhiteIcon} />
+                    </View>
+
+                    <TouchableOpacity
+                        onPress={() => {
+                            dispatch(removeItemsFromCart(item?.product_id))
+                        }}
+                    >
+                        <Text style={[styles.Text, { color: Colors.themeColor }]}>REMOVE</Text>
+                    </TouchableOpacity>
+                </View> */}
             </View>
+
         );
     }
 
@@ -156,12 +257,16 @@ const CartItemCard = (props) => {
         //     />
 
         // </ScrollView>
-        <FlatList
-            data={cartItems}
-            renderItem={renderItem}
-            keyExtractor={keyExtractor}
-        // scrollEnabled={false}
-        />
+        <ScrollView>
+            <FlatList
+                data={cartItems}
+                renderItem={renderItem}
+                keyExtractor={keyExtractor}
+                scrollEnabled={false}
+            />
+            <Coupon />
+            <CartTotal totalCost={cartData?.total_cost} couponAmt={0.00}/>
+        </ScrollView>
 
     )
 }
@@ -211,4 +316,56 @@ const styles = StyleSheet.create({
         fontSize: 16,
         letterSpacing: 0.5
     },
+
+
+
+    mainQtyContainer: {
+        borderTopColor: Colors.GRAY,
+        borderBottomColor: Colors.GRAY,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        width: wp(100),
+        flexDirection: 'row',
+        // justifyContent: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        paddingVertical: '2%'
+    
+      },
+      Text: {
+        fontWeight: 700,
+        fontFamily: fonts.VisbyCF_Bold,
+        letterSpacing: 0.5
+      },
+      container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+      },
+      buttonView: {
+        height: 24,
+        width: 24,
+        borderRadius: 24 / 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      buttonContent: {
+        fontSize: 20,
+        color: Colors.WHITE,
+        fontWeight: 'bold'
+      },
+      counter: {
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
+      qtyText: {
+        fontWeight: 500,
+        fontFamily: fonts.VisbyCF_Medium
+      },
+      buttonWithCounter: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 10,
+      }
 })

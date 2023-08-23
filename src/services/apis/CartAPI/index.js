@@ -3,7 +3,8 @@ import sendRequest from "../../axios/AxiosApiRequest";
 import { showInfoToast, showErrorToast } from "../../../Components/universal/Toast";
 
 export const AddtoCartAPICall = (product_id, quantity) => {
-    console.log('check product id and qty : ', product_id, quantity)
+    // console.log('check product id and qty : ', product_id, quantity)
+    console.log('AddtoCartAPICall : ', product_id, quantity)
     return new Promise((resolve, _reject) => {
         sendRequest({
             url: CART_API,
@@ -27,6 +28,9 @@ export const AddtoCartAPICall = (product_id, quantity) => {
         catch((error) => {
             console.log('Error from Add to cart API : ', error);
             _reject(error)
+            if(error?.status == 401){
+                showErrorToast('Auth Error', '')
+            }
         })
     })
 }

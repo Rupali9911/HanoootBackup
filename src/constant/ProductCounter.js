@@ -17,11 +17,12 @@ const ProductCounter = (props) => {
         try {
             const incVal = Number(counter + 1) || Number(1);
             const response = await AddtoCartAPICall(props.productId, incVal)
-            console.log(response)
+            // console.log(response)
             if (response?.success) {
                 setCounter(counter + 1);  
                 props.getCountValue(incVal)
-                dispatch(getItemsFromCart())
+                props.onIncPressed(response)
+                // dispatch(getItemsFromCart())
                 // props.onIncrementPress
                 // props.onIncPressed(dispatch(getItemsFromCart()))
                 // props.getCountClickData(response?.data)
@@ -60,10 +61,11 @@ const ProductCounter = (props) => {
     };
 
     const updateCounter =(isAdd)=>{
-        props.onIncrementPress
+        // props.onIncrementPress
         if(isAdd){
             console.log('isADD', isAdd)
             incrementCounter()
+            // props.onIncrementPress
         }else{
             decrementCounter()
         }
@@ -89,7 +91,7 @@ const ProductCounter = (props) => {
             <Quantity onPress={() => updateCounter(false)} Image={Images.MinusIcon} />
 
             <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={styles.counter}>{counter}</Text>
+                <Text style={styles.counter}>{props.noOfQty ? props.noOfQty : counter}</Text>
             </View>
             <Quantity onPress={() => updateCounter(true)} Image={Images.PlusWhiteIcon} />
         </View>

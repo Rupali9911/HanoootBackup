@@ -57,7 +57,7 @@ export const addItemsToCart = (product_id, qty) => {
     return async dispatch => {
       await AddtoCartAPICall(product_id, qty).
         then((response) => {
-          dispatch(changeCartButtonLabel('View Cart'))
+          // dispatch(changeCartButtonLabel('View Cart'))
           console.log('Response Checked : ', response)
         }).
         catch((err) => { console.log('Error Checked : ', err) })
@@ -101,8 +101,8 @@ export const removeItemsFromCart = (product_id) => {
         if(response?.success === true){
             // dispatch(setAddressDetails(response?.data))
 
-            // await dispatch(getItemsFromCart())
-            dispatch(removeCartItem(product_id))
+            await dispatch(getItemsFromCart(1))
+            // dispatch(removeCartItem(product_id))
 
             // showInfoToast('REMOVE', response?.message)
             

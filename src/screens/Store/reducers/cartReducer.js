@@ -29,7 +29,8 @@ const cartReducer = (state = initialState, action) => {
             console.log('Check action DATA : ', action.payload.CartProducts, state.cartItems)
             return {
                 ...state,
-                cartItems: [...state.cartItems, ...action.payload.CartProducts],
+                // cartItems: [...state.cartItems, ...action.payload.CartProducts],
+                cartItems: action.payload.CartProducts,
                 cartData: action.payload,
                 cartTotalCount: action.payload.CartProducts?.length,
                 isCartDataLoading: false,

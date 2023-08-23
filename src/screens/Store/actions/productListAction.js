@@ -109,7 +109,7 @@ export const getProductDetail = (id) => {
                         }
                     }
                 }).
-                catch((err) => { console.log('error from product list api ', err) })
+                catch((err) => { productListFail(err) })
         }
     }
     catch (err) {

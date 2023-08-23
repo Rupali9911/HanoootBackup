@@ -15,8 +15,8 @@ const CartItemQuantity = (props) => {
         getCountValue={(val) => props.getCount(val)}
         productId={props.productId}
         onIncPressed={(val) => props.onIncrement(val)}
-        onIncrementPress={props.onIncrement}
-      // getCountClickData={data => props.getData(data)}
+        noOfQty={props.quantity}
+      
       />
       <TouchableOpacity
         onPress={props.onRemovePress}
