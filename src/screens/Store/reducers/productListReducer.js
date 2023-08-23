@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_DETAIL_DATA_SUCCESS } from "../types";
+import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET } from "../types";
 
 const initialState = {
     isListLoading: false,
@@ -10,11 +10,15 @@ const initialState = {
     //================Product Detall APIs==============
 
     isDetailPageLoad: false,
-    productDetail: {}
+    productDetail: {},
+
+
+    productFilterByCategory: []
 
 }
 
 const productListReducer = (state = initialState, action) => {
+    // console.log('action.payload : ', action.payload)
     switch (action.type) {
         case PRODUCT_LIST_LOADING:
             return { ...state, isListLoading: true };
@@ -48,8 +52,15 @@ const productListReducer = (state = initialState, action) => {
                 productDetail: action.payload,
                 isDetailPageLoad: false,
             };
+            case PRODUCT_DETAIL_DATA_RESET:
+                return state = { ...state, productDetail: {} };
 
-
+        case PRODUCT_FILTER_BY_CATEGORY_SUCCESS:
+            return {
+                ...state,
+                productFilterByCategory: action.payload,
+                // isDetailPageLoad: false,
+            };
 
         default:
             return state;

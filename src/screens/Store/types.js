@@ -1,8 +1,18 @@
 //====================CART=====================
 export const ADD_PLACE = 'ADD_PLACE';
+
+
+
+export const CART_ITEM_LOADING = 'CART_ITEM_LOADING';
 export const ADD_TO_CART = 'ADD_TO_CART';
+export const CART_ITEM_FAIL = 'CART_ITEM_FAIL';
+export const CART_ITEM_RESET = 'CART_ITEM_RESET';
+export const CART_ITEM_PAGE_CHANGE = 'CART_ITEM_PAGE_CHANGE';
+
+
+
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
-export const CART_LABEL = 'CART_LABEL';
+export const CART_BUTTON_LABEL = 'CART_BUTTON_LABEL';
 
 //====================Address=====================
 
@@ -35,6 +45,16 @@ export const PRODUCT_LIST_PAGE_CHANGE = 'PRODUCT_LIST_PAGE_CHANGE';
 
 export const PRODUCT_DETAIL_DATA_LOADING = 'PRODUCT_DETAIL_DATA_LOADING';
 export const PRODUCT_DETAIL_DATA_SUCCESS = 'PRODUCT_DETAIL_DATA_SUCCESS';
+export const PRODUCT_DETAIL_DATA_RESET = 'PRODUCT_DETAIL_DATA_RESET';
+
+
+
+
+
+export const PRODUCT_FILTER_BY_CATEGORY_SUCCESS = 'PRODUCT_FILTER_BY_CATEGORY_SUCCESS';
+
+
+
 
 
 //====================USER REDUCER=====================

@@ -44,8 +44,8 @@ const Location = (props) => {
 
   const goBack = () => {
     const data = {
-      latitude: getInitialState?.region?.latitude?.toString(),
-      longitude: getInitialState?.region?.longitude?.toString(),
+      latitude: getInitialState?.region?.latitude,
+      longitude: getInitialState?.region?.longitude,
       address: address
     }
     navigation.goBack();
@@ -75,13 +75,21 @@ const Location = (props) => {
         );
       }
     } else {
+      // const status = await requestMultiple([
+      //   PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION,
+      //   PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
+      // ])
+
+
       const status = await requestMultiple([
         PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
-
-      ])
+      ]);
+      await requestMultiple([
+        PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION
+      ]);
       console.log('checked status : ', status)
 
-      if (status[PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION] === RESULTS.GRANTED) {
+      if (status[PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION] === RESULTS.GRANTED || status[PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION] === RESULTS.GRANTED) {
         getLocation()
         return true;
       }
@@ -117,7 +125,14 @@ const Location = (props) => {
         // setLocation(position);
         console.log(position);
 
-        setGetInitialState({ region: { latitude: position?.coords.latitude, longitude: position?.coords.longitude } })
+        setGetInitialState({
+          region: {
+            latitude: position?.coords.latitude,
+            longitude: position?.coords.longitude,
+            latitudeDelta: 0.0022,
+            longitudeDelta: 0.0022
+          }
+        })
         getAddressFromCoordinates(position?.coords.latitude, position?.coords.longitude)
       },
       error => {
@@ -135,7 +150,7 @@ const Location = (props) => {
         maximumAge: 10000,
         distanceFilter: 0,
         forceRequestLocation: true,
-        forceLocationManager: useLocationManager,
+        // forceLocationManager: useLocationManager,
         showLocationDialog: true,
       },
     );
@@ -175,10 +190,10 @@ const Location = (props) => {
   // console.log('get : ', getInitialState)
 
   const onMapPress = (event) => {
-    if (event?.nativeEvent?.coordinate) {
-      setGetInitialState({ region: { latitude: event?.nativeEvent.coordinate.latitude, longitude: event?.nativeEvent.coordinate.longitude } })
-      getAddressFromCoordinates(event?.nativeEvent.coordinate.latitude, event?.nativeEvent.coordinate.longitude)
-    }
+    // if (event?.nativeEvent?.coordinate) {
+    //   setGetInitialState({ region: { latitude: event?.nativeEvent.coordinate.latitude, longitude: event?.nativeEvent.coordinate.longitude } })
+    //   getAddressFromCoordinates(event?.nativeEvent.coordinate.latitude, event?.nativeEvent.coordinate.longitude)
+    // }
   }
 
   return (
@@ -191,12 +206,7 @@ const Location = (props) => {
         <MapView
           style={styles.mapStyle}
           provider={PROVIDER_GOOGLE}
-          // initialRegion={{
-          //   latitude: 37.78825,
-          //   longitude: -122.4324,
-          //   latitudeDelta: 0.0922,
-          //   longitudeDelta: 0.0421,
-          // }}
+          // initialRegion={getInitialState.region}
           region={getInitialState.region}
           onRegionChange={onRegionChange}
           onRegionChangeComplete={(region, details) => onRegionChangeComplete(region, details)}

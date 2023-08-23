@@ -143,27 +143,49 @@ export default function HomeScreen() {
 
    const renderProductList = ({ item, index }) => {
       return (
+      //    <ListView
+      //       item={item}
+      //       isExpress
+      //       isLike
+      //       TotalPrice
+      //       DisCountPrice
+      //       isDiscountPercent
+      //       isRating
+      //    />
+
+
+
          <ListView
-            item={item}
-            isExpress
-            isLike
-            TotalPrice
-            DisCountPrice
-            isDiscountPercent
-            isRating
-         />
+         // item={item}
+         centerImage={'https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YW5kcm9pZCUyMHBob25lfGVufDB8fDB8fHww&w=1000&q=80'}
+         productName={'Apple iPhone 11 Pro Max'}
+         price={'5,000.0'}
+         // discount={item?.ManagementProductPricing.hanooot_discount}
+         averageRating={'4.3'}
+         noOfReview={'12'}
+         detailId={1}
+         // categoryId={item?.category_id}
+         isExpress
+         
+     />
       );
    }
 
    const renderWeekDealList = ({ item, index }) => {
       return (
          <ListView
-            item={item}
-            isLike
-            isPriceButton
-            DisCountPrice
-            PriceInGreen
-         />
+         // item={item}
+         centerImage={'https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YW5kcm9pZCUyMHBob25lfGVufDB8fDB8fHww&w=1000&q=80'}
+         productName={'Apple iPhone 11 Pro Max'}
+         price={'5,000.0'}
+         // discount={item?.ManagementProductPricing.hanooot_discount}
+         averageRating={'4.3'}
+         noOfReview={'12'}
+         detailId={1}
+         // categoryId={item?.category_id}
+         isExpress
+         
+     />
       );
    }
 

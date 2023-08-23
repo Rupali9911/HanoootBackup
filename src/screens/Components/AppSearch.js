@@ -200,6 +200,9 @@ import Colors from '../../constant/Colors';
 import Fonts from '../../constant/fonts';
 import { hp, wp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
+import SVGS from '../../constant/Svgs';
+
+const {SearchGrayIcon} = SVGS;
 
 
 const AppSearch = (props) => {
@@ -288,7 +291,7 @@ const AppSearch = (props) => {
 
   const keyExtractor = (item, index) => {
     return index;
-};
+  };
   return (
     // <View>
     //   {/* <View style={styles.searchSection}> */}
@@ -329,30 +332,36 @@ const AppSearch = (props) => {
     <View>
       <View
         style={{
-          paddingHorizontal: 12,
-          paddingVertical: 10,
+          // paddingHorizontal: 12,
+          // paddingVertical: 10,
           borderRadius: 12,
           borderWidth: 1,
           borderColor: Colors.GRAY,
           backgroundColor: Colors.GRAYRGBA,
           // flex: 1,
           flexDirection: 'row',
+          // justifyContent: 'center',
+          alignItems: 'center',
           // marginHorizontal: '5%',
           // width: wp('90%'),
-          marginHorizontal: wp('3%')
+          marginHorizontal: wp('3%'),
+          paddingHorizontal: wp('2%'),
+          height: hp(4.93)
         }}>
-        <Image source={Images.searchIcon} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+        {/* <Image source={Images.searchIcon} style={{ height: 20, width: 20, resizeMode: 'contain' }} /> */}
+        <SearchGrayIcon />
         <TextInput
           placeholder={props.placeholderText}
-          onChangeText={(text) => 
-            { setSearch(text);
+          onChangeText={(text) => {
+            setSearch(text);
             // props.onChangeText(true);
-            text ? props.onChangeText(true) :  props.onChangeText(false) 
+            text ? props.onChangeText(true) : props.onChangeText(false)
             // props.onChangeText(false);
-           }}
+          }}
           value={search}
           placeholderTextColor={Colors.GRAYDARK}
-          style={{ left: 10 }}
+
+          style={{ left: 10, alignSelf: 'center',  height: '100%', color: Colors.BLACK}}
         />
 
 

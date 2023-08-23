@@ -6,6 +6,9 @@ import Colors from '../../constant/Colors';
 import { useNavigation } from '@react-navigation/native';
 import fonts from '../../constant/fonts';
 import { hp, wp } from '../../constant/responsiveFunc';
+import SVGS from '../../constant/Svgs';
+
+const { HeartIconBlack, CartIcon, SearchIcon } = SVGS;
 
 
 export default function AppHeader(props) {
@@ -15,14 +18,17 @@ export default function AppHeader(props) {
 
   const RightSideIcon = (props) => {
     return (
-      <TouchableOpacity
-        style={[
-          styles.backContainer,
-          { alignItems: 'flex-end', paddingLeft: 0, paddingRight: wp('3%') },
-        ]}
-        onPress={props.onPress}>
-        <Image source={props.image} style={styles.rightIcon} />
-      </TouchableOpacity>
+      <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
+        <TouchableOpacity
+          style={[
+            styles.backContainer,
+            // { alignItems: 'flex-end', paddingLeft: 0, paddingRight: wp('3%') },
+          ]}
+          onPress={props.onPress}>
+          {props.children}
+          {/* <Image source={props.image} style={styles.rightIcon} /> */}
+        </TouchableOpacity>
+      </View>
     );
   }
 
@@ -69,7 +75,7 @@ export default function AppHeader(props) {
                   styles.title,
                   {
                     // paddingLeft: 10,
-                    left: props.showBackButton ? -10 : 10
+                    // left: props.showBackButton ? -10 : 10
                   },
                   props.titleStyle,
                 ]}>
@@ -88,25 +94,34 @@ export default function AppHeader(props) {
           {
             props.showLikeIcon &&
             <RightSideIcon
-              onPress={props.onLikePress}
-              image={Images.Wishlist}
-            />
+              // onPress={props.onLikePress}
+              onPress={() => navigation.navigate('WishlistScreen')}
+            // image={Images.Wishlist}
+
+            >
+              <HeartIconBlack />
+            </RightSideIcon>
+
           }
 
           {
             props.showSearchIcon &&
             <RightSideIcon
               onPress={props.onSearchPress}
-              image={Images.searchIcon}
-            />
+              // image={Images.searchIcon}
+            >
+              <SearchIcon />
+            </RightSideIcon>
           }
 
           {
             props.showCartIcon &&
             <RightSideIcon
               onPress={props.onCartPress}
-              image={Images.cart}
-            />
+              // image={Images.cart}
+            >
+              <CartIcon />
+              </RightSideIcon>
           }
         </View>
 
@@ -177,7 +192,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.WHITE,
     borderBottomColor: Colors.GRAY,
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    justifyContent: 'center'
   },
   titleContainer: {
     alignItems: 'center',
@@ -193,8 +209,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: wp('10%'),
+    height: '100%',
+
     // zIndex: 1,
-    // backgroundColor: 'red'
+    // backgroundColor: 'green'
 
   },
   backIcon: {
@@ -225,6 +243,7 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    // backgroundColor: 'blue'
     // width: '100%',
 
   }

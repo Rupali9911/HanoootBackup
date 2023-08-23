@@ -3,7 +3,7 @@ import sendRequest from "../../axios/AxiosApiRequest";
 
 
 export const ProductListAPICall = (pageNumber, category_id, limit) => {
-    console.log('check data : ', pageNumber, category_id, limit)
+    // console.log('check data : ', pageNumber, category_id, limit)
     return new Promise((resolve, _reject) => {
         sendRequest({
             url: PRODUCT_API,
@@ -27,16 +27,11 @@ export const ProductListAPICall = (pageNumber, category_id, limit) => {
 
 
 export const ProductDetailAPICall = (id) => {
-    // console.log('check data : ', pageNumber, category_id, limit)
+    console.log('check data : ', id)
     return new Promise((resolve, _reject) => {
         sendRequest({
             url: `${PRODUCT_API}/detail/${id}` ,
             method: 'GET',
-            // params: {
-            //     pageNumber: pageNumber,
-            //     limit: limit,
-            //     category_id: category_id
-            // }
         }).
         then((response) => {
             console.log('Response from product detail API : ', response);
@@ -44,6 +39,27 @@ export const ProductDetailAPICall = (id) => {
         }).
         catch((error) => {
             console.log('Error from product detail API : ', error);
+            _reject(error)
+        })
+    })
+}
+
+
+export const ProductFilterAPICall = (category_id) => {
+    return new Promise((resolve, _reject) => {
+        sendRequest({
+            url: `${PRODUCT_API}/filter`,
+            method: 'GET',
+            params: {
+                category_id: category_id
+            }
+        }).
+        then((response) => {
+            console.log('Response from product Filter API : ', response);
+            resolve(response);
+        }).
+        catch((error) => {
+            console.log('Error from product Filter API : ', error);
             _reject(error)
         })
     })

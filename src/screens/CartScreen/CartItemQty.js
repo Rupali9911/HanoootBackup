@@ -11,9 +11,15 @@ const CartItemQuantity = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.Text}>Qty : </Text>
-      <ProductCounter />
-      <TouchableOpacity 
-      onPress={props.onRemove}
+      <ProductCounter
+        getCountValue={(val) => props.getCount(val)}
+        productId={props.productId}
+        onIncPressed={(val) => props.onIncrement(val)}
+        noOfQty={props.quantity}
+      
+      />
+      <TouchableOpacity
+        onPress={props.onRemovePress}
       >
         <Text style={[styles.Text, { color: Colors.themeColor }]}>REMOVE</Text>
       </TouchableOpacity>

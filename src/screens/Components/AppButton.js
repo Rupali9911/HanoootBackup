@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { hp, RF } from '../../constant/responsiveFunc'
 import ButtonInputContainer from './ButtonInputContainer'
@@ -20,10 +20,14 @@ const AppButton = (props) => {
             ]}
             disabled={props.disabled}
         >
-            {
-                props.leftSideImg ? <Image source={props.ImgURI} style={{ height: 15, width: 15, resizeMode: 'contain', right: 10 }} /> : null
-            }
-            <Text style={[styles.label, props.labelStyle, props.isEmptyBG && styles.isEmptyBtnText]}>{props.label}</Text>
+            <View style={styles.labelContainer}>
+                {props.leftSideImg ? <Image source={props.ImgURI} style={{ height: 15, width: 15, resizeMode: 'contain', right: 10 }} /> : null}
+                {props.isIndicatorLoading ? <ActivityIndicator style={styles.indicator} size="small" color={Colors.WHITE} /> : null}
+                <Text style={[styles.label, props.labelStyle, props.isEmptyBG && styles.isEmptyBtnText]}>
+                    {props.label}
+                </Text>
+            </View>
+
         </ButtonInputContainer>
     )
 }
@@ -41,7 +45,8 @@ const styles = StyleSheet.create({
         color: Colors.WHITE,
         fontSize: RF(1.8),
         letterSpacing: 0.5,
-        lineHeight: 21
+        lineHeight: 21,
+        
     },
     inActive: {
         opacity: 0.4,
@@ -61,5 +66,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: Colors.WHITE,
         paddingVertical: '2%'
-    }
+    },
+    indicator: {
+        position: 'absolute',
+        right: 100,
+        // backgroundColor: 'green'
+        
+
+        // left: 10,
+        // justifyContent: 'center',
+        // alignItems: 'center'
+    },
+    labelContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        // backgroundColor: 'red',
+        justifyContent: 'space-between'
+        // width: '100%'
+    },
 })

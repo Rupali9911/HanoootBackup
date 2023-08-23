@@ -36,6 +36,7 @@ const toastConfig = {
 };
 
 export const showInfoToast = (imageType, message1, message2) => {
+    console.log('Toast Message Called')
     Toast.show({
         type: 'info',
         props: {

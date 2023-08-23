@@ -12,7 +12,7 @@ const ProductSpecification = (props) => {
 
 
   useEffect(() => {
-    const data = " 6.7inch Super Retina XDR display with AlwaysOn and ProMotion Dynamic Island technology|48MP Main camera for stunning resolution and 4x zoom|Cinematic mode for 4K Dolby Vision up to 30fps|Action mode for smooth, steady, handheld videos ";
+    const data = props?.data;
     const spec = data?.split('|')
     setSpecifications(spec)
     // console.log('this are specifications : ', specifications.split('|'));
@@ -83,16 +83,16 @@ const ProductSpecification = (props) => {
           <>
             <ProductHeader TitleStyle={{ fontSize: 18 }} title={'Specification & Highlight'} />
 
-            <View style={{ marginHorizontal: '5%' }}>
+            <View style={{ paddingHorizontal: '5%' }}>
               <FlatList
                 data={specifications}
                 renderItem={({ item, index }) => {
                   return (
-                    <View style={{ flexDirection: 'row', gap: 2 }}>
+                    <View style={{ flexDirection: 'row', gap: 5}}>
                       <Text style={styles.items}>{`\u25CF`}</Text>
                       <Text style={styles.items}>{`${item.trim()}`}</Text>
                     </View>
-                  );
+                  ); 
                 }}
                 keyExtractor={keyExtractor}
               />

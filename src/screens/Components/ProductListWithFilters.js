@@ -15,13 +15,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import Loader from '../../constant/Loader'
 import fonts from '../../constant/fonts'
 import { capitalizeFirstLetter } from '../utils'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
+
 
 const ProductListWithFilters = (props) => {
     const DATA = props?.route?.params;
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+
 
     const { isListLoading, productList, productListPage, productTotalCount } = useSelector(state => state.productListReducer);
 
@@ -32,7 +35,7 @@ const ProductListWithFilters = (props) => {
         dispatch(productListReset())
         getProductListData(1);
         dispatch(productListPageChange(1));
-    }, []);
+    }, [isFocused]);
 
     const getProductListData = useCallback(page => {
         dispatch(getProductList(page, DATA?.category_id));
@@ -42,11 +45,10 @@ const ProductListWithFilters = (props) => {
 
 
     const renderItem = ({ item, index }) => {
-        // console.log('reder item : ', item?.product_details_id)
         return (
             <ListView
                 item={item}
-                centerImage={item?.product_image}
+                centerImage={item?.images}
                 productName={item?.title}
                 price={item?.ManagementProductPricing?.hanooot_price}
                 // discount={item?.ManagementProductPricing.hanooot_discount}
@@ -55,7 +57,8 @@ const ProductListWithFilters = (props) => {
                 detailId={item?.product_details_id}
                 // categoryId={item?.category_id}
                 isExpress
-                isLike
+                showLike
+                isItemLiked={item?.isLike}
                 ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), }}
             />
         );

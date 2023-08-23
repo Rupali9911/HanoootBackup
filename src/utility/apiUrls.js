@@ -1,8 +1,9 @@
+import { Platform } from 'react-native';
 import { API_BASE_URL } from './constants.js';
 
 //Other Configs
 const GOOGLE_CLIENT_ID = '154905673298-1ojcgdc10gsfbat0l7d3aqivo0kd8lk0.apps.googleusercontent.com';
-const GOOGLE_API_KEY = 'AIzaSyBrzXVff2NFocJdPwtn3fLyTR8vLkZpJQE';
+const GOOGLE_API_KEY = Platform.OS === 'ios' ? 'AIzaSyBrzXVff2NFocJdPwtn3fLyTR8vLkZpJQE' : 'AIzaSyDgYEhFKOXi6VpeYxb6QVNyPmfzWh0_ZZI';
 
 
 //APIs
@@ -23,6 +24,10 @@ const FETCH_ADDRESS_DETAIL = `${API_BASE_URL}/api/v1/address`
 const UPDATE_ADDRESS_DETAIL = `${API_BASE_URL}/api/v1/address/update`
 const DELETE_ADDRESS_DETAIL = `${API_BASE_URL}/api/v1/address`
 
+const CART_API = `${API_BASE_URL}/api/v1/cart`
+
+// https://api.hanooot.com/api/v1/cart
+
 // https://api.hanooot.com/api/v1/address/update
 
 export {
@@ -39,5 +44,6 @@ export {
     DELETE_ADDRESS_DETAIL,
     WISHLIST_API,
     GOOGLE_API_KEY,
-    UPDATE_PASSWORD
+    UPDATE_PASSWORD,
+    CART_API
 };

@@ -13,39 +13,18 @@ const ProductSpecCard = (props) => {
     const { data } = props;
     const navigation = useNavigation();
 
-    // const rows = [
-    //     ['Brand', 'Apple'],
-    //     ['Modal Name', 'm344tkdf'],
-    //     ['Wireless Career', 'Unlock for all career'],
-    //     ['Operating System', 'IOS 16'],
-    //     ['Cellular Technology', '5G'],
-    // ];
-
-    // const res = [];
-    // const dataa = { "Model name": "Apple AirPods (3rd\xa0generation)", "Form factor": "In Ear", "Connectivity technology": "Wireless" }
-    // // console.log('data : ', dataa)
-
-    // const mappedObj = Object.keys(dataa).map((key) => {
-    //     return {
-    //         [key]: dataa[key]
-    //     };
-    // });
-    // res.push(dataa)
-    // console.log('jsonString : ', mappedObj)
     const renderdata = () => {
-        // '{"Model name":"MMTN2ZM/A","Form factor":"In Ear","Connectivity technology":"Wired"}'
-        // const tableData = JSON.parse(data?.ManagementOtherField?.others);
-        const tableData = JSON.parse('{"Model name":"MMTN2ZM/A","Form factor":"In Ear","Connectivity technology":"Wired"}');
-        // console.log('Table Data : ', tableData, typeof (tableData))
-        // const b = JSON.parse(tableData)
-        // console.log('check table data : ', typeof(tableData), typeof(b), tableData)
+        const str = data?.ManagementOtherField?.others;
+        let formatedString = str.replace(/"/g, "'").replace(/'/g, '"');
+        const tableData = JSON.parse(formatedString);
+
         return (
             tableData &&
             Object.keys(tableData).map((key) => {
                 return (
                     <DataTable.Row key={key}>
                         <DataTable.Cell style={{ justifyContent: 'flex-start', }}><Text style={[styles.tableRowData, { color: Colors.GRAYDARK }]}>{[key]}</Text></DataTable.Cell>
-                        <DataTable.Cell numeric style={{ justifyContent: 'flex-start' }}><Text style={styles.tableRowData}>{tableData[key]}</Text></DataTable.Cell>
+                        <DataTable.Cell numeric style={{ justifyContent: 'flex-start' }}><Text style={styles.tableRowData} numberOfLines={2}>{tableData[key]}</Text></DataTable.Cell>
                     </DataTable.Row>
                 );
             })
@@ -53,15 +32,6 @@ const ProductSpecCard = (props) => {
     }
 
     const ProductInfo = () => {
-        // const tableData = data?.ManagementOtherField?.others;
-
-        // if(tableData){
-        //    const a = JSON.parse(tableData)
-        //    console.log('a : ', a)
-
-        // }
-        // const rows = tableData && JSON.parse(tableData);
-        // console.log('this is tabel data : ', tableData)
         return (
             <>
                 <View style={styles.BorderView}>
@@ -72,29 +42,7 @@ const ProductSpecCard = (props) => {
                     </View>
                     <View style={styles.Separator} />
                     <DataTable>
-                        {renderdata()
-                        }
-
-                        {
-                            // mappedObj.map((items, index) => {
-                            //     return (
-                            //         <DataTable.Row key={`_${index}`}>
-                            //             <DataTable.Cell style={{ justifyContent: 'flex-start', }}><Text style={[styles.tableRowData, { color: Colors.GRAYDARK }]}>{index}</Text></DataTable.Cell>
-                            //             <DataTable.Cell numeric style={{ justifyContent: 'flex-start' }}><Text style={styles.tableRowData}>{items[index]}</Text></DataTable.Cell>
-                            //         </DataTable.Row>
-                            //     );
-                            // })
-
-                            // rows && Object.keys(rows).map((key) => {
-                            //     return (
-                            //         <DataTable.Row key={key}>
-                            //             <DataTable.Cell style={{ justifyContent: 'flex-start', }}><Text style={[styles.tableRowData, { color: Colors.GRAYDARK }]}>{[key]}</Text></DataTable.Cell>
-                            //             <DataTable.Cell numeric style={{ justifyContent: 'flex-start' }}><Text style={styles.tableRowData}>{rows[key]}</Text></DataTable.Cell>
-                            //         </DataTable.Row>
-                            //     );
-                            // })
-                        }
-
+                        {renderdata()}
                     </DataTable>
                 </View>
             </>

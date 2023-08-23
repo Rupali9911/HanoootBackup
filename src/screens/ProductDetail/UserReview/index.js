@@ -32,6 +32,7 @@ const UserReview = (props) => {
                     reviewText={data?.number_of_reviews}
                      />
                 </View>
+                <Separator />
 {/*                
                 <ListReview List={ReviewList.slice(0, 5)} />
 

@@ -171,8 +171,7 @@ const Category = () => {
 
     const renderCategoryCollectionList = () => {
         return (
-            <AppBackground>
-                <AppHeader placeholderText={'What are you looking for?'} />
+            
                 <View style={styles.container}>
                     <View style={styles.categoryContainer}>
                         <ListView
@@ -208,17 +207,20 @@ const Category = () => {
                             null
                     }
                 </View>
-            </AppBackground>
+            
         );
     }
 
     return (
-        isCatgListLoading && categoryPageNum === 1 ?
-            (<Loader />) :
-            categoryList?.rows?.length > 0 ?
-                renderCategoryCollectionList()
-                :
-                null
+        <AppBackground>
+            <AppHeader placeholderText={'What are you looking for?'} />
+            {isCatgListLoading && categoryPageNum === 1 ?
+                (<Loader />) :
+                categoryList?.rows?.length > 0 ?
+                    renderCategoryCollectionList()
+                    :
+                    null}
+        </AppBackground>
     )
 }
 

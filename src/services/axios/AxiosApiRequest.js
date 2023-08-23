@@ -17,7 +17,7 @@ async function sendRequest(payload) {
           : payload.headers
         : {
           ...payload.headers,
-          Authorization: token, 
+          Authorization: token,
         }
       : token
         ? {
@@ -91,8 +91,11 @@ axiosInstance.interceptors.response.use(
       } else if (response?.status === 502) {
       } else if (response?.status === 400) {
       }
+      // console.log('response from Send Request', response)
+
       return Promise.reject(response);
     } catch (error) {
+      // console.log('Error from Send Request', error)
       return Promise.reject(error);
     }
   },

@@ -4,6 +4,7 @@ import {
     Image,
     Dimensions,
     FlatList,
+    ActivityIndicator,
 } from 'react-native'
 import React, { useState, useRef, useEffect } from 'react'
 import AppBackground from '../Components/AppBackground';
@@ -32,164 +33,45 @@ import fonts from '../../constant/fonts';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, setCartLabel } from '../Store/actions/cartAction';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
-import { getProductDetail } from '../Store/actions/productListAction';
+import { getProductDetail, productDetailReset, productDetailLoading } from '../Store/actions/productListAction';
 import Loader from '../../constant/Loader';
 import ListView from '../../Components/ListView';
 import ProductDescription from './ProductDescription';
-
-
+import { capitalizeFirstLetter } from '../utils';
+import { changeCartButtonLabel } from '../Store/actions/cartAction';
+import { AddtoCartAPICall } from '../../services/apis/CartAPI';
+import { showErrorToast, showInfoToast } from '../../Components/universal/Toast';
+import { getItemsFromCart } from '../Store/actions/cartAction';
+import { useIsFocused } from '@react-navigation/native';
 
 const ProductDetail = (props) => {
     const product_detail_Id = props?.route?.params?.id;
-    const { isDetailPageLoad, productDetail } = useSelector(state => state.productListReducer);
-    const [totalCartPrice, setTotalCartPrice] = useState({
+    const { isDetailPageLoad, productDetail, productFilterByCategory } = useSelector(state => state.productListReducer);
+    const { cartButtonLabel, cartItems } = useSelector(state => state.cartReducer);
+    const [totalCartItemDetail, setTotalCartItemDetail] = useState({
         totalPrice: 0,
-        noOfProducts: ''
+        noOfProducts: []
     });
+    const [productQty, setProductQty] = useState(Number(1));
+    const [isAddedToBag, setAddedToBag] = useState(false);
+    const [buttonLabel, setButtonLabel] = useState('Add to Cart');
+    const [isProductChecked, setProductChecked] = useState([])
+    const userData = useSelector((state) => state.userReducer.userData);
+
+
+
 
 
 
     const dispatch = useDispatch();
-    // const { route } = props;
-    // const { item } = route.params;
-    // const dispatch = useDispatch();
-    // const navigation = useNavigation();
-    // const { cartLabel, cartItems } = useSelector(state => state.cartReducer);
-
-    // const [scrollBtn, setScrollBtn] = useState(false);
-    // const [lastContentOffset, setLastContentOffset] = useState(Dimensions.get('window').height)
-    // const [specifications, setSpecifications] = useState({
-    //     version: 'Physical Dual Sim Version',
-    //     memory: '128GB',
-    //     color: 'Dual Purple'
-    // });
+    const isFocused = useIsFocused();
+    const navigation = useNavigation();
 
     useEffect(() => {
+        dispatch(productDetailReset())
+        dispatch(productDetailLoading())
         dispatch(getProductDetail(product_detail_Id))
-        // ProductDetailAPICall() 
-    }, [])
-
-
-    const product_images = [
-        "https://m.media-amazon.com/images/G/39/img15/MarchEye/premiumaplus/AEEN_iPhone14_Pro_5G_Q223_AMZ_Marketing_Pages_L_01_2x._CB595199550_.jpg",
-        "https://m.media-amazon.com/images/G/39/img15/MarchEye/premiumaplus/AEEN_iPhone14_Pro_5G_Q223_AMZ_Marketing_Pages_L_02_2x._CB595199550_.jpg",
-        "https://m.media-amazon.com/images/G/39/img15/MarchEye/premiumaplus/AEEN_iPhone14_Pro_5G_Q223_AMZ_Marketing_Pages_L_03_2x._CB595199550_.jpg"
-    ]
-
-
-
-
-    // useEffect(() => {
-    //     if (cartItems && cartItems.includes(item)) {
-    //         dispatch(setCartLabel('View Cart'))
-    //     }
-    //     else {
-    //         dispatch(setCartLabel('Add to Cart'))
-    //     }
-    // }, [])
-
-
-
-
-    // const AddToCart = (obj) => {
-    //     // obj.specifications = specifications;
-    //     dispatch(addToCart(obj));
-    // }
-
-
-    // const updateButtonText = () => {
-    //     dispatch(setCartLabel('View Cart'));
-    // }
-
-    // // const toastConfig = {
-    // //     info: ({ text1, text2 }) => (
-    // //         <View style={styles.toastMsgContainer}>
-    // //             <Image source={Images.ToastSuccess} style={{ height: 20, width: 20 }} />
-    // //             <View>
-    // //                 <Text
-    // //                     style={styles.toastMsgText}
-    // //                 >{text1}</Text>
-    // //                 <Text style={styles.toastMsgText}>{text2}</Text>
-    // //             </View>
-    // //         </View>
-    // //     )
-    // // };
-
-    // const toastConfig = {
-    //     /*
-    //       Overwrite 'success' type,
-    //       by modifying the existing `BaseToast` component
-    //     */
-    //     success: (props) => (
-    //         <BaseToast
-    //             {...props}
-    //             style={{ borderLeftColor: 'pink' }}
-    //             contentContainerStyle={{ paddingHorizontal: 15 }}
-    //             text1Style={{
-    //                 fontSize: 15,
-    //                 fontWeight: '400'
-    //             }}
-    //         />
-    //     ),
-    //     /*
-    //       Overwrite 'error' type,
-    //       by modifying the existing `ErrorToast` component
-    //     */
-    //     error: (props) => (
-    //         <ErrorToast
-    //             {...props}
-    //             text1Style={{
-    //                 fontSize: 17
-    //             }}
-    //             text2Style={{
-    //                 fontSize: 15
-    //             }}
-    //         />
-    //     ),
-    //     /*
-    //       Or create a completely new type - `tomatoToast`,
-    //       building the layout from scratch.
-
-    //       I can consume any custom `props` I want.
-    //       They will be passed when calling the `show` method (see below)
-    //     */
-    //     info: ({ text1, props }) => (
-    //         //   <View style={{ height: 60, width: '100%', backgroundColor: 'tomato' }}>
-    //         //     <Text>{text1}</Text>
-    //         //     <Text>{props.uuid}</Text>
-    //         //   </View>
-
-    //         <View style={styles.toastMsgContainer}>
-    //             <Image source={props.image} style={{ height: 20, width: 20 }} />
-    //             <View>
-    //                 <Text
-    //                     style={styles.toastMsgText}
-    //                 >{props.msg1}</Text>
-    //                 <Text style={styles.toastMsgText}>{props.msg2}</Text>
-    //             </View>
-    //         </View>
-    //     )
-    // };
-
-    // const showToast = (message) => {
-    //     // Toast.show({
-    //     //     type: 'info',
-    //     //     text1: message,
-    //     //     text2: message2
-
-    //     // });
-    //     Toast.show({
-    //         type: 'info',
-
-    //         // And I can pass any custom props I want
-    //         props: {
-    //             image: Images.ToastSuccess,
-    //             msg1: message,
-    //             msg2: 'Add to cart'
-    //         }
-    //     });
-    // }
-
+    }, [isFocused])
 
 
     // const onScroll = event => {
@@ -212,220 +94,232 @@ const ProductDetail = (props) => {
 
     // };
 
-
-    // const getSpacification = (value, type) => {
-    //     const newSpecifications = { ...specifications, [type]: value };
-    //     setSpecifications(newSpecifications);
-    // }
-
-
     const renderProductImages = () => {
         const images = productDetail?.ManagementProductDetail?.product_images;
-        // console.log('check iamges : ', images, images.length )
-        // if(images.length > 0){
-        //     console.log('inside if')
-        //     images.map((key, index) => {
-        //         console.log("key", key)
-        //         return ( <Text>{'klsdf'}</Text>)
-        //     })
-        // }
         return (
-            <View>
+            <View style={{ marginVertical: '2%' }}>
                 {
-                    images.length > 0 
-                    ?
-                     images.slice(0, 3).map((key, index) => {
+                    images.slice(0, 3).map((key, index) => {
                         return (<Banner Image={{ uri: key }} imgStyle={{ height: hp(65) }} key={index} />)
                     })
-                    : 
-                    null
                 }
             </View>
         )
     }
 
-    return (
+    const onAddtoCartPress = async (isCartedItem) => {
+        try {
+            if (!isCartedItem) {
 
-        // <AppBackground>
-        //     <AppHeader 
-        //     placeholderText={'What are you looking for?'} 
-        //     showBackButton 
-        //     />
-        //     <ScrollView
-        //         onScroll={onScroll}
-        //         scrollEventThrottle={0}
+                const response = await AddtoCartAPICall(productDetail?.product_details_id, productQty)
+                if (response?.success) {
+                    dispatch(productDetailLoading())
+                    dispatch(getProductDetail(product_detail_Id))
+                    setTimeout(() => {
+                        showInfoToast('SUCCESS', response?.message)
+                    }, 1000);
 
-
-        //     >
-        //         <ProductDetailCard
-        //             ProductName={item.name}
-        //             Image={item.image}
-        //             TotalPrice={item.price}
-        //             DiscountPrice={item.discountPrice}
-        //             PricePercentOff={item.pricePercentOff}
-        //         />
-        //         <ProductVariation Data={productVersionVariation} title={'Version'} getValue={(spec) => getSpacification(spec, 'version')} />
-        //         <ProductVariation Data={productMemoryVariation} title={'Memory'} getValue={(spec) => getSpacification(spec, 'memory')} />
-        //         <ProductVariation Data={productColorVariation} title={'Color'} getValue={(spec) => getSpacification(spec, 'color')} />
-        //         <ProductDelivery />
-        //         <ProductQuantity />
-        //         <AppButton label={cartLabel}
-        //             onPress={() => {
-        //                 if (cartLabel === 'View Cart') {
-        //                     navigation.navigate('CartScreen')
-        //                 }
-        //                 else {
-        //                     updateButtonText(item);
-        //                     AddToCart(item);
-        //                     // showToast(item.name, 'Add to Cart');
-        //                     showToast(item.name);
-        //                 }
-        //             }}
-        //         />
-
-        //         <AppButton label={'Buy Now'} containerStyle={styles.outLineButton} />
-        //         <ProductSpecCard Item={item} />
-        //         <ProductSpecification Heading={'Specification & Highlight'} />
-        //         <Separator />
-        //         <ProductSpecification Heading={'Description'} data={Description} />
-
-        //         <Banner Image={Images.iPad} imgStyle={{ height: hp(52.71) }} />
-        //         <Banner Image={Images.ProductPerformance} imgStyle={{ height: hp(65) }} />
-        //         <Banner Image={Images.iPad2} imgStyle={{ height: hp(67) }} />
-        //         <ProductHeader title={'Frequently Bought Together'} />
-        //         <ProductList
-        //             Data={productCollection}
-        //             isExpress
-        //             TotalPrice
-        //             isCheckBox
-        //         />
-        //         <View style={{ marginHorizontal: 20, marginTop: 10 }}>
-        //             <View style={styles.infoView}>
-        //                 <Image source={Images.InfoIcon} style={{ height: 15, width: 15 }} />
-        //                 <Text style={[styles.infoMsg, { fontSize: 12 }]}>These items are dispatched from and sold by different sellers</Text>
-        //             </View>
-        //             <Text style={[styles.infoMsg, { margin: 10 }]}>{`Total Price : $ 5,00,000`}</Text>
-        //         </View>
-        //         <AppButton containerStyle={{ backgroundColor: Colors.LightGray }} label={'Add Items to Cart'} labelStyle={{ color: Colors.themeColor }} />
-        //         <UserReview Item={item} />
-        //         {/* <ProductwithTitle title={'More from Apple'} /> */}
-        //         <ProductHeader title={'More From Apple'} />
-        //         <ProductList
-        //             Data={productCollection}
-        //             TotalPrice
-        //         />
-        //     </ScrollView>
-
-        //     <Toast config={toastConfig}
-        //         position="bottom"
-        //         visibilityTime={2000}
-        //         autoHide={true}
-        //     />
-
-        //     {scrollBtn && (
-        //         <TouchableOpacity style={{ backgroundColor: 'red', bottom: 10, left: 0, right: 0, justifyContent: 'center', alignItems: 'center', flex: 1, position: 'absolute', backgroundColor: Colors.YELLOW1, padding: '3%', marginHorizontal: '35%', borderRadius: 100 }}>
-        //             <Text style={styles.scrollBtnText}>Add to Cart</Text>
-        //         </TouchableOpacity>
-        //         // <TouchableOpacity style={styles.button}>
-        //         //     <Text style={styles.scrollBtnText}>Add to Cart</Text>
-        //         // </TouchableOpacity>
-        //     )}
-        // </AppBackground>
-
-
-
-
-        <AppBackground>
-            <AppHeader
-                placeholderText={'What are you looking for?'}
-                showBackButton
-            />
-
-            {
-                isDetailPageLoad && Object.keys(productDetail).length === 0 ?
-                    <Loader />
-                    :
-                    Object.keys(productDetail).length > 0
-                    ?
-                    <>
-                        <ScrollView>
-                            <ProductDetailCard
-                                carouselData={productDetail?.images}
-                                categoryName={productDetail?.ManagementCategory?.name}
-                                title={productDetail?.title}
-                                avgRating={productDetail?.ManagementProductReview?.average_rating}
-                                noOfReview={productDetail?.ManagementProductReview?.number_of_reviews}
-                                // avgRating={'4.6'}
-                                // noOfReview={'1,411'}
-                                price={productDetail?.ManagementProductPricing?.hanooot_price}
-                                discount={productDetail?.ManagementProductPricing?.hanooot_discount}
-                                productId={productDetail?.product_details_id}
-                            // hanootChoice={productDetail?.ManagementProductPricing?.hanooot_discount}
-                            />
-                            <ProductVariation variants={productDetail?.ManagementProductVariantStyle} />
-                            <ProductDelivery data={productDetail?.deliveryObj} />
-                            <ProductQuantity />
-                            <AppButton label={'Add to Cart'} />
-
-                            <AppButton label={'Buy Now'} containerStyle={styles.outLineButton} />
-                            <ProductSpecCard data={productDetail} />
-                            <ProductSpecification data={productDetail?.ManagementProductSeo?.short_description} />
-                            <ProductDescription data={productDetail?.ManagementProductSeo?.long_description} />
-                            {/* {
-                                productDetail?.ManagementProductDetail && productDetail?.ManagementProductDetail?.product_images.slice(0,2).map((key, index) => {
-                                    // product_images.map((key, index) => {
-                                    console.log('this are images keys : ', key)
-                                    return  <Banner Image={{uri: key}} imgStyle={{ height: hp(52.71) }} key={index}/>
-
-                                })
-                            } */}
-                            {
-                                renderProductImages()
-                            }
-                            {
-                                productDetail?.children.length > 0 ?
-                                    <>
-                                        <ProductHeader title={'Frequently Bought Together'} />
-                                        <FlatList
-                                            data={productDetail?.children}
-                                            renderItem={({ item, index }) => {
-                                                return (
-                                                    <ListView
-                                                        item={item}
-                                                        centerImage={item?.product_image}
-                                                        productName={item?.title}
-                                                        price={item?.ManagementProductPricing?.hanooot_price}
-                                                        detailId={item?.product_details_id}
-                                                        isExpress
-                                                        isCheckBox
-                                                        productPriceTotal={(totalPrice, noOfProducts) => { setTotalCartPrice({totalPrice: totalPrice, noOfProducts: noOfProducts}), console.log('check data : ', totalCartPrice) }}
-                                                    />
-                                                );
-                                            }}
-                                            style={{ marginHorizontal: '5%' }}
-                                            horizontal
-                                            showsHorizontalScrollIndicator={false}
-                                        />
-                                        <View style={{ marginHorizontal: 20, marginTop: 10 }}>
-                                            <View style={styles.infoView}>
-                                                <Image source={Images.InfoIcon} style={{ height: 15, width: 15 }} />
-                                                <Text style={[styles.infoMsg, { fontSize: 12 }]}>These items are dispatched from and sold by different sellers</Text>
-                                            </View>
-                                            <Text style={[styles.infoMsg, { margin: 10 }]}>{`Total Price : ${totalCartPrice?.totalPrice}`}</Text>
-                                        </View>
-                                        <AppButton containerStyle={{ backgroundColor: Colors.LightGray }} label={`Add ${totalCartPrice?.noOfProducts} Items to Cart`} labelStyle={{ color: Colors.themeColor }} />
-                                    </>
-                                    : null
-                            }
-
-                            <UserReview data={productDetail?.ManagementProductReview}/>
-                        </ScrollView>
-                    </>
-                    :
-                    null
-
+                }
+                else {
+                    showErrorToast()
+                }
             }
-        </AppBackground>
+            else if (isCartedItem) {
+                navigation.navigate('CartScreen')
+            }
+
+        }
+        catch (error) {
+            console.log('Error from onAddtoCartPress api ', error)
+        }
+    }
+
+
+    const onAddMultipleItemToCart = async () => {
+        try {
+            if (totalCartItemDetail?.noOfProducts?.length > 0) {
+                totalCartItemDetail?.noOfProducts.map(async id => {
+                    const response = await AddtoCartAPICall(id, 1)
+                    if (response?.success) {
+                        showInfoToast('SUCCESS', `${totalCartItemDetail?.noOfProducts?.length} Items Added in Cart!!`)
+                    }
+                    else {
+                        showErrorToast()
+                    }
+                })
+            }
+        }
+        catch (error) {
+            console.log('Error from onAddtoCartPress api ', error)
+            showErrorToast()
+        }
+    }
+
+
+
+
+
+    return (
+        userData
+            ?
+            <>
+                <AppBackground>
+                    <AppHeader
+                        placeholderText={'What are you looking for?'}
+                        showBackButton
+                    />
+                    {
+                        isDetailPageLoad && Object.keys(productDetail).length === 0 ?
+                            <Loader />
+                            :
+                            Object.keys(productDetail).length > 0
+                                ?
+                                <>
+                                    <ScrollView>
+                                        <ProductDetailCard
+                                            carouselData={productDetail?.images}
+                                            categoryName={productDetail?.ManagementCategory?.name}
+                                            title={productDetail?.title}
+                                            avgRating={productDetail?.ManagementProductReview?.average_rating}
+                                            noOfReview={productDetail?.ManagementProductReview?.number_of_reviews}
+                                            price={productDetail?.ManagementProductPricing?.hanooot_price}
+                                            discount={productDetail?.ManagementProductPricing?.hanooot_discount}
+                                            productId={productDetail?.product_details_id}
+                                            isItemLiked={productDetail?.isLike}
+                                            productLink={productDetail?.link}
+                                        // hanootChoice={productDetail?.ManagementProductPricing?.hanooot_discount}
+                                        />
+                                        <ProductVariation variants={productDetail?.ManagementProductVariantStyle} />
+                                        <ProductDelivery data={productDetail?.deliveryObj} />
+                                        <ProductQuantity
+                                            getNoOfQty={(val) => {
+                                                setProductQty(val)
+                                            }}
+                                            productId={productDetail?.product_details_id}
+                                        />
+                                        <AppButton
+                                            label={productDetail?.isCart ? 'View Cart' : 'Add to Cart'}
+                                            onPress={() => onAddtoCartPress(productDetail?.isCart)}
+                                            isIndicatorLoading={isDetailPageLoad}
+                                        />
+
+                                        <AppButton label={'Buy Now'} containerStyle={styles.outLineButton} onPress={() => navigation.navigate('CheckoutScreen')} />
+                                        <ProductSpecCard data={productDetail} />
+                                        <ProductSpecification data={productDetail?.ManagementProductSeo?.short_description} />
+                                        <ProductDescription data={productDetail?.ManagementProductSeo?.long_description} />
+                                        {renderProductImages()}
+                                        {
+                                            productDetail?.children.length > 0 ?
+                                                <>
+                                                    <ProductHeader title={'Frequently Bought Together'} />
+                                                    <FlatList
+                                                        data={productDetail?.children}
+                                                        renderItem={({ item, index }) => {
+                                                            return (
+                                                                <ListView
+                                                                    item={item}
+                                                                    centerImage={item?.images[0]}
+                                                                    productName={item?.title}
+                                                                    price={item?.ManagementProductPricing?.hanooot_price}
+                                                                    detailId={item?.product_details_id}
+                                                                    isExpress
+                                                                    isCheckBox
+                                                                    productPriceTotal={(val) => {
+                                                                        console.log('CheckedItems : ', val),
+                                                                        setProductChecked(val)
+                                                                        uniq = [...new Set(val)];
+
+                                                                        let totalPrice = 0;
+
+                                                                        productDetail?.children.forEach(item => {
+                                                                            if (uniq.includes(item.product_details_id)) {
+                                                                                totalPrice += item?.ManagementProductPricing?.hanooot_price ? Number(item?.ManagementProductPricing?.hanooot_price) : Number(0);
+                                                                            }
+                                                                        });
+
+                                                                        setTotalCartItemDetail({
+                                                                            totalPrice: totalPrice,
+                                                                            noOfProducts: uniq
+                                                                        })
+
+                                                                    }}
+                                                                    getIds={isProductChecked}
+                                                                />
+                                                            );
+                                                        }}
+                                                        style={{ marginHorizontal: '5%' }}
+                                                        horizontal
+                                                        showsHorizontalScrollIndicator={false}
+                                                    />
+                                                    <View style={{ marginHorizontal: 20, marginTop: 10 }}>
+                                                        <View style={styles.infoView}>
+                                                            <Image source={Images.InfoIcon} style={{ height: 15, width: 15 }} />
+                                                            <Text style={[styles.infoMsg, { fontSize: 12 }]}>These items are dispatched from and sold by different sellers</Text>
+                                                        </View>
+
+                                                        <Text style={[styles.infoMsg, { margin: 10 }]}>{`Total Price : ${totalCartItemDetail?.totalPrice}`}</Text>
+                                                    </View>
+                                                    <AppButton
+                                                        containerStyle={{ backgroundColor: Colors.LightGray }}
+                                                        label={`Add ${totalCartItemDetail?.noOfProducts?.length} Items to Cart`}
+                                                        labelStyle={{ color: Colors.themeColor }}
+                                                        onPress={() => onAddMultipleItemToCart()}
+                                                    />
+                                                </>
+                                                : null
+                                        }
+
+                                        <UserReview data={productDetail?.ManagementProductReview} />
+                                        {
+                                            productFilterByCategory?.length > 0 ?
+                                                <>
+                                                    <ProductHeader title={`More From ${capitalizeFirstLetter(productDetail?.ManagementCategory?.name)}`} />
+                                                    <FlatList
+                                                        data={productFilterByCategory}
+                                                        renderItem={({ item, index }) => {
+                                                            return (
+                                                                <ListView
+                                                                    // item={item}
+                                                                    centerImage={item?.product_image}
+                                                                    productName={item?.title}
+                                                                    price={item?.ManagementProductPricing?.hanooot_price}
+                                                                    detailId={item?.product_details_id}
+                                                                />
+                                                            );
+                                                        }}
+                                                        style={{ marginHorizontal: '5%' }}
+                                                        horizontal
+                                                        showsHorizontalScrollIndicator={false}
+                                                    />
+                                                </>
+                                                : null
+                                        }
+                                    </ScrollView>
+                                </>
+                                :
+                                null
+
+
+
+
+                    }
+                    {/* {scrollBtn && (
+                //         <TouchableOpacity style={{ backgroundColor: 'red', bottom: 10, left: 0, right: 0, justifyContent: 'center', alignItems: 'center', flex: 1, position: 'absolute', backgroundColor: Colors.YELLOW1, padding: '3%', marginHorizontal: '35%', borderRadius: 100 }}>
+                //             <Text style={styles.scrollBtnText}>Add to Cart</Text>
+                //         </TouchableOpacity>
+                //         // <TouchableOpacity style={styles.button}>
+                //         //     <Text style={styles.scrollBtnText}>Add to Cart</Text>
+                //         // </TouchableOpacity>
+                //     )} */}
+
+                </AppBackground>
+            </>
+            :
+            <>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>{'User Login'}</Text>
+                </View>
+            </>
     )
 }
 

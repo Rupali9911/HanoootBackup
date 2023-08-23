@@ -69,12 +69,12 @@ const NewAddress = (props) => {
         locationDetail:  {
           latitude: editDataDetail?.latitude,
           longitude: editDataDetail?.longitude,
-          // address: ''
+          address: editDataDetail?.location_address
         }
       });
       setCityName(editDataDetail?.city)
     }
-  }, [isFocused]);
+  }, []);
 
   const handleInputChange = (fieldName, value) => {
     const newInputFields = { ...inputFields, [fieldName]: value };
@@ -123,8 +123,11 @@ const NewAddress = (props) => {
         longitude: inputFields?.locationDetail?.longitude,
         name: inputFields?.name,
         phone_number: inputFields?.phone_number,
-        address_type: inputFields?.address_type
+        address_type: inputFields?.address_type,
+        location_address: inputFields?.locationDetail?.address,
       }
+
+      console.log('data : ', data)
 
       editDataDetail && Object.keys(editDataDetail).length
         ?
@@ -145,7 +148,7 @@ const NewAddress = (props) => {
         navigation.navigate('ToastScreen', { title: 'Address Saved Successfully!' })
         :
         (navigation.navigate('CheckoutScreen'),
-          showInfoToast('SUCCESS', 'response?.message'))
+          showInfoToast('SUCCESS', response?.message))
     }
     catch (error) {
       console.log('Error from add new address api ', error)
@@ -175,6 +178,8 @@ const NewAddress = (props) => {
     console.log('onChildDataChange : ', data)
   };
 
+
+  console.log(inputFields?.locationDetail?.address != '' ? true : false)
 
   return (
     <AppBackground>
@@ -237,7 +242,7 @@ const NewAddress = (props) => {
           />
 
           {
-            inputFields?.locationDetail?.address || inputFields?.locationDetail?.latitude || inputFields?.locationDetail?.longitude
+            inputFields?.locationDetail?.address != ''
             // Object.keys(inputFields?.locationDetail).length
             ?
               (

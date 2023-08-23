@@ -47,6 +47,7 @@ const UserRating = (props) => {
                         imageSize={10}
                         ratingColor={Colors.YELLOW}
                         ratingBackgroundColor={Colors.GRAY}
+                        
                     />
                     {
                         props.reviewText ? <Text style={styles.review}>

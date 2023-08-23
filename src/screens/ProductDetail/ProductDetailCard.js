@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React, { useCallback } from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Share } from 'react-native'
+import React, { useCallback, useState } from 'react'
 import { hp, wp } from '../../constant/responsiveFunc';
 import Colors from '../../constant/Colors';
 import fonts from '../../constant/fonts';
@@ -10,66 +10,93 @@ import Separator from '../../constant/Separator';
 import { addToWishlistAPICall } from '../../services/apis/WishlistAPI';
 import { capitalizeFirstLetter } from '../utils';
 import { Rating, AirbnbRating } from 'react-native-ratings';
+import SVGS from '../../constant/Svgs';
+
+const { HeartIconActive, HeartIcon, ShareIcon } = SVGS
+
 
 
 const ProductDetailCard = (props) => {
-    const { carouselData, title, avgRating, noOfReview, price, discount, categoryName } = props;
+    const [isLike, setLike] = useState(props?.isItemLiked)
+    const { carouselData, title, avgRating, noOfReview, price, discount, categoryName, isItemLiked, productLink } = props;
 
 
     const addToWishlistProduct = async () => {
         try {
             await addToWishlistAPICall(props.productId);
-
+            setLike(!isLike);
         }
         catch (error) {
             console.log('Error from add to wishlist API api ', error)
         }
     }
 
-    //    const items =  [
-    //         {
-    //             "name": "Apple iPhone 11 Pro Max",
-    //             "price": 1299.00,
-    //             "quantity": 1,
-    //             "color": "Midnight Green"
-    //         },
-    //         {
-    //             "name": "Apple iPad Pro",
-    //             "price": 999.00,
-    //             "quantity": 1,
-    //             "color": "Space Gray"
-    //         },
-    //         {
-    //             "name": "Apple Watch Series 5",
-    //             "price": 399.00,
-    //             "quantity": 1,
-    //             "color": "Silver"
-    //         },
-    //         {
-    //             "name": "Apple AirPods Pro",
-    //             "price": 249.00,
-    //             "quantity": 1,
-    //             "color": "White"
-    //         },
-    //         {
-    //             "name": "Apple MacBook Pro",
-    //             "price": 2199.00,
-    //             "quantity": 1,
-    //             "color": "Space Gray"
-    //         }
-    //     ]
 
-    const CircleView = (props) => {
+    const onShare = async () => {
+        let productName = title
+        let productUrl = productLink
+        try {
+           const result = await Share.share({
+              title: 'Product Detail',
+              url: productUrl,
+              message: productName + ' ' + productUrl,
+           });
+           if (result.action === Share.sharedAction) {
+              if (result.activityType) {
+                 // shared with activity type of result.activityType
+              } else {
+                 // shared
+              }
+           } else if (result.action === Share.dismissedAction) {
+              // dismissed
+           }
+        } catch (error) {
+           console.log('Share error', error)
+        }
+     };
+
+
+    const ShareButton = () => {
         return (
             <View style={[styles.circleView, props.contStyle]}>
                 <TouchableOpacity
-                    onPress={props.onPress}
+                    onPress={() => onShare()}
                 >
-                    <Image
-                        source={props.Image}
-                        style={{ height: 20, width: 20, tintColor: Colors.GRAY, resizeMode: 'center' }}
-                    />
+                    {/* <Image
+                        source={Images.ShareIcon}
+                        style={[{ height: 20, width: 20, resizeMode: 'center', tintColor: Colors.GRAY2}, props.imageStyle]}
+                    /> */}
+                    <ShareIcon />
                 </TouchableOpacity>
+            </View>
+        )
+    }
+
+    const WishlistButton = (props) => {
+        return (
+            // <View style={[styles.circleView, props.contStyle]}>
+            //     <TouchableOpacity
+            //         onPress={props.onPress}
+            //     >
+            //         <Image
+            //             source={props.Image}
+            //             style={[{ height: 20, width: 20, resizeMode: 'center', tintColor: Colors.GRAY}, props.imageStyle]}
+            //         />
+            //     </TouchableOpacity>
+            //     <HeartIconActive  />
+            // </View>
+
+
+            <View style={[styles.circleView, props.contStyle]}>
+                <TouchableOpacity
+                    onPress={addToWishlistProduct}
+                >
+                    {
+                        isLike ? <HeartIconActive /> : <HeartIcon />
+                    }
+
+                </TouchableOpacity>
+                {/* <HeartIconActive  /> */}
             </View>
 
         )
@@ -141,6 +168,13 @@ const ProductDetailCard = (props) => {
         );
     }, [])
 
+    const renderText = (val) => {
+        if(val.includes('-')){
+            return val.split('-')[0]
+        }
+        return val; 
+    }
+
 
     return (
         <View style={styles.mainContainer}>
@@ -152,8 +186,6 @@ const ProductDetailCard = (props) => {
                     {/* <Rating />
                      */}
                     <RatingAndReview />
-
-
                 </View>
 
                 <Text style={styles.productName} numberOfLines={2}>{title}</Text>
@@ -166,7 +198,7 @@ const ProductDetailCard = (props) => {
                         />
                         <Text style={styles.choiceTextStyle}>Choice</Text>
                     </View>
-                    <Text style={styles.forTextStyle}>{props.title}</Text>
+                    <Text style={styles.forTextStyle}>{renderText(props?.title)}</Text>
                 </View>
             </View>
             <Separator />
@@ -177,9 +209,12 @@ const ProductDetailCard = (props) => {
             <Separator />
 
 
-            <View style={styles.wishListCotainer}>
-                <CircleView Image={Images.Wishlist} onPress={addToWishlistProduct} />
-                <CircleView Image={Images.ShareIcon} />
+            <View style={styles.iconCotainer}>
+                {/* <ShareWishlistView Image={isLike ? Images.CartImage : Images.Wishlist} onPress={addToWishlistProduct}  /> */}
+                {/* <ShareWishlistView Image={Images.ShareIcon} /> */}
+                {/* <ShareWishlistView /> */}
+                <WishlistButton />
+                <ShareButton />
             </View>
 
             <View style={{ paddingHorizontal: 20 }}>
@@ -235,7 +270,8 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: 'rgba(255, 205, 26, 0.15)',
         flexDirection: 'row',
-        marginVertical: hp('2%')
+        marginVertical: hp('1%'),
+        // width: '90%'
     },
     logoView: {
         backgroundColor: Colors.themeColor,
@@ -246,7 +282,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderTopRightRadius: 50,
         borderBottomRightRadius: 50,
-        paddingHorizontal: '1%'
+        paddingHorizontal: wp(1.2)
     },
     logoStyle: {
         height: 15,
@@ -263,7 +299,8 @@ const styles = StyleSheet.create({
         left: 10,
         fontFamily: fonts.VisbyCF_Medium,
         fontSize: 10,
-        fontWeight: 500
+        fontWeight: 500,
+        maxWidth: '70%'
     },
     separator: {
         backgroundColor: Colors.GRAY,
@@ -273,8 +310,10 @@ const styles = StyleSheet.create({
     topLinewithRating: {
         flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
     },
-    wishListCotainer: {
-        right: 10, position: 'absolute', top: 200
+    iconCotainer: {
+        right: 0,
+        position: 'absolute',
+        top: '50%'
     },
     firstLineView: {
         flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'

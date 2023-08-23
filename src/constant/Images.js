@@ -95,5 +95,6 @@ export default {
     FacebookIcon: require(`../assets/images/FacebookIcon.png`),
     AppleIcon: require(`../assets/images/AppleIcon.png`),
     OTPVerify: require(`../assets/images/OTPVerify.png`),
+    activeHeart: require(`../assets/images/activeHeart.jpeg`),
     MapImage: require(`../assets/images/MapImage.png`)
 }

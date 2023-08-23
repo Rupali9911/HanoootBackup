@@ -1,6 +1,6 @@
 import { WISHLIST_API } from "../../../utility/apiUrls";
 import sendRequest from "../../axios/AxiosApiRequest";
-import { showInfoToast } from "../../../Components/universal/Toast";
+import { showInfoToast, showErrorToast } from "../../../Components/universal/Toast";
 
 
 export const addToWishlistAPICall = (id) => {
@@ -27,10 +27,18 @@ export const addToWishlistAPICall = (id) => {
             showInfoToast(typeCheck, response?.message)
             }
 
+            else {
+                showErrorToast('Auth Error', response?.message)
+            }
+
             
         }).
         catch((error) => {
             console.log('Error from WISHLIST_API : ', error);
+            if(error?.status == 401){
+                showErrorToast('Auth Error', '')
+            }
+            
             _reject(error)
         })
     })

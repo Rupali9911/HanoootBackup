@@ -9,6 +9,11 @@ import CheckBox from 'react-native-check-box'
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addToWishlist, removeWishlistItem } from '../screens/Store/actions/wishlistActions'
+import { addToWishlistAPICall } from '../services/apis/WishlistAPI'
+import SVGS from '../constant/Svgs'
+
+const { HeartIconActive, HeartIcon } = SVGS
+
 
 
 const ListView = (props) => {
@@ -20,61 +25,66 @@ const ListView = (props) => {
         averageRating,
         noOfReview,
         detailId,
-        isLike,
+        showLike,
         isCheckBox,
         isExpress,
-        categoryId
+        isItemLiked,
+        categoryId,
+        getIds
     } = props;
 
     // console.log('averageRating : ', averageRating,noOfReview)
 
-    const [isLiked, setLiked] = useState(false);
+
+    const [isLiked, setLiked] = useState(isItemLiked);
     const [checkedItems, setCheckedItems] = useState([]);
+    const [arr, setArr] = useState([]);
     const [totalProductPrice, setTotalProductPrice] = useState(0);
     const [totalCost, setTotalCost] = useState(0)
+    const [checkboxCount, setCheckboxCount] = useState(0);
+    const [checked, setChecked] = useState([]);
+
     const dispatch = useDispatch();
 
     // const { item } = props;
     const navigation = useNavigation();
 
+    var total = 0
+    const addToWishlistProduct = async () => {
+        try {
+            await addToWishlistAPICall(detailId);
+            setLiked(!isLiked);
+        }
+        catch (error) {
+            console.log('Error from add to wishlist API api ', error)
+            // setLiked(false);
+        }
+    }
+
 
     const handleCheckboxChange = (id, price) => {
-        // const { id, name } = item;
 
-        // console.log('chekc id & price : ', id, price)
-        let arr = [];
-        let newTotalPrice;
-
+        let itemIndex = getIds.indexOf(id);
 
         if (checkedItems.includes(id)) {
-            newTotalPrice = totalProductPrice - price;
             setCheckedItems(checkedItems.filter((checkedItem) => checkedItem !== id));
-            setTotalCost((total) => total - parseInt(price));
-
-            //   setTotalProductPrice(Number(totalProductPrice) - Number(price))
-            // setTotalProductPrice(prevPrice => { Number(prevPrice).concat(Number(price)) })
-            // console.log(Number(totalProductPrice).concat(Number(totalProductPrice)))
+            getIds.splice(itemIndex, 1);
         } else {
-            newTotalPrice = totalProductPrice + price;
             setCheckedItems([...checkedItems, id]);
-            setTotalCost((total) => total + parseInt(price));
-            // setTotalProductPrice(Number(totalProductPrice) + Number(price))
-            // console.log(Number(totalProductPrice) + Number(price))
+            getIds.push(id);
+            
         }
 
-
-        setTotalProductPrice(newTotalPrice)
-        // props.productPriceTotal(totalProductPrice, checkedItems );
-        // console.log('check here : ', totalProductPrice, checkedItems)
-        // console.log('Total Price : ', totalProductPrice);
-        console.log('total price : ', totalCost)
+        props.productPriceTotal(getIds)
     };
+
 
     return (
         <View style={[props.mainContainer]}>
             <TouchableOpacity
                 style={[styles.ProductListContainer, props.ViewContStyle]}
-                onPress={() => navigation.navigate('ProductDetail', { id: detailId })}
+                // onPress={() => navigation.navigate('ProductDetail', { id: detailId })}
+                onPress={() => navigation.push('ProductDetail', { id: detailId })}
             >
 
                 <View style={styles.topLine}>
@@ -101,13 +111,41 @@ const ListView = (props) => {
                                 /> : null
                     } */}
                     {
-                        isLike ? <LikeImage
-                            onPress={() => {
-                                setLiked(!isLiked);
-                                !isLiked ? dispatch(addToWishlist(item)) : dispatch(removeWishlistItem(item));
-                            }}
-                            imgStyle={{ tintColor: isLiked ? Colors.RED : Colors.BLACK }}
-                        /> : null
+                        showLike
+                            ?
+                            isItemLiked ?
+                                <TouchableOpacity onPress={addToWishlistProduct}>
+                                    <HeartIconActive />
+                                </TouchableOpacity>
+                                :
+                                isLiked ?
+                                    <TouchableOpacity onPress={addToWishlistProduct}>
+                                        <HeartIconActive />
+                                    </TouchableOpacity>
+                                    :
+                                    <TouchableOpacity onPress={addToWishlistProduct}>
+                                        <HeartIcon />
+                                    </TouchableOpacity>
+                            :
+                            null
+
+
+                        // <LikeImage
+                        //     // onPress={() => {
+                        //     //     // setLiked(!isLiked);
+                        //     //     // !isLiked ? dispatch(addToWishlist(item)) : dispatch(removeWishlistItem(item));
+                        //     //     try {
+                        //     //         await addToWishlistAPICall(props.productId);
+                        //     //         setLike(!isLike);
+                        //     //     }
+                        //     //     catch (error) {
+                        //     //         console.log('Error from add to wishlist API api ', error)
+                        //     //     }
+                        //     // }}
+                        //     image={isLiked ? Images.CartImage : Images.Wishlist} 
+                        //     onPress={addToWishlistProduct}
+                        //     // imgStyle={{ tintColor: isLiked ? Colors.RED : Colors.BLACK }}
+                        // /> : null
                     }
                     {
                         isCheckBox ?
@@ -123,6 +161,7 @@ const ListView = (props) => {
                             /> : null
                     }
                 </View>
+
                 <View style={[styles.imageContainer, props.imgContStyle]}>
                     <Image
                         source={{ uri: centerImage ? centerImage : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }}
@@ -131,7 +170,6 @@ const ListView = (props) => {
                 </View>
 
                 <View style={[styles.textView, props.TextViewStyle]}>
-                    <Text>{totalCost}</Text>
                     {
                         props.isPriceButton &&
 
