@@ -15,7 +15,10 @@ import fonts from '../../../constant/fonts';
 
 const Address = (props) => {
 
+
     const { addressRecordList, isAddresDetailLoading } = useSelector(state => state.checkoutReducer);
+    const [addressId, setAddressId] = useState(addressRecordList[0]?.id)
+
     const navigation = useNavigation();
     const isFocused = useIsFocused();
     const dispatch = useDispatch();
@@ -63,6 +66,7 @@ const Address = (props) => {
                             showBottomButton
                             profile={false}
                             showRadioButton
+                            getParticularAddId={(id) => setAddressId(id)}
                         />
                         : <EmptyAddressView />
 
@@ -83,7 +87,7 @@ const Address = (props) => {
                         //     }
                         // };
                         // storeUser();
-                        props.setScreenType('PAYMENT')
+                        props.setScreenType('PAYMENT', addressId)
                     }}
                 />
             </View>

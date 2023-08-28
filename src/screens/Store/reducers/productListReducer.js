@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET } from "../types";
+import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET, PRODUCT_DETAIL_DATA_FAILED, PRODUCT_DETAIL_INFO_STORE, PRODUCT_BUTTON_TAPPED } from "../types";
 
 const initialState = {
     isListLoading: false,
@@ -11,9 +11,14 @@ const initialState = {
 
     isDetailPageLoad: false,
     productDetail: {},
+    productDetailFailed: '',
 
 
-    productFilterByCategory: []
+    productFilterByCategory: [],
+
+    productQtyIdInfo: '',
+
+    isBuyNowButton: false
 
 }
 
@@ -52,8 +57,11 @@ const productListReducer = (state = initialState, action) => {
                 productDetail: action.payload,
                 isDetailPageLoad: false,
             };
-            case PRODUCT_DETAIL_DATA_RESET:
-                return state = { ...state, productDetail: {} };
+        case PRODUCT_DETAIL_DATA_RESET:
+            return state = { ...state, productDetail: {} };
+
+        case PRODUCT_DETAIL_DATA_FAILED:
+            return { ...state, productDetailFailed: action.payload, isDetailPageLoad: false };
 
         case PRODUCT_FILTER_BY_CATEGORY_SUCCESS:
             return {
@@ -61,6 +69,12 @@ const productListReducer = (state = initialState, action) => {
                 productFilterByCategory: action.payload,
                 // isDetailPageLoad: false,
             };
+
+        case PRODUCT_DETAIL_INFO_STORE:
+            return state = { ...state, productQtyIdInfo: action.payload };
+
+        case PRODUCT_BUTTON_TAPPED:
+            return state = { ...state, isBuyNowButton: action.payload };
 
         default:
             return state;

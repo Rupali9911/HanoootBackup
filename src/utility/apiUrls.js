@@ -24,6 +24,11 @@ const FETCH_ADDRESS_DETAIL = `${API_BASE_URL}/api/v1/address`
 const UPDATE_ADDRESS_DETAIL = `${API_BASE_URL}/api/v1/address/update`
 const DELETE_ADDRESS_DETAIL = `${API_BASE_URL}/api/v1/address`
 
+
+const ORDER_API = `${API_BASE_URL}/api/v1/order`
+
+const ORDER_DETAIL_API = `${API_BASE_URL}/api/v1/order/ordersDetails`
+
 const CART_API = `${API_BASE_URL}/api/v1/cart`
 
 // https://api.hanooot.com/api/v1/cart
@@ -45,5 +50,7 @@ export {
     WISHLIST_API,
     GOOGLE_API_KEY,
     UPDATE_PASSWORD,
-    CART_API
+    CART_API,
+    ORDER_API,
+    ORDER_DETAIL_API
 };

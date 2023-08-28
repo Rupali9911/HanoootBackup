@@ -1,13 +1,62 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native'
+import React, { useEffect } from 'react'
 import AppBackground from '../../Components/AppBackground';
 import AppHeader from '../../Components/AppHeader';
 import Colors from '../../../constant/Colors';
 import fonts from '../../../constant/fonts';
 import Images from '../../../constant/Images';
+import { useIsFocused } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { orderDetailLoadingStart, orderDetailReset, getOrderDetail } from '../../Store/actions/orderAction';
+import { capitalizeFirstLetter } from '../../utils';
+import Loader from '../../../constant/Loader';
 
 const OrderDetails = (props) => {
-    const { route } = props;
+    const { orderId, productId } = props?.route?.params;
+    const isFocused = useIsFocused();
+    const dispatch = useDispatch();
+    const { isOrderDetailLoading, orderDetail } = useSelector(state => state.orderReducer);
+
+    console.log('check isOrderDetailLoading : ', isOrderDetailLoading)
+
+    useEffect(() => {
+        console.log('useeffect called')
+        dispatch(orderDetailReset())
+        dispatch(orderDetailLoadingStart())
+        dispatch(getOrderDetail(orderId, productId))
+    }, [isFocused])
+
+    const renderOrderPlacedDate = (dateString) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = date.toLocaleString('default', { month: 'long' });
+        const day = date.getDate();
+        const formattedDate = `${day} ${month} ${year}`;
+
+        return formattedDate;
+    }
+
+    const keyExtractor = (item, index) => {
+        return `_${index}`;
+    };
+
+    const renderItem = ({ item, index }) => {
+        return (
+            <View style={styles.productDetailCont}>
+                <View>
+                    <Image
+                        style={styles.image}
+                        source={{ uri: item?.ManagementProduct?.images[0] }}
+                    />
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.productName}>{item?.ManagementProduct?.title}</Text>
+                    <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>QUANTITY  : <Text style={{ color: Colors.BLACK }}>{item?.quantity}</Text></Text>
+                    <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]}>{item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
+                </View>
+            </View>
+        );
+    }
 
     return (
         <AppBackground>
@@ -15,26 +64,38 @@ const OrderDetails = (props) => {
                 showBackButton
                 title={'Order Details'}
             />
-            <View style={styles.container}>
+            {
+                isOrderDetailLoading && Object.keys(orderDetail).length === 0
+                    ?
+                    <Loader />
+                    :
 
-                {/* ================ORDER ID============== */}
-                <View style={styles.row}>
-                    <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>ORDER ID  :  <Text style={{ color: Colors.BLACK }}>407-1327557-9683528</Text></Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={styles.column}>
-                        <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>ORDER PLACED</Text>
-                        <Text style={styles.orderDetail}>9 January 2023</Text>
-                    </View>
-                    <View style={styles.column}>
-                        <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>PATMENT METHOD</Text>
-                        <Text style={styles.orderDetail}>Zain Cash</Text>
-                    </View>
-                </View>
+                    <View style={styles.container}>
 
-                {/* ================ORDER PLACED & PAYMENT METHOD============== */}
+                        {/* ================ORDER ID============== */}
+                        <View style={styles.row}>
+                            <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>ORDER ID  :  <Text style={{ color: Colors.BLACK }}>{orderDetail?.id}</Text></Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={styles.column}>
+                                <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>ORDER PLACED</Text>
+                                <Text style={styles.orderDetail}>{renderOrderPlacedDate(orderDetail?.createdAt)}</Text>
+                            </View>
+                            <View style={styles.column}>
+                                <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>PATMENT METHOD</Text>
+                                <Text style={styles.orderDetail}>{orderDetail?.payment_method}</Text>
+                            </View>
+                        </View>
 
-                <View style={styles.productDetailCont}>
+                        {/* ================ORDER PLACED & PAYMENT METHOD============== */}
+
+                        <FlatList
+                            data={orderDetail?.OrderProducts}
+                            renderItem={renderItem}
+                            keyExtractor={keyExtractor}
+                        />
+
+                        {/* <View style={styles.productDetailCont}>
                     <View>
                         <Image
                             style={styles.image}
@@ -47,69 +108,69 @@ const OrderDetails = (props) => {
                         <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>QUANTITY  : <Text style={{ color: Colors.BLACK }}> 1 </Text></Text>
                         <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]}>$ 5,000.00</Text>
                     </View>
-                </View>
+                </View> */}
 
-                {/* ================PRODUCT DETAIL============== */}
+                        {/* ================PRODUCT DETAIL============== */}
 
-                <View style={styles.row}>
-                    <View style={styles.invoiceView}>
-                        <Image
-                            source={Images.Invoice}
-                            style={styles.icon}
-                        />
-                        <Text style={[styles.orderDetail, { color: Colors.themeColor }]}>Download Invoice</Text>
+                        <View style={styles.row}>
+                            <View style={styles.invoiceView}>
+                                <Image
+                                    source={Images.Invoice}
+                                    style={styles.icon}
+                                />
+                                <Text style={[styles.orderDetail, { color: Colors.themeColor }]}>Download Invoice</Text>
+                            </View>
+                            <TouchableOpacity
+                                onPress={() => console.log('Download Invoice')}
+                            >
+                                <Image
+                                    source={Images.ForwardIcon}
+                                    style={styles.icon}
+                                />
+                            </TouchableOpacity>
+                        </View>
+
+
+                        {/* ================SHIPPING ADDRESS============== */}
+
+                        <View style={[styles.row, { flexDirection: 'column', gap: 8 }]}>
+                            <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}> SHIPPING ADDRESS </Text>
+                            <View>
+                                <Text style={[styles.orderDetail, styles.otherStyle]}>{`${(orderDetail?.UserAddress?.name)}, ${orderDetail?.UserAddress?.house}, ${orderDetail?.UserAddress?.building} \n${orderDetail?.UserAddress?.street}, ${orderDetail?.UserAddress?.city}`}</Text>
+                                <Text style={[styles.orderDetail, styles.otherStyle]}>{orderDetail?.UserAddress?.phone_number}</Text>
+                            </View>
+                        </View>
+
+                        {/* ================PRICE TOTAL============== */}
+
+
+                        <View style={[styles.row, { flexDirection: 'column', gap: 8 }]}>
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={styles.orderDetail}>Subtotal (1 item)</Text>
+                                <Text style={[styles.orderDetail, styles.fontIncrease]}>$ {orderDetail?.total_amount}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={styles.orderDetail}>Coupon Discount</Text>
+                                <Text style={[styles.orderDetail, styles.fontIncrease, { color: Colors.GREEN }]}>$ {orderDetail?.coupon_percentage}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={styles.orderDetail}>Shipping Cost</Text>
+                                <Text style={[styles.orderDetail, styles.fontIncrease]}>$ {orderDetail?.shipping_cost}</Text>
+                            </View>
+                            <View style={styles.separator} />
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+
+                                <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>Total  <Text style={{ color: Colors.PRICEGRAY, fontWeight: 500 }}>(Inclusive of VAT)</Text></Text>
+
+                                <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>$ {orderDetail?.total_payable_amount}</Text>
+                            </View>
+                        </View>
+
+
                     </View>
-                    <TouchableOpacity
-                        onPress={() => console.log('Download Invoice')}
-                    >
-                        <Image
-                            source={Images.ForwardIcon}
-                            style={styles.icon}
-                        />
-                    </TouchableOpacity>
-                </View>
 
-
-                {/* ================SHIPPING ADDRESS============== */}
-
-                <View style={[styles.row, { flexDirection: 'column', gap: 8 }]}>
-                    <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}> SHIPPING ADDRESS </Text>
-                    <View>
-                        <Text style={[styles.orderDetail, styles.otherStyle]}>{`Gregory R. Butler , 717 Mills \nGardens, Anbar-iraq ,`}</Text>
-                        <Text style={[styles.orderDetail, styles.otherStyle]}>+964 713 380 5901</Text>
-                    </View>
-                </View>
-
-                {/* ================PRICE TOTAL============== */}
-
-
-                <View style={[styles.row, { flexDirection: 'column', gap: 8 }]}>
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={styles.orderDetail}>Subtotal (1 item)</Text>
-                        <Text style={[styles.orderDetail, styles.fontIncrease]}>$ 5,00.00</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={styles.orderDetail}>Coupon Discount</Text>
-                        <Text style={[styles.orderDetail, styles.fontIncrease, { color: Colors.GREEN }]}>- $ 5.00</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={styles.orderDetail}>Shipping Cost</Text>
-                        <Text style={[styles.orderDetail, styles.fontIncrease]}>$10</Text>
-                    </View>
-                    <View style={styles.separator} />
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-
-                        <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>Total  <Text style={{ color: Colors.PRICEGRAY, fontWeight: 500 }}>(Inclusive of VAT)</Text></Text>
-
-                        <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>$ 5,00.00</Text>
-                    </View>
-                </View>
-
-
-            </View>
-
-
+            }
         </AppBackground>
     )
 }
@@ -174,7 +235,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderTopWidth: 1,
         borderColor: Colors.GRAY,
-        paddingHorizontal: '10%',
+        paddingHorizontal: '5%',
         paddingVertical: '3%'
     },
     invoiceView: {

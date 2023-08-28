@@ -26,6 +26,8 @@ const CartItemCard = (props) => {
 
 
     const { cartItems, cartData } = useSelector(state => state.cartReducer);
+    const userData = useSelector((state) => state.userReducer.userData);
+
 
     const keyExtractor = (item, index) => {
         return index;
@@ -158,61 +160,63 @@ const CartItemCard = (props) => {
 
     const Quantity = useCallback((props) => {
         return (
-          <TouchableOpacity
-            style={[styles.buttonView, { backgroundColor: props.Image === Images.MinusIcon ? Colors.GRAYDARK : Colors.themeColor }]}
-            onPress={
-              props.onPress
-            }
-          >
-            <Image source={props.Image} style={{ height: 12, width: 12, resizeMode: 'contain' }} />
-          </TouchableOpacity>
+            <TouchableOpacity
+                style={[styles.buttonView, { backgroundColor: props.Image === Images.MinusIcon ? Colors.GRAYDARK : Colors.themeColor }]}
+                onPress={
+                    props.onPress
+                }
+            >
+                <Image source={props.Image} style={{ height: 12, width: 12, resizeMode: 'contain' }} />
+            </TouchableOpacity>
         );
-      }, [])
+    }, [])
 
 
     console.log('cartItems : ', JSON.stringify(cartItems))
 
     const renderItem = ({ item, index }) => {
         return (
-            <View style={styles.mainContainer}>
-                <View style={{ flexDirection: 'row', padding: '5%', }}>
-                    <View style={{ width: '20%', alignContent: 'center' }}>
-                        <Image source={{uri: item?.ManagementProduct?.images[0]}} style={{ height: hp(8), width: wp(16), resizeMode: 'contain', margin: '2%' }} />
+            <>
+
+                <View style={styles.mainContainer}>
+                    <View style={{ flexDirection: 'row', padding: '5%', }}>
+                        <View style={{ width: '20%', alignContent: 'center' }}>
+                            <Image source={{ uri: item?.ManagementProduct?.images[0] }} style={{ height: hp(8), width: wp(16), resizeMode: 'contain', margin: '2%' }} />
+                        </View>
+                        <View style={{ gap: 5, width: '80%' }}>
+                            <Text style={styles.itemName} >{item?.ManagementProduct?.title}</Text>
+                            {getVariations(item?.ManagementProduct?.ManagementProductVariantStyle)}
+                            {getDeliveryInfo()}
+                            {getExpressView()}
+                            {/* <Text style={styles.itemDetail} >Sold by <Text style={{ color: Colors.themeColor }}>Ecom Nation</Text></Text> */}
+                            <Text style={styles.itemName} >{item?.price ? item?.price : 0}</Text>
+                        </View>
                     </View>
-                    <View style={{ gap: 5, width: '80%' }}>
-                        <Text style={styles.itemName} >{item?.ManagementProduct?.title}</Text>
-                        {getVariations(item?.ManagementProduct?.ManagementProductVariantStyle)}
-                        {getDeliveryInfo()}
-                        {getExpressView()}
-                        {/* <Text style={styles.itemDetail} >Sold by <Text style={{ color: Colors.themeColor }}>Ecom Nation</Text></Text> */}
-                        <Text style={styles.itemName} >{item?.price ? item?.price : 0}</Text>
-                    </View>
-                </View>
 
 
-                <CartItemQuantity
-                    onRemovePress={() => {
-                        dispatch(removeItemsFromCart(item?.product_id))
-                        // dispatch(getItemsFromCart())
-                    }}
-                    productId={item?.product_id}
-                    onIncrement={(data) => {
-                        if(data?.success === true){
-                            dispatch(getItemsFromCart(1))
-                        }
-                    }}
-                    getCount={(val) => {console.log(val)}}
-                    quantity={item?.quantity}
+                    <CartItemQuantity
+                        onRemovePress={() => {
+                            dispatch(removeItemsFromCart(item?.product_id))
+                            // dispatch(getItemsFromCart())
+                        }}
+                        productId={item?.product_id}
+                        onIncrement={(data) => {
+                            if (data?.success === true) {
+                                dispatch(getItemsFromCart(1))
+                            }
+                        }}
+                        getCount={(val) => { console.log(val) }}
+                        quantity={item?.quantity}
                     // Increment={() => {console.log('pressed')}}
                     // getData={(data) => {setSigleProductPrice(data?.total_cost)}}
                     // onIcrementPressed={() => {incrementCounter(item?.product_id); setCounter(counter+1)}}
                     // onDcrementPressed={() => decrementCounter(item?.product_id)}
                     // counter={counter}
-                />
+                    />
 
-                
 
-                {/* <View style={styles.mainQtyContainer}>
+
+                    {/* <View style={styles.mainQtyContainer}>
                     <Text style={styles.Text}>Qty : </Text>
             
                     <View style={styles.container}>
@@ -232,8 +236,8 @@ const CartItemCard = (props) => {
                         <Text style={[styles.Text, { color: Colors.themeColor }]}>REMOVE</Text>
                     </TouchableOpacity>
                 </View> */}
-            </View>
-
+                </View>
+            </>
         );
     }
 
@@ -257,7 +261,11 @@ const CartItemCard = (props) => {
         //     />
 
         // </ScrollView>
-        <ScrollView>
+        <ScrollView style={{ marginBottom: hp(7) }}
+        >
+            <View style={{ height: hp(4.93), backgroundColor: Colors.YELLOWLIGHT, justifyContent: 'center', paddingHorizontal: '5%' }}>
+                <Text style={styles.deliveryLine}>{`Deliver to ${userData?.displayName ? userData?.displayName : 'UserName'}-Iraq`}</Text>
+            </View>
             <FlatList
                 data={cartItems}
                 renderItem={renderItem}
@@ -265,7 +273,7 @@ const CartItemCard = (props) => {
                 scrollEnabled={false}
             />
             <Coupon />
-            <CartTotal totalCost={cartData?.total_cost} couponAmt={0.00}/>
+            <CartTotal totalCost={cartData?.total_cost} couponAmt={0.00} />
         </ScrollView>
 
     )
@@ -295,9 +303,6 @@ const styles = StyleSheet.create({
         fontWeight: 600,
         fontFamily: fonts.VisbyCF_Demibold,
         letterSpacing: 0.5,
-        backgroundColor: Colors.YELLOWLIGHT,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
         color: Colors.BLACK
     },
     toastMsgContainer: {
@@ -330,42 +335,42 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         paddingVertical: '2%'
-    
-      },
-      Text: {
+
+    },
+    Text: {
         fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold,
         letterSpacing: 0.5
-      },
-      container: {
+    },
+    container: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 10,
-      },
-      buttonView: {
+    },
+    buttonView: {
         height: 24,
         width: 24,
         borderRadius: 24 / 2,
         justifyContent: 'center',
         alignItems: 'center',
-      },
-      buttonContent: {
+    },
+    buttonContent: {
         fontSize: 20,
         color: Colors.WHITE,
         fontWeight: 'bold'
-      },
-      counter: {
+    },
+    counter: {
         fontSize: 16,
         fontWeight: 'bold',
-      },
-      qtyText: {
+    },
+    qtyText: {
         fontWeight: 500,
         fontFamily: fonts.VisbyCF_Medium
-      },
-      buttonWithCounter: {
+    },
+    buttonWithCounter: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         gap: 10,
-      }
+    }
 })

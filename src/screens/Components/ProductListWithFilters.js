@@ -16,6 +16,7 @@ import Loader from '../../constant/Loader'
 import fonts from '../../constant/fonts'
 import { capitalizeFirstLetter } from '../utils'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
+import { showErrorToast } from '../../Components/universal/Toast'
 
 
 const ProductListWithFilters = (props) => {
@@ -27,12 +28,12 @@ const ProductListWithFilters = (props) => {
 
 
     const { isListLoading, productList, productListPage, productTotalCount } = useSelector(state => state.productListReducer);
+    const userData = useSelector((state) => state.userReducer.userData);
 
-
+    
     useEffect(() => {
-        console.log('useeffect called')
-        dispatch(productListLoadingStart());
         dispatch(productListReset())
+        dispatch(productListLoadingStart());
         getProductListData(1);
         dispatch(productListPageChange(1));
     }, [isFocused]);
@@ -45,10 +46,11 @@ const ProductListWithFilters = (props) => {
 
 
     const renderItem = ({ item, index }) => {
+        console.log('liked item  :', item?.isLike)
         return (
             <ListView
                 item={item}
-                centerImage={item?.images}
+                centerImage={item?.images[0]}
                 productName={item?.title}
                 price={item?.ManagementProductPricing?.hanooot_price}
                 // discount={item?.ManagementProductPricing.hanooot_discount}
@@ -102,36 +104,28 @@ const ProductListWithFilters = (props) => {
         console.log('Top Refresh Called')
     }
 
+    const renderToastMsg = () => {
+        showErrorToast('For all your shopping needs', 'Please Login First')
+    }
+
 
     const renderProductCollectionList = () => {
         return (
-            <AppBackground>
-                <AppHeader
-                    showBackButton
-                    title={capitalizeFirstLetter(DATA?.headerTitle)}
-                    // showRightIcon
-                    titleComponentStyle={{ alignItems: 'flex-start', marginStart: 10 }}
-                    showLikeIcon
-                    onLikePress={() => navigation.navigate('WishlistScreen')}
-                    showSearchIcon
-                    showCartIcon
-                    onCartPress={() => navigation.navigate('CartScreen')}
 
-                />
-                <FlatList
-                    numColumns={2}
-                    data={productList}
-                    renderItem={renderItem}
-                    keyExtractor={keyExtractor}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ alignSelf: 'center' }}
-                    onEndReached={handleFlatListEndReached}
-                    onEndReachedThreshold={0.5}
-                    ListFooterComponent={renderFooter}
-                    onRefresh={handleFlatlistRefresh}
-                    refreshing={productListPage === 1 && isListLoading}
-                />
-            </AppBackground>
+            <FlatList
+                numColumns={2}
+                data={productList}
+                renderItem={renderItem}
+                keyExtractor={keyExtractor}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ alignSelf: 'center' }}
+                onEndReached={handleFlatListEndReached}
+                onEndReachedThreshold={0.5}
+                ListFooterComponent={renderFooter}
+                onRefresh={handleFlatlistRefresh}
+                refreshing={productListPage === 1 && isListLoading}
+            />
+
         );
     }
 
@@ -149,13 +143,29 @@ const ProductListWithFilters = (props) => {
 
     return (
 
-        isListLoading && productListPage === 1 ?
-            (<Loader />) :
-            productList?.length !== 0 ?
-                renderProductCollectionList()
-                :
-                renderNoDataFound()
+        <AppBackground>
+            <AppHeader
+                showBackButton
+                title={capitalizeFirstLetter(DATA?.headerTitle)}
+                // showRightIcon
+                titleComponentStyle={{ alignItems: 'flex-start', marginStart: 10 }}
+                showLikeIcon
+                // onLikePress={() => userData ? navigation.navigate('WishlistScreen') : renderToastMsg()}
+                showSearchIcon
+                showCartIcon
+            // onCartPress={() => navigation.navigate('CartScreen')}
 
+            />
+            {
+                isListLoading && productListPage === 1 ?
+                    (<Loader />) :
+                    productList?.length !== 0 ?
+                        renderProductCollectionList()
+                        :
+                        renderNoDataFound()
+            }
+
+        </AppBackground>
 
     )
 }

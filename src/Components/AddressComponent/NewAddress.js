@@ -66,7 +66,7 @@ const NewAddress = (props) => {
         city: editDataDetail?.city,
         latitude: editDataDetail?.locationDetail?.latitude,
         longitude: editDataDetail?.locationDetail?.longitude,
-        locationDetail:  {
+        locationDetail: {
           latitude: editDataDetail?.latitude,
           longitude: editDataDetail?.longitude,
           address: editDataDetail?.location_address
@@ -119,8 +119,8 @@ const NewAddress = (props) => {
         building: inputFields?.building,
         house: inputFields?.house,
         landmark: inputFields?.landmark,
-        latitude: inputFields?.locationDetail?.latitude,
-        longitude: inputFields?.locationDetail?.longitude,
+        latitude: inputFields?.locationDetail?.latitude.toString(),
+        longitude: inputFields?.locationDetail?.longitude.toString(),
         name: inputFields?.name,
         phone_number: inputFields?.phone_number,
         address_type: inputFields?.address_type,
@@ -243,8 +243,8 @@ const NewAddress = (props) => {
 
           {
             inputFields?.locationDetail?.address != ''
-            // Object.keys(inputFields?.locationDetail).length
-            ?
+              // Object.keys(inputFields?.locationDetail).length
+              ?
               (
                 <View style={{ flexDirection: 'row', margin: '5%' }}>
                   <Image
@@ -259,20 +259,20 @@ const NewAddress = (props) => {
                       textAlign: 'left'
                     }} numberOfLines={2}>Address: {inputFields?.locationDetail?.address}</Text>
                     <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate('Location', {
-                        updateAddress: inputFields.locationDetail,
-                        onGoBack: (data) => {
-                          console.log('location data : ', data), setInputFields({
-                            ...inputFields, locationDetail: {
-                              latitude: data?.latitude,
-                              longitude: data?.longitude,
-                              address: data?.address
-                            }
-                          })
-                        }
-                      });
-                    }}
+                      onPress={() => {
+                        navigation.navigate('Location', {
+                          updateAddress: inputFields.locationDetail,
+                          onGoBack: (data) => {
+                            console.log('location data : ', data), setInputFields({
+                              ...inputFields, locationDetail: {
+                                latitude: data?.latitude,
+                                longitude: data?.longitude,
+                                address: data?.address
+                              }
+                            })
+                          }
+                        });
+                      }}
                     >
                       <Text style={{
                         fontFamily: fonts.VISBY_CF_REGULAR,

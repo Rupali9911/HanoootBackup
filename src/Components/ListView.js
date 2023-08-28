@@ -7,10 +7,11 @@ import { hp, wp, SIZE } from '../constant/responsiveFunc'
 import { LikeImage, ExpressView } from '../constant/ListConstant'
 import CheckBox from 'react-native-check-box'
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToWishlist, removeWishlistItem } from '../screens/Store/actions/wishlistActions'
 import { addToWishlistAPICall } from '../services/apis/WishlistAPI'
 import SVGS from '../constant/Svgs'
+import { showErrorToast, showInfoToast } from './universal/Toast'
 
 const { HeartIconActive, HeartIcon } = SVGS
 
@@ -36,6 +37,10 @@ const ListView = (props) => {
     // console.log('averageRating : ', averageRating,noOfReview)
 
 
+    // console.log('CHECK LIKED ITEM : ', isItemLiked)
+
+
+
     const [isLiked, setLiked] = useState(isItemLiked);
     const [checkedItems, setCheckedItems] = useState([]);
     const [arr, setArr] = useState([]);
@@ -48,17 +53,54 @@ const ListView = (props) => {
 
     // const { item } = props;
     const navigation = useNavigation();
+    const userData = useSelector((state) => state.userReducer.userData);
+
 
     var total = 0
     const addToWishlistProduct = async () => {
-        try {
-            await addToWishlistAPICall(detailId);
-            setLiked(!isLiked);
+        if (userData) {
+            try {
+                // await addToWishlistAPICall(detailId);    
+                console.log('check liked  :', isLiked)    
+                const response = await addToWishlistAPICall(detailId);
+                if (response?.success) {
+                    // console.log('response : ', reponse)
+
+                    const typeCheck = response?.message == 'product added successfully in wishlist' ? 'SUCCESS' : 'REMOVE'
+
+                    if(response?.message == 'product added successfully in wishlist'){
+                        setLiked(true)
+                        setTimeout(() => {
+                            showInfoToast('SUCCESS', response?.message)
+                        }, 1000);
+                    }
+                    else{
+                        setLiked(false)
+                        setTimeout(() => {
+                            showInfoToast('REMOVE', response?.message)
+                        }, 1000);
+                    }
+
+                    
+
+                    // setLiked(!isLiked)
+
+
+                }
+                else {
+                    setLiked(false)
+                }
+                // setLiked(!isLiked);
+            }
+            catch (error) {
+                console.log('Error from add to wishlist API api ', error)
+                // setLiked(false);
+            }
         }
-        catch (error) {
-            console.log('Error from add to wishlist API api ', error)
-            // setLiked(false);
+        else {
+            showErrorToast('For all your shopping needs', 'Please Login First')
         }
+
     }
 
 
@@ -72,7 +114,7 @@ const ListView = (props) => {
         } else {
             setCheckedItems([...checkedItems, id]);
             getIds.push(id);
-            
+
         }
 
         props.productPriceTotal(getIds)
@@ -113,19 +155,33 @@ const ListView = (props) => {
                     {
                         showLike
                             ?
-                            isItemLiked ?
-                                <TouchableOpacity onPress={addToWishlistProduct}>
-                                    <HeartIconActive />
-                                </TouchableOpacity>
-                                :
-                                isLiked ?
-                                    <TouchableOpacity onPress={addToWishlistProduct}>
-                                        <HeartIconActive />
-                                    </TouchableOpacity>
-                                    :
-                                    <TouchableOpacity onPress={addToWishlistProduct}>
-                                        <HeartIcon />
-                                    </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={addToWishlistProduct}
+                            >
+                                {/* {
+                                    isItemLiked ? <HeartIconActive /> : isLiked ? <HeartIconActive /> : <HeartIcon />
+                                } */}
+                                {isLiked ? <HeartIconActive /> : <HeartIcon />}
+
+                            </TouchableOpacity>
+
+
+
+
+                            // ?
+                            // isItemLiked ?
+                            //     <TouchableOpacity onPress={addToWishlistProduct}>
+                            //         <HeartIconActive />
+                            //     </TouchableOpacity>
+                            //     :
+                            //     isLiked ?
+                            //         <TouchableOpacity onPress={addToWishlistProduct}>
+                            //             <HeartIconActive />
+                            //         </TouchableOpacity>
+                            //         :
+                            //         <TouchableOpacity onPress={addToWishlistProduct}>
+                            //             <HeartIcon />
+                            //         </TouchableOpacity>
                             :
                             null
 

@@ -20,6 +20,8 @@ const Category = () => {
     const [subCategoryIndex, setSubCategoryIndex] = useState(null);
     const { isCatgListLoading, categoryList, subCategoryList, categoryPageNum, categoryTotalCounts } = useSelector(state => state.categoryReducer);
     const dispatch = useDispatch();
+    const userData = useSelector((state) => state.userReducer.userData);
+
 
     const navigation = useNavigation();
 
@@ -33,6 +35,7 @@ const Category = () => {
         dispatch(getCategoryList(page));
     }, []);
 
+    console.log('USERDATA: ', userData)
 
     const renderCategories = ({ item, index }) => {
         return (
@@ -211,6 +214,16 @@ const Category = () => {
         );
     }
 
+    const renderNoDataFound = () => {
+        return (
+          <View style={styles.sorryMessageCont}>
+            <Text style={styles.sorryMessage}>{'No data found'}</Text>
+          </View>
+        );
+      }
+    
+
+
     return (
         <AppBackground>
             <AppHeader placeholderText={'What are you looking for?'} />
@@ -219,7 +232,7 @@ const Category = () => {
                 categoryList?.rows?.length > 0 ?
                     renderCategoryCollectionList()
                     :
-                    null}
+                    renderNoDataFound()}
         </AppBackground>
     )
 }
@@ -316,6 +329,15 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: '1%',
         marginVertical: '5%'
-    }
+    },
+    sorryMessageCont: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      sorryMessage: {
+        fontSize: 15,
+        fontFamily: fonts.VisbyCF_Demibold,
+      },
 
 })

@@ -1,21 +1,60 @@
-import { Image, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { Image, ScrollView, StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import AppBackground from '../../Components/AppBackground'
 import AppHeader from '../../Components/AppHeader'
 import ProductHeader from '../../Components/Cards/ProductHeader'
 import Colors from '../../../constant/Colors'
 import fonts from '../../../constant/fonts'
 import Separator from '../../../constant/Separator'
-import { wp } from '../../../constant/responsiveFunc'
+import { wp, hp } from '../../../constant/responsiveFunc'
 import Images from '../../../constant/Images'
 import { ExpressView } from '../../../constant/ListConstant'
 import ProductCounter from '../../../constant/ProductCounter'
 import AppButton from '../../Components/AppButton'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux'
+import { getParticularSelectedAddress } from '../../Store/actions/checkoutAction'
+import { getItemsFromCart } from '../../Store/actions/cartAction'
+import CartProductCards from '../../../Components/CartedProducts'
+import { PlaceOrderAPICall } from '../../../services/apis/OrdersAPI'
+import Coupon from '../../CartScreen/Coupon'
+import { showInfoToast, showErrorToast } from '../../../Components/universal/Toast'
+import { getBuyNowData } from '../../Store/actions/orderAction'
+import Loader from '../../../constant/Loader'
 
 
 const ReviewOrder = (props) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+
+  const { signleAddressDetail } = useSelector(state => state.checkoutReducer);
+  const { isCartDataLoading, cartItems, cartData } = useSelector(state => state.cartReducer);
+  const { productQtyIdInfo, isBuyNowButton } = useSelector(state => state.productListReducer);
+  const { isProductLoading, Product, ProductData } = useSelector(state => state.orderReducer);
+
+
+  const [quantity, setQuantity] = useState(productQtyIdInfo?.productQty)
+
+  const isLoading = isBuyNowButton ? isProductLoading : isCartDataLoading;
+  const data = isBuyNowButton ? ProductData : cartData;
+  const listItems = isBuyNowButton ? Product : cartItems;
+
+
+  console.log('data , listItems, data', listItems, data)
+
+
+  useEffect(() => {
+    if (isBuyNowButton) {
+      dispatch(getBuyNowData(productQtyIdInfo?.productId, productQtyIdInfo?.productQty))
+    }
+    else {
+      dispatch(getItemsFromCart(1));
+    }
+    dispatch(getParticularSelectedAddress(props.AddressId))
+  }, [isFocused])
+
+  console.log('single address detail : ', signleAddressDetail)
 
 
   const OrderSummary = () => {
@@ -26,20 +65,20 @@ const ReviewOrder = (props) => {
         <View style={styles.priceViewCont}>
           <View style={styles.rowCont}>
             <Text style={styles.priceLeftText}>Subtotal (1 item)</Text>
-            <Text style={styles.price}>$ 5,00.00</Text>
+            <Text style={styles.price}>$ {data?.total_cost}</Text>
           </View>
           <View style={styles.rowCont}>
             <Text style={styles.priceLeftText}>Coupon Discount</Text>
-            <Text style={[styles.price, { color: Colors.GREEN }]}>- $ 5.00</Text>
+            <Text style={[styles.price, { color: Colors.GREEN }]}>$ 0</Text>
           </View>
           <View style={styles.rowCont}>
             <Text style={styles.priceLeftText}>Shipping Cost</Text>
-            <Text style={styles.price}>$10</Text>
+            <Text style={styles.price}>$ 0</Text>
           </View>
           <Separator separatorStyle={{ width: wp(90) }} />
           <View style={styles.rowCont}>
             <Text style={styles.TotalPrice}>Total <Text style={{ color: Colors.PRICEGRAY, fontWeight: 500 }}>(Inclusive of VAT)</Text></Text>
-            <Text style={styles.TotalPrice}>$ 4,95.00</Text>
+            <Text style={styles.TotalPrice}>$ {data?.total_cost}</Text>
           </View>
         </View>
       </>
@@ -49,44 +88,48 @@ const ReviewOrder = (props) => {
   const PayDetail = () => {
     return (
       <>
-        <ProductHeader title={'Pay With'} RightText={'Change'} />
+        <ProductHeader title={'Pay With'} RightText={'Change'} onPress={() => props.setScreenType('PAYMENT')} />
 
         <View style={styles.payCard}>
-          <Image source={Images.cashOnDelivery} style={{ height: 40, width: 45 }} />
+          <Image source={Images.ZainCash} style={{ height: 40, width: 45 }} />
           <View>
             <Text
               style={styles.payMode}
-            >{'Cash On Delivery'}</Text>
-            <Text style={styles.payModeDesc} numberOfLines={2}>{'Pay when you get order'}</Text>
+            >{'ZainCash'}</Text>
+            <Text style={styles.payModeDesc} numberOfLines={2}>{'Pay online via Zaincash'}</Text>
           </View>
         </View>
       </>
     );
   }
+
+  const keyExtractor = (item, index) => {
+    return index;
+  };
 
   const DeliveryDetail = () => {
     return (
       <>
-        <ProductHeader title={'Deliver to'} RightText={'Change'} />
+        <ProductHeader title={'Deliver to'} RightText={'Change'} onPress={() => props.setScreenType('ADDRESS')} />
         <View style={styles.DeliveryCard}>
           <View style={styles.rowCont}>
-            <Text style={styles.deliverUserName}>Gregory R. Butler</Text>
+            <Text style={styles.deliverUserName}>{signleAddressDetail?.name}</Text>
             <View style={styles.deliveryLocation}>
-              <Text style={styles.deliveryType}>{'Home'}</Text>
+              <Text style={styles.deliveryType}>{signleAddressDetail?.address_type}</Text>
             </View>
           </View>
-          <Text style={styles.deliverUserAdd}>{'717 Mills Gardens, Anbar-iraq'}</Text>
-          <Text style={styles.deliverUserAdd}>{'9713380901'}</Text>
+          <Text style={styles.deliverUserAdd}>{`${signleAddressDetail?.house} ${signleAddressDetail?.building} ${signleAddressDetail?.street}, ${signleAddressDetail?.city}`}</Text>
+          <Text style={styles.deliverUserAdd}>{signleAddressDetail?.phone_number}</Text>
         </View>
       </>
     );
   }
 
 
-  const ReviewItemDetail = () => {
+  const ReviewItemDetail = ({ item, index }) => {
     return (
       <>
-        <ProductHeader title={'Review Item'} />
+        {/* <ProductHeader title={'Review Item'} />
         <View style={styles.itemReviewCard}>
           <View style={{ flexDirection: 'row' }}>
             <View>
@@ -110,9 +153,70 @@ const ReviewOrder = (props) => {
         <View style={styles.itemQuantityView}>
           <Text style={styles.quantityText}>Qty : </Text>
           <ProductCounter />
-        </View>
+        </View> */}
+
+        <CartProductCards
+          item={item}
+          getCount={(val) => { console.log('check quantiti : ', productQtyIdInfo?.productId, val), setQuantity(Number(val)) }}
+          onIncrement={(data) => {
+            if (data?.success === true) {
+              // dispatch(getItemsFromCart(1))
+
+              if (isBuyNowButton) {
+                dispatch(getBuyNowData(productQtyIdInfo?.productId, quantity))
+              }
+              else {
+                dispatch(getItemsFromCart(1));
+              }
+            }
+          }}
+        />
       </>
     );
+  }
+
+  const OnPlaceOrder = async () => {
+    try {
+
+      const data =
+        isBuyNowButton ?
+          {
+            address_id: props.AddressId,
+            product_id: productQtyIdInfo?.productId,
+            quantity: quantity,
+            payment_method: "zen cash"
+          }
+          :
+          {
+            address_id: props.AddressId,
+            payment_method: "zen cash"
+          }
+      const orderPlaced = await PlaceOrderAPICall(data);
+      console.log('orderPlaced', orderPlaced)
+
+
+      if (orderPlaced?.success) {
+        showInfoToast('SUCCESS', orderPlaced?.message)
+
+        navigation.navigate('SuccessScreen')
+      }
+      else {
+        showErrorToast('Sorry!!', orderPlaced?.message)
+      }
+      // navigation.navigate('OtpVerifySuccess')
+    }
+    catch (error) {
+      console.log('error from place order', error)
+    }
+  }
+
+  const CouponDetail = () => {
+    return (
+      <>
+        <ProductHeader title={'Coupon'} />
+        <Coupon />
+      </>
+    )
   }
 
 
@@ -120,34 +224,46 @@ const ReviewOrder = (props) => {
     // <AppBackground>
     //   <AppHeader />
     <>
-      <ScrollView>
+      {
+        isLoading ?
+          <Loader />
+          :
+          <>
+            <ScrollView style={{ marginBottom: hp(5) }}>
 
-        {OrderSummary()}
-        {PayDetail()}
-        {DeliveryDetail()}
-        {ReviewItemDetail()}
+              {CouponDetail()}
+              {OrderSummary()}
+              {PayDetail()}
+              {DeliveryDetail()}
+              <ProductHeader title={'Review Item'} />
+              {
+                listItems?.length > 0
+                  ?
+                  <FlatList
+                    style={{ marginBottom: hp(5) }}
+                    data={listItems}
+                    renderItem={ReviewItemDetail}
+                    keyExtractor={keyExtractor}
+                    scrollEnabled={false}
+                  />
+                  :
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={styles.priceLeftText}>{'No Item Found'}</Text>
+                  </View>
+              }
 
-      </ScrollView>
-      <View style={styles.bottomButtonCont}>
-        <AppButton 
-        label={'Place Your Order'}
-        onPress={() => {
-          // const storeUser = async () => {
-          //     try {
-          //         let name = "PLACEORDER";
-          //         await AsyncStorage.setItem("BUTTON", name);
-          //     } catch (error) {
-          //         console.log(error);
-          //     }
-          // };
-          // storeUser();
 
-          navigation.navigate('SuccessScreen')
+            </ScrollView>
+            <View style={styles.bottomButtonCont}>
+              <AppButton
+                label={'Place Your Order'}
+                onPress={OnPlaceOrder}
+              />
+            </View>
+          </>
+      }
 
-      }}
-        />
-      </View>
-      </>
+    </>
     // </AppBackground>
   )
 }

@@ -82,7 +82,7 @@ export const getItemsFromCart = (page) => {
             dispatch(addToCart(response?.data))
           }
         }).
-        catch((err) => { console.log('Error Checked : ', err) })
+        catch((err) => { console.log('Error Checked : ', err), dispatch(cartLoadingFail(err)) })
     }
   }
   catch (err) {

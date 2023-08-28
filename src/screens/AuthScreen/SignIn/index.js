@@ -20,7 +20,7 @@ import { useDispatch } from 'react-redux'
 import { setUserData } from '../../Store/actions/userAction'
 import { saveUserDetails } from '../../../helpers/user'
 
-const Login = () => {
+const Login = (props) => {
     const [phoneNo, setPhoneNo] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -32,6 +32,8 @@ const Login = () => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch()
+
+
 
     const Login = () => {
         const errorList = {}
@@ -89,7 +91,13 @@ const Login = () => {
                 console.log('Response from signInWithEmailAndPwd is user object exists', response?.user)
                 // dispatch(setUserData(response?.user))
                 saveUserDetails(response?.user, dispatch)
-                navigation.navigate('Home');
+                if(props?.route?.params?.cameFrom){
+                    navigation.navigate(props?.route?.params?.cameFrom);
+                }
+                else{
+                    navigation.navigate('HomeTab');
+                }
+                
             })
     }
 

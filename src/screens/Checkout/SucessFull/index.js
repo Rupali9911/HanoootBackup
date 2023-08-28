@@ -26,10 +26,11 @@ const OrderSuccessScreen = () => {
                     <AppButton
                         isEmptyBG
                         label={'View Order'}
+                        onPress={() => navigation.navigate('OrderList')}
                     />
                     <AppButton
                         label={'Back to Shopping'}
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={() => navigation.navigate('HomeTab')}
                     />
                 </View>
             </View>

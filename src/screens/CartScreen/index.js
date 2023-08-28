@@ -15,8 +15,12 @@ import Images from '../../constant/Images'
 import { getItemsFromCart, cartLoadingStart, cartItemReset, cartDataLPageChange } from '../Store/actions/cartAction'
 import Loader from '../../constant/Loader'
 import { showErrorToast } from '../../Components/universal/Toast'
+import EmptyDetailScreen from '../../Components/EmptyDetailScreen'
+import { wp } from '../../constant/responsiveFunc'
 
 const CartScreen = (props) => {
+
+  const screen = props?.route?.params?.screen;
 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -40,49 +44,44 @@ const CartScreen = (props) => {
     dispatch(getItemsFromCart(page));
   }, []);
 
-  const renderNoDataFound = () => {
-    return (
-      <View style={styles.sorryMessageCont}>
-        <Text style={styles.sorryMessage}>{'No data found'}</Text>
-      </View>
-    );
-  }
 
   return (
-
-    userData ?
-      <>
-        <AppBackground>
-          <AppHeader
-            showBackButton
-            title={`Cart (${cartItems.length ? cartItems.length : 0} item)`}
-            showLikeIcon
-            titleComponentStyle={{ alignItems: 'flex-start' }}
-          />
-          {
-            isCartDataLoading && cartPageNo === 1 ?
-              <Loader /> :
-              cartItems?.length !== 0 ?
-                <CartItemCard />
-                :
-                renderNoDataFound()
-          }
-          {
-            cartItems?.length !== 0 && !isCartDataLoading &&
-            <View style={styles.buttonContainer}>
-              <AppButton label={'Proceed Checkout'}
-                onPress={() => navigation.navigate('CheckoutScreen')}
+    <>
+      <AppBackground>
+        <AppHeader
+          // showBackButton
+          showBackButton={screen ? true : false}
+          title={`Cart (${cartItems.length ? cartItems.length : 0} item)`}
+          showLikeIcon
+          titleComponentStyle={{ alignItems: 'flex-start' }}
+        />
+        {
+          isCartDataLoading && cartPageNo === 1 ?
+            <Loader /> :
+            cartItems?.length !== 0 ?
+              <CartItemCard />
+              :
+              <EmptyDetailScreen
+                image={Images.CartImage}
+                title={'Your Hanoot Cart is empty'}
+                description={'Start adding items you love to your wishlist by tapping on the heart icon!'}
+                buttonLabel={'Start Shopping'}
+                imgStyle={{
+                  width: wp(73)
+                }}
+                onpress={() => navigation.navigate('HomeTab')}
               />
-            </View>
-          }
-        </AppBackground>
-      </>
-      :
-      <>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>{'User Login'}</Text>
-        </View>
-      </>
+        }
+        {
+          cartItems?.length !== 0 && !isCartDataLoading &&
+          <View style={styles.buttonContainer}>
+            <AppButton label={'Proceed Checkout'}
+              onPress={() => navigation.navigate('CheckoutScreen')}
+            />
+          </View>
+        }
+      </AppBackground>
+    </>
 
 
 

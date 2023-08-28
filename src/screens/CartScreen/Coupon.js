@@ -73,6 +73,7 @@ const Coupon = () => {
                     onChangeText={handleChange}
                     style={[styles.Text, { color: couponCode === 'hanoot 15% off is Applied' ? Colors.GREEN : Colors.PRICEGRAY }]}
                     placeholder={'Enter Coupon Code'}
+                    editable={false}
                 />
                 <TouchableOpacity style={styles.TouchableOpacity} onPress={handleSubmit}>
 

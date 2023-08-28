@@ -4,6 +4,7 @@ import { showInfoToast, showErrorToast } from "../../../Components/universal/Toa
 
 
 export const addToWishlistAPICall = (id) => {
+    console.log('product wishlist api call : ',id )
     return new Promise((resolve, _reject) => {
         sendRequest({
             url: WISHLIST_API,
@@ -17,29 +18,26 @@ export const addToWishlistAPICall = (id) => {
                 product_id: id
             }
         }).
-        then((response) => {
+            then((response) => {
 
-            if(response?.success === true){
+                console.log('Respons from wishlist API : ', response)
 
-                const typeCheck = response?.message == 'product added successfully in wishlist' ? 'SUCCESS' : 'REMOVE'
-                resolve(response);
+                if (response?.success === true) {
+                    resolve(response); 
+                }
+                else {
+                    showErrorToast('Auth Error', response?.message)
+                }
 
-            showInfoToast(typeCheck, response?.message)
-            }
 
-            else {
-                showErrorToast('Auth Error', response?.message)
-            }
+            }).
+            catch((error) => {
+                console.log('Error from WISHLIST_API : ', error);
+                if (error?.status == 401) {
+                    showErrorToast('Auth Error', '')
+                }
 
-            
-        }).
-        catch((error) => {
-            console.log('Error from WISHLIST_API : ', error);
-            if(error?.status == 401){
-                showErrorToast('Auth Error', '')
-            }
-            
-            _reject(error)
-        })
+                _reject(error)
+            })
     })
 }

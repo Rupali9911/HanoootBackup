@@ -11,49 +11,108 @@ import { addToWishlistAPICall } from '../../services/apis/WishlistAPI';
 import { capitalizeFirstLetter } from '../utils';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import SVGS from '../../constant/Svgs';
+import { showErrorToast } from '../../Components/universal/Toast';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProductDetail } from '../Store/actions/productListAction';
+import { showInfoToast } from '../../Components/universal/Toast';
 
 const { HeartIconActive, HeartIcon, ShareIcon } = SVGS
 
 
 
 const ProductDetailCard = (props) => {
-    const [isLike, setLike] = useState(props?.isItemLiked)
+    const [isLike, setLike] = useState(false)
     const { carouselData, title, avgRating, noOfReview, price, discount, categoryName, isItemLiked, productLink } = props;
+    const userData = useSelector((state) => state.userReducer.userData);
+    const dispatch = useDispatch();
+    const { productDetail } = useSelector(state => state.productListReducer);
 
 
     const addToWishlistProduct = async () => {
-        try {
-            await addToWishlistAPICall(props.productId);
-            setLike(!isLike);
+        if (userData) {
+            // if (response?.success) {
+            //     dispatch(productDetailLoading())
+            //     const resp1 = dispatch(getProductDetail(product_detail_Id, userData))
+            //     if (resp1) {
+            //         setTimeout(() => {
+            //             showInfoToast('SUCCESS', response?.message)
+            //         }, 1000);
+            //     }
+            //     // setTimeout(() => {
+            //     //     showInfoToast('SUCCESS', response?.message)
+            //     // }, 1000);
+
+            // }
+            // else {
+            //     showErrorToast()
+            // }
+
+
+
+
+            try {
+                const response = await addToWishlistAPICall(props.productId);
+                if (response?.success) {
+                    // dispatch(getProductDetail(props.productId))
+                    const resp1 = dispatch(getProductDetail(props.productId, userData))
+                    if (resp1) {
+                        const typeCheck = response?.message == 'product added successfully in wishlist' ? 'SUCCESS' : 'REMOVE'
+
+                        setTimeout(() => {
+                            showInfoToast(typeCheck, response?.message)
+                        }, 1000);
+                        
+                    }
+
+
+                    setLike(!isLike)
+                }
+                else {
+                    setLike(false)
+                }
+
+                // setLike(!isLike);
+            }
+            catch (error) {
+                setLike(false)
+                console.log('Error from add to wishlist API api ', error)
+                showErrorToast()
+            }
         }
-        catch (error) {
-            console.log('Error from add to wishlist API api ', error)
+        else {
+            showErrorToast('For all your shopping needs', 'Please Login First')
         }
     }
+
+
+    console.log('productDetail API ', productDetail)
+
+
+    console.log('productDetail islike key check : ', productDetail?.isLike)
 
 
     const onShare = async () => {
         let productName = title
         let productUrl = productLink
         try {
-           const result = await Share.share({
-              title: 'Product Detail',
-              url: productUrl,
-              message: productName + ' ' + productUrl,
-           });
-           if (result.action === Share.sharedAction) {
-              if (result.activityType) {
-                 // shared with activity type of result.activityType
-              } else {
-                 // shared
-              }
-           } else if (result.action === Share.dismissedAction) {
-              // dismissed
-           }
+            const result = await Share.share({
+                title: 'Product Detail',
+                url: productUrl,
+                message: productName + ' ' + productUrl,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
         } catch (error) {
-           console.log('Share error', error)
+            console.log('Share error', error)
         }
-     };
+    };
 
 
     const ShareButton = () => {
@@ -91,10 +150,11 @@ const ProductDetailCard = (props) => {
                 <TouchableOpacity
                     onPress={addToWishlistProduct}
                 >
-                    {
-                        isLike ? <HeartIconActive /> : <HeartIcon />
-                    }
+                    {/* {
+                        isItemLiked ? <HeartIconActive /> : isLike ? <HeartIconActive /> : <HeartIcon />
+                    } */}
 
+                    {productDetail?.isLike ? <HeartIconActive /> : <HeartIcon />}
                 </TouchableOpacity>
                 {/* <HeartIconActive  /> */}
             </View>
@@ -169,10 +229,10 @@ const ProductDetailCard = (props) => {
     }, [])
 
     const renderText = (val) => {
-        if(val.includes('-')){
+        if (val.includes('-')) {
             return val.split('-')[0]
         }
-        return val; 
+        return val;
     }
 
 

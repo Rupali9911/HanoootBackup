@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET } from "../types";
+import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET, PRODUCT_DETAIL_DATA_FAILED, PRODUCT_DETAIL_INFO_STORE, PRODUCT_BUTTON_TAPPED } from "../types";
 import { ProductListAPICall, ProductDetailAPICall,ProductFilterAPICall } from "../../../services/apis/ProductAPI";
 
 export const productListLoadingStart = bool => ({
@@ -42,12 +42,35 @@ export const productDetailDataSuccess = data => ({
     payload: data,
 });
 
+export const productDetailFailed = error => ({
+    type: PRODUCT_DETAIL_DATA_FAILED,
+    payload: error,
+});
+
 //=====================Product Detail filter by category API Call=================
 
 export const productFilterByCategorySuccess = data => ({
     type: PRODUCT_FILTER_BY_CATEGORY_SUCCESS,
     payload: data,
 });
+
+//=====================Product QTY AND ID STORE=================
+
+
+export const productInfoStore = data => ({
+    type: PRODUCT_DETAIL_INFO_STORE,
+    payload: data,
+});
+
+//=====================Product BUTTON TAPPED INFO=================
+
+
+export const setTappedButtonName = bool => ({
+    type: PRODUCT_BUTTON_TAPPED,
+    payload: bool,
+});
+
+
 
 export const getProductList = (page, categoryId) => {
     // console.log('sdhjfs')
@@ -92,11 +115,11 @@ export const getProductList = (page, categoryId) => {
 //=============Product Detail API Call====================
 
 
-export const getProductDetail = (id) => {
+export const getProductDetail = (id, userData) => {
     try {
         return async dispatch => {
            
-            await ProductDetailAPICall(id).
+            await ProductDetailAPICall(id, userData).
                 then(async (response) => {
                     // console.log('response from product detail api call : ', response)
                     if (response?.success === true) {
@@ -109,11 +132,12 @@ export const getProductDetail = (id) => {
                         }
                     }
                 }).
-                catch((err) => { productListFail(err) })
+                catch((err) => { console.log('sdfskhfshfkjsjkfhk'), dispatch(productDetailFailed(err)) })
         }
     }
     catch (err) {
-        console.log('Error from Product detail api', err)
+        // console.log('Error from Product detail api', err)
+        console.log('productDetail API throw error', err)
     }
 
     // try {

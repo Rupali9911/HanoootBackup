@@ -21,6 +21,11 @@ const Checkout = (props) => {
   const getData = route?.params?.AddressDetail;
   const editData = route?.params?.EDIT;
 
+  const { addressRecordList } = useSelector(state => state.checkoutReducer);
+
+
+
+
 
   // const { ADDRESS_DETAIL } = useSelector(state => state.checkoutReducer);
 
@@ -31,6 +36,9 @@ const Checkout = (props) => {
   // console.log('Checkout screen Data : ', getData);
 
   const [screenType, setScreenType] = useState('ADDRESS')
+  const [addressID, setAddressID] = useState(addressRecordList[0]?.id)
+
+  console.log('chekcslkfj ', addressRecordList[0]?.id, addressID)
 
 
 
@@ -54,6 +62,7 @@ const Checkout = (props) => {
 
 
 
+  console.log('addressID is here : ', addressID)
 
   // console.log('Check Screen Type : ', screenType)
   return (
@@ -92,11 +101,11 @@ const Checkout = (props) => {
 
         {
           screenType === 'ADDRESS' ?
-            <Address setScreenType={(sType) => { console.log('ScreenType from Address Component', sType), setScreenType(sType) }} />
+            <Address setScreenType={(sType, getAddId) => { console.log('ScreenType from Address Component', sType, getAddId), setScreenType(sType), setAddressID(getAddId ? getAddId : addressRecordList[0]?.id) }} />
             :
             screenType === 'PAYMENT' ? <Payment setScreenType={(sType) => { console.log('ScreenType from Payment Component', sType), setScreenType(sType) }} />
               :
-              screenType === 'PLACEORDER' ? <ReviewOrder />
+              screenType === 'PLACEORDER' ? <ReviewOrder AddressId={addressID} setScreenType={(sType) => { console.log('ScreenType from Place Order Component', sType), setScreenType(sType) }} />
                 :
                 null
         }
