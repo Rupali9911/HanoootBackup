@@ -76,9 +76,11 @@ const Location = (props) => {
       }
     } else {
       const status = await requestMultiple([
-        PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION,
-        PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
-      ])
+        PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+      ]);
+      await requestMultiple([
+        PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION
+      ]);
       console.log('checked status : ', status)
 
       if (status[PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION] === RESULTS.GRANTED || status[PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION] === RESULTS.GRANTED) {

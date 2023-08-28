@@ -1,6 +1,6 @@
 
 
-import auth from '@react-native-firebase/auth';
+import auth, { updateEmail } from '@react-native-firebase/auth';
 import { GOOGLE_CLIENT_ID } from '../../utility/apiUrls'
 import appleAuth from '@invertase/react-native-apple-authentication'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
@@ -184,6 +184,17 @@ export const updateDisplayName = (userCredentials, name) => {
             const response = await userCredentials.user.updateProfile({
                 displayName: name
             })
+            resolve(response)
+        } catch (error) {
+            console.log(error)
+            handleAuthError(error)
+        }
+    })
+}
+export const updateEmail = (email) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await updateEmail(auth().currentUser, email)
             resolve(response)
         } catch (error) {
             console.log(error)
