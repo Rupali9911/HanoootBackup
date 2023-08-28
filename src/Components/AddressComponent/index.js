@@ -13,12 +13,17 @@ import AppModal from '../universal/Modal';
 
 const AddressDetail = (props) => {
     const [id, setId] = useState();
-    const [checked, setChecked] = useState(0)
     const [modalVisible, setModalVisible] = useState(false);
 
     const { addressRecordList } = useSelector(state => state.checkoutReducer);
+    const [checked, setChecked] = useState(addressRecordList[0]?.id)
+
     const dispatch = useDispatch();
     const navigation = useNavigation();
+
+
+
+    console.log('ADDRESS_RECORD_LIST : ', addressRecordList )
 
 
     const EditRemoveButton = (props) => {
@@ -43,7 +48,11 @@ const AddressDetail = (props) => {
 
     const onPressRadioButton = (index) => {
         setChecked(index);
+        props.getParticularAddId(index)
     }
+
+
+    console.log('setChecked', checked)
 
     const renderItem = ({ item, index }) => {
         return (
@@ -57,8 +66,8 @@ const AddressDetail = (props) => {
                                     innerColor={Colors.themeColor}
                                     outerColor={Colors.GRAY}
                                     animation={'bounceIn'}
-                                    isSelected={checked === index}
-                                    onPress={() => { onPressRadioButton(index) }}
+                                    isSelected={checked === item?.id}
+                                    onPress={() => { onPressRadioButton(item?.id) }}
                                     size={10}
                                 />
                             }

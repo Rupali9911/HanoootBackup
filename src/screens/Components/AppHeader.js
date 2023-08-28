@@ -5,15 +5,19 @@ import AppSearch from '../Components/AppSearch';
 import Colors from '../../constant/Colors';
 import { useNavigation } from '@react-navigation/native';
 import fonts from '../../constant/fonts';
-import { hp, wp } from '../../constant/responsiveFunc';
+import { SIZE, hp, wp } from '../../constant/responsiveFunc';
 import SVGS from '../../constant/Svgs';
+import { useSelector } from 'react-redux';
+import { showErrorToast } from '../../Components/universal/Toast';
 
-const { HeartIconBlack, CartIcon, SearchIcon } = SVGS;
+const { HeartIconBlack, CartIcon, SearchIcon } = SVGS; 
 
 
 export default function AppHeader(props) {
   const [isSearch, setSearch] = useState(false)
   const navigation = useNavigation();
+
+  const userData = useSelector((state) => state.userReducer.userData);
 
 
   const RightSideIcon = (props) => {
@@ -30,6 +34,10 @@ export default function AppHeader(props) {
         </TouchableOpacity>
       </View>
     );
+  }
+
+  const renderToastMsg = () => {
+    showErrorToast('For all your shopping needs', 'Please Login First')
   }
 
   return (
@@ -95,11 +103,11 @@ export default function AppHeader(props) {
             props.showLikeIcon &&
             <RightSideIcon
               // onPress={props.onLikePress}
-              onPress={() => navigation.navigate('WishlistScreen')}
+              onPress={() => userData ? navigation.navigate('WishlistScreen') : renderToastMsg()}
             // image={Images.Wishlist}
 
             >
-              <HeartIconBlack />
+              <HeartIconBlack width={SIZE(20)} height={SIZE(20)} />
             </RightSideIcon>
 
           }
@@ -108,28 +116,32 @@ export default function AppHeader(props) {
             props.showSearchIcon &&
             <RightSideIcon
               onPress={props.onSearchPress}
-              // image={Images.searchIcon}
+            // image={Images.searchIcon}
             >
-              <SearchIcon />
+              <SearchIcon width={SIZE(20)} height={SIZE(20)} />
             </RightSideIcon>
           }
 
           {
             props.showCartIcon &&
             <RightSideIcon
-              onPress={props.onCartPress}
-              // image={Images.cart}
+              onPress={() => userData ? navigation.navigate('CartScreen', { screen: true }) : renderToastMsg()}
+            // image={Images.cart}
             >
-              <CartIcon />
-              </RightSideIcon>
+              <CartIcon width={SIZE(20)} height={SIZE(20)} />
+            </RightSideIcon>
           }
         </View>
 
         {props.showRightComponent && (
+          <TouchableOpacity
+          onPress={() => props.onCancelPress ? props.onCancelPress : navigation.goBack()}
+          >
           <Text
             style={[styles.title, { color: Colors.themeColor, paddingRight: 10 }]}
             onPressRightText
           >{'Cancel'}</Text>
+          </TouchableOpacity>
         )}
       </View>
 
@@ -227,6 +239,7 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     fontWeight: 700,
     color: Colors.BLACK,
+    paddingHorizontal: '2%'
     // backgroundColor: 'red',
     // justifyContent: 'flex-start',
     // alignItems: 'flex-start'

@@ -119,7 +119,7 @@ import { hp } from '../../constant/responsiveFunc';
 
 const ProductVariation = (props) => {
     const { variants } = props;
-    console.log('variants : ', variants, typeof (variants))
+    // console.log('variants : ', variants, typeof (variants))
 
 
     // console.log( Object.keys(variants).length ? 'data hai ' : 'data ni hai') 

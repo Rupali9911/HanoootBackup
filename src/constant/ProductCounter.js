@@ -5,21 +5,24 @@ import { hp } from './responsiveFunc';
 import fonts from './fonts';
 import Images from './Images';
 import { AddtoCartAPICall } from '../services/apis/CartAPI';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getItemsFromCart } from '../screens/Store/actions/cartAction';
 
 const ProductCounter = (props) => {
+    console.log('propscalled : ', props)
     const [counter, setCounter] = useState(1);
+    const userData = useSelector((state) => state.userReducer.userData);
+
 
     const dispatch = useDispatch();
 
     const incrementCounter = async () => {
         try {
-            const incVal = Number(counter + 1) || Number(1);
+            const incVal = props.noOfQty ? (Number(props.noOfQty) + 1) : (Number(counter + 1) || Number(1));
             const response = await AddtoCartAPICall(props.productId, incVal)
             // console.log(response)
             if (response?.success) {
-                setCounter(counter + 1);  
+                setCounter(counter + 1);
                 props.getCountValue(incVal)
                 props.onIncPressed(response)
                 // dispatch(getItemsFromCart())
@@ -30,21 +33,23 @@ const ProductCounter = (props) => {
 
             }
         }
-        catch (error) { 
+        catch (error) {
             // console.log('error  from add to cart api : ', error)
         }
     };
 
     const decrementCounter = async () => {
-        
+
         try {
             if (counter !== 1) {
-                const decVal = Number(counter - 1) || Number(1)
+                
+                const decVal = props.noOfQty ? (Number(props.noOfQty) - 1) : (Number(counter - 1) || Number(1));
                 const response = await AddtoCartAPICall(props.productId, decVal)
                 if (response?.success) {
                     setCounter(counter - 1);
                     props.getCountValue(decVal)
-                    props.getCountClickData(response?.data)
+                    // props.getCountClickData(response?.data)
+                    props.onIncPressed(response)
 
                 }
             }
@@ -60,14 +65,19 @@ const ProductCounter = (props) => {
 
     };
 
-    const updateCounter =(isAdd)=>{
+    const updateCounter = (isAdd) => {
         // props.onIncrementPress
-        if(isAdd){
-            console.log('isADD', isAdd)
-            incrementCounter()
+        if (isAdd) {
+            userData ? incrementCounter() : setCounter(counter + 1)
             // props.onIncrementPress
-        }else{
-            decrementCounter()
+        } else {
+            // decrementCounter()
+            userData ? decrementCounter() 
+            : 
+            counter !== 1 && setCounter(counter - 1)
+            // if (counter !== 1) {
+            //     setCounter(counter - 1)
+            // }
         }
     }
 

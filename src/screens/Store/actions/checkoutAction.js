@@ -1,7 +1,7 @@
-import { ADDRESS_DETAIL } from "../types";
+import { ADDRESS_DETAIL, FETCH_PARTICULAR_ADDRESS } from "../types";
 import { REMOVE_ADDRESS } from "../types";
 import { UPDATE_ADDRESS } from "../types";
-import { AddNewAddressAPICall, FetchAddressAPICall, updateAddressAPICall, deleteAddressAPICall } from "../../../services/apis/AddressAPI";
+import { AddNewAddressAPICall, FetchAddressAPICall, updateAddressAPICall, deleteAddressAPICall, FetchSelectedAddressAPICall } from "../../../services/apis/AddressAPI";
 import { showInfoToast } from "../../../Components/universal/Toast";
 
 export const setAddressDetails = data => {
@@ -15,6 +15,13 @@ export const removeAddress = remove => {
     return {
         type: REMOVE_ADDRESS,
         payload: remove
+    }
+}
+
+export const fetchSingleAddress = data => {
+    return {
+        type: FETCH_PARTICULAR_ADDRESS,
+        payload: data
     }
 }
 
@@ -127,5 +134,27 @@ export const removeAddressDetails = (Deleteid) => {
         // catch (error) {
         //     console.log('Error from Add new address api', error)
         // }
+    };
+}
+
+
+
+export const getParticularSelectedAddress = (addId) => {
+    return async dispatch => {
+        try {
+            await FetchSelectedAddressAPICall(addId).
+                then(async(response) => {
+                    console.log('response from fetch selected address detail api', response)
+                    if (response?.data) {
+                        await dispatch(fetchSingleAddress(response?.data))
+                    }
+                }).
+                catch((err) => {
+                    { console.log('response from fetch selected address detail api', err) }
+                })
+        }
+        catch (error) {
+            console.log('Error from fetch selected address detail api call ', error)
+        }
     };
 }

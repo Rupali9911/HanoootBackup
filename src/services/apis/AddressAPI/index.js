@@ -111,3 +111,29 @@ export const deleteAddressAPICall = (deleteId) => {
             })
     })
 }
+
+
+
+export const FetchSelectedAddressAPICall = (id) => {
+    return new Promise((resolve, _reject) => {
+        sendRequest({
+            url: `${FETCH_ADDRESS_DETAIL}/${id}`,
+            method: 'GET',
+        })
+            .then(async (response) => {
+                // console.log('Response from ADD_NEW_ADDRESS api', response, response?.success, response?.success === true)
+                console.log('Response from selected address detail api', response)
+                if (response?.success === true) {
+                    
+                    //
+                    resolve(response)
+                // } else {
+                //     showErrorToast('Auth Error', response?.message)
+                }
+            })
+            .catch(error => {
+                console.log('Error from Selected Address detail api', error)
+                _reject(error)
+            })
+    })
+}

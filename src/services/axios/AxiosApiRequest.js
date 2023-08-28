@@ -8,6 +8,7 @@ import axios from 'axios';
 
 //=============== API Calling function ========================
 async function sendRequest(payload) {
+  console.log('payload check : ', payload)
   try {
     const token = await getAccessToken('ACCESS_TOKEN');
     payload.headers = payload.headers

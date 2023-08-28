@@ -1,11 +1,13 @@
-import { ADDRESS_DETAIL } from "../types";
+import { ADDRESS_DETAIL, FETCH_PARTICULAR_ADDRESS } from "../types";
 import { REMOVE_ADDRESS } from "../types";
 import { UPDATE_ADDRESS } from "../types";
 
 const initialState = {
     isAddresDetailLoading: true,
     addressRecordList: [],
-    addressType: ''
+    addressType: '',
+
+    signleAddressDetail: {}
 }
 
 const checkoutReducer = (state = initialState, action) => {
@@ -72,6 +74,13 @@ const checkoutReducer = (state = initialState, action) => {
 
                 addressType: 'UPDATE_ADDRESS'
             }
+
+
+            case FETCH_PARTICULAR_ADDRESS:
+                return {
+                    ...state,
+                    signleAddressDetail: action.payload,
+                };
         default:
             return state;
     }

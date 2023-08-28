@@ -9,7 +9,7 @@ const ProductHeader = (props) => {
         <View style={[styles.container, props.ContainerStyle]}>
             <View style={styles.rowContainer}>
                 <Text style={[styles.text, props.TitleStyle]}>{props.title}</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={props.onPress}>
                     <Text style={[styles.text, {color: Colors.themeColor}]}>{props.RightText}</Text>
                 </TouchableOpacity>
             </View>

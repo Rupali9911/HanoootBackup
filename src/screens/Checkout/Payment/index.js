@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 const Payment = (props) => {
-    const [checked, setChecked] = useState(0);
+    const [checked, setChecked] = useState(1);
     const navigation = useNavigation();
 
 
@@ -29,7 +29,7 @@ const Payment = (props) => {
         <>
             <ProductHeader title={'Select a Payment method'} />
             <View style={{ marginTop: 20 }}>
-                <View style={styles.payCard}>
+                {/* <View style={styles.payCard}>
                     <RadioButton
                         innerColor={Colors.themeColor}
                         outerColor={Colors.GRAY}
@@ -46,7 +46,7 @@ const Payment = (props) => {
                         <Text style={styles.payModeDesc} numberOfLines={2}>{'Pay when you get order'}</Text>
                     </View>
                 </View>
-                <Separator separatorStyle={{ marginVertical: 0 }} />
+                <Separator separatorStyle={{ marginVertical: 0 }} /> */}
                 <View style={styles.payCard}>
                     <RadioButton
                         innerColor={Colors.themeColor}

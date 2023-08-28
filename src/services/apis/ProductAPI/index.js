@@ -26,19 +26,21 @@ export const ProductListAPICall = (pageNumber, category_id, limit) => {
 }
 
 
-export const ProductDetailAPICall = (id) => {
-    console.log('check data : ', id)
+export const ProductDetailAPICall = (id, userData) => {
     return new Promise((resolve, _reject) => {
         sendRequest({
             url: `${PRODUCT_API}/detail/${id}` ,
             method: 'GET',
+            headers: {
+                'Authorization': !userData && 'No'
+            },
         }).
         then((response) => {
-            console.log('Response from product detail API : ', response);
+            console.log('Response Product Detail API : ', response);
             resolve(response);
         }).
         catch((error) => {
-            console.log('Error from product detail API : ', error);
+            console.log('Error Product Detail API : ', error);
             _reject(error)
         })
     })
