@@ -397,11 +397,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: '#F5FCFF',
-    },
+    // modalContainer: {
+    //     // flex: 1,
+    //     justifyContent: 'center',
+    //     backgroundColor: '#F5FCFF',
+    //     height: hp(20)
+    // },
     innerContainer: {
         alignItems: 'center',
     },
@@ -462,7 +463,7 @@ const styles = StyleSheet.create({
     modalContainer: {
         backgroundColor: Colors.WHITE1,
         padding: 20,
-        height: hp(18),
+        height: hp(22),
         borderRadius: 4,
         width: wp(85),
         gap: 10
