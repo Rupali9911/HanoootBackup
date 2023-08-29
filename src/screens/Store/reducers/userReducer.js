@@ -19,7 +19,7 @@ export default userReducer = (state = initialState, action) => {
         case UPDATE_NAME_EMAIL:
             return {
                 ...state,
-                userData: { ...state.userData, displayName: action?.payload?.displayName, email: action?.payload?.email }
+                userData : {...state.userData, displayName: action?.payload.displayName, email: action?.payload.email}
             }
         default:
             return state;
