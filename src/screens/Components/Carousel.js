@@ -50,6 +50,7 @@ const Carousels = (props) => {
                 onSnapToItem={index => setActiveIndex(index)}
                 activeSlideAlignment={'center'}
                 contentContainerCustomStyle={props.contentContainerCustomStyle}
+                
             // loop={true}
             // autoplay={true}
             {...props}
@@ -59,6 +60,7 @@ const Carousels = (props) => {
                 activeDotIndex={activeIndex}
                 carouselRef={isCarousel}
                 dotStyle={{
+                    marginTop: -100,
                     width: 15,
                     height: 10,
                     borderRadius: 5,

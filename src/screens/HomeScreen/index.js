@@ -22,6 +22,12 @@ import { hp, wp } from '../../constant/responsiveFunc';
 import ListView from '../../Components/ListView';
 import fonts from '../../constant/fonts';
 import { useNavigation } from '@react-navigation/native';
+import FeaturedCategory from '../Components/Cards/FeaturedCategory';
+import NewArrivals from '../Components/Cards/NewArrivals';
+import RecentlyViewProduct from '../Components/Cards/RecentlyViewProduct';
+import SuggestedProducts from '../Components/Cards/SuggestedProducts';
+import TopPicks from '../Components/Cards/TopPicks';
+import BannerCollage from '../Components/Cards/BannerCollage';
 
 
 export default function HomeScreen() {
@@ -143,49 +149,49 @@ export default function HomeScreen() {
 
    const renderProductList = ({ item, index }) => {
       return (
-      //    <ListView
-      //       item={item}
-      //       isExpress
-      //       isLike
-      //       TotalPrice
-      //       DisCountPrice
-      //       isDiscountPercent
-      //       isRating
-      //    />
+         //    <ListView
+         //       item={item}
+         //       isExpress
+         //       isLike
+         //       TotalPrice
+         //       DisCountPrice
+         //       isDiscountPercent
+         //       isRating
+         //    />
 
 
 
          <ListView
-         // item={item}
-         centerImage={'https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YW5kcm9pZCUyMHBob25lfGVufDB8fDB8fHww&w=1000&q=80'}
-         productName={'Apple iPhone 11 Pro Max'}
-         price={'5,000.0'}
-         // discount={item?.ManagementProductPricing.hanooot_discount}
-         averageRating={'4.3'}
-         noOfReview={'12'}
-         detailId={1}
-         // categoryId={item?.category_id}
-         isExpress
-         
-     />
+            // item={item}
+            centerImage={'https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YW5kcm9pZCUyMHBob25lfGVufDB8fDB8fHww&w=1000&q=80'}
+            productName={'Apple iPhone 11 Pro Max'}
+            price={'5,000.0'}
+            // discount={item?.ManagementProductPricing.hanooot_discount}
+            averageRating={'4.3'}
+            noOfReview={'12'}
+            detailId={1}
+            // categoryId={item?.category_id}
+            isExpress
+
+         />
       );
    }
 
    const renderWeekDealList = ({ item, index }) => {
       return (
          <ListView
-         // item={item}
-         centerImage={'https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YW5kcm9pZCUyMHBob25lfGVufDB8fDB8fHww&w=1000&q=80'}
-         productName={'Apple iPhone 11 Pro Max'}
-         price={'5,000.0'}
-         // discount={item?.ManagementProductPricing.hanooot_discount}
-         averageRating={'4.3'}
-         noOfReview={'12'}
-         detailId={1}
-         // categoryId={item?.category_id}
-         isExpress
-         
-     />
+            // item={item}
+            centerImage={'https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YW5kcm9pZCUyMHBob25lfGVufDB8fDB8fHww&w=1000&q=80'}
+            productName={'Apple iPhone 11 Pro Max'}
+            price={'5,000.0'}
+            // discount={item?.ManagementProductPricing.hanooot_discount}
+            averageRating={'4.3'}
+            noOfReview={'12'}
+            detailId={1}
+            // categoryId={item?.category_id}
+            isExpress
+
+         />
       );
    }
 
@@ -202,10 +208,12 @@ export default function HomeScreen() {
          {/* <TouchableOpacity onPress={() => { onShare() }}>
             <Text>{'Share'}</Text>
          </TouchableOpacity> */}
-         <ScrollView showsVerticalScrollIndicator={false}
+         <ScrollView
+            showsVerticalScrollIndicator={false}
             nestedScrollEnabled={true}
-            style={{ flex: 1, zIndex: -1 }}>
-            <View style={{
+         // style={{ flex: 1, zIndex: -1 }}
+         >
+            {/* <View style={{
                backgroundColor: Colors.lightBlue,
                paddingHorizontal: 20,
                flexDirection: 'row',
@@ -214,10 +222,16 @@ export default function HomeScreen() {
             }}>
                <Image source={Images.LocationIcon} style={{ height: 10, width: 10, resizeMode: 'contain', tintColor: Colors.themeColor }} />
                <Text style={styles.offerAvail}>Deliver to Mohammed - Basra</Text>
-            </View>
+            </View> */}
 
 
             <BannerCarousel />
+            <FeaturedCategory />
+            <NewArrivals />
+            <RecentlyViewProduct />
+            <SuggestedProducts />
+            {/* <TopPicks /> */}
+            <BannerCollage />
             <FourImageCarousel title={'Smart Phones'} priceOff={'Up to 30% off'} />
 
             <ProductHeader title={'New Arrivals'} RightText={'See All'} />

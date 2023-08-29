@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import Colors from '../../../constant/Colors'
 import fonts from '../../../constant/fonts'
-import { wp } from '../../../constant/responsiveFunc'
+import { hp, wp } from '../../../constant/responsiveFunc'
 
 const ProductHeader = (props) => {
     return (
@@ -23,8 +23,8 @@ export default ProductHeader;
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: '5%',
-        marginVertical: '2%'
+        marginHorizontal: wp(6.67),
+        marginVertical: hp(2)
     },
 
     // title: {

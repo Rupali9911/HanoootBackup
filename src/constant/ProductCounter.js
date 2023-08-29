@@ -42,7 +42,9 @@ const ProductCounter = (props) => {
 
         console.log('props.noOfQty', props.noOfQty)
         try {
-            if (props.noOfQty !== 1) {
+            const isCheck = props.noOfQty ? props.noOfQty : counter
+
+            if (isCheck !== 1) {
 
                 const decVal = props.noOfQty ? (Number(props.noOfQty) - 1) : (Number(counter - 1) || Number(1));
                 const response = await AddtoCartAPICall(props.productId, decVal)
