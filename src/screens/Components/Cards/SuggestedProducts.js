@@ -5,7 +5,7 @@ import ListView from '../../../Components/ListView'
 import { wp } from '../../../constant/responsiveFunc'
 
 const SuggestedProducts = () => {
- 
+
     const renderItem = ({ item, index }) => {
         return (
             <ListView
@@ -15,7 +15,7 @@ const SuggestedProducts = () => {
                 isLeftImage
                 showLike
                 isItemLiked={false}
-                // isDiscountTag
+            // isDiscountTag
             />
         );
     }
@@ -26,13 +26,15 @@ const SuggestedProducts = () => {
 
     return (
         <>
-            <ProductHeader title={'Recently Viewed Products'} RightText={'See All'} />
+            <ProductHeader title={'Suggested Products'} rightButtonLabel={'See All'} />
             <FlatList
                 data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
                 renderItem={renderItem}
                 keyExtractor={keyExtractor}
                 horizontal
                 style={{ marginHorizontal: wp(6) }}
+                showsHorizontalScrollIndicator={false}
+
             />
 
         </>

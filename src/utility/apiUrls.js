@@ -31,9 +31,8 @@ const ORDER_DETAIL_API = `${API_BASE_URL}/api/v1/order/ordersDetails`
 
 const CART_API = `${API_BASE_URL}/api/v1/cart`
 
-// https://api.hanooot.com/api/v1/cart
+const HOME_API = `${API_BASE_URL}/api/v1/home-page`
 
-// https://api.hanooot.com/api/v1/address/update
 
 export {
     CHECK_PHONE_NUMBER,
@@ -52,5 +51,6 @@ export {
     UPDATE_PASSWORD,
     CART_API,
     ORDER_API,
-    ORDER_DETAIL_API
+    ORDER_DETAIL_API,
+    HOME_API
 };

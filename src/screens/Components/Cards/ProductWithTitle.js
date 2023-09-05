@@ -13,25 +13,25 @@ const ProductwithTitle = (props) => {
       <View style={styles.Container}>
         <Image source={item.image} style={styles.image} />
         <Text style={styles.name} numberOfLines={2}>{item.name}</Text>
-        
+
       </View>
     );
   }
 
   const keyExtractor = (item, index) => {
     return index;
-};
+  };
 
   return (
-    <View  style={{}}>
-      <ProductHeader title={props.title} RightText={'See All'}/>
+    <View style={{}}>
+      <ProductHeader title={props.title} rightButtonLabel={'See All'} />
       <FlatList
         data={electronicsArr}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{marginHorizontal: '5%', marginVertical: '2%'}}
+        contentContainerStyle={{ marginHorizontal: '5%', marginVertical: '2%' }}
       />
     </View>
   )

@@ -6,7 +6,10 @@ import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import Carousels from '../Carousel'
 
-const FeaturedCategory = () => {
+const FeaturedCategory = (props) => {
+    const Data = props.Data;
+    const arr = [];
+    console.log('FeaturedCategory : ', Data)
     const products = [
         {
             "id": 1,
@@ -83,23 +86,30 @@ const FeaturedCategory = () => {
 
     function sliceIntoChunks(arr, chunkSize) {
         const res = [];
-        for (let i = 0; i < arr.length; i += chunkSize) {
-            const chunk = arr.slice(i, i + chunkSize);
-            res.push(chunk);
+        console.log('here is an array  : ', arr)
+        if (arr.length > 3) {
+            for (let i = 0; i < arr.length; i += chunkSize) {
+                const chunk = arr.slice(i, i + chunkSize);
+                res.push(chunk);
+            }
+            console.log('sliceIntoChunks', res)
+            return res;
         }
-        console.log('sliceIntoChunks', res)
-        return res;
+        else {
+            res.push(arr)
+            return res;
+        }
     }
 
     const renderItem = ({ item, index }) => {
         return (
             <View style={styles.listContainer}>
                 <View style={styles.itemImgContainer}>
-                    <Image source={Images.Android2} style={styles.itemImg} />
+                    <Image source={{ uri: item?.product_image }} style={styles.itemImg} />
                 </View>
                 <View style={{ gap: 18 }}>
                     <Text numberOfLines={2} style={styles.itemName}>{item?.title}</Text>
-                    <Text style={styles.itemPrice}>$ 249.00</Text>
+                    <Text style={styles.itemPrice}>$ {item?.ManagementProductPricing?.hanooot_price}</Text>
                 </View>
                 <TouchableOpacity style={styles.cartBtn}>
                     <Text style={styles.cartBtnTxt}>Add to Cart</Text>
@@ -113,6 +123,19 @@ const FeaturedCategory = () => {
     };
 
     const renderCarousal = ({ item, index }) => {
+        // console.log('renderCarousal : ', item)
+        // if (Array.isArray(item)) {
+        //     console.log('renderCarousal : ', true)
+        // }
+        // else {
+        //     console.log('renderCarousal : ', false)
+        //     arr.push(item)
+        // }
+
+
+
+        console.log('arr is herer : ', arr)
+
         return (
             <View style={styles.productContainer}>
                 <FlatList
@@ -121,7 +144,16 @@ const FeaturedCategory = () => {
                     keyExtractor={keyExtractor}
                     numColumns={3}
                     scrollEnabled={false}
+                    contentContainerStyle={{ alignItems: 'center' }}
                 />
+
+
+
+
+
+
+
+
             </View>
 
         )
@@ -130,24 +162,32 @@ const FeaturedCategory = () => {
     return (
         <View style={styles.mainContainer}>
             <Image
-                source={Images.Tiktok}
+                source={{ uri: Data?.featuredCategoryByProduct?.thumbnail_image }}
                 style={styles.bannerImg}
             />
             <View style={styles.container}>
                 <View style={styles.headingContainer}>
-                    <Text style={styles.title} numberOfLines={2}>Found on TikTok</Text>
+                    <Text style={styles.title} numberOfLines={2}>{Data?.tittle}</Text>
                     <TouchableOpacity style={styles.seeAllBtn}>
                         <Text style={styles.seeAllBtnText}>See All</Text>
                     </TouchableOpacity>
                 </View>
+                {
+                    Data?.featuredCategoryByProduct?.ManagementProducts.length > 0 &&
 
-                <Carousels
-                    Data={sliceIntoChunks(products, 3)}
-                    renderItem={renderCarousal}
-                    dotsLength={sliceIntoChunks(products, 3).length}
-                    loop={true}
-                    autoplay={true}
-                />
+                    <Carousels
+                        Data={sliceIntoChunks(Data?.featuredCategoryByProduct?.ManagementProducts, 3)}
+                        renderItem={renderCarousal}
+                        dotsLength={sliceIntoChunks(Data?.featuredCategoryByProduct?.ManagementProducts, 3).length}
+                        loop={true}
+                        autoplay={true}
+                        sliderWidth={wp(86.93)}
+                        itemWidth={wp(86.93)}
+                        containerStyle={{ paddingVertical: '5%' }}
+                        enablePagination
+                    />
+                }
+
             </View>
         </View>
     )
@@ -157,7 +197,10 @@ export default FeaturedCategory
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1, justifyContent: 'center', alignItems: 'center'
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: hp(3)
     },
     container: {
         backgroundColor: Colors.WHITE,
@@ -203,7 +246,9 @@ const styles = StyleSheet.create({
     listContainer: {
         width: wp(25.33),
         gap: 8,
-        margin: '1%',
+        marginHorizontal: '1%',
+        marginVertical: '2%',
+        alignContent: 'center'
     },
     itemImgContainer: {
         height: hp(11.70),
@@ -251,7 +296,8 @@ const styles = StyleSheet.create({
         height: hp(37.56),
         width: wp(86.67),
         borderTopLeftRadius: 10,
-        borderTopRightRadius: 10
+        borderTopRightRadius: 10,
+        resizeMode: 'cover'
     },
 
 })

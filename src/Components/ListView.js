@@ -242,7 +242,7 @@ const ListView = (props) => {
 
                     {
                         price &&
-                        <Text style={[styles.price, props.TotalPriceStyle]}>{price}</Text>
+                        <Text style={[styles.price, props.TotalPriceStyle]}>$ {price}</Text>
                     }
 
 
@@ -272,18 +272,24 @@ const ListView = (props) => {
 
             </TouchableOpacity>
             {props.isDiscountTag &&
-                <View style={{
-                    position: 'absolute', bottom: 10, right: 0, marginVertical: wp('2'),
-                    marginHorizontal: wp('1.5'),
-                }}>
-                    <DiscountTag />
-                </View>
+                <>
+                    <View style={{
+                        position: 'absolute', bottom: 10, right: 0, marginVertical: wp('2'),
+                        marginHorizontal: wp('1.5'), justifyContent: 'center', alignItems: 'center'
+                    }}>
+                        <DiscountTag />
+
+                    </View>
+                    {/* <View style={{}}> <Text>1</Text></View> */}
+                </>
             }
-            {/* <ImageBackground source={Images.DiscountTag} style={{height: hp(4.43), width: wp(5.87), resizeMode: 'contain', position: 'absolute', bottom: 10, right: 0, marginVertical: wp('2'),
-                marginHorizontal: wp('1.5'),}}>
-            {/* <DiscountTag /> */}
-            {/* </ImageBackground>  */}
-        </View>
+            {/* <ImageBackground source={Images.DiscountTag} style={{
+                // height: hp(4.43), width: wp(5.87), resizeMode: 'contain',
+                height: hp(7), width: wp(10)
+            }}>
+                {/* <DiscountTag /> */}
+            {/* </ImageBackground> * /} */}
+        </View >
     )
 }
 

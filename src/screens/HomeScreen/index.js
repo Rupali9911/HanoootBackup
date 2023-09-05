@@ -1,8 +1,8 @@
 import { SafeAreaView, StyleSheet, Text, View, ScrollView, Image, FlatList, TouchableOpacity, Share } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppHeader from '../Components/AppHeader';
 import AppBackground from '../Components/AppBackground';
-import BannerCarousel from '../Components/Cards/BannerCarousel';
+import MiniSlider from '../Components/Cards/MiniSlider';
 import MultiProductList from '../Components/Cards/MultiProductList';
 import Colors from '../../constant/Colors';
 import ProductList from '../Components/Cards/ProductList';
@@ -28,10 +28,28 @@ import RecentlyViewProduct from '../Components/Cards/RecentlyViewProduct';
 import SuggestedProducts from '../Components/Cards/SuggestedProducts';
 import TopPicks from '../Components/Cards/TopPicks';
 import BannerCollage from '../Components/Cards/BannerCollage';
-
+import LargeBanner from '../Components/Cards/LargeBanner';
+import BrandList from '../Components/Cards/BrandList';
+import CategoryList from '../Components/Cards/CategoryList';
+import { getHomeCollection, homeDataLoadingStart } from '../Store/actions/HomeAction';
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../../constant/Loader';
 
 export default function HomeScreen() {
    const navigation = useNavigation();
+
+   const dispatch = useDispatch();
+
+   const { isLoading, HomeCollection } = useSelector(state => state.HomeReducer);
+
+   useEffect(() => {
+      dispatch(homeDataLoadingStart())
+      dispatch(getHomeCollection())
+   }, []);
+
+   console.log('check home page data : ', isLoading, HomeCollection);
+
+
    // const onShare = async () => {
    //    let productName = 'iPhone'
    //    let productUrl = 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80'
@@ -201,129 +219,131 @@ export default function HomeScreen() {
       return `_${index}`;
    };
 
+   const renderNoDataFound = () => {
+      return (
+         <View style={styles.sorryMessageCont}>
+            <Text style={styles.sorryMessage}>{'No data found'}</Text>
+         </View>
+      );
+   }
+
+   const renderHomeData = (key, value) => {
+      console.log('render Data : ', key, value)
+      switch (key) {
+         case 'miniSliderJson':
+            return <View key={key}><MiniSlider Data={value} /></View>
+         case 'featuredCategoryByProductJson':
+            return <FeaturedCategory Data={value} />
+         case 'brandsListJson':
+            return <BrandList Data={value} />
+         case 'newArrivalProductListJson':
+            return <NewArrivals Data={value} />
+         case 'bannerCollageJson':
+            return <BannerCollage Data={value} />
+         case 'topPicksJson':
+            return <TopPicks Data={value} />
+         case 'categoryList':
+            return <CategoryList Data={value} />
+         // case 'variant_style':
+         //    return 'Style'
+         // case 'variant_model':
+         //    return 'Modal'
+         // case 'variant_material':
+         //    return 'Material'
+         // case 'platform':
+         //    return 'Platform'
+         // case 'edition':
+         //    return 'Edition'
+         // case 'configuration':
+         //    return 'Configuration'
+         // case 'variant_book':
+         //    return 'Book'
+         default:
+            return null;
+      }
+   }
+
 
    return (
       <AppBackground >
          <AppHeader placeholderText={'Search'} />
-         {/* <TouchableOpacity onPress={() => { onShare() }}>
-            <Text>{'Share'}</Text>
-         </TouchableOpacity> */}
-         <ScrollView
-            showsVerticalScrollIndicator={false}
-            nestedScrollEnabled={true}
-         // style={{ flex: 1, zIndex: -1 }}
-         >
-            {/* <View style={{
-               backgroundColor: Colors.lightBlue,
-               paddingHorizontal: 20,
-               flexDirection: 'row',
-               alignItems: 'center',
-               gap: 5
-            }}>
-               <Image source={Images.LocationIcon} style={{ height: 10, width: 10, resizeMode: 'contain', tintColor: Colors.themeColor }} />
-               <Text style={styles.offerAvail}>Deliver to Mohammed - Basra</Text>
-            </View> */}
+         {
+            isLoading && Object.keys(HomeCollection).length === 0 ?
+               <Loader />
+               :
+               Object.keys(HomeCollection).length > 0
+                  ?
+                  <ScrollView
+                     // style={{ flex: 1 }}
+                     // showsVerticalScrollIndicator={false}
+                     // contentContainerStyle={{ flexGrow: 1 }}
+                     nestedScrollEnabled={false}
+                     scrollEnabled={true}
+                  // overScrollMode={'never'}
+                  // removeClippedSubviews={true}
+                  >
+                     {
+                        Object.keys(HomeCollection).map((key, value) => {
+                           return (
+                              <View key={key}>
+
+                                 {renderHomeData(key, HomeCollection[key])}
 
 
-            <BannerCarousel />
-            <FeaturedCategory />
-            <NewArrivals />
-            <RecentlyViewProduct />
-            <SuggestedProducts />
-            {/* <TopPicks /> */}
-            <BannerCollage />
-            <FourImageCarousel title={'Smart Phones'} priceOff={'Up to 30% off'} />
+                              </View>
+                           )
 
-            <ProductHeader title={'New Arrivals'} RightText={'See All'} />
-
-            {/* <ProductList
-                     Data={ProductListData}
-                     isExpress
-                     isLike
-                     TotalPrice
-                     DisCountPrice
-                     isDiscountPercent
-                     isRating
-                     isBrand
-                     numColumns={2}
-                  /> */}
-
-            <FlatList
-               data={ProductListData}
-               renderItem={renderProductList}
-               keyExtractor={keyExtractor}
-               horizontal
-               showsHorizontalScrollIndicator={false}
-               style={{ marginHorizontal: '5%', marginVertical: '2%' }}
-            />
-
-            <ProductList
-               isBrand
-            />
-
-            <Banner Image={Images.urdu} />
-
-            <ProductHeader title={'This weeks deals'} isSale={'End in 04: 10:24'} RightText={'See All'} />
-
-            {/* <ProductList
-                     Data={ProductListData}
-                     isLike
-                     isPriceButton
-                     DisCountPrice
-                     PriceInGreen
-                  /> */}
-            <FlatList
-               data={ProductListData}
-               renderItem={renderWeekDealList}
-               keyExtractor={keyExtractor}
-               horizontal
-               showsHorizontalScrollIndicator={false}
-               style={{ marginHorizontal: '5%', marginVertical: '2%' }}
-
-            />
-
-            <ProductCollection />
-
-            <MultiProductList title={'Pick up where you left off'} />
-
-            <MultiProductList title={'Best Picks for you'} />
-
-            <ProductCategory />
+                        })}
+                  </ScrollView>
 
 
-            <FourImageCarousel title={'Popular in Home'} imgContStyle={styles.circleImgView} />
 
-            <Banner Image={Images.appleProduct} />
+                  // <ScrollView
+                  //    showsVerticalScrollIndicator={false}
+                  //    nestedScrollEnabled={true}
+                  // >
+                  //    {/* <MiniSlider />
+                  //    <FeaturedCategory />
+                  //    <BrandList />
+                  //    <NewArrivals />
+                  //    <BannerCollage />
+                  //    <LargeBanner />
+                  //    <TopPicks
+                  //       Title={'Perfect gaming Setup'}
+                  //       bannerImage={'https://img.freepik.com/free-vector/horizontal-sale-banner-template_23-2148897328.jpg?q=10&h=200'}
+                  //    />
+                  //    <TopPicks
+                  //       Title={'Decore your room'}
+                  //       bannerImage={'https://img.freepik.com/free-vector/gradient-sales-banner-with-photo_23-2149020413.jpg'}
+                  //    />
+                  //    <RecentlyViewProduct />
+                  //    <SuggestedProducts />
+                  //    <CategoryList title={'Electronic'} />
+                  //    <CategoryList title={'Home Appliances '} />
+                  //    <CategoryList title={'Gaming'} />
+                  //    <CategoryList title={'Computer & Office'} />
+                  //    <CategoryList title={'Phone & Tablet'} /> */}
 
-            <ProductCategoryWithBG image={Images.BlueBGImg} title={'Best Home Appliences'} />
-            <ProductCategoryWithBG image={Images.YellowBGImg} title={'Best Products'} ImgViewStyle={{ borderColor: Colors.RED, borderWidth: 1 }} />
+                  //    renderHomeData(HomeCollection)
 
-            <BrandProductCarousal />
+                  // </ScrollView>
+                  :
+                  renderNoDataFound()
 
-            <ProductwithTitle title={'Electronics'} />
-            <ProductwithTitle title={'Home Appliances'} />
-            <ProductwithTitle title={'Gaming'} />
-            <ProductwithTitle title={'Computer & Office'} />
-            <ProductwithTitle title={'Phone & Tablet'} />
+         }
 
-            <DiscountCard />
 
-            <HanoootProducts title={'Only at Hanooot'} />
-            <HanoootProducts title={'Only at Hanooot'} mainContStyle={{ backgroundColor: '#F8E6C4' }} />
 
-         </ScrollView>
+
+
+
+
+
+
 
 
 
       </AppBackground>
-      // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      //    <TouchableOpacity
-      //       onPress={() => navigation.navigate('CheckoutScreen')}
-      //    >
-      //       <Text>Show Checkout Screen</Text>
-      //    </TouchableOpacity>
-
-      // </View>
    )
 }
 
@@ -347,6 +367,15 @@ const styles = StyleSheet.create({
       color: Colors.themeColor,
       paddingVertical: 10,
       fontSize: 12
+   },
+   sorryMessageCont: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+   },
+   sorryMessage: {
+      fontSize: 15,
+      fontFamily: fonts.VisbyCF_Demibold,
    },
 })
 

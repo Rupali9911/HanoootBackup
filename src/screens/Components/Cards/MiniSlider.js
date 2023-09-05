@@ -44,73 +44,187 @@
 // })
 
 
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import React, { useState, useRef } from 'react'
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-
+// import Carousels from '../Carousel';
+import { hp, wp } from '../../../constant/responsiveFunc';
+import Images from '../../../constant/Images';
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+import Carousel from 'react-native-snap-carousel';
 
 
 
-const BannerCarousel = () => {
+
+const MiniSlider = (props) => {
+
+    const { Data } = props;
+
+    console.log('data is here : ', props.Data);
+
+
+
     const isCarousel = useRef(null);
-    const [entries, setEntries] = useState([
-        {
-            title: 'Image 1',
-            uri: 'https://png.pngtree.com/thumb_back/fh260/background/20230217/pngtree-blue-wavy-banner-background-blank-image_1608934.jpg'
-        },
-        {
-            title: 'Image 2',
-            uri: 'https://png.pngtree.com/thumb_back/fh260/back_pic/00/02/44/5056179b42b174f.jpg'
-        },
-        {
-            title: 'Image 3',
-            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiU7TJ-Rn03izfhKsO33CM4LFy4XrVmPfDfWor9nbb&s'
-        }
-    ])
-    const [activeSlide, setActiveSlide] = useState(0)
 
-    const _renderItem = ({ item, index }) => {
+
+
+    const renderItem = ({ item, index }) => {
+        console.log('images checked : ', item?.thumbnail_image)
         return (
-            <View style={styles.slide}>
-                <Text style={styles.title}>{item.title}</Text>
-                <Image source={{ uri: item.uri }} style={styles.image} />
-            </View>
+            // <View style={styles.slide}>
+            // <Text style={styles.title}>{item.title}</Text>
+            <>
+
+                <Image source={{ uri: item?.thumbnail_image }} style={styles.image} key={item?.id} />
+                {/* <TouchableOpacity
+                    style={styles.arrowButton}
+                // onPress={handleLeftArrowPress}
+                >
+                    <Image
+                        source={{ uri: 'https://www.iconpacks.net/icons/2/free-arrow-left-icon-3099-thumb.png' }}
+                        style={styles.arrowImage}
+                    />
+                </TouchableOpacity> */}
+            </>
+            // </View>
         );
     }
 
 
+    const ArrowButton = (props) => {
+        return (
+            <TouchableOpacity
+                style={[styles.arrowButton, props.arrowViewStyle]}
+                onPress={props.onPress}
+            >
+                <Image
+                    source={Images.ForwardIcon}
+                    style={[styles.arrowImage, props.arrowImgStyle]}
+                />
+            </TouchableOpacity>
+        )
+    }
+
+
     return (
-        <View style={styles.container}>
-            <Carousel
-                ref={isCarousel}
-                data={entries}
-                renderItem={_renderItem}
-                sliderWidth={viewportWidth}
-                itemWidth={viewportWidth - 60}
-                onSnapToItem={(index) => setActiveSlide(index)}
-                autoplay={true}
-                autoplayDelay={500}
-                loop={true}
-                autoplayInterval={3000}
+        <View>
+
+            <ArrowButton
+                arrowViewStyle={{ left: 10 }}
+                arrowImgStyle={{ transform: [{ rotate: '180deg' }] }}
+            // onPress={() => { isCarousel.snapToNext(); }}
             />
-            {/* <Pagination
-                dotsLength={entries.length}
-                activeDotIndex={activeSlide}
-                containerStyle={styles.paginationContainer}
-                dotColor={'rgba(255, 255, 255, 0.92)'}
-                dotStyle={styles.paginationDot}
-                inactiveDotColor={'black'}
-                inactiveDotOpacity={0.4}
-                inactiveDotScale={0.6}
-                carouselRef={isCarousel}
-                tappableDots={!!isCarousel}
-            /> */}
+
+            <Carousel
+                // Data={entries}
+                // renderItem={renderItem}
+                // dotsLength={entries.length}
+                // // loop={true}
+                // // autoplay={true}
+                // sliderWidth={Dimensions.get('window').width}
+                // itemWidth={wp(71.79)}
+                // renderImageCarousal={renderImageCarousal}
+
+                layout="default"
+                data={props.Data?.miniSliderImgs}
+                ref={isCarousel}
+                loop={true}
+                sliderWidth={Dimensions.get('window').width}
+                itemWidth={wp(71.79)}
+                renderItem={renderItem}
+                useScrollView={true}
+                inactiveSlideShift={0}
+                activeSlideAlignment={'center'}
+                enableMomentum={false}
+                hasParallaxImages={false}
+                lockScrollWhileSnapping={true}
+            />
+
+            <ArrowButton
+                arrowViewStyle={{ right: 10 }}
+            // arrowImgStyle={{ transform: [{ rotate: '180deg' }] }}
+            />
+
         </View>
+
+
+
+        // <Carousel
+        // layout="default"
+        // ref={isCarousel}
+        // data={props.Data}
+        // // sliderWidth={slideWidth}
+        // sliderWidth={props.sliderWidth}
+        // itemWidth={props.itemWidth}
+        // // itemWidth={slideWidth}
+
+        // // itemWidth={Dimensions.get('window').width}
+        // renderItem={props.renderItem}
+        // useScrollView={true}
+        // inactiveSlideShift={0}
+        // onSnapToItem={index => setActiveIndex(index)}
+        // activeSlideAlignment={'center'}
+        // contentContainerCustomStyle={props.contentContainerCustomStyle}
+
+        // // loop={true}
+        // // autoplay={true}
+        // {...props}
+        // />
+
+
+
+
+
+
+
+        // <View style={styles.container}>
+        //     <Carousel
+        //         ref={isCarousel}
+        //         data={entries}
+        //         renderItem={_renderItem}
+        //         sliderWidth={viewportWidth}
+        //         itemWidth={viewportWidth - 60}
+        //         onSnapToItem={(index) => setActiveSlide(index)}
+        //         autoplay={true}
+        //         autoplayDelay={500}
+        //         loop={true}
+        //         autoplayInterval={3000}
+        //     />
+        //     {/* <Pagination
+        //         dotsLength={entries.length}
+        //         activeDotIndex={activeSlide}
+        //         containerStyle={styles.paginationContainer}
+        //         dotColor={'rgba(255, 255, 255, 0.92)'}
+        //         dotStyle={styles.paginationDot}
+        //         inactiveDotColor={'black'}
+        //         inactiveDotOpacity={0.4}
+        //         inactiveDotScale={0.6}
+        //         carouselRef={isCarousel}
+        //         tappableDots={!!isCarousel}
+        //     /> */}
+        // </View>
+
+        //  <ArrowButton
+        //             arrowViewStyle={{ left: 10 }}
+        //             arrowImgStyle={{ transform: [{ rotate: '180deg' }] }}
+        //         />
+        //         <Carousels
+        //             Data={entries}
+        //             renderItem={renderItem}
+        //             dotsLength={entries.length}
+        //             // loop={true}
+        //             // autoplay={true}
+        //             sliderWidth={Dimensions.get('window').width}
+        //             itemWidth={wp(71.79)}
+        //         // renderImageCarousal={renderImageCarousal}
+        //         />
+        //         <ArrowButton
+        //             arrowViewStyle={{ right: 10 }}
+        //         // arrowImgStyle={{ transform: [{ rotate: '180deg' }] }}
+        //         />
     )
 }
 
-export default BannerCarousel
+export default MiniSlider;
 
 const styles = StyleSheet.create({
     container: {
@@ -121,9 +235,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     image: {
-        width: viewportWidth - 60,
-        height: 300,
-        borderRadius: 8
+        width: wp(71.79),
+        height: hp(24.63),
+        resizeMode: 'cover',
+        alignSelf: 'center',
+        borderRadius: 10,
+        marginTop: hp(3)
     },
     title: {
         fontSize: 18,
@@ -139,7 +256,26 @@ const styles = StyleSheet.create({
         height: 8,
         borderRadius: 4,
         marginHorizontal: 8
-    }
+    },
+    arrowButton: {
+        // padding: 10
+
+        height: 28,
+        width: 28,
+        borderRadius: 28 / 2,
+        backgroundColor: 'white',
+        position: 'absolute',
+        top: hp(24.63) / 2,
+        zIndex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    arrowImage: {
+        width: 12,
+        height: 12,
+        resizeMode: 'contain'
+        // transform: -90
+    },
 })
 
 
