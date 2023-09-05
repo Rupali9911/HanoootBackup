@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import React, { useState } from 'react'
 import Colors from '../constant/Colors'
 import Images from '../constant/Images'
@@ -13,7 +13,7 @@ import { addToWishlistAPICall } from '../services/apis/WishlistAPI'
 import SVGS from '../constant/Svgs'
 import { showErrorToast, showInfoToast } from './universal/Toast'
 
-const { HeartIconActive, HeartIcon } = SVGS
+const { HeartIconActive, HeartIcon, DiscountTag } = SVGS
 
 
 
@@ -31,7 +31,8 @@ const ListView = (props) => {
         isExpress,
         isItemLiked,
         categoryId,
-        getIds
+        getIds,
+        isLeftImage
     } = props;
 
     // console.log('averageRating : ', averageRating,noOfReview)
@@ -61,27 +62,27 @@ const ListView = (props) => {
         if (userData) {
             try {
                 // await addToWishlistAPICall(detailId);    
-                console.log('check liked  :', isLiked)    
+                console.log('check liked  :', isLiked)
                 const response = await addToWishlistAPICall(detailId);
                 if (response?.success) {
                     // console.log('response : ', reponse)
 
                     const typeCheck = response?.message == 'product added successfully in wishlist' ? 'SUCCESS' : 'REMOVE'
 
-                    if(response?.message == 'product added successfully in wishlist'){
+                    if (response?.message == 'product added successfully in wishlist') {
                         setLiked(true)
                         setTimeout(() => {
                             showInfoToast('SUCCESS', response?.message)
                         }, 1000);
                     }
-                    else{
+                    else {
                         setLiked(false)
                         setTimeout(() => {
                             showInfoToast('REMOVE', response?.message)
                         }, 1000);
                     }
 
-                    
+
 
                     // setLiked(!isLiked)
 
@@ -132,6 +133,9 @@ const ListView = (props) => {
                 <View style={styles.topLine}>
                     {
                         isExpress && <ExpressView />
+                    }
+                    {
+                        isLeftImage && <Image source={{ uri: 'https://w7.pngwing.com/pngs/455/531/png-transparent-%E7%B4%A2%E5%B0%BC-logo-sony-television-business-sony-television-text-logo.png' }} style={{ height: hp(1.74), width: wp(11.48) }} />
                     }
                     {/* {
                         props.isLike ?
@@ -237,7 +241,8 @@ const ListView = (props) => {
                     <Text style={styles.productName} numberOfLines={2}>{productName}</Text>
 
                     {
-                        price && <Text style={[styles.price, props.TotalPriceStyle]}>{price}</Text>
+                        price &&
+                        <Text style={[styles.price, props.TotalPriceStyle]}>$ {price}</Text>
                     }
 
 
@@ -262,10 +267,29 @@ const ListView = (props) => {
                             <Text style={styles.noOfReview}>{`(${noOfReview})`}</Text>
                         </View>
                     }
+
                 </View>
 
             </TouchableOpacity>
-        </View>
+            {props.isDiscountTag &&
+                <>
+                    <View style={{
+                        position: 'absolute', bottom: 10, right: 0, marginVertical: wp('2'),
+                        marginHorizontal: wp('1.5'), justifyContent: 'center', alignItems: 'center'
+                    }}>
+                        <DiscountTag />
+
+                    </View>
+                    {/* <View style={{}}> <Text>1</Text></View> */}
+                </>
+            }
+            {/* <ImageBackground source={Images.DiscountTag} style={{
+                // height: hp(4.43), width: wp(5.87), resizeMode: 'contain',
+                height: hp(7), width: wp(10)
+            }}>
+                {/* <DiscountTag /> */}
+            {/* </ImageBackground> * /} */}
+        </View >
     )
 }
 

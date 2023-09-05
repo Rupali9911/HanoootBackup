@@ -88,7 +88,7 @@ const ReviewOrder = (props) => {
   const PayDetail = () => {
     return (
       <>
-        <ProductHeader title={'Pay With'} RightText={'Change'} onPress={() => props.setScreenType('PAYMENT')} />
+        <ProductHeader title={'Pay With'} rightButtonLabel={'Change'} onPress={() => props.setScreenType('PAYMENT')} />
 
         <View style={styles.payCard}>
           <Image source={Images.ZainCash} style={{ height: 40, width: 45 }} />
@@ -110,7 +110,7 @@ const ReviewOrder = (props) => {
   const DeliveryDetail = () => {
     return (
       <>
-        <ProductHeader title={'Deliver to'} RightText={'Change'} onPress={() => props.setScreenType('ADDRESS')} />
+        <ProductHeader title={'Deliver to'} rightButtonLabel={'Change'} onPress={() => props.setScreenType('ADDRESS')} />
         <View style={styles.DeliveryCard}>
           <View style={styles.rowCont}>
             <Text style={styles.deliverUserName}>{signleAddressDetail?.name}</Text>

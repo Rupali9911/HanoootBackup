@@ -7,6 +7,7 @@ import userReducer from "./userReducer";
 import categoryReducer from "./categoryReducer";
 import productListReducer from "./productListReducer";
 import orderReducer from "./orderReducer";
+import HomeReducer from "./HomeReducer";
 
 const appReducer = combineReducers({
     userReducer,
@@ -16,7 +17,8 @@ const appReducer = combineReducers({
     wishlistReducer,
     categoryReducer,
     productListReducer,
-    orderReducer
+    orderReducer,
+    HomeReducer
 })
 
 const rootReducer = (state, action) => {

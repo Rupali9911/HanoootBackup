@@ -10,6 +10,7 @@ import CartIcon from '../assets/svgs/CartIcon.svg';
 import SearchIcon from '../assets/svgs/SearchIcon.svg';
 import SearchGrayIcon from '../assets/svgs/SearchGrayIcon.svg';
 import ShareIcon from '../assets/svgs/ShareIcon.svg';
+import DiscountTag from '../assets/svgs/discountTag.svg';
 
 export default {
   HomeIcon,
@@ -23,5 +24,6 @@ export default {
   CartIcon,
   SearchIcon,
   SearchGrayIcon,
-  ShareIcon
+  ShareIcon,
+  DiscountTag
 };
