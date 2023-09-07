@@ -6,6 +6,8 @@ import { hp, wp } from './responsiveFunc';
 import Images from './Images';
 import PhoneInput from "react-native-phone-number-input";
 import { COLORS, SVGS } from '../constant'
+import { translate } from '../utility';
+
 const { DropDownIcon } = SVGS
 
 const heightTextInput = hp('6%')
@@ -104,9 +106,9 @@ const AppInput = (props) => {
                 <View style={{
                     marginTop: '5%'
                 }}>
-                    <PasswordErrorRender label={'Must include a letter'} isSuccess={props.passwordSuccess} />
-                    <PasswordErrorRender label={'Must include a number'} isSuccess={props.passwordSuccess} />
-                    <PasswordErrorRender label={'Must be 8 -30 characters'} isSuccess={props.passwordSuccess} />
+                    <PasswordErrorRender label={translate('common.mustincludealetter')} isSuccess={props.passwordSuccess} />
+                    <PasswordErrorRender label={translate('common.mustincludeanumber')} isSuccess={props.passwordSuccess} />
+                    <PasswordErrorRender label={translate('common.charBtn8n30')} isSuccess={props.passwordSuccess} />
                 </View>
             }
         </View>

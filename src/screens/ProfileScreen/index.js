@@ -9,6 +9,7 @@ import { signOut } from '../../services/socialAuth'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearUserData } from '../Store/actions/userAction'
 import EncryptedStorage from 'react-native-encrypted-storage';
+import { translate } from '../../utility'
 
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
@@ -31,8 +32,8 @@ const ProfileScreen = (props) => {
         return (
             <View style={styles.profileDetail}>
                 <View style={{ flex: 1 }}>
-                    <Text style={styles.userName}>{userData ? userData.displayName : 'Hey There,'}</Text>
-                    <Text style={styles.userEmail}>{userData ? userData.email || userData.phoneNumber : 'Nice to meet you!'}</Text>
+                    <Text style={styles.userName}>{userData ? userData.displayName : translate('common.heythere,')}</Text>
+                    <Text style={styles.userEmail}>{userData ? userData.email || userData.phoneNumber : translate('common.nicetomeetyou!')}</Text>
                 </View>
 
                 {
@@ -43,7 +44,7 @@ const ProfileScreen = (props) => {
                         </TouchableOpacity>
                         :
                         <TouchableOpacity style={styles.registerButton} onPress={() => signUpAction()}>
-                            <Text style={styles.register}>Register</Text>
+                            <Text style={styles.register}>{translate('common.register')}</Text>
                         </TouchableOpacity>
                 }
             </View>
@@ -104,66 +105,66 @@ const ProfileScreen = (props) => {
         <AppBackground safeAreaColor={Colors.LightGray}>
             <ScrollView>
                 <ProfileDetail />
-                <HeadingComponent Title={'MY ACCOUNT'} />
+                <HeadingComponent Title={translate('common.myaccount')} />
                 {
                     userData ?
                         <>
                             <ListItem
                                 Image={Images.BagIcon}
-                                title={'My Orders'}
+                                title={translate('common.myorders')}
                                 onPress={() => navigation.navigate('OrderList')}
                             />
                             <ListItem
                                 Image={Images.Wishlist}
-                                title={'Wishlist'}
+                                title={translate('common.wishlist')}
                                 onPress={() => navigation.navigate('WishlistScreen')}
                             />
                             <ListItem
                                 Image={Images.Location}
-                                title={'My Address'}
+                                title={translate('common.myaddress')}
                                 onPress={() => navigation.navigate('MyAddress')}
                             />
                             <ListItem
                                 Image={Images.Payment}
-                                title={'Payment Methods'}
+                                title={translate('common.paymentmethods')}
                                 onPress={() => navigation.navigate('PaymentMethods')}
                             />
                         </> :
                         <ListItem
                             Image={Images.UserLogin}
-                            title={'Log In'}
+                            title={translate('common.login')}
                             onPress={() => navigation.navigate('Login')}
                         />
                 }
 
-                <HeadingComponent Title={'SETTING'} />
+                <HeadingComponent Title={translate('common.setting')} />
                 {
                     userData && userData?.phoneNumber === null && <ListItem
                         Image={Images.ChangePassword}
-                        title={'Change Password'}
+                        title={translate('common.changepassword')}
                         onPress={() => navigation.navigate('ChangePassword')}
                     />
                 }
 
                 <ListItem
                     Image={Images.Language}
-                    title={'Language'}
+                    title={translate('common.language')}
                     onPress={() => navigation.navigate('LanguageScreen')}
                 />
                 <ListItem
                     Image={Images.Notification}
-                    title={'Notification'}
+                    title={translate('common.notification')}
                     onPress={() => navigation.navigate('NotificationScreen')}
                 />
-                <HeadingComponent Title={'ABOUT'} />
+                <HeadingComponent Title={translate('common.about')} />
                 <ListItem
                     Image={Images.Question}
-                    title={'Help & Support'}
+                    title={translate('common.help&support')}
                     onPress={() => navigation.navigate('SupportScreen')}
                 />
                 <ListItem
                     Image={Images.Shield}
-                    title={'Legal and Policies'}
+                    title={translate('common.legalandpolicies')}
                     onPress={() => navigation.navigate('LegalPolicies')}
                 />
                 <View style={styles.socialIconContainer}>
@@ -186,7 +187,7 @@ const ProfileScreen = (props) => {
                         style={styles.logoutButton}
                         onPress={() => logout()}
                     >
-                        <Text style={styles.logout}>Log Out</Text>
+                        <Text style={styles.logout}>{translate('common.logout')}</Text>
                     </TouchableOpacity>
                 }
 

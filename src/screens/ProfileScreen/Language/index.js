@@ -5,11 +5,17 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
+    DevSettings
 } from 'react-native';
 import AppBackground from '../../Components/AppBackground';
 import AppHeader from '../../Components/AppHeader';
 import Colors from '../../../constant/Colors';
 import fonts from '../../../constant/fonts';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAppLanguage } from '../../Store/reducers/languageReducer';
+import { languageArray } from '../../../utility';
+import { useNavigation } from '@react-navigation/native';
+import RNRestart from 'react-native-restart';
 
 const countries = [
     {
@@ -23,44 +29,58 @@ const countries = [
 ];
 
 const LanguageScreen = () => {
-    const [selectedCountryIndex, setSelectedCountryIndex] = useState(0)
-    
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
+    const { selectedLanguageItem } = useSelector(state => state.languageReducer);
+
+    const [selectedCountryIndex, setSelectedCountryIndex] = useState(selectedLanguageItem.language_id)
+
     onCountryPress = (index) => {
-        setSelectedCountryIndex(index);
+        console.log('Index selected', index, languageArray[index])
+        if (selectedCountryIndex !== index) {
+            setSelectedCountryIndex(index);
+            dispatch(setAppLanguage(languageArray[index]));
+            //    navigation.navigate('Home')
+            setTimeout(() => {
+                //DevSettings.reload()
+                // navigation.navigate('Profile')
+                RNRestart.restart();
+            }, 1000);
+        }
     };
 
-        return (
-            <AppBackground>
-                <AppHeader
-                    showBackButton
-                    title={'Language'}
-                />
-                {countries.map((country, index) => {
-                    return (
-                        <TouchableOpacity style={styles.container} key={index} onPress={() => onCountryPress(index)}>
-                            <View style={styles.flagContainer}>
-                                <Image
-                                    style={styles.flagImage}
-                                    source={country.flag}
-                                />
-                                <Text style={styles.countryName}>{country.name}</Text>
-                            </View>
-                            {selectedCountryIndex === index && (
-                                <View style={styles.iconContainer}>
-                                    <View style={styles.iconCircle}>
-                                        <Image
-                                            style={styles.iconImage}
-                                            source={require('../../../assets/images/rightIcon.png')}
-                                        />
-                                    </View>
+    return (
+        <AppBackground>
+            <AppHeader
+                showBackButton
+                title={'Language'}
+            />
+            {countries.map((country, index) => {
+                return (
+                    <TouchableOpacity style={styles.container} key={index} onPress={() => onCountryPress(index)}>
+                        <View style={styles.flagContainer}>
+                            <Image
+                                style={styles.flagImage}
+                                source={country.flag}
+                            />
+                            <Text style={styles.countryName}>{country.name}</Text>
+                        </View>
+                        {selectedCountryIndex === index && (
+                            <View style={styles.iconContainer}>
+                                <View style={styles.iconCircle}>
+                                    <Image
+                                        style={styles.iconImage}
+                                        source={require('../../../assets/images/rightIcon.png')}
+                                    />
                                 </View>
-                            )}
-                        </TouchableOpacity>
-                    );
-                })}
-            </AppBackground>
+                            </View>
+                        )}
+                    </TouchableOpacity>
+                );
+            })}
+        </AppBackground>
 
-        );
+    );
 }
 
 export default LanguageScreen;

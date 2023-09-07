@@ -1,13 +1,3 @@
-// import { legacy_createStore as createStore, applyMiddleware } from "redux";
-// import RootReducer from "./reducers";
-// import thunk from "redux-thunk";
-
-// const Store = createStore(RootReducer,
-//     applyMiddleware(thunk)
-// );
-
-// export default Store;
-
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";

@@ -91,4 +91,7 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const UPDATE_NAME_EMAIL = 'UPDATE_NAME_EMAIL';
 
+//====================LANGUAGE REDUCER=====================
+export const SET_LANGUAGE_SELECTED = 'SET_LANGUAGE_SELECTED';
+export const UPDATE_ALL_LANGUAGES = 'UPDATE_ALL_LANGUAGES';
 

@@ -10,6 +10,7 @@ import { setUserData } from '../Store/actions/userAction'
 import { userRegister } from '../../services/apis'
 import { useDispatch } from 'react-redux'
 import { saveUserDetails } from '../../helpers/user'
+import { translate } from '../../utility'
 
 const AuthBottomContainer = (props) => {
     const navigation = useNavigation();
@@ -96,23 +97,28 @@ const AuthBottomContainer = (props) => {
                 <SocialIconSection
                     onPress={onPressGoggle}
                     Image={Images.GoogleIcon}
-                    Text={'Google'}
+                    Text={translate('common.google')}
                 />
                 {/* <SocialIconSection
                     onPress={onPressFacebook}
                     Image={Images.FacebookIcon}
-                    Text={'Facebook'} /> */}
+                    Text={translate('common.facebook')} /> */}
                 {Platform.OS === 'ios' &&
                     <SocialIconSection
                         onPress={onPressApple}
                         Image={Images.AppleIcon}
-                        Text={'Apple'}
+                        Text={translate('common.apple')}
                     />
                 }
             </View>
             <View style={styles.rowContainer}>
                 <Text style={styles.termsPrivacy}>{props.isAccountText}</Text>
-                <Text suppressHighlighting={true} onPress={props.onPressButton} style={[styles.termsPrivacy, { color: Colors.themeColor, fontWeight: 'bold' }]}>{props?.isSignUp ? ' Sign in' : ' Sign up'}</Text>
+                <Text
+                    suppressHighlighting={true}
+                    onPress={props.onPressButton}
+                    style={[styles.termsPrivacy, { color: Colors.themeColor, fontWeight: 'bold' }]}>
+                    {props?.isSignUp ? ' ' + translate('common.signin') : ' ' + translate('common.signup')}
+                </Text>
             </View>
         </>
     )

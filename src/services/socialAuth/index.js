@@ -199,17 +199,17 @@ export const updateDisplayName = (userCredentials, name) => {
     })
 }
 
-export const updateEmail = (email) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const response = await updateEmail(auth().currentUser, email)
-            resolve(response)
-        } catch (error) {
-            console.log(error)
-            handleAuthError(error)
-        }
-    })
-}
+// export const updateEmail = (email) => {
+//     return new Promise(async (resolve, reject) => {
+//         try {
+//             const response = await updateEmail(auth().currentUser, email)
+//             resolve(response)
+//         } catch (error) {
+//             console.log(error)
+//             handleAuthError(error)
+//         }
+//     })
+// }
 // export const updateEmail = (email) => {
 //     return new Promise(async (resolve, reject) => {
 //         try {

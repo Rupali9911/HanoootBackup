@@ -18,6 +18,7 @@ import CustomSwitch from '../customSwitch';
 import { checkPhoneNumberOrEmailExists, userRegister } from '../../../services/apis'
 import { createUserWithEmail, updateDisplayName, signInWithPhoneNumber } from '../../../services/socialAuth'
 import { saveUserDetails, updateNameWithSaveDetails } from '../../../helpers/user';
+import { translate } from '../../../utility';
 
 
 const Signup = () => {
@@ -152,7 +153,7 @@ const Signup = () => {
         >
             <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('15%') }} />
             <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'>
-                <AuthHeader title={'Register to Hanooot'} />
+                <AuthHeader title={translate('common.registertohanooot')} />
 
                 <CustomSwitch
                     selectionMode={1}
@@ -164,8 +165,8 @@ const Signup = () => {
                 />
 
                 <AppInput
-                    label={'Your Name'}
-                    placeholder={'Enter your Name'}
+                    label={translate('common.yourname')}
+                    placeholder={translate('common.enteryourname')}
                     required
                     onChangeText={(name) => {
                         setName(name);
@@ -181,8 +182,8 @@ const Signup = () => {
                     mobileSwitch ?
                         (
                             <AppInput
-                                label={'Mobile Phone Number'}
-                                placeholder={'Enter your phone number'}
+                                label={translate('common.mobilephonenumber')}
+                                placeholder={translate('common.enteryourphonenumber')}
                                 required
                                 isNumberField
                                 onChangeText={(phoneNo) => {
@@ -198,8 +199,8 @@ const Signup = () => {
                         ) : (
                             <>
                                 <AppInput
-                                    label={'Email'}
-                                    placeholder={'Enter your eamil'}
+                                    label={translate('common.email')}
+                                    placeholder={translate('common.enteryoureamil')}
                                     onChangeText={(email) => {
                                         setEmail(email)
                                         setError({ ...error, ['emailErr']: null })
@@ -212,8 +213,8 @@ const Signup = () => {
                                 />
 
                                 <AppInput
-                                    label={'Password'}
-                                    placeholder={'at least 8 characters'}
+                                    label={translate('common.password')}
+                                    placeholder={translate('common.atleast8characters')}
                                     required
                                     rightComponent
                                     passwordError
@@ -241,22 +242,22 @@ const Signup = () => {
 
                 <View style={{ marginHorizontal: '5%', marginVertical: '5%' }}>
                     <Text style={styles.termsPrivacy} >
-                        By Continuing, you agree to Hanooot
-                        <Text suppressHighlighting={true} onPress={() => console.log('Terms & Condition')} style={{ color: Colors.themeColor }} > Terms and Conditions </Text>
-                        and
-                        <Text suppressHighlighting={true} onPress={() => console.log('Privacy Policy')} style={{ color: Colors.themeColor }} > Privacy Policy </Text>
+                        {translate('common.agreehanooot')}
+                        <Text suppressHighlighting={true} onPress={() => console.log('Terms & Condition')} style={{ color: Colors.themeColor }} > {translate('common.termsandconditions')} </Text>
+                        {translate('common.and')}
+                        <Text suppressHighlighting={true} onPress={() => console.log('Privacy Policy')} style={{ color: Colors.themeColor }} > {translate('common.privacypolicy')} </Text>
                     </Text>
                 </View>
 
                 <AppButton
-                    label={'Continue'}
+                    label={translate('common.continue')}
                     containerStyle={{ marginVertical: '5%' }}
                     onPress={signupTapped}
                 />
 
                 <AuthBottomContainer
-                    title={'Or Sign Up with'}
-                    isAccountText={'Already have an account?'}
+                    title={translate('common.orsignupwith')}
+                    isAccountText={translate('common.alreadyhaveanaccount')}
                     // button={' Sign in'}
                     isSignUp={true}
                     onPressButton={() => navigation.navigate('Login')}
