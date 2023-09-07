@@ -7,6 +7,8 @@ const GOOGLE_API_KEY = Platform.OS === 'ios' ? 'AIzaSyBrzXVff2NFocJdPwtn3fLyTR8v
 
 
 //APIs
+const BASE_API = `${API_BASE_URL}/api/v1`
+
 const CHECK_PHONE_NUMBER = `${API_BASE_URL}/api/v1/user/check-phone`
 const USER_REGISTER = `${API_BASE_URL}/api/v1/user/register`
 const CATEGORY_LIST = `${API_BASE_URL}/api/v1/category`
@@ -33,6 +35,9 @@ const CART_API = `${API_BASE_URL}/api/v1/cart`
 
 const HOME_API = `${API_BASE_URL}/api/v1/home-page`
 
+const SEARCH_API = `${API_BASE_URL}/api/v1/product/search`
+
+
 
 export {
     CHECK_PHONE_NUMBER,
@@ -52,5 +57,7 @@ export {
     CART_API,
     ORDER_API,
     ORDER_DETAIL_API,
-    HOME_API
+    HOME_API,
+    SEARCH_API,
+    BASE_API
 };

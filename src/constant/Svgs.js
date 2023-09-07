@@ -11,6 +11,8 @@ import SearchIcon from '../assets/svgs/SearchIcon.svg';
 import SearchGrayIcon from '../assets/svgs/SearchGrayIcon.svg';
 import ShareIcon from '../assets/svgs/ShareIcon.svg';
 import DiscountTag from '../assets/svgs/discountTag.svg';
+import SearchArrow from '../assets/svgs/SearchArrow.svg';
+import CrossIcon from '../assets/svgs/CrossIcon.svg';
 
 export default {
   HomeIcon,
@@ -25,5 +27,7 @@ export default {
   SearchIcon,
   SearchGrayIcon,
   ShareIcon,
-  DiscountTag
+  DiscountTag,
+  SearchArrow,
+  CrossIcon
 };

@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, View, TouchableOpacity, FlatList, BackHandler } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AppBackground from '../../Components/AppBackground'
 import AppHeader from '../../Components/AppHeader'
@@ -54,6 +54,16 @@ const ReviewOrder = (props) => {
     dispatch(getParticularSelectedAddress(props.AddressId))
   }, [isFocused])
 
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      // Disable the back button functionality here
+      return true; // Return true to prevent default behavior (navigating back)
+    });
+
+    // Cleanup the event listener when the component unmounts
+    return () => backHandler.remove();
+  }, []);
+
   console.log('single address detail : ', signleAddressDetail)
 
 
@@ -90,13 +100,24 @@ const ReviewOrder = (props) => {
       <>
         <ProductHeader title={'Pay With'} rightButtonLabel={'Change'} onPress={() => props.setScreenType('PAYMENT')} />
 
-        <View style={styles.payCard}>
+        {/* <View style={styles.payCard}>
           <Image source={Images.ZainCash} style={{ height: 40, width: 45 }} />
           <View>
             <Text
               style={styles.payMode}
             >{'ZainCash'}</Text>
             <Text style={styles.payModeDesc} numberOfLines={2}>{'Pay online via Zaincash'}</Text>
+          </View>
+        </View> */}
+
+
+        <View style={styles.payCard}>
+          <Image source={Images.cashOnDelivery} style={{ height: 40, width: 45 }} />
+          <View>
+            <Text
+              style={styles.payMode}
+            >{'Cash On Delivery'}</Text>
+            <Text style={styles.payModeDesc} numberOfLines={2}>{'Pay when you get order'}</Text>
           </View>
         </View>
       </>
@@ -184,12 +205,12 @@ const ReviewOrder = (props) => {
             address_id: props.AddressId,
             product_id: productQtyIdInfo?.productId,
             quantity: quantity,
-            payment_method: "zen cash"
+            payment_method: "COD"
           }
           :
           {
             address_id: props.AddressId,
-            payment_method: "zen cash"
+            payment_method: "COD"
           }
       const orderPlaced = await PlaceOrderAPICall(data);
       console.log('orderPlaced', orderPlaced)

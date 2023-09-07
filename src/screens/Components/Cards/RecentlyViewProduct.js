@@ -3,19 +3,23 @@ import React from 'react'
 import ProductHeader from './ProductHeader'
 import ListView from '../../../Components/ListView'
 import { wp } from '../../../constant/responsiveFunc'
+import { useNavigation } from '@react-navigation/native'
 
-const RecentlyViewProduct = () => {
+const RecentlyViewProduct = (props) => {
+    const Data = props.Data;
+    const navigation = useNavigation();
+
 
     const renderItem = ({ item, index }) => {
         return (
             <ListView
-                centerImage={'https://www.pngmart.com/files/15/Apple-iPhone-12-PNG-Free-Download.png'}
-                productName={'Apple iPad  10.2 - inch Bionic chip ...'}
-                price={'$ 5,000'}
+                centerImage={item?.ManagementProduct?.product_image}
+                productName={item?.ManagementProduct?.title}
+                price={item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}
                 isLeftImage
                 showLike
-                isItemLiked={false}
-            // isDiscountTag
+                isItemLiked={item?.isLike}
+                detailId={item?.product_id}
             />
         );
     }
@@ -26,16 +30,28 @@ const RecentlyViewProduct = () => {
 
     return (
         <>
-            <ProductHeader title={'Recently Viewed Products'} rightButtonLabel={'See All'} />
-            <FlatList
-                data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
-                renderItem={renderItem}
-                keyExtractor={keyExtractor}
-                horizontal
-                style={{ marginHorizontal: wp(6) }}
-                showsHorizontalScrollIndicator={false}
+            {
+                Data?.listOfRecentViewProduct?.UserRecentProductVisits.length > 0
+                    ?
+                    (
+                        <>
+                            <ProductHeader title={Data?.tittle} rightButtonLabel={'See All'} onPress={() => { navigation.navigate('ProductListWithFilters', { headerTitle: Data?.tittle, isNavigationSection: 'RecentlyViewProduct' }) }} />
+                            <FlatList
+                                data={Data?.listOfRecentViewProduct?.UserRecentProductVisits}
+                                renderItem={renderItem}
+                                keyExtractor={keyExtractor}
+                                horizontal
+                                style={{ marginHorizontal: wp(6) }}
+                                showsHorizontalScrollIndicator={false}
 
-            />
+                            />
+                        </>
+                    )
+                    :
+                    null
+            }
+
+
 
         </>
     )

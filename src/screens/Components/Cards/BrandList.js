@@ -1,21 +1,28 @@
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native'
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Images from '../../../constant/Images';
 import { hp, wp } from '../../../constant/responsiveFunc';
 import Colors from '../../../constant/Colors';
+import { useNavigation } from '@react-navigation/native'
+
 
 const BrandList = (props) => {
     const Data = props.Data;
+    const navigation = useNavigation();
+
 
     const renderBrandList = ({ item, index }) => {
         console.log('renderBrandList : ', item)
         return (
-            <View style={styles.brandContainer} key={item?.id}>
+            <TouchableOpacity
+                style={styles.brandContainer} key={item?.id}
+                onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: item?.name })}
+            >
                 <Image
-                    source={{ uri: item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }}
+                    source={{ uri: item?.thumbnail_image ? item?.thumbnail_image : 'https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-png-dallas-shootings-don-add-are-speech-zones-used-4.png' }}
                     style={styles.brandImage}
                 />
-            </View>
+            </TouchableOpacity>
         );
     }
 

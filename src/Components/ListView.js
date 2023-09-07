@@ -70,23 +70,17 @@ const ListView = (props) => {
                     const typeCheck = response?.message == 'product added successfully in wishlist' ? 'SUCCESS' : 'REMOVE'
 
                     if (response?.message == 'product added successfully in wishlist') {
-                        setLiked(true)
                         setTimeout(() => {
+                            setLiked(true)
                             showInfoToast('SUCCESS', response?.message)
-                        }, 1000);
+                        }, 500);
                     }
                     else {
-                        setLiked(false)
                         setTimeout(() => {
+                            setLiked(false)
                             showInfoToast('REMOVE', response?.message)
-                        }, 1000);
+                        }, 500);
                     }
-
-
-
-                    // setLiked(!isLiked)
-
-
                 }
                 else {
                     setLiked(false)
@@ -312,7 +306,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: SIZE(10),
         // verticalAlign: 'top',
         overflow: 'hidden',
-        alignContent: 'flex-start',
+        // alignContent: 'flex-start',
         width: wp(33)
     },
     textView: {

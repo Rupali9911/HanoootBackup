@@ -5,67 +5,23 @@ import { hp, wp } from '../../../constant/responsiveFunc'
 import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import Carousels from '../Carousel'
+import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
+import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
+import { showInfoToast, showErrorToast } from '../../../Components/universal/Toast'
+
 
 const FeaturedCategory = (props) => {
     const Data = props.Data;
+
+    const navigation = useNavigation();
+    const [isAddToCart, setAddToCart] = useState('')
+
+
     const arr = [];
     console.log('FeaturedCategory : ', Data)
-    const products = [
-        {
-            "id": 1,
-            "image": "https://example.com/image1.jpg",
-            "title": "Product 1",
-            "price": 19.99
-        },
-        {
-            "id": 2,
-            "image": "https://example.com/image2.jpg",
-            "title": "Product 2",
-            "price": 29.99
-        },
-        {
-            "id": 3,
-            "image": "https://example.com/image3.jpg",
-            "title": "Product 3",
-            "price": 39.99
-        },
-        {
-            "id": 4,
-            "image": "https://example.com/image1.jpg",
-            "title": "Product 4",
-            "price": 19.99
-        },
-        {
-            "id": 5,
-            "image": "https://example.com/image2.jpg",
-            "title": "Product 5",
-            "price": 29.99
-        },
-        {
-            "id": 6,
-            "image": "https://example.com/image3.jpg",
-            "title": "Product 6",
-            "price": 39.99
-        },
-        {
-            "id": 7,
-            "image": "https://example.com/image1.jpg",
-            "title": "Product 7",
-            "price": 19.99
-        },
-        {
-            "id": 8,
-            "image": "https://example.com/image2.jpg",
-            "title": "Product 8",
-            "price": 29.99
-        },
-        {
-            "id": 9,
-            "image": "https://example.com/image3.jpg",
-            "title": "Product 9",
-            "price": 39.99
-        }
-    ]
+    const userData = useSelector((state) => state.userReducer.userData);
+
 
     const _renderListView = () => {
         return (
@@ -82,6 +38,33 @@ const FeaturedCategory = (props) => {
                 </TouchableOpacity>
             </View>
         );
+    }
+
+    const onAddtoCartPress = async (isCartedItem, productId) => {
+        console.log('check isCartedItem : ', isCartedItem)
+        try {
+            if (!isCartedItem) {
+
+                const response = await AddtoCartAPICall(productId, 1)
+                if (response?.success) {
+                    setTimeout(() => {
+                        setAddToCart(true)
+                        showInfoToast('SUCCESS', response?.message)
+                    }, 1000);
+                }
+                else {
+                    showErrorToast()
+                }
+            }
+            else if (isCartedItem) {
+                navigation.navigate('CartScreen', { screen: true })
+            }
+
+
+        }
+        catch (error) {
+            console.log('Error from onAddtoCartPress api ', error)
+        }
     }
 
     function sliceIntoChunks(arr, chunkSize) {
@@ -103,7 +86,10 @@ const FeaturedCategory = (props) => {
 
     const renderItem = ({ item, index }) => {
         return (
-            <View style={styles.listContainer}>
+            <TouchableOpacity
+                style={styles.listContainer}
+                onPress={() => navigation.push('ProductDetail', { id: item?.id })}
+            >
                 <View style={styles.itemImgContainer}>
                     <Image source={{ uri: item?.product_image }} style={styles.itemImg} />
                 </View>
@@ -111,10 +97,19 @@ const FeaturedCategory = (props) => {
                     <Text numberOfLines={2} style={styles.itemName}>{item?.title}</Text>
                     <Text style={styles.itemPrice}>$ {item?.ManagementProductPricing?.hanooot_price}</Text>
                 </View>
-                <TouchableOpacity style={styles.cartBtn}>
-                    <Text style={styles.cartBtnTxt}>Add to Cart</Text>
+                <TouchableOpacity style={styles.cartBtn}
+                    onPress={() => userData ? onAddtoCartPress(item?.isCart, item?.id) : showErrorToast('For all your shopping needs', 'Please Login First')}
+                >
+
+                    {/* label={productDetail?.isCart ? 'View Cart' : 'Add to Cart'}
+                                        onPress={() => userData ? onAddtoCartPress(productDetail?.isCart) : setModalVisible(true)}
+                                        isIndicatorLoading={isDetailPageLoad} */}
+
+
+
+                    <Text style={styles.cartBtnTxt}>{item?.isCart ? 'View Cart' : 'Add to Cart'}</Text>
                 </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -134,7 +129,7 @@ const FeaturedCategory = (props) => {
 
 
 
-        console.log('arr is herer : ', arr)
+        // console.log('arr is herer : ', arr)
 
         return (
             <View style={styles.productContainer}>
@@ -144,7 +139,7 @@ const FeaturedCategory = (props) => {
                     keyExtractor={keyExtractor}
                     numColumns={3}
                     scrollEnabled={false}
-                    contentContainerStyle={{ alignItems: 'center' }}
+                    contentContainerStyle={{ alignItems: item?.length > 3 ? 'center' : 'flex-start' }}
                 />
 
 
@@ -168,7 +163,10 @@ const FeaturedCategory = (props) => {
             <View style={styles.container}>
                 <View style={styles.headingContainer}>
                     <Text style={styles.title} numberOfLines={2}>{Data?.tittle}</Text>
-                    <TouchableOpacity style={styles.seeAllBtn}>
+                    <TouchableOpacity
+                        style={styles.seeAllBtn}
+                        onPress={() => navigation.navigate('ProductListWithFilters', { category_id: Data?.featuredCategoryByProduct?.id, headerTitle: Data?.featuredCategoryByProduct?.name })}
+                    >
                         <Text style={styles.seeAllBtnText}>See All</Text>
                     </TouchableOpacity>
                 </View>

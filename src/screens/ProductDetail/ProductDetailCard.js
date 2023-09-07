@@ -61,7 +61,7 @@ const ProductDetailCard = (props) => {
                         setTimeout(() => {
                             showInfoToast(typeCheck, response?.message)
                         }, 1000);
-                        
+
                     }
 
 
@@ -281,7 +281,7 @@ const ProductDetailCard = (props) => {
                 <View style={styles.firstLineView}>
 
                     <View style={styles.textView}>
-                        <Text style={styles.totalPrice}>{price}</Text>
+                        <Text style={styles.totalPrice}>$ {price}</Text>
                         <Text style={styles.inclusiveTax}>(Inclusive of VAT)</Text>
                     </View>
                     <ExpressView />

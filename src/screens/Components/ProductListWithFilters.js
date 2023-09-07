@@ -30,7 +30,7 @@ const ProductListWithFilters = (props) => {
     const { isListLoading, productList, productListPage, productTotalCount } = useSelector(state => state.productListReducer);
     const userData = useSelector((state) => state.userReducer.userData);
 
-    
+
     useEffect(() => {
         dispatch(productListReset())
         dispatch(productListLoadingStart());
@@ -39,8 +39,11 @@ const ProductListWithFilters = (props) => {
     }, [isFocused]);
 
     const getProductListData = useCallback(page => {
-        dispatch(getProductList(page, DATA?.category_id));
+        dispatch(getProductList(page, DATA?.category_id, DATA?.isNavigationSection));
     }, []);
+
+
+    console.log('product list data is here : ', productList)
 
 
 
@@ -48,21 +51,66 @@ const ProductListWithFilters = (props) => {
     const renderItem = ({ item, index }) => {
         console.log('liked item  :', item?.isLike)
         return (
-            <ListView
-                item={item}
-                centerImage={item?.images[0]}
-                productName={item?.title}
-                price={item?.ManagementProductPricing?.hanooot_price}
-                // discount={item?.ManagementProductPricing.hanooot_discount}
-                averageRating={item?.ManagementProductReview?.average_rating}
-                noOfReview={item?.ManagementProductReview?.number_of_reviews}
-                detailId={item?.product_details_id}
-                // categoryId={item?.category_id}
-                isExpress
-                showLike
-                isItemLiked={item?.isLike}
-                ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), }}
-            />
+
+            DATA?.isNavigationSection === 'NewArrivals'
+                ?
+                <ListView
+                    item={item}
+                    centerImage={item?.product_image}
+                    productName={item?.title}
+                    price={item?.ManagementProductPricing?.hanooot_price}
+                    isLeftImage
+                    showLike
+                    isItemLiked={item?.isLike}
+                    isDiscountTag
+                    TotalPriceStyle={{ color: Colors.PRICEGREEN }}
+                    detailId={item?.product_details_id}
+                    ViewContStyle={{ width: wp('100%') / 2 - wp('5%') }}
+                />
+                :
+                DATA?.isNavigationSection === 'SuggestedProducts'
+                    ?
+                    <ListView
+                        centerImage={item?.product_image}
+                        productName={item?.title}
+                        price={item?.ManagementProductPricing?.hanooot_price}
+                        isLeftImage
+                        showLike
+                        isItemLiked={item?.isLike}
+                        detailId={item?.id}
+                        ViewContStyle={{ width: wp('100%') / 2 - wp('5%') }}
+                    />
+                    :
+                    DATA?.isNavigationSection === 'RecentlyViewProduct'
+                        ?
+                        <ListView
+                            centerImage={item?.ManagementProduct?.product_image}
+                            productName={item?.ManagementProduct?.title}
+                            price={item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}
+                            isLeftImage
+                            showLike
+                            isItemLiked={item?.isLike}
+                            detailId={item?.product_id}
+                            ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), }}
+                        />
+                        :
+                        <ListView
+                            item={item}
+                            centerImage={item?.images[0]}
+                            productName={item?.title}
+                            price={item?.ManagementProductPricing?.hanooot_price}
+                            // discount={item?.ManagementProductPricing.hanooot_discount}
+                            averageRating={item?.ManagementProductReview?.average_rating}
+                            noOfReview={item?.ManagementProductReview?.number_of_reviews}
+                            detailId={item?.product_details_id}
+                            // categoryId={item?.category_id}
+                            isExpress
+                            showLike
+                            isItemLiked={item?.isLike}
+                            ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), }}
+                        />
+
+
         );
     }
 
@@ -118,7 +166,7 @@ const ProductListWithFilters = (props) => {
                 renderItem={renderItem}
                 keyExtractor={keyExtractor}
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ alignSelf: 'center' }}
+                contentContainerStyle={{ alignSelf: productList?.length > 1 ? 'center' : 'flex-start' }}
                 onEndReached={handleFlatListEndReached}
                 onEndReachedThreshold={0.5}
                 ListFooterComponent={renderFooter}

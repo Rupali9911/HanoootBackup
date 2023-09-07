@@ -5,17 +5,30 @@ import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import Images from '../../../constant/Images'
 import ProductHeader from './ProductHeader'
+import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
+import { showErrorToast } from '../../../Components/universal/Toast'
+
+
 
 
 const TopPicks = (props) => {
   const Data = props.Data;
+  const navigation = useNavigation();
+
+  const userData = useSelector((state) => state.userReducer.userData);
+
+
 
   console.log('TopPicks', Data)
 
 
   const renderListItems = ({ item, index }) => {
     return (
-      <View style={styles.listContainer}>
+      <TouchableOpacity
+        style={styles.listContainer}
+        onPress={() => navigation.push('ProductDetail', { id: item?.id })}
+      >
         <View style={styles.itemImgContainer}>
           <Image source={{ uri: item?.ManagementProduct?.product_image ? item?.ManagementProduct?.product_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }} style={styles.itemImg} />
         </View>
@@ -23,10 +36,12 @@ const TopPicks = (props) => {
           <Text numberOfLines={2} style={styles.itemName}>{item?.ManagementProduct?.title}</Text>
           <Text style={styles.itemPrice}>$ {item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
         </View>
-        <TouchableOpacity style={styles.cartBtn}>
-          <Text style={styles.cartBtnTxt}>Add to Cart</Text>
+        <TouchableOpacity style={styles.cartBtn}
+          onPress={() => userData ? onAddtoCartPress(item?.isCart, item?.id) : showErrorToast('For all your shopping needs', 'Please Login First')}
+        >
+          <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? 'View Cart' : 'Add to Cart'}</Text>
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
     );
   }
 
@@ -49,7 +64,10 @@ const TopPicks = (props) => {
                 <Text style={styles.title} numberOfLines={2}>{item?.inner_heading}</Text>
                 <Text style={styles.description} numberOfLines={2}>{item?.description}</Text>
               </View>
-              <TouchableOpacity style={styles.seeAllBtn}>
+              <TouchableOpacity
+                style={styles.seeAllBtn}
+                onPress={() => navigation.navigate('Category')}
+              >
                 <Text style={styles.seeAllBtnText}>Shop Now</Text>
               </TouchableOpacity>
             </View>
@@ -59,7 +77,7 @@ const TopPicks = (props) => {
               keyExtractor={keyExtractor}
               numColumns={3}
               scrollEnabled={false}
-              contentContainerStyle={{ alignItems: 'center' }}
+              style={{ alignItems: 'center' }}
             />
           </View>
         </View>
@@ -102,6 +120,7 @@ const TopPicks = (props) => {
           data={Data?.topPicks}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
+
         />
       </View>
     </>
@@ -119,7 +138,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     width: wp(86.67),
-    paddingVertical: '5%'
+    paddingVertical: '5%',
+    // backgroundColor: 'green',
+    // alignItems: 'center'
   },
   headingContainer: {
     flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '5%', paddingBottom: '2%'

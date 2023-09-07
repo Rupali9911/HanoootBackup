@@ -136,9 +136,11 @@ const Category = () => {
     }
 
     const RightComponentList = (subCategory, idx) => {
+
+        console.log('RightComponentList : ', subCategoryList)
         return (
             <>
-                {subCategory?.name && <SubCategoriesTitle title={subCategory?.name} index={idx} />}
+                {subCategory?.name && <SubCategoriesTitle title={capitalizeFirstLetter(subCategory?.name)} index={idx} />}
 
                 {expanded && subCategoryIndex === idx && (
                     <ListView
@@ -150,10 +152,9 @@ const Category = () => {
                             return (
                                 index != 5 ?
                                     <SubCategoryListItems
-                                        image={item?.thumbnail_image}
+                                        image={item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png'}
                                         name={item?.name}
-                                        id={subCategory?.id}
-
+                                        id={subCategory?.parent_id}
                                     />
                                     :
                                     <ViewMoreButton
@@ -174,54 +175,54 @@ const Category = () => {
 
     const renderCategoryCollectionList = () => {
         return (
-            
-                <View style={styles.container}>
-                    <View style={styles.categoryContainer}>
-                        <ListView
-                            data={categoryList?.rows}
-                            renderItem={renderCategories}
-                            onEndReached={handleFlatListEndReached}
-                            onEndReachedThreshold={0.5}
-                        // ListFooterComponent={() => console.log('Footer Called')}
-                        />
-                    </View>
 
-                    {
-                        Object.keys(subCategoryList).length ?
-                            <ScrollView
-                                horizontal={false}
-                                showsHorizontalScrollIndicator={false}
-                                showsVerticalScrollIndicator={false}
-                                scrollEventThrottle={200}
-                                decelerationRate="fast"
-                                style={styles.subCategoryContainer}
-                            >
-                                {subCategoryList?.children.map((subCategory, _i) => {
-                                    return (
-                                        <View key={_i} >
-                                            {RightComponentList(subCategory, _i)}
-                                        </View>
-                                    );
-                                })
-                                }
-
-                            </ScrollView>
-                            :
-                            null
-                    }
+            <View style={styles.container}>
+                <View style={styles.categoryContainer}>
+                    <ListView
+                        data={categoryList?.rows}
+                        renderItem={renderCategories}
+                        onEndReached={handleFlatListEndReached}
+                        onEndReachedThreshold={0.5}
+                    // ListFooterComponent={() => console.log('Footer Called')}
+                    />
                 </View>
-            
+
+                {
+                    Object.keys(subCategoryList).length ?
+                        <ScrollView
+                            horizontal={false}
+                            showsHorizontalScrollIndicator={false}
+                            showsVerticalScrollIndicator={false}
+                            scrollEventThrottle={200}
+                            decelerationRate="fast"
+                            style={styles.subCategoryContainer}
+                        >
+                            {subCategoryList?.children.map((subCategory, _i) => {
+                                return (
+                                    <View key={_i} >
+                                        {RightComponentList(subCategory, _i)}
+                                    </View>
+                                );
+                            })
+                            }
+
+                        </ScrollView>
+                        :
+                        null
+                }
+            </View>
+
         );
     }
 
     const renderNoDataFound = () => {
         return (
-          <View style={styles.sorryMessageCont}>
-            <Text style={styles.sorryMessage}>{'No data found'}</Text>
-          </View>
+            <View style={styles.sorryMessageCont}>
+                <Text style={styles.sorryMessage}>{'No data found'}</Text>
+            </View>
         );
-      }
-    
+    }
+
 
 
     return (
@@ -334,10 +335,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-      },
-      sorryMessage: {
+    },
+    sorryMessage: {
         fontSize: 15,
         fontFamily: fonts.VisbyCF_Demibold,
-      },
+    },
 
 })

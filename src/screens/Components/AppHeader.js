@@ -10,7 +10,7 @@ import SVGS from '../../constant/Svgs';
 import { useSelector } from 'react-redux';
 import { showErrorToast } from '../../Components/universal/Toast';
 
-const { HeartIconBlack, CartIcon, SearchIcon } = SVGS; 
+const { HeartIconBlack, CartIcon, SearchIcon } = SVGS;
 
 
 export default function AppHeader(props) {
@@ -65,7 +65,7 @@ export default function AppHeader(props) {
 
       <View style={[styles.mainTitleStyle, props.titleComponentStyle]}>
         {props.placeholderText ? (
-          <View style={{ flex: 1, width: '100%', justifyContent: 'center' }}>
+          <View style={{ flex: 1, width: '100%', justifyContent: 'center', zIndex: 999 }}>
             <AppSearch placeholderText={props.placeholderText} onChangeText={(val) => setSearch(val)} />
           </View>
         ) :
@@ -135,12 +135,12 @@ export default function AppHeader(props) {
 
         {props.showRightComponent && (
           <TouchableOpacity
-          onPress={() => props.onCancelPress ? props.onCancelPress : navigation.goBack()}
+            onPress={() => props.onCancelPress ? props.onCancelPress : navigation.goBack()}
           >
-          <Text
-            style={[styles.title, { color: Colors.themeColor, paddingRight: 10 }]}
-            onPressRightText
-          >{'Cancel'}</Text>
+            <Text
+              style={[styles.title, { color: Colors.themeColor, paddingRight: 10 }]}
+              onPressRightText
+            >{'Cancel'}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -198,6 +198,7 @@ export default function AppHeader(props) {
 const styles = StyleSheet.create({
 
   container: {
+    zIndex: 999,
     height: hp('8%'),
     width: '100%',
     flexDirection: 'row',

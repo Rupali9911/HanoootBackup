@@ -27,11 +27,11 @@ const BannerCollage = (props) => {
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: hp(3) }}>
-            {/* <Image source={{ uri: Data?.firstBanner?.image_url }} style={{ width: wp(86.93), height: hp(24.94), resizeMode: 'cover', marginBottom: '2%', borderRadius: 10 }} />
+            <Image source={{ uri: Data?.largeBanner?.image_url }} style={{ width: wp(86.93), height: hp(24.94), resizeMode: 'cover', marginBottom: '2%', borderRadius: 10 }} />
             <Carousels
-                Data={Data?.bannerArr}
+                Data={Data?.sliderBanner}
                 renderItem={renderItem}
-                dotsLength={Data?.bannerArr.length}
+                dotsLength={Data?.sliderBanner.length}
                 loop={true}
                 autoplay={true}
                 sliderWidth={slideWidth}
@@ -43,9 +43,9 @@ const BannerCollage = (props) => {
             // sliderWidth={100}
             />
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flex: 1 }}>
-                <Image source={Images.BannerCollage} style={{ width: wp(42.40), height: hp(14.53), resizeMode: 'cover', marginHorizontal: '1%', borderRadius: 10 }} />
-                <Image source={Images.BannerCollage} style={{ width: wp(42.40), height: hp(14.53), resizeMode: 'cover', marginHorizontal: '1%', borderRadius: 10 }} />
-            </View> */}
+                <Image source={{ uri: Data?.smallBanner[0]?.image_url }} style={{ width: wp(42.40), height: hp(14.53), resizeMode: 'cover', marginHorizontal: '1%', borderRadius: 10 }} />
+                <Image source={{ uri: Data?.smallBanner[1]?.image_url }} style={{ width: wp(42.40), height: hp(14.53), resizeMode: 'cover', marginHorizontal: '1%', borderRadius: 10 }} />
+            </View>
         </View>
     )
 }

@@ -471,7 +471,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VISBY_CF_REGULAR,
         fontWeight: 600,
         fontSize: 16,
-        lineHeight: 21,
+        // lineHeight: 21,
         letterSpacing: 0.5
 
 
