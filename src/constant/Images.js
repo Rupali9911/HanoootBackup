@@ -97,7 +97,7 @@ export default {
     OTPVerify: require(`../assets/images/OTPVerify.png`),
     activeHeart: require(`../assets/images/activeHeart.jpeg`),
     MapImage: require(`../assets/images/MapImage.png`),
-    Tiktok: require(`../assets/images/tiktok.jpg`),
+    // Tiktok: require(`../assets/images/tiktok.jpg`),
     DiscountTag: require(`../assets/images/discountTag.png`),
     BannerCollage: require(`../assets/images/BannerCollage.jpg`)
 }

@@ -1,5 +1,7 @@
 import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET, PRODUCT_DETAIL_DATA_FAILED, PRODUCT_DETAIL_INFO_STORE, PRODUCT_BUTTON_TAPPED } from "../types";
-import { ProductListAPICall, ProductDetailAPICall,ProductFilterAPICall } from "../../../services/apis/ProductAPI";
+import { ProductListAPICall, ProductDetailAPICall, ProductFilterAPICall } from "../../../services/apis/ProductAPI";
+import { SEARCH_API } from '../../../utility/apiUrls';
+import sendRequest from "../../../services/axios/AxiosApiRequest";
 
 export const productListLoadingStart = bool => ({
     type: PRODUCT_LIST_LOADING,
@@ -72,7 +74,7 @@ export const setTappedButtonName = bool => ({
 
 
 
-export const getProductList = (page, categoryId) => {
+export const getProductList = (page, categoryId, isNavigationSection) => {
     // console.log('sdhjfs')
     // const a = getCategoryListAPI(1, 10)
 
@@ -99,7 +101,7 @@ export const getProductList = (page, categoryId) => {
 
     let limit = 10;
     return async dispatch => {
-        await ProductListAPICall(page, categoryId, limit).
+        await ProductListAPICall(page, categoryId, limit, isNavigationSection).
             then((response) => {
                 console.log('response from product list api call : ', response)
                 if (response?.data) {
@@ -118,15 +120,15 @@ export const getProductList = (page, categoryId) => {
 export const getProductDetail = (id, userData) => {
     try {
         return async dispatch => {
-           
+
             await ProductDetailAPICall(id, userData).
                 then(async (response) => {
                     // console.log('response from product detail api call : ', response)
                     if (response?.success === true) {
                         dispatch(productDetailDataSuccess(response?.data));
                         const filterResp = await ProductFilterAPICall(response?.data?.category_id);
-                        console.log('filterResp : ',filterResp)
-                        if(filterResp?.success === true){
+                        console.log('filterResp : ', filterResp)
+                        if (filterResp?.success === true) {
                             console.log('data from filter list resonse : ', filterResp?.data)
                             dispatch(productFilterByCategorySuccess(filterResp?.data));
                         }
@@ -176,6 +178,30 @@ export const getProductDetail = (id, userData) => {
     //         catch((err) => { dispatch(productListFail(err)) })
     // }
 
+
+
+
 }
+
+
+export const globalSearchAPICall = searchTxt => dispatch =>
+    new Promise(async (resolve, reject) => {
+        sendRequest({
+            url: SEARCH_API,
+            method: 'GET',
+            params: {
+                search: searchTxt,
+            },
+        })
+            .then(response => {
+                console.log('sdflhsldfjh : ', response)
+                if (response?.success === true) {
+                    resolve(response);
+                }
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
 
 

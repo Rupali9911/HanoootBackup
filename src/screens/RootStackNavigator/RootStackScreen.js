@@ -63,7 +63,11 @@ export default function RootStackScreen() {
             <Stack.Screen name="AddAddressDetail" component={AddAddress} />
             <Stack.Screen name="PinLocation" component={LoactionPin} />
             {/* <Stack.Screen name="Payment" component={Payment} /> */}
-            <Stack.Screen name="ReviewOrder" component={ReviewOrder} />
+            <Stack.Screen name="ReviewOrder" component={ReviewOrder}
+                options={{
+                    gestureEnabled: false, // Disable back swipe gesture
+                    swipeEnabled: false
+                }} />
             <Stack.Screen name="SuccessScreen" component={OrderSuccessScreen} />
             <Stack.Screen name="CheckoutScreen" component={Checkout} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />

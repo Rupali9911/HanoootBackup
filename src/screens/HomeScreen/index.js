@@ -34,18 +34,22 @@ import CategoryList from '../Components/Cards/CategoryList';
 import { getHomeCollection, homeDataLoadingStart } from '../Store/actions/HomeAction';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../constant/Loader';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function HomeScreen() {
    const navigation = useNavigation();
+   const isFocused = useIsFocused();
 
    const dispatch = useDispatch();
 
    const { isLoading, HomeCollection } = useSelector(state => state.HomeReducer);
+   const userData = useSelector((state) => state.userReducer.userData);
+
 
    useEffect(() => {
       dispatch(homeDataLoadingStart())
-      dispatch(getHomeCollection())
-   }, []);
+      dispatch(getHomeCollection(userData))
+   }, [isFocused]);
 
    console.log('check home page data : ', isLoading, HomeCollection);
 
@@ -231,7 +235,7 @@ export default function HomeScreen() {
       console.log('render Data : ', key, value)
       switch (key) {
          case 'miniSliderJson':
-            return <View key={key}><MiniSlider Data={value} /></View>
+            return <MiniSlider Data={value} />
          case 'featuredCategoryByProductJson':
             return <FeaturedCategory Data={value} />
          case 'brandsListJson':
@@ -242,22 +246,14 @@ export default function HomeScreen() {
             return <BannerCollage Data={value} />
          case 'topPicksJson':
             return <TopPicks Data={value} />
+         case 'largeBannerJson':
+            return <LargeBanner Data={value} />
+         case 'listOfRecentViewProductJson':
+            return <RecentlyViewProduct Data={value} />
+         case 'suggestedProductsJson':
+            return <SuggestedProducts Data={value} />
          case 'categoryList':
             return <CategoryList Data={value} />
-         // case 'variant_style':
-         //    return 'Style'
-         // case 'variant_model':
-         //    return 'Modal'
-         // case 'variant_material':
-         //    return 'Material'
-         // case 'platform':
-         //    return 'Platform'
-         // case 'edition':
-         //    return 'Edition'
-         // case 'configuration':
-         //    return 'Configuration'
-         // case 'variant_book':
-         //    return 'Book'
          default:
             return null;
       }

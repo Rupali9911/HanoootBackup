@@ -20,10 +20,10 @@ export const homeDataFail = error => ({
 });
 
 
-export const getHomeCollection = () => {
+export const getHomeCollection = (userData) => {
     try {
         return async dispatch => {
-            await HomeDataAPICall().
+            await HomeDataAPICall(userData).
                 then((response) => {
                     console.log('Response Checked : ', response?.data)
                     if (response?.success) {

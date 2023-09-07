@@ -4,23 +4,27 @@ import ProductHeader from './ProductHeader'
 import ListView from '../../../Components/ListView'
 import { wp } from '../../../constant/responsiveFunc'
 import Colors from '../../../constant/Colors'
+import { useNavigation } from '@react-navigation/native'
 
 const NewArrivals = (props) => {
     const Data = props.Data;
+    const navigation = useNavigation();
 
 
     const renderItem = ({ item, index }) => {
 
         return (
             <ListView
+                item={item}
                 centerImage={item?.product_image}
                 productName={item?.title}
                 price={item?.ManagementProductPricing?.hanooot_price}
                 isLeftImage
                 showLike
-                isItemLiked={false}
+                isItemLiked={item?.isLike}
                 isDiscountTag
                 TotalPriceStyle={{ color: Colors.PRICEGREEN }}
+                detailId={item?.id}
             />
         );
     }
@@ -31,7 +35,7 @@ const NewArrivals = (props) => {
 
     return (
         <>
-            <ProductHeader title={Data?.tittle} rightButtonLabel={'See All'} />
+            <ProductHeader title={Data?.tittle} rightButtonLabel={'See All'} onPress={() => { navigation.navigate('ProductListWithFilters', { headerTitle: Data?.tittle, isNavigationSection: 'NewArrivals' }) }} />
             <FlatList
                 data={Data?.newArrivalProductList}
                 renderItem={renderItem}

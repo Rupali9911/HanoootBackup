@@ -3,19 +3,25 @@ import React from 'react'
 import ProductHeader from './ProductHeader'
 import ListView from '../../../Components/ListView'
 import { wp } from '../../../constant/responsiveFunc'
+import { useNavigation } from '@react-navigation/native'
 
-const SuggestedProducts = () => {
+
+const SuggestedProducts = (props) => {
+    const Data = props.Data;
+    const navigation = useNavigation();
+
 
     const renderItem = ({ item, index }) => {
+        console.log('suggestedProducts item id : ', item?.id)
         return (
             <ListView
-                centerImage={'https://www.pngmart.com/files/15/Apple-iPhone-12-PNG-Free-Download.png'}
-                productName={'Apple iPad  10.2 - inch Bionic chip ...'}
-                price={'$ 5,000'}
+                centerImage={item?.product_image}
+                productName={item?.title}
+                price={item?.ManagementProductPricing?.hanooot_price}
                 isLeftImage
                 showLike
-                isItemLiked={false}
-            // isDiscountTag
+                isItemLiked={item?.isLike}
+                detailId={item?.id}
             />
         );
     }
@@ -26,16 +32,23 @@ const SuggestedProducts = () => {
 
     return (
         <>
-            <ProductHeader title={'Suggested Products'} rightButtonLabel={'See All'} />
-            <FlatList
-                data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
-                renderItem={renderItem}
-                keyExtractor={keyExtractor}
-                horizontal
-                style={{ marginHorizontal: wp(6) }}
-                showsHorizontalScrollIndicator={false}
+            {
+                Data?.suggestedProducts.length > 0
+                    ?
+                    (<>
+                        <ProductHeader title={Data?.tittle} rightButtonLabel={'See All'} onPress={() => { navigation.navigate('ProductListWithFilters', { headerTitle: Data?.tittle, isNavigationSection: 'SuggestedProducts' }) }} />
+                        <FlatList
+                            data={Data?.suggestedProducts}
+                            renderItem={renderItem}
+                            keyExtractor={keyExtractor}
+                            horizontal
+                            style={{ marginHorizontal: wp(6) }}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </>)
+                    : null
 
-            />
+            }
 
         </>
     )

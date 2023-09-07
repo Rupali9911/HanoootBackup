@@ -37,7 +37,7 @@ const ProductSpecCard = (props) => {
                 <View style={styles.BorderView}>
                     <View style={styles.tableHeaderCont}>
                         <Text style={styles.tableItemName}>{data?.title}</Text>
-                        <Text style={styles.tableItemName}>{data?.ManagementProductPricing?.hanooot_price}</Text>
+                        <Text style={styles.tableItemName}>$ {data?.ManagementProductPricing?.hanooot_price}</Text>
                         <Text style={[styles.tableItemName, { color: Colors.GRAYDARK, fontSize: 12 }]}>Essential information</Text>
                     </View>
                     <View style={styles.Separator} />

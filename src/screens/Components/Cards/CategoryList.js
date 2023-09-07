@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native'
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import ProductHeader from './ProductHeader'
 import { hp, wp } from '../../../constant/responsiveFunc'
@@ -6,25 +6,23 @@ import Colors from '../../../constant/Colors'
 import fonts from '../../../constant/fonts'
 import Images from '../../../constant/Images'
 import { capitalizeFirstLetter } from '../../utils'
+import { useNavigation } from '@react-navigation/native'
 
 const CategoryList = (props) => {
     const Data = props.Data;
 
-    const electronicsArr = [
-        Images.Android,
-        Images.Android1,
-        Images.Android2,
-        Images.Android2,
-        Images.Android,
-    ];
+    const navigation = useNavigation();
 
 
     const renderChildren = ({ item, index }) => {
         return (
-            <View style={styles.Container}>
+            <TouchableOpacity
+                style={styles.Container}
+                onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: item?.name })}
+            >
                 <Image source={{ uri: item?.thumbnail_image }} style={styles.image} />
                 <Text style={styles.name} numberOfLines={2}>{item?.name}</Text>
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -35,7 +33,7 @@ const CategoryList = (props) => {
     const renderItem = ({ item, index }) => {
         return (
             <>
-                <ProductHeader title={capitalizeFirstLetter(item?.name)} rightButtonLabel={'See All'} />
+                <ProductHeader title={capitalizeFirstLetter(item?.name)} rightButtonLabel={'See All'} onPress={() => { navigation.navigate('Category') }} />
                 <FlatList
                     data={item?.children}
                     renderItem={renderChildren}

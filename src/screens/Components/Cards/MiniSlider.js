@@ -63,7 +63,7 @@ const MiniSlider = (props) => {
 
 
 
-    const isCarousel = useRef(null);
+    var isCarousel = useRef(null);
 
 
 
@@ -111,7 +111,7 @@ const MiniSlider = (props) => {
             <ArrowButton
                 arrowViewStyle={{ left: 10 }}
                 arrowImgStyle={{ transform: [{ rotate: '180deg' }] }}
-            // onPress={() => { isCarousel.snapToNext(); }}
+                onPress={() => { isCarousel.snapToPrev() }}
             />
 
             <Carousel
@@ -123,10 +123,12 @@ const MiniSlider = (props) => {
                 // sliderWidth={Dimensions.get('window').width}
                 // itemWidth={wp(71.79)}
                 // renderImageCarousal={renderImageCarousal}
-
+                // enableSnap={false}
                 layout="default"
                 data={props.Data?.miniSliderImgs}
-                ref={isCarousel}
+                // ref={isCarousel}
+                ref={(carousel) => { isCarousel = carousel; }}
+
                 loop={true}
                 sliderWidth={Dimensions.get('window').width}
                 itemWidth={wp(71.79)}
@@ -137,11 +139,14 @@ const MiniSlider = (props) => {
                 enableMomentum={false}
                 hasParallaxImages={false}
                 lockScrollWhileSnapping={true}
+                scrollEnabled={false}
             />
 
             <ArrowButton
                 arrowViewStyle={{ right: 10 }}
-            // arrowImgStyle={{ transform: [{ rotate: '180deg' }] }}
+                // arrowImgStyle={{ transform: [{ rotate: '180deg' }] }}
+                onPress={() => { isCarousel.snapToNext() }}
+
             />
 
         </View>

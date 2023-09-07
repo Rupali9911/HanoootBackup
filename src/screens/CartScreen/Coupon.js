@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
 import { hp } from '../../constant/responsiveFunc'
+import RadioButton from 'react-native-radio-button'
+
 
 const Coupon = () => {
     const [couponCode, setCouponCode] = useState('');
@@ -67,7 +69,7 @@ const Coupon = () => {
 
     return (
         <View style={styles.mainCont}>
-            <View style={styles.container}>
+            {/* <View style={styles.container}>
                 <TextInput
                     value={couponCode}
                     onChangeText={handleChange}
@@ -82,7 +84,18 @@ const Coupon = () => {
                     </View>
                 </TouchableOpacity>
             </View>
-            <Text style={{ color: infoMsg }}>{msg}</Text>
+            <Text style={{ color: infoMsg }}>{msg}</Text> */}
+            <View style={{ flexDirection: 'row', gap: 10 }}>
+                <RadioButton
+                    innerColor={Colors.themeColor}
+                    outerColor={Colors.GRAY}
+                    animation={'bounceIn'}
+                    isSelected={true}
+                    // onPress={() => { onPress(1) }}
+                    size={10}
+                />
+                <Text style={styles.btnText}>{'Free Shipping'}</Text>
+            </View>
         </View>
     )
 }

@@ -2,12 +2,21 @@ import { HOME_API } from "../../../utility/apiUrls";
 import sendRequest from "../../axios/AxiosApiRequest";
 import { showInfoToast, showErrorToast } from "../../../Components/universal/Toast";
 
-export const HomeDataAPICall = () => {
+export const HomeDataAPICall = (userData) => {
     return new Promise((resolve, _reject) => {
-        sendRequest({
-            url: HOME_API,
-            method: 'GET',
-        }).
+        (userData
+            ? sendRequest({
+                url: HOME_API,
+                method: 'GET',
+            })
+            : sendRequest({
+                url: HOME_API,
+                method: 'GET',
+                headers: {
+                    'Authorization': 'No'
+                },
+            })
+        ).
             then((response) => {
                 console.log('Response from HOME_API : ', response);
                 if (response?.success === true) {
