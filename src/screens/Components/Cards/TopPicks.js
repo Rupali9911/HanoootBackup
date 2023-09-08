@@ -35,7 +35,7 @@ const TopPicks = (props) => {
           setTimeout(() => {
             setAddToCart(true)
             showInfoToast('SUCCESS', response?.message)
-            // dispatch(updateTopPicksCart(topPicksId))
+            // dispatch(updateTopPicksCart({ productId: productId, topPicksId: topPicksId }))
           }, 1000);
         }
         else {
@@ -68,8 +68,8 @@ const TopPicks = (props) => {
         </View>
         <TouchableOpacity style={styles.cartBtn}
           onPress={() =>
-            // userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.id, topPicksId) : showErrorToast('For all your shopping needs', 'Please Login First')}
-            userData ? {} : showErrorToast('For all your shopping needs', 'Please Login First')}
+            userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.id, topPicksId) : showErrorToast('For all your shopping needs', 'Please Login First')}
+        // userData ? {} : showErrorToast('For all your shopping needs', 'Please Login First')}
         >
           <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? 'View Cart' : 'Add to Cart'}</Text>
         </TouchableOpacity>

@@ -150,11 +150,11 @@ const ProductVariation = (props) => {
     }
 
     const renderDescription = (str) => {
-        if(str.includes(':')){
-          return str.split(':')[1];
+        if (str.includes(':')) {
+            return str.split(':')[1];
         }
         return str;
-      }
+    }
 
     const renderVariantions = () => {
         return (
@@ -212,13 +212,15 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VisbyCF_Medium,
         // lineHeight: 19,
         letterSpacing: 0.5,
-        paddingVertical: 10,
-        paddingHorizontal: 14,
+        padding: '1%',
+        // paddingVertical: 10,
+        // paddingHorizontal: 14,
         borderRadius: 6,
         // fontSize: 14,
         borderWidth: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        textAlign: 'center'
     },
     container: {
         flex: 1,
@@ -226,6 +228,8 @@ const styles = StyleSheet.create({
         // margin: 5,
         height: hp(4.80),
         alignItems: 'center',
+        // padding: 5
+        // justifyContent: 'center'
         // justifyContent: 'center'
         // backgroundColor: 'red'
     },

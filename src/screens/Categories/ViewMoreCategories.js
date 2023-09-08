@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 
 
 const ViewMoreCategories = (props) => {
-    const ITEMS = props?.route?.params?.item; 
+    const ITEMS = props?.route?.params?.item;
 
     const navigation = useNavigation();
 
@@ -18,7 +18,10 @@ const ViewMoreCategories = (props) => {
 
     const renderItem = ({ item, index }) => {
         return (
-            <TouchableOpacity style={styles.itemContainer} onPress={() => navigation.navigate('ProductListWithFilters')}>
+            <TouchableOpacity style={styles.itemContainer}
+                // onPress={() => navigation.navigate('ProductListWithFilters')}
+                onPress={() => { }}
+            >
                 <Image
                     source={{ uri: item?.thumbnail_image }}
                     style={styles.image}

@@ -45,17 +45,20 @@ const HomeReducer = (state = initialState, action) => {
 
 
         case UPADTE_TOP_PICK_CART:
-            var id1 = 0
-            var id2 = 1
+            var id1 = action.payload.topPicksId
+            var id2 = action.payload.productId
+            console.log('UPADTE_TOP_PICK_CART : ', action.payload)
+
+            var arrFinal = state.HomeCollection?.topPicksJson?.topPicks
             var indexOfARR1 = state.HomeCollection?.topPicksJson?.topPicks.findIndex((item) => {
-                item.id === action.payload
+                item.id === id1
             })
 
-            console.log('UPADTE_TOP_PICK_CART : ', indexOfARR1, action.payload)
+            // console.log('UPADTE_TOP_PICK_CART : ', indexOfARR1, action.payload)
 
 
             var arrUpdated = state.HomeCollection?.topPicksJson?.topPicks[indexOfARR1]?.TopPicksProducts.map((item, index) => {
-                if (item.id !== action.payload) {
+                if (item.id !== id2) {
                     return item
                 }
                 return {
@@ -64,16 +67,23 @@ const HomeReducer = (state = initialState, action) => {
                 }
             })
             console.log('arrUpdated : ', arrUpdated)
+
+            arrFinal = arrFinal.map((item, index) => {
+                if (index === indexOfARR1) {
+                    return arrUpdated
+                }
+                return {
+                    item
+                }
+            })
+
             return {
                 ...state,
                 HomeCollection: {
                     ...state.HomeCollection,
                     topPicksJson: {
                         ...state.HomeCollection.topPicksJson,
-                        topPicks: {
-                            ...state.HomeCollection.topPicksJson.topPicks,
-                            ManagementProducts: arrUpdated
-                        }
+                        topPicks: arrFinal
                     }
                 }
             }

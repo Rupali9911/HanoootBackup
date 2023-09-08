@@ -119,6 +119,7 @@ const AppSearch = (props) => {
         paddingHorizontal: '5%',
         borderBottomColor: Colors.GRAY,
         borderBottomWidth: 1,
+        flex: 1
         // flexDirection: 'row',
         // alignItems: 'center',
         // justifyContent: 'space-between'
@@ -221,6 +222,7 @@ const AppSearch = (props) => {
               style={styles.listContainer}
               renderItem={handleFlatListRenderItem}
               keyExtractor={keyExtractor}
+              scrollEnabled={true}
             />
           ) : null}
         </View>

@@ -51,7 +51,7 @@ export const getCategoryList = (pageNum) => {
   // const a = getCategoryListAPI(1, 10)
 
   // try {
-  let limit = 20;
+  let limit = 100;
   return async dispatch => {
     await categoryList(pageNum, limit).
       then(response => {
