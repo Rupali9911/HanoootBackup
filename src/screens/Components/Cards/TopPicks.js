@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { hp, wp } from '../../../constant/responsiveFunc'
 import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
@@ -8,6 +8,8 @@ import ProductHeader from './ProductHeader'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { showErrorToast } from '../../../Components/universal/Toast'
+import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
+import { showInfoToast } from '../../../Components/universal/Toast'
 
 
 
@@ -17,11 +19,36 @@ const TopPicks = (props) => {
   const navigation = useNavigation();
 
   const userData = useSelector((state) => state.userReducer.userData);
+  const [isAddToCart, setAddToCart] = useState('');
 
 
 
-  console.log('TopPicks', Data)
+  const onAddtoCartPress = async (isCartedItem, productId) => {
+    console.log('check isCartedItem : ', isCartedItem, productId)
+    try {
+      if (!isCartedItem) {
 
+        const response = await AddtoCartAPICall(productId, 1)
+        if (response?.success) {
+          setTimeout(() => {
+            setAddToCart(true)
+            showInfoToast('SUCCESS', response?.message)
+          }, 1000);
+        }
+        else {
+          showErrorToast()
+        }
+      }
+      else if (isCartedItem) {
+        navigation.navigate('CartScreen', { screen: true })
+      }
+
+
+    }
+    catch (error) {
+      console.log('Error from onAddtoCartPress api ', error)
+    }
+  }
 
   const renderListItems = ({ item, index }) => {
     return (
@@ -37,9 +64,9 @@ const TopPicks = (props) => {
           <Text style={styles.itemPrice}>$ {item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
         </View>
         <TouchableOpacity style={styles.cartBtn}
-          onPress={() => userData ? onAddtoCartPress(item?.isCart, item?.id) : showErrorToast('For all your shopping needs', 'Please Login First')}
+          onPress={() => userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.id) : showErrorToast('For all your shopping needs', 'Please Login First')}
         >
-          <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? 'View Cart' : 'Add to Cart'}</Text>
+          <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? 'View Cart' : isAddToCart ? 'View Cart' : 'Add to Cart'}</Text>
         </TouchableOpacity>
       </TouchableOpacity>
     );
@@ -120,7 +147,6 @@ const TopPicks = (props) => {
           data={Data?.topPicks}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
-
         />
       </View>
     </>

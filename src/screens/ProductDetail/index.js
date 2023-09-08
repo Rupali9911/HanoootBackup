@@ -397,12 +397,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
-    // modalContainer: {
-    //     // flex: 1,
-    //     justifyContent: 'center',
-    //     backgroundColor: '#F5FCFF',
-    //     height: hp(20)
-    // },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        // backgroundColor: '#F5FCFF',
+        backgroundColor: 'red',
+    },
     innerContainer: {
         alignItems: 'center',
     },

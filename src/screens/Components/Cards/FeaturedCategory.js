@@ -6,14 +6,14 @@ import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import Carousels from '../Carousel'
 import { useNavigation } from '@react-navigation/native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
 import { showInfoToast, showErrorToast } from '../../../Components/universal/Toast'
-
+import { updateFeaturedCart } from '../../Store/actions/HomeAction'
 
 const FeaturedCategory = (props) => {
     const Data = props.Data;
-
+    const dispatch = useDispatch()
     const navigation = useNavigation();
     const [isAddToCart, setAddToCart] = useState('')
 
@@ -41,7 +41,7 @@ const FeaturedCategory = (props) => {
     }
 
     const onAddtoCartPress = async (isCartedItem, productId) => {
-        console.log('check isCartedItem : ', isCartedItem)
+        console.log('check isCartedItem : ', isCartedItem, productId)
         try {
             if (!isCartedItem) {
 
@@ -50,6 +50,7 @@ const FeaturedCategory = (props) => {
                     setTimeout(() => {
                         setAddToCart(true)
                         showInfoToast('SUCCESS', response?.message)
+                        dispatch(updateFeaturedCart(productId))
                     }, 1000);
                 }
                 else {
@@ -100,13 +101,6 @@ const FeaturedCategory = (props) => {
                 <TouchableOpacity style={styles.cartBtn}
                     onPress={() => userData ? onAddtoCartPress(item?.isCart, item?.id) : showErrorToast('For all your shopping needs', 'Please Login First')}
                 >
-
-                    {/* label={productDetail?.isCart ? 'View Cart' : 'Add to Cart'}
-                                        onPress={() => userData ? onAddtoCartPress(productDetail?.isCart) : setModalVisible(true)}
-                                        isIndicatorLoading={isDetailPageLoad} */}
-
-
-
                     <Text style={styles.cartBtnTxt}>{item?.isCart ? 'View Cart' : 'Add to Cart'}</Text>
                 </TouchableOpacity>
             </TouchableOpacity>
