@@ -19,6 +19,7 @@ import { signInWithPhoneNumber, signInWithEmailAndPwd } from '../../../services/
 import { useDispatch } from 'react-redux'
 import { setUserData } from '../../Store/actions/userAction'
 import { saveUserDetails } from '../../../helpers/user'
+import { translate } from '../../../utility'
 
 const Login = (props) => {
     const [phoneNo, setPhoneNo] = useState('')
@@ -91,13 +92,13 @@ const Login = (props) => {
                 console.log('Response from signInWithEmailAndPwd is user object exists', response?.user)
                 // dispatch(setUserData(response?.user))
                 saveUserDetails(response?.user, dispatch)
-                if(props?.route?.params?.cameFrom){
+                if (props?.route?.params?.cameFrom) {
                     navigation.navigate(props?.route?.params?.cameFrom);
                 }
-                else{
+                else {
                     navigation.navigate('HomeTab');
                 }
-                
+
             })
     }
 
@@ -123,9 +124,9 @@ const Login = (props) => {
                 {
                     mobileSwitch ?
                         <AppInput
-                            label={'Mobile Phone Number'}
+                            label={translate('common.mobilephonenumber')}
                             required
-                            placeholder={'Enter your phone number'}
+                            placeholder={translate('common.enteryourphonenumber')}
                             isNumberField
                             onChangeText={(phoneNo) => {
                                 setPhoneNo(phoneNo)

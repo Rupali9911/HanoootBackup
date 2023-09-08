@@ -8,6 +8,7 @@ import categoryReducer from "./categoryReducer";
 import productListReducer from "./productListReducer";
 import orderReducer from "./orderReducer";
 import HomeReducer from "./HomeReducer";
+import languageReducer from "./languageReducer";
 
 const appReducer = combineReducers({
     userReducer,
@@ -18,11 +19,12 @@ const appReducer = combineReducers({
     categoryReducer,
     productListReducer,
     orderReducer,
-    HomeReducer
+    HomeReducer,
+    languageReducer
 })
 
 const rootReducer = (state, action) => {
-    console.log('root reducer called', state, action)
+    // console.log('root reducer called', state, action)
     if (action.type === 'AUTH_LOGOUT') {
         return appReducer(undefined, action);
     }

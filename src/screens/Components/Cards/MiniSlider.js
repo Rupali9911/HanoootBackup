@@ -59,7 +59,7 @@ const MiniSlider = (props) => {
 
     const { Data } = props;
 
-    console.log('data is here : ', props.Data);
+    // console.log('data is here : ', props.Data);
 
 
 
@@ -68,7 +68,7 @@ const MiniSlider = (props) => {
 
 
     const renderItem = ({ item, index }) => {
-        console.log('images checked : ', item?.thumbnail_image)
+        // console.log('images checked : ', item?.thumbnail_image)
         return (
             // <View style={styles.slide}>
             // <Text style={styles.title}>{item.title}</Text>

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName, maxLength50, validateEmail } from '../../utils'
 import { updateProfile } from '../../../services/apis'
 import { setUserData, updateNameEmail } from '../../Store/actions/userAction'
+import { updateDisplayName, updateEmail } from '../../../services/socialAuth'
 
 const EditProfile = () => {
     const { userData } = useSelector((state) => state.userReducer)
@@ -43,11 +44,9 @@ const EditProfile = () => {
     const updateUserDetails = () => {
         updateProfile(name, email)
             .then((response) => {
-                let userUpdatedData = userData
-                userUpdatedData.displayName = name
-                userUpdatedData.email = email
-                // dispatch(setUserData(userUpdatedData))
-                dispatch(updateNameEmail(userUpdatedData))
+                updateDisplayName(null, name)
+                //updateEmail(email)
+                dispatch(updateNameEmail({ displayName: name, email: email}))
                 navigation.navigate('ToastMessageScreen', { title: 'Profile Updated Successfully!', navigate: 'ProfileScreen' })
             })
             .catch((error) => {

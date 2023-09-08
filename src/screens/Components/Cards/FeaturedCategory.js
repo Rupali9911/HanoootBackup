@@ -50,7 +50,7 @@ const FeaturedCategory = (props) => {
                     setTimeout(() => {
                         setAddToCart(true)
                         showInfoToast('SUCCESS', response?.message)
-                        // dispatch(updateFeaturedCart(productId))
+                        dispatch(updateFeaturedCart(productId))
                     }, 1000);
                 }
                 else {
@@ -70,13 +70,13 @@ const FeaturedCategory = (props) => {
 
     function sliceIntoChunks(arr, chunkSize) {
         const res = [];
-        console.log('here is an array  : ', arr)
+        // console.log('here is an array  : ', arr)
         if (arr.length > 3) {
             for (let i = 0; i < arr.length; i += chunkSize) {
                 const chunk = arr.slice(i, i + chunkSize);
                 res.push(chunk);
             }
-            console.log('sliceIntoChunks', res)
+            // console.log('sliceIntoChunks', res)
             return res;
         }
         else {

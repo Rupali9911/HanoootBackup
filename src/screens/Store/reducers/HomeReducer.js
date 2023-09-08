@@ -20,26 +20,28 @@ const HomeReducer = (state = initialState, action) => {
                 homeDataFail: '',
             };
         case UPADTE_FEATURED_CART:
-        // var homeData = state.HomeCollection
-        // var fC = homeData?.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct
-        // var arrProducts = homeData?.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementProducts
-
-        // var product = arrProducts.filter((item, index) => {
-        //     return item.id === action.payload
-        // })
-        // var product1 = product[0]
-        // product1.isCart = true
-        // let index = arrProducts.indexOf(product);
-        // arrProducts[index] = product1
-        // // homeData?.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementProducts = arrProducts
-        // console.log('UPADTE_FEATURED_CART', arrProducts)
-
-        // // state.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementProducts = arrProducts
-        // fC["ManagementProducts"] = arrProducts
-        // return {
-        //     ...state,
-        //     HomeCollection: fC
-        // };
+            var arrUpdated = state.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementProducts.map((item, index) => {
+                if (item.id !== action.payload) {
+                    return item
+                }
+                return {
+                    ...item,
+                    isCart: true
+                }
+            })
+            return {
+                ...state,
+                HomeCollection: {
+                    ...state.HomeCollection,
+                    featuredCategoryByProductJson: {
+                        ...state.HomeCollection.featuredCategoryByProductJson,
+                        featuredCategoryByProduct: {
+                            ...state.HomeCollection.featuredCategoryByProductJson.featuredCategoryByProduct,
+                            ManagementProducts: arrUpdated
+                        }
+                    }
+                }
+            }
         case HOME_DATA_FAIL:
             return { ...state, homeDataFail: action.payload, isLoading: false };
 

@@ -1,8 +1,9 @@
+import { translate } from "../../utility";
+
 export const maxLength = max => value =>
     value && value.length > max
-        ? `You should not exceed more than ${max} chars.`
+        ? translate('common.maxcharcheck', { max: `${max}` })
         : undefined;
-
 
 export const maxLength32 = maxLength(32);
 export const maxLength10 = maxLength(10);
@@ -35,17 +36,17 @@ const emailRegex = new RegExp(
 export const validateUserName = value => {
     // console.log('value : ', value, !userNameRegex.test(value))
     if (!value.trim().length) {
-        return 'Your name is required';
+        return translate('common.yournameisrequired');
     } else if (!userNameRegex.test(value)) {
-        return 'No special character, no spacing, only alphabetical and numerical characters required';
+        return translate('common.stringCheck');
     }
 };
 
 export const validateFullName = value => {
     if (!value.trim().length) {
-        return 'Your name is required';
+        return translate('common.yournameisrequired');
     } else if (!fullNameRegex.test(value)) {
-        return 'No special character, no spacing, only alphabetical and numerical characters required';
+        return translate('common.stringCheck');
     }
 };
 
@@ -54,38 +55,38 @@ export const validateFullName = value => {
 export const validatePhoneNo = value => {
     // console.log('Chekc phone no value : ', value)
     if (!value.trim().length) {
-        return 'Phone number is required';
+        return translate('common.numbReq');
     } else if (!phoneNoRegex.test(value)) {
-        return 'Please enter a valid mobile no';
+        return translate('common.validMob');
     }
 };
 
 export const validatePassword = value => {
     console.log('Test password validation', passwordRegex.test(value), value,)
     if (!value.trim().length) {
-        return 'Password is required';
+        return translate('common.passReq');
     } else if (!passwordRegex.test(value)) {
-        return 'Please enter a valid password';
+        return translate('common.validPass');
     }
 };
 
 export const validateBlankPassword = value => {
     if (!value.trim().length) {
-        return 'Password is required';
+        return translate('common.passReq');
     }
 };
 
 export const validateOnlyPassword = value => {
     if (!passwordRegex.test(value)) {
-        return 'Please enter a valid password';
+        return translate('common.validPass');
     }
 };
 
 export const validateEmail = value => {
     if (!value.trim().length) {
-        return 'Email is required';
+        return translate('common.emailisrequired');
     } else if (!emailRegex.test(value)) {
-        return 'Please enter valid email address';
+        return translate('common.validEmail');
     } else {
         return false;
     }
@@ -98,7 +99,7 @@ export const capitalizeFirstLetter = (string) => {
 
 export const validateDescription = value => {
     if (!value.trim().length) {
-        return 'Please enter your query';
+        return translate('common.enterQuery');
     } else {
         return false;
     }

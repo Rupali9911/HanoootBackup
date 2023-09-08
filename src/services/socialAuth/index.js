@@ -181,9 +181,16 @@ const authSignIn = async (credential) => {
 export const updateDisplayName = (userCredentials, name) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await userCredentials.user.updateProfile({
-                displayName: name
-            })
+            var response
+            if(userCredentials){
+                 response = await userCredentials.user.updateProfile({
+                    displayName: name
+                })
+            }else{
+                response = await auth().currentUser.updateProfile({
+                    displayName: name
+                })
+            }
             resolve(response)
         } catch (error) {
             console.log(error)
@@ -191,6 +198,18 @@ export const updateDisplayName = (userCredentials, name) => {
         }
     })
 }
+
+// export const updateEmail = (email) => {
+//     return new Promise(async (resolve, reject) => {
+//         try {
+//             const response = await updateEmail(auth().currentUser, email)
+//             resolve(response)
+//         } catch (error) {
+//             console.log(error)
+//             handleAuthError(error)
+//         }
+//     })
+// }
 // export const updateEmail = (email) => {
 //     return new Promise(async (resolve, reject) => {
 //         try {
