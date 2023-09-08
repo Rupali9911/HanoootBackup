@@ -400,7 +400,8 @@ const styles = StyleSheet.create({
     modalContainer: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#F5FCFF',
+        // backgroundColor: '#F5FCFF',
+        backgroundColor: 'red',
     },
     innerContainer: {
         alignItems: 'center',
