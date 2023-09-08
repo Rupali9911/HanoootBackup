@@ -12,12 +12,6 @@ const BannerCollage = (props) => {
     console.log('BannerCollage : ', Data)
 
 
-    const array = [
-        Images.BannerCollage,
-        Images.BannerCollage,
-        Images.BannerCollage,
-    ]
-
     const renderItem = ({ item, index }) => {
         return (
             <Image source={{ uri: item?.image_url }} style={{ width: wp(86.93), height: hp(56.99), alignSelf: 'center', borderRadius: 10 }} />

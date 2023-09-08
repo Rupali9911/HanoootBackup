@@ -1,4 +1,4 @@
-import { HOME_DATA_LOADING, HOME_DATA_SUCCESS, HOME_DATA_FAIL, UPADTE_FEATURED_CART } from "../types";
+import { HOME_DATA_LOADING, HOME_DATA_SUCCESS, HOME_DATA_FAIL, UPADTE_FEATURED_CART, HOME_DATA_RESET } from "../types";
 
 const initialState = {
     isLoading: false,
@@ -42,6 +42,9 @@ const HomeReducer = (state = initialState, action) => {
         // };
         case HOME_DATA_FAIL:
             return { ...state, homeDataFail: action.payload, isLoading: false };
+
+        case HOME_DATA_RESET:
+            return state = { ...state, HomeCollection: {} };
 
         default:
             return state;

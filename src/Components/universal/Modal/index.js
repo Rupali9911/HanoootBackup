@@ -17,8 +17,8 @@ const AppModal = (props) => {
             animationType="slide"
         >
             <BlurView
-                  blurType="dark"
-                  blurAmount={0.5}
+                blurType="dark"
+                blurAmount={0.5}
                 style={styles.absolute}
             //   reducedTransparencyFallbackColor={"white"}
             >

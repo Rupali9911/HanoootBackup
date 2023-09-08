@@ -31,7 +31,7 @@ import BannerCollage from '../Components/Cards/BannerCollage';
 import LargeBanner from '../Components/Cards/LargeBanner';
 import BrandList from '../Components/Cards/BrandList';
 import CategoryList from '../Components/Cards/CategoryList';
-import { getHomeCollection, homeDataLoadingStart, updateFeaturedCart } from '../Store/actions/HomeAction';
+import { getHomeCollection, homeDataLoadingStart, updateFeaturedCart, homeDataReset } from '../Store/actions/HomeAction';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../constant/Loader';
 import { useIsFocused } from '@react-navigation/native';
@@ -47,7 +47,8 @@ export default function HomeScreen() {
 
 
    useEffect(() => {
-      dispatch(homeDataLoadingStart())
+      dispatch(homeDataReset())
+      dispatch(homeDataLoadingStart(true))
       dispatch(getHomeCollection(userData))
    }, [isFocused]);
 

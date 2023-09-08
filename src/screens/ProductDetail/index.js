@@ -398,10 +398,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        // backgroundColor: '#F5FCFF',
-        backgroundColor: 'red',
+        // flex: 1,
+        // justifyContent: 'center',
+        // // backgroundColor: '#F5FCFF',
+        // backgroundColor: 'red',
+        width: wp(85.07),
+        height: hp(20.32),
+        backgroundColor: 'red'
     },
     innerContainer: {
         alignItems: 'center',
@@ -457,13 +460,67 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontFamily: fonts.VisbyCF_Demibold,
     },
+    // modalMainCont: {
+    //     flex: 1, justifyContent: "center", alignItems: "center"
+    // },
+    // modalContainer: {
+    //     backgroundColor: Colors.WHITE1,
+    //     padding: 20,
+    //     height: hp(18),
+    //     borderRadius: 4,
+    //     width: wp(85),
+    //     gap: 10
+    // },
+    // removeHeading: {
+    //     fontFamily: fonts.VISBY_CF_REGULAR,
+    //     fontWeight: 600,
+    //     fontSize: 16,
+    //     lineHeight: 21,
+    //     letterSpacing: 0.5,
+    //     color: 'red'
+
+
+
+    // },
+    // removeDesc: {
+    //     fontFamily: fonts.VISBY_CF_REGULAR,
+    //     fontWeight: 500,
+    //     letterSpacing: 0.5,
+    //     lineHeight: 19,
+    //     color: Colors.PRICEGRAY
+    // },
+    // modalBtnCont: {
+    //     flexDirection: 'row',
+    //     // marginVertical: '5%', 
+    //     justifyContent: 'space-between'
+    // },
+    // btnViewCont: {
+    //     flexDirection: 'row',
+    //     alignItems: 'center',
+    //     borderRadius: 24,
+    //     padding: 8,
+    //     width: '50%',
+    //     justifyContent: 'center',
+    //     marginHorizontal: '1%',
+    //     borderWidth: 1,
+    //     borderColor: Colors.themeColor
+    // },
+    // modalBtnText: {
+    //     fontFamily: fonts.VISBY_CF_REGULAR,
+    //     fontWeight: 500,
+    //     fontSize: 12,
+    //     letterSpacing: 0.5,
+    //     textAlign: 'center',
+    //     color: Colors.themeColor
+    // },
     modalMainCont: {
         flex: 1, justifyContent: "center", alignItems: "center"
     },
     modalContainer: {
         backgroundColor: Colors.WHITE1,
         padding: 20,
-        height: hp(18),
+        height: hp(20),
+        // marginHorizontal: 20, 
         borderRadius: 4,
         width: wp(85),
         gap: 10
@@ -472,7 +529,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VISBY_CF_REGULAR,
         fontWeight: 600,
         fontSize: 16,
-        // lineHeight: 21,
+        lineHeight: 21,
         letterSpacing: 0.5
 
 
@@ -486,18 +543,17 @@ const styles = StyleSheet.create({
         color: Colors.PRICEGRAY
     },
     modalBtnCont: {
-        flexDirection: 'row', marginVertical: '5%', justifyContent: 'space-between'
+        flexDirection: 'row',
+        //  marginVertical: '5%', 
+        justifyContent: 'space-between'
     },
     btnViewCont: {
-        flexDirection: 'row',
-        alignItems: 'center',
         borderRadius: 24,
-        padding: 8,
-        width: '50%',
         justifyContent: 'center',
-        marginHorizontal: '1%',
         borderWidth: 1,
-        borderColor: Colors.themeColor
+        borderColor: Colors.themeColor,
+        height: hp(4.06),
+        width: wp(35.73)
     },
     modalBtnText: {
         fontFamily: fonts.VISBY_CF_REGULAR,

@@ -19,7 +19,7 @@ const BrandList = (props) => {
                 onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: item?.name })}
             >
                 <Image
-                    source={{ uri: item?.thumbnail_image ? item?.thumbnail_image : 'https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-png-dallas-shootings-don-add-are-speech-zones-used-4.png' }}
+                    source={{ uri: item?.thumbnail_image ? item?.thumbnail_image : 'https://w7.pngwing.com/pngs/455/531/png-transparent-%E7%B4%A2%E5%B0%BC-logo-sony-television-business-sony-television-text-logo.png' }}
                     style={styles.brandImage}
                 />
             </TouchableOpacity>
@@ -41,7 +41,6 @@ const BrandList = (props) => {
             style={{ marginHorizontal: wp(6) }}
         />
     );
-
 }
 
 export default BrandList

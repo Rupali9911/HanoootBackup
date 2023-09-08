@@ -1,4 +1,4 @@
-import { HOME_DATA_LOADING, HOME_DATA_SUCCESS, HOME_DATA_FAIL, UPADTE_FEATURED_CART } from "../types";
+import { HOME_DATA_LOADING, HOME_DATA_SUCCESS, HOME_DATA_FAIL, UPADTE_FEATURED_CART, HOME_DATA_RESET } from "../types";
 import { HomeDataAPICall } from "../../../services/apis/HomeAPI";
 
 
@@ -17,6 +17,10 @@ export const homeDataSuccess = item => {
 export const homeDataFail = error => ({
     type: HOME_DATA_FAIL,
     payload: error,
+});
+
+export const homeDataReset = () => ({
+    type: HOME_DATA_RESET,
 });
 
 export const updateFeaturedCart = id => ({
