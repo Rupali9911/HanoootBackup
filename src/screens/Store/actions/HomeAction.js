@@ -1,4 +1,4 @@
-import { HOME_DATA_LOADING, HOME_DATA_SUCCESS, HOME_DATA_FAIL, UPADTE_FEATURED_CART, HOME_DATA_RESET } from "../types";
+import { HOME_DATA_LOADING, HOME_DATA_SUCCESS, HOME_DATA_FAIL, UPADTE_FEATURED_CART, HOME_DATA_RESET, UPADTE_TOP_PICK_CART } from "../types";
 import { HomeDataAPICall } from "../../../services/apis/HomeAPI";
 
 
@@ -25,6 +25,11 @@ export const homeDataReset = () => ({
 
 export const updateFeaturedCart = id => ({
     type: UPADTE_FEATURED_CART,
+    payload: id,
+});
+
+export const updateTopPicksCart = id => ({
+    type: UPADTE_TOP_PICK_CART,
     payload: id,
 });
 

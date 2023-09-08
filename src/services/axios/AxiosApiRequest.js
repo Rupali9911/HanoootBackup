@@ -11,6 +11,7 @@ async function sendRequest(payload) {
   // console.log('payload check : ', payload, 'and ', payload.headers, 'and ')
   try {
     const token = await getAccessToken('ACCESS_TOKEN');
+    console.log('token received from getAccessToken method', token)
     payload.headers = payload.headers
       ? payload.headers.Authorization
         ? payload.headers.Authorization === 'No'
@@ -121,9 +122,12 @@ export async function setAccesToken(value) {
 
 //================== Get Access Token =====================
 export async function getAccessToken(tokenName) {
+  console.log('getAccessToken called', tokenName)
   try {
     let sessionToken = null;
     const token = await EncryptedStorage.getItem('SESSION_TOKEN');
+    console.log('EncryptedStorage token', token)
+    
     if (token !== undefined) {
       sessionToken = JSON.parse(token);
       return tokenName === 'ACCESS_TOKEN'

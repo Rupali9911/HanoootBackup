@@ -6,10 +6,11 @@ import Colors from '../../../constant/Colors'
 import Images from '../../../constant/Images'
 import ProductHeader from './ProductHeader'
 import { useNavigation } from '@react-navigation/native'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { showErrorToast } from '../../../Components/universal/Toast'
 import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
 import { showInfoToast } from '../../../Components/universal/Toast'
+import { updateTopPicksCart } from '../../Store/actions/HomeAction'
 
 
 
@@ -17,14 +18,15 @@ import { showInfoToast } from '../../../Components/universal/Toast'
 const TopPicks = (props) => {
   const Data = props.Data;
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.userReducer.userData);
   const [isAddToCart, setAddToCart] = useState('');
 
 
 
-  const onAddtoCartPress = async (isCartedItem, productId) => {
-    console.log('check isCartedItem : ', isCartedItem, productId)
+  const onAddtoCartPress = async (isCartedItem, productId, topPicksId) => {
+    console.log('check isCartedItem : ', topPicksId)
     try {
       if (!isCartedItem) {
 
@@ -33,6 +35,7 @@ const TopPicks = (props) => {
           setTimeout(() => {
             setAddToCart(true)
             showInfoToast('SUCCESS', response?.message)
+            // dispatch(updateTopPicksCart(topPicksId))
           }, 1000);
         }
         else {
@@ -50,7 +53,7 @@ const TopPicks = (props) => {
     }
   }
 
-  const renderListItems = ({ item, index }) => {
+  const renderListItems = (item, index, topPicksId) => {
     return (
       <TouchableOpacity
         style={styles.listContainer}
@@ -64,9 +67,11 @@ const TopPicks = (props) => {
           <Text style={styles.itemPrice}>$ {item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
         </View>
         <TouchableOpacity style={styles.cartBtn}
-          onPress={() => userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.id) : showErrorToast('For all your shopping needs', 'Please Login First')}
+          onPress={() =>
+            // userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.id, topPicksId) : showErrorToast('For all your shopping needs', 'Please Login First')}
+            userData ? {} : showErrorToast('For all your shopping needs', 'Please Login First')}
         >
-          <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? 'View Cart' : isAddToCart ? 'View Cart' : 'Add to Cart'}</Text>
+          <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? 'View Cart' : 'Add to Cart'}</Text>
         </TouchableOpacity>
       </TouchableOpacity>
     );
@@ -77,6 +82,7 @@ const TopPicks = (props) => {
   };
 
   const renderItem = ({ item, index }) => {
+    const topPicksItem = item
     return (
       <>
         <ProductHeader title={item?.heading} />
@@ -100,7 +106,7 @@ const TopPicks = (props) => {
             </View>
             <FlatList
               data={item?.TopPicksProducts}
-              renderItem={renderListItems}
+              renderItem={({ item, index }) => renderListItems(item, index, topPicksItem?.id)}
               keyExtractor={keyExtractor}
               numColumns={3}
               scrollEnabled={false}
