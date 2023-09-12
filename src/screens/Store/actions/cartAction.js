@@ -1,7 +1,7 @@
-import { ADD_TO_CART , CART_ITEM_LOADING, CART_ITEM_FAIL, CART_ITEM_RESET, CART_ITEM_PAGE_CHANGE} from "../types";
+import { ADD_TO_CART, CART_ITEM_LOADING, CART_ITEM_FAIL, CART_ITEM_RESET, CART_ITEM_PAGE_CHANGE, COUPON_LOAD_START, COUPON_LOAD_SUCCESS, COUPON_LOAD_FAIL } from "../types";
 import { REMOVE_FROM_CART } from "../types";
 import { CART_BUTTON_LABEL } from "../types";
-import { AddtoCartAPICall, getCartItemAPICall, removeCartItemAPICall } from "../../../services/apis/CartAPI";
+import { AddtoCartAPICall, getCartItemAPICall, removeCartItemAPICall, getCouponAPICall } from "../../../services/apis/CartAPI";
 
 
 export const cartLoadingStart = bool => ({
@@ -32,6 +32,23 @@ export const cartDataLPageChange = page => ({
 });
 
 
+export const couponLoadStart = bool => ({
+  type: COUPON_LOAD_START,
+  payload: bool
+});
+
+
+export const couponLoadSuccess = copon => {
+  return {
+    type: COUPON_LOAD_SUCCESS,
+    payload: copon
+  }
+}
+
+export const couponLoadFailed = error => ({
+  type: COUPON_LOAD_FAIL,
+  payload: error,
+});
 
 
 
@@ -96,18 +113,18 @@ export const removeItemsFromCart = (product_id) => {
   try {
     return async dispatch => {
       await removeCartItemAPICall(product_id).
-      then(async (response) => {
-        console.log('Response Checked : ', response?.data)
-        if(response?.success === true){
+        then(async (response) => {
+          console.log('Response Checked : ', response?.data)
+          if (response?.success === true) {
             // dispatch(setAddressDetails(response?.data))
 
             await dispatch(getItemsFromCart(1))
             // dispatch(removeCartItem(product_id))
 
             // showInfoToast('REMOVE', response?.message)
-            
-        }
-    }).
+
+          }
+        }).
 
 
         // then((response) => {
@@ -122,6 +139,26 @@ export const removeItemsFromCart = (product_id) => {
   }
   catch (err) {
     console.log('error from getItemsFromCart ', err)
+  }
+
+}
+
+
+
+export const getCoupon = () => {
+  try {
+    return async dispatch => {
+      await getCouponAPICall().
+        then((response) => {
+          if (response?.success) {
+            dispatch(couponLoadSuccess(response?.data))
+          }
+        }).
+        catch((err) => { dispatch(couponLoadFailed(err)) })
+    }
+  }
+  catch (err) {
+    console.log('error from get coupon ', err)
   }
 
 }

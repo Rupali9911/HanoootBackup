@@ -4,6 +4,7 @@ import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
 import { hp } from '../../constant/responsiveFunc'
 import RadioButton from 'react-native-radio-button'
+import { useSelector } from 'react-redux'
 
 
 const Coupon = () => {
@@ -13,6 +14,9 @@ const Coupon = () => {
     const [infoMsg, setInfoMsg] = useState(Colors.themeColor);
     const [placeholder, setPlaceholder] = useState('Enter Coupon Code');
     const [msg, setMsg] = useState('');
+
+    const { couponSucess } = useSelector(state => state.cartReducer);
+
 
     const handleChange = (val) => {
         if (val === '') {
@@ -94,7 +98,7 @@ const Coupon = () => {
                     // onPress={() => { onPress(1) }}
                     size={10}
                 />
-                <Text style={styles.btnText}>{'Free Shipping'}</Text>
+                <Text style={styles.btnText}>{couponSucess[0]?.code}</Text>
             </View>
         </View>
     )

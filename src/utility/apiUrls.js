@@ -33,6 +33,8 @@ const ORDER_DETAIL_API = `${API_BASE_URL}/api/v1/order/ordersDetails`
 
 const CART_API = `${API_BASE_URL}/api/v1/cart`
 
+const COUPON_API = `${API_BASE_URL}/api/v1/promocode`
+
 const HOME_API = `${API_BASE_URL}/api/v1/home-page`
 
 const SEARCH_API = `${API_BASE_URL}/api/v1/product/search`
@@ -59,5 +61,6 @@ export {
     ORDER_DETAIL_API,
     HOME_API,
     SEARCH_API,
-    BASE_API
+    BASE_API,
+    COUPON_API
 };

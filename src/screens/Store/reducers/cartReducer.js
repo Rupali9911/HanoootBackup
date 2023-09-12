@@ -1,4 +1,4 @@
-import { ADD_TO_CART, CART_ITEM_LOADING, CART_ITEM_FAIL, CART_ITEM_RESET, CART_ITEM_PAGE_CHANGE } from "../types";
+import { ADD_TO_CART, CART_ITEM_LOADING, CART_ITEM_FAIL, CART_ITEM_RESET, CART_ITEM_PAGE_CHANGE, COUPON_LOAD_START, COUPON_LOAD_SUCCESS, COUPON_LOAD_FAIL } from "../types";
 import { REMOVE_FROM_CART } from "../types";
 import { CART_BUTTON_LABEL } from "../types";
 
@@ -12,13 +12,19 @@ const initialState = {
 
 
     // cartItems: [],
-    cartButtonLabel: 'Add to Cart'
+    cartButtonLabel: 'Add to Cart',
+
+    isCouponLoading: false,
+    couponSucess: [],
+    couponFail: '',
+
+
 }
 
 const cartReducer = (state = initialState, action) => {
     // console.log('Check reducer state and action : ', state, action)
     // console.log('Check action DATA : ', [...state.cartItems, ...action.payload])
-    
+
 
     switch (action.type) {
 
@@ -71,6 +77,22 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 cartButtonLabel: action.payload
             }
+
+        case COUPON_LOAD_START:
+            return { ...state, isCouponLoading: true };
+
+        case COUPON_LOAD_SUCCESS:
+            return {
+                ...state,
+                couponSucess: action.payload,
+                couponFail: '',
+            };
+
+        case COUPON_LOAD_FAIL:
+            return { ...state, couponFail: action.payload, isCouponLoading: false };
+
+
+
         default:
             return state;
     }

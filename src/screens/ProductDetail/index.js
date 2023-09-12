@@ -109,9 +109,6 @@ const ProductDetail = (props) => {
                             showInfoToast('SUCCESS', response?.message)
                         }, 1000);
                     }
-                    // setTimeout(() => {
-                    //     showInfoToast('SUCCESS', response?.message)
-                    // }, 1000);
                 }
                 else {
                     showErrorToast()
@@ -233,8 +230,8 @@ const ProductDetail = (props) => {
                                             : setModalVisible(true)}
                                     />
                                     <ProductSpecCard data={productDetail} />
-                                    <ProductSpecification data={productDetail?.ManagementProductSeo?.short_description} />
-                                    <ProductDescription data={productDetail?.ManagementProductSeo?.long_description} />
+                                    <ProductSpecification data={selectedLanguageItem?.language_id === 0 ? productDetail?.ManagementProductSeo?.short_description : productDetail?.ManagementProductSeo?.short_description_arabic} />
+                                    <ProductDescription data={selectedLanguageItem?.language_id === 0 ? productDetail?.ManagementProductSeo?.long_description : productDetail?.ManagementProductSeo?.long_description_arabic} />
                                     {renderProductImages()}
                                     {
                                         productDetail?.children.length > 0 ?
@@ -247,7 +244,7 @@ const ProductDetail = (props) => {
                                                             <ListView
                                                                 item={item}
                                                                 centerImage={item?.images[0]}
-                                                                productName={item?.title}
+                                                                productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
                                                                 price={item?.ManagementProductPricing?.hanooot_price}
                                                                 detailId={item?.product_details_id}
                                                                 isExpress
@@ -285,7 +282,7 @@ const ProductDetail = (props) => {
                                                         <Text style={[styles.infoMsg, { fontSize: 12 }]}>These items are dispatched from and sold by different sellers</Text>
                                                     </View>
 
-                                                    <Text style={[styles.infoMsg, { margin: 10 }]}>{`Total Price : ${totalCartItemDetail?.totalPrice}`}</Text>
+                                                    <Text style={[styles.infoMsg, { margin: 10 }]}>{`Total Price : $ ${totalCartItemDetail?.totalPrice}`}</Text>
                                                 </View>
                                                 <AppButton
                                                     containerStyle={{ backgroundColor: Colors.LightGray }}
