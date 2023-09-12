@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { removeWishlistItem } from '../../Store/actions/wishlistActions';
 import { addToCart } from '../../Store/actions/cartAction';
 import Toast from 'react-native-toast-message';
-
+import { translate } from '../../../utility';
 
 const Wishlist = () => {
     const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const Wishlist = () => {
                         numberOfLines={5}
                     >
                         {props.item}
-                        <Text style={{ fontWeight: 500 }}>{`${props.type === 'ADD' ? ` has been moved to your cart!` : ` has been removed from your Wishlist!`}`}</Text>
+                        <Text style={{ fontWeight: 500 }}>{`${props.type === 'ADD' ? translate('common.movedToCart') : translate('common.removedFromWishlist')}`}</Text>
                     </Text>
                 </View>
             </View>
@@ -93,7 +93,7 @@ const Wishlist = () => {
                         <View style={{ flexDirection: 'row', gap: 5, alignItems: 'center' }}>
                             <Image source={Images.star} style={{ height: 12, width: 12, resizeMode: 'contain' }} />
                             <Text style={[styles.price, { fontSize: 10 }]}>4.5</Text>
-                            <Text style={[styles.name, { fontSize: 10, color: Colors.PRICEGRAY }]}>(1045 Reviews)</Text>
+                            <Text style={[styles.name, { fontSize: 10, color: Colors.PRICEGRAY }]}>(1045 {translate('common.reviews')})</Text>
                         </View>
                     </View>
 
@@ -134,7 +134,7 @@ const Wishlist = () => {
         <AppBackground>
             <AppHeader
                 showBackButton
-                title={'Wishlist'}
+                title={translate('common.wishlist')}
                 showRightIcon
                 rightIcon={
                     <Image
@@ -172,9 +172,9 @@ const Wishlist = () => {
                     :
                     <EmptyDetailScreen
                         image={Images.WishlistBanner}
-                        title={'Ready to make a Wish?'}
-                        description={'Start adding items you love to your wishlist by tapping on the heart icon'}
-                        buttonLabel={'Find Items to Save'}
+                        title={translate('common.movetocart')}
+                        description={translate('common.startAdding')}
+                        buttonLabel={translate('common.findItem')}
                     />
             }
 

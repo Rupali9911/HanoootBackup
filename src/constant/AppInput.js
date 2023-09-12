@@ -7,7 +7,8 @@ import Images from './Images';
 import PhoneInput from "react-native-phone-number-input";
 import { COLORS, SVGS } from '../constant'
 import { translate } from '../utility';
-
+import { regionCountry } from '../utility';
+console.log('regionCountry', regionCountry)
 const { DropDownIcon } = SVGS
 
 const heightTextInput = hp('6%')
@@ -47,7 +48,7 @@ const AppInput = (props) => {
                             <PhoneInput
                                 ref={phoneInput}
                                 defaultValue={props.value}
-                                defaultCode="IN"
+                                defaultCode={regionCountry || "IN"}
                                 layout="first"
                                 onChangeText={props.onChangeText}
                                 value={props.value}

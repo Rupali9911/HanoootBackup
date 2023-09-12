@@ -111,7 +111,7 @@ const Login = (props) => {
 
             <KeyboardAwareScrollView>
                 <AuthHeader
-                    title={'Sign in to Your Account'}
+                    title={translate('common.signintoyouraccount')}
                 />
                 <CustomSwitch
                     selectionMode={1}
@@ -141,9 +141,9 @@ const Login = (props) => {
                         (
                             <>
                                 <AppInput
-                                    label={'Email Address'}
+                                    label={translate('common.emailaddress')}
                                     required
-                                    placeholder={'Enter Your Email Address'}
+                                    placeholder={translate('common.enteryouremailaddress')}
                                     onChangeText={(email) => {
                                         setEmail(email)
                                         setError({ ...error, ['emailErr']: null })
@@ -153,8 +153,8 @@ const Login = (props) => {
                                     error={error['emailErr']}
                                 />
                                 <AppInput
-                                    label={'Password'}
-                                    placeholder={'Enter your password'}
+                                    label={translate('common.enteryouremailaddress')}
+                                    placeholder={translate('common.enteryourpassword')}
                                     required
                                     rightComponent
                                     onChangeText={(password) => {
@@ -169,14 +169,14 @@ const Login = (props) => {
                                 />
                                 <View style={{ flexDirection: 'row-reverse', margin: '5%' }}>
                                     <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-                                        <Text style={[styles.text, { textAlign: 'right' }]}>Forgot password?</Text>
+                                        <Text style={[styles.text, { textAlign: 'right' }]}>{translate('common.forgotPassword')}</Text>
                                     </TouchableOpacity>
                                 </View>
                             </>
                         )
                 }
 
-                <AppButton label={'Sign In'} containerStyle={{ marginVertical: '5%' }} onPress={Login} />
+                <AppButton label={translate('common.signin')} containerStyle={{ marginVertical: '5%' }} onPress={Login} />
 
                 {/* <View style={styles.rowContainer}>
                     <ToggleSwitch
@@ -190,8 +190,8 @@ const Login = (props) => {
                 </View> */}
 
                 <AuthBottomContainer
-                    title={'Or Sign In with'}
-                    isAccountText={'Don’t have a account ?'}
+                    title={translate('common.orsigninwith')}
+                    isAccountText={translate('common.don’thaveaaccount?')}
                     // button={' Sign up'}
                     isSignUp={false}
                     onPressButton={() => navigation.navigate('Signup')}

@@ -9,6 +9,7 @@ import AppButton from '../../Components/AppButton'
 import { validateUserName, validateEmail, validateDescription } from '../../utils'
 import { helpNSupport } from '../../../services/apis'
 import { useNavigation } from '@react-navigation/native'
+import { translate } from '../../../utility'
 
 const SupportScreen = () => {
     const [about, setAbout] = useState('')
@@ -49,20 +50,20 @@ const SupportScreen = () => {
     return (
         <AppBackground>
             <AppHeader
-                title={'Help & Support'}
+                title={translate('common.help&support')}
                 showBackButton
 
             />
             <AppInput
-                label={'Name'}
-                placeholder={'Enter your Name'}
+                label={translate('common.name')}
+                placeholder={translate('common.enteryourname')}
                 onChangeText={(name) => setName(name)}
                 validate={[validateUserName]}
                 value={name}
             />
             <AppInput
-                label={'Email'}
-                placeholder={'Enter your Email'}
+                label={translate('common.email')}
+                placeholder={translate('common.enteryouremail')}
                 required
                 onChangeText={(email) => setEmail(email)}
                 value={email}
@@ -70,10 +71,10 @@ const SupportScreen = () => {
                 validate={[validateEmail]}
             />
             <View style={styles.textAreaContainer}>
-                <Text style={styles.label}>{'Let us know how can we help you'}{<Text style={{ color: 'red' }}>*</Text>}</Text>
+                <Text style={styles.label}>{translate('common.letUsKnow')}{<Text style={{ color: 'red' }}>*</Text>}</Text>
 
                 <TextInput
-                    placeholder="Describe here"
+                    placeholder={translate('common.describehere')}
                     onChangeText={text => setAbout(text.slice(0, 200))}
                     value={about}
                     multiline={true}
@@ -91,7 +92,7 @@ const SupportScreen = () => {
 
 
             <AppButton
-                label={'Submit'}
+                label={translate('common.submit')}
                 containerStyle={{ position: 'absolute', bottom: 10 }}
                 view={name ? false : true}
                 onPress={onSubmit}

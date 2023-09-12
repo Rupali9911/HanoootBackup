@@ -5,7 +5,8 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
-    DevSettings
+    DevSettings,
+    I18nManager
 } from 'react-native';
 import AppBackground from '../../Components/AppBackground';
 import AppHeader from '../../Components/AppHeader';
@@ -13,7 +14,7 @@ import Colors from '../../../constant/Colors';
 import fonts from '../../../constant/fonts';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAppLanguage } from '../../Store/reducers/languageReducer';
-import { languageArray } from '../../../utility';
+import { languageArray, translate } from '../../../utility';
 import { useNavigation } from '@react-navigation/native';
 import RNRestart from 'react-native-restart';
 
@@ -41,9 +42,18 @@ const LanguageScreen = () => {
             setSelectedCountryIndex(index);
             dispatch(setAppLanguage(languageArray[index]));
             //    navigation.navigate('Home')
-            setTimeout(() => {
+            setTimeout(async () => {
                 //DevSettings.reload()
                 // navigation.navigate('Profile')
+                if (index === 0) {
+                    if (I18nManager.isRTL) {
+                        I18nManager.forceRTL(false);
+                    }
+                } else {
+                    if (!I18nManager.isRTL) {
+                        I18nManager.forceRTL(true);
+                    }
+                }
                 RNRestart.restart();
             }, 1000);
         }
@@ -53,7 +63,7 @@ const LanguageScreen = () => {
         <AppBackground>
             <AppHeader
                 showBackButton
-                title={'Language'}
+                title={translate('common.language')}
             />
             {countries.map((country, index) => {
                 return (

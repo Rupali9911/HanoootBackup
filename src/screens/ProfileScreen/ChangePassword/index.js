@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { updatePasswordOnFirebase } from '../../../services/socialAuth';
 import { validateOnlyPassword } from '../../utils';
 import { updatePassword } from '../../../services/apis';
+import { translate } from '../../../utility';
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState('');
@@ -31,7 +32,7 @@ const ChangePassword = () => {
     let reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 
     if (value && !reg.test(value)) {
-      errList.newPassword = 'Password must contain at least 8 characters, one letter and one number';
+      errList.newPassword = translate('common.passwordCheck');
     } else {
       errList.newPassword = ''
     }
@@ -42,7 +43,7 @@ const ChangePassword = () => {
   comparePasswords = (confirmPassword) => {
     const errList = {}
     if (confirmPassword && newPassword != confirmPassword) {
-      errList.confirmPassword = 'Password must contain at least 8 characters, one letter and one number';
+      errList.confirmPassword = translate('common.passwordCheck');
     } else {
       errList.confirmPassword = '';
     }
@@ -52,10 +53,10 @@ const ChangePassword = () => {
   const ChangePassword = async () => {
     let errorList = {};
     !oldPassword ?
-      errorList["oldPassword"] = 'Enter your old password' :
-      !newPassword ? errorList["newPassword"] = 'Enter your new password' :
-        !confirmPassword ? errorList["confirmPassword"] = 'Enter your confirm password' :
-          newPassword !== confirmPassword ? errorList["confirmPassword"] = 'Password are not matched!!' : {};
+      errorList["oldPassword"] = translate('common.enteryouroldpassword') :
+      !newPassword ? errorList["newPassword"] = translate('common.enteryournewpassword') :
+        !confirmPassword ? errorList["confirmPassword"] = translate('common.enteryourconfirmpassword') :
+          newPassword !== confirmPassword ? errorList["confirmPassword"] = translate('common.passwordarenotmatched') : {};
 
     if (validateOnlyPassword(newPassword)) {
       errorList["newPassword"] = validateOnlyPassword(newPassword)
@@ -69,17 +70,17 @@ const ChangePassword = () => {
       setError({});
       await updatePasswordOnFirebase(oldPassword, newPassword)
       await updatePassword(newPassword)
-      navigation.navigate('ToastMessageScreen', { title: 'Password Updated Successfully!', navigate: 'ProfileScreen' })
+      navigation.navigate('ToastMessageScreen', { title: translate('common.passwordupdatedsuccessfully'), navigate: 'ProfileScreen' })
     }
   }
 
   return (
     <AppBackground>
-      <AppHeader showBackButton title={'Reset Password'} />
-      <Text style={styles.title}>New oldPassword should be different from your current oldPassword</Text>
+      <AppHeader showBackButton title={translate('common.resetpassword')} />
+      <Text style={styles.title}>{translate('common.newNOldPassShouldSame')}</Text>
       <AppInput
-        placeholder={'Enter your current Password'}
-        label={'Enter Current Password'}
+        placeholder={translate('common.enteryourcurrentpassword')}
+        label={translate('common.entercurrentpassword')}
         isEyeIconShow
         value={oldPassword}
         onChangeText={(oldPassword) => {
@@ -94,8 +95,8 @@ const ChangePassword = () => {
 
       />
       <AppInput
-        placeholder={'Enter new Password'}
-        label={'Enter new Password'}
+        placeholder={translate('common.enternewpassword')}
+        label={translate('common.enternewpassword')}
         isEyeIconShow
         value={newPassword}
         onChangeText={(newPassword) => {
@@ -111,8 +112,8 @@ const ChangePassword = () => {
 
 
       <AppInput
-        placeholder={'Re-enter new Password'}
-        label={'Confirm New Password'}
+        placeholder={translate('common.reEnternewpassword')}
+        label={translate('common.confirmnewpassword')}
         isEyeIconShow
         value={confirmPassword}
         onChangeText={(confirmPassword) => {
@@ -129,7 +130,7 @@ const ChangePassword = () => {
 
 
       <AppButton
-        label={'Update Password'}
+        label={translate('common.updatepassword')}
         view={!oldPassword || !newPassword || !confirmPassword ? true : false}
         containerStyle={{ flex: 1, bottom: 50, position: 'absolute' }}
         onPress={ChangePassword}

@@ -8,6 +8,7 @@ import Colors from '../../../constant/Colors'
 import fonts from '../../../constant/fonts'
 import AppButton from '../../Components/AppButton'
 import { useNavigation } from '@react-navigation/native';
+import { translate } from '../../../utility'
 
 
 const EmptyAddress = () => {
@@ -20,11 +21,11 @@ const EmptyAddress = () => {
                 <View >
                     <Text
                         style={styles.productName}
-                    >{"You haven't Added any Address"}</Text>
-                    <Text style={[styles.productName, { color: Colors.PRICEGRAY }]} numberOfLines={2} >{'Please add new address'}</Text>
+                    >{translate('common.haventAddedAddress')}</Text>
+                    <Text style={[styles.productName, { color: Colors.PRICEGRAY }]} numberOfLines={2} >{translate('common.pleaseaddnewaddress')}</Text>
                 </View>
             </View>
-            <AppButton label={'Add New Address'}
+            <AppButton label={translate('common.addnewaddress')}
                 leftSideImg
                 ImgURI={Images.plusIcon}
                 labelStyle={{ color: Colors.themeColor }} containerStyle={{ backgroundColor: Colors.WHITE, marginTop: '8%' }}

@@ -5,6 +5,7 @@ import { hp, wp } from '../../constant/responsiveFunc'
 import fonts from '../../constant/fonts'
 import AppButton from '../../screens/Components/AppButton'
 import { useNavigation, StackActions } from '@react-navigation/native'
+import { translate } from '../../utility'
 
 const ToastPages = (props) => {
     const navigation = useNavigation();
@@ -22,7 +23,7 @@ const ToastPages = (props) => {
                 >{props.route.params.title}</Text>
             </View>
             <AppButton
-                label={'Go Back'}
+                label={translate('common.goback')}
                 containerStyle={styles.btn}
                 onPress={() => navigation.dispatch(popAction)}
             // onPress={() => navigation.navigate(props?.route?.params?.navigate)}

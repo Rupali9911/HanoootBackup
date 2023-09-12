@@ -1,6 +1,6 @@
 
 
-import {  Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import AddressDetail from '../../../Components/AddressComponent';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,13 +12,11 @@ import AppButton from '../../Components/AppButton';
 import { fetchAddressDetails } from '../../Store/actions/checkoutAction';
 import Loader from '../../../constant/Loader';
 import fonts from '../../../constant/fonts';
+import { translate } from '../../../utility';
 
 const Address = (props) => {
-
-
     const { addressRecordList, isAddresDetailLoading } = useSelector(state => state.checkoutReducer);
     const [addressId, setAddressId] = useState(addressRecordList[0]?.id)
-
     const navigation = useNavigation();
     const isFocused = useIsFocused();
     const dispatch = useDispatch();
@@ -35,14 +33,14 @@ const Address = (props) => {
                     <View >
                         <Text
                             style={styles.text}
-                        >{"You haven't Added any Address"}</Text>
-                        <Text style={[styles.text, { color: Colors.PRICEGRAY }]} numberOfLines={2} >{'Please add new address'}</Text>
+                        >{translate('common.haventAddedAddress')}</Text>
+                        <Text style={[styles.text, { color: Colors.PRICEGRAY }]} numberOfLines={2} >{translate('common.pleaseaddnewaddress')}</Text>
                     </View>
                 </View>
-                <AppButton label={'Add New Address'}
+                <AppButton label={translate('common.addnewaddress')}
                     leftSideImg
                     ImgURI={Images.plusIcon}
-                    labelStyle={{ color: Colors.themeColor }} 
+                    labelStyle={{ color: Colors.themeColor }}
                     containerStyle={{ backgroundColor: Colors.WHITE }}
                     onPress={() => navigation.navigate('NewAddress', { isProfileScreen: false })}
                 />
@@ -53,7 +51,7 @@ const Address = (props) => {
     return (
         <>
             <ProductHeader
-                title={'Select a delivery Address'}
+                title={translate('common.delieveryAdd')}
                 ContainerStyle={{ marginVertical: '5%' }}
             />
 
@@ -70,12 +68,12 @@ const Address = (props) => {
                         />
                         : <EmptyAddressView />
 
-                        
+
             }
 
             {/* <View style={[styles.bottomButtonContainer, { zIndex: toastVisible ? -1 : 1 }]}> */}
             <View style={[styles.bottomButtonContainer]}>
-                <AppButton label={'Deliver to this Address'}
+                <AppButton label={translate('common.deliverToAdd')}
                     disabled={addressRecordList.length ? false : true}
                     onPress={() => {
                         // const storeUser = async () => {

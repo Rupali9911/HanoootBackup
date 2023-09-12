@@ -91,13 +91,12 @@ const ProfileScreen = (props) => {
         );
     }
 
-    const logout = () => {
+    const logout = async () => {
         dispatch(clearUserData())
-
+        await EncryptedStorage.clear();
         signOut()
             .then(async (response) => {
                 console.log('user Logout Succesfully', response, userData)
-                await EncryptedStorage.clear();
             })
     }
 

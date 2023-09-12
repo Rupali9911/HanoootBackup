@@ -10,6 +10,7 @@ import RadioButton from 'react-native-radio-button';
 import { hp, wp } from '../../constant/responsiveFunc';
 import { removeAddressDetails } from '../../screens/Store/actions/checkoutAction';
 import AppModal from '../universal/Modal';
+import { translate } from '../../utility';
 
 const AddressDetail = (props) => {
     const [id, setId] = useState();
@@ -32,7 +33,7 @@ const AddressDetail = (props) => {
                 <TouchableOpacity style={styles.ButtonTouchable}
                     onPress={() => navigation.navigate('NewAddress', { editData: props.item, isProfileScreen: props.profile })}
                 >
-                    <Text style={styles.buttonText}>EDIT</Text>
+                    <Text style={styles.buttonText}>{translate('common.edit')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.ButtonTouchable}
                     onPress={() => {
@@ -40,7 +41,7 @@ const AddressDetail = (props) => {
                         setModalVisible(true);
                     }}
                 >
-                    <Text style={styles.buttonText}>REMOVE</Text>
+                    <Text style={styles.buttonText}>{translate('common.remove')}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -100,7 +101,7 @@ const AddressDetail = (props) => {
     const renderFooter = () => {
         return (
             <AppButton
-                label={'Add New Address'}
+                label={translate('common.addnewaddress')}
                 isEmptyBG
                 leftSideImg
                 ImgURI={Images.plusIcon}
@@ -114,20 +115,20 @@ const AddressDetail = (props) => {
     const RemoveModalContent = (props) => {
         return (
             <View style={styles.modalContainer}>
-                <Text style={styles.removeHeading}>Remove Address</Text>
-                <Text style={styles.removeDesc}>Are you sure you want to remove this address from your address book?</Text>
+                <Text style={styles.removeHeading}>{translate('common.removeaddress')}</Text>
+                <Text style={styles.removeDesc}>{translate('common.removeAddMessage')}</Text>
                 <View style={styles.modalBtnCont}>
                     <TouchableOpacity
                         onPress={props.onCancelPress}
                         style={styles.btnViewCont}
                     >
-                        <Text style={styles.modalBtnText}>No</Text>
+                        <Text style={styles.modalBtnText}>{translate('common.no')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={props.onRemovePress}
                         style={[styles.btnViewCont, { backgroundColor: Colors.themeColor }]}
                     >
-                        <Text style={[styles.modalBtnText, { color: Colors.WHITE }]}>Yes, Remove it</Text>
+                        <Text style={[styles.modalBtnText, { color: Colors.WHITE }]}>{translate('common.yesRemoveIt')}</Text>
                     </TouchableOpacity>
                 </View>
 

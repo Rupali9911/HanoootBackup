@@ -18,6 +18,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Location from './Location';
 import fonts from '../../constant/fonts';
 import Colors from '../../constant/Colors';
+import { translate } from '../../utility';
 
 
 
@@ -83,11 +84,10 @@ const NewAddress = (props) => {
 
   const handleError = (label, value) => {
     if (label === 'city') {
-      return Object.keys(value).length ? null : `Please fill ${label} field`
-    }
-    else {
+      return Object.keys(value).length ? null : translate('commin.pleaseFillField', { label: `${label}` })
+    } else {
       if (!value.trim().length) {
-        return `Please fill ${label} field`;
+        return translate('commin.pleaseFillField', { label: `${label}` });
       }
     }
   }
@@ -145,10 +145,10 @@ const NewAddress = (props) => {
 
       profile
         ?
-        navigation.navigate('ToastScreen', { title: 'Address Saved Successfully!' })
+        navigation.navigate('ToastScreen', { title: translate('common.addressSaved') })
         :
         (navigation.navigate('CheckoutScreen'),
-          showInfoToast('SUCCESS', response?.message))
+          showInfoToast(translate('common.success'), response?.message))
     }
     catch (error) {
       console.log('Error from add new address api ', error)
@@ -161,9 +161,9 @@ const NewAddress = (props) => {
 
       profile
         ?
-        navigation.navigate('ToastScreen', { title: 'Address Updated Successfully!' })
+        navigation.navigate('ToastScreen', { title: translate('common.addressSaved') })
         :
-        (navigation.navigate('CheckoutScreen'), showInfoToast('SUCCESS', response?.message))
+        (navigation.navigate('CheckoutScreen'), showInfoToast(translate('common.success'), response?.message))
     }
     catch (error) {
       console.log('Error from add new address api ', error)
@@ -185,9 +185,9 @@ const NewAddress = (props) => {
     <AppBackground>
       <AppHeader
         showBackButton
-        title={editDataDetail ? 'Update Address' : 'Add Address'} />
+        title={editDataDetail ? translate('common.updateaddress') : translate('common.addAddress')} />
       <ScrollView>
-        <ProductHeader title={'Address Detail'} />
+        <ProductHeader title={translate('common.addressdetail')} />
         <View style={{ zIndex: 1 }}>
           <DropdownPicker
             onSetCountry={(city) => {
@@ -202,8 +202,8 @@ const NewAddress = (props) => {
         </View>
         <KeyboardAwareScrollView>
           <AppInput
-            label="Street Name"
-            placeholder={'Enter Street Name'}
+            label={translate('common.streetname')}
+            placeholder={translate('common.enterstreetname')}
             required
             value={inputFields.street}
             onChangeText={text => {
@@ -213,30 +213,30 @@ const NewAddress = (props) => {
             error={errorMsg['street']}
           />
           <AppInput
-            label="Building Type"
+            label={translate('common.buildingtype')}
             value={inputFields.building}
             onChangeText={text => {
               handleInputChange('building', text)
               setErrorMsg({ ...errorMsg, ['building']: null })
             }}
-            placeholder={'Enter Building Type'}
+            placeholder={translate('common.enterbuildingtype')}
             required
             error={errorMsg['building']}
           />
           <AppInput
-            label="House/Flat No."
+            label={translate('common.houseNo')}
             value={inputFields.house}
             onChangeText={text => handleInputChange('house', text)}
-            placeholder={'Enter House/Flat No.'}
+            placeholder={translate('common.enterHouseNo')}
           />
           <AppInput
-            label="NearBy Landmark"
+            label={translate('common.nearbylandmark')}
             value={inputFields.landmark}
             onChangeText={text => {
               handleInputChange('landmark', text)
               setErrorMsg({ ...errorMsg, ['landmark']: null })
             }}
-            placeholder={'Enter NearBy Landmark'}
+            placeholder={translate('common.enternearbylandmark')}
             required
             error={errorMsg['landmark']}
           />
@@ -257,7 +257,7 @@ const NewAddress = (props) => {
                       fontWeight: 500,
                       letterSpacing: 0.5,
                       textAlign: 'left'
-                    }} numberOfLines={2}>Address: {inputFields?.locationDetail?.address}</Text>
+                    }} numberOfLines={2}>{translate('common.address')} {inputFields?.locationDetail?.address}</Text>
                     <TouchableOpacity
                       onPress={() => {
                         navigation.navigate('Location', {
@@ -280,7 +280,7 @@ const NewAddress = (props) => {
                         letterSpacing: 0.5,
                         textAlign: 'left',
                         color: Colors.themeColor
-                      }}>Update</Text>
+                      }}>{translate('common.update')}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -289,7 +289,7 @@ const NewAddress = (props) => {
               (
                 <AppButton
                   isEmptyBG
-                  label={'Pin Your Location'}
+                  label={translate('common.pinyourlocation')}
                   leftSideImg
                   ImgURI={Images.PinLocation}
                   containerStyle={{ marginVertical: "6%" }}
@@ -317,38 +317,38 @@ const NewAddress = (props) => {
 
 
 
-          <ProductHeader title={'Delivery Contact Detail'} />
+          <ProductHeader title={translate('common.deliverycontactdetail')} />
 
           <AppInput
-            label="Name"
+            label={translate('common.name')}
             value={inputFields.name}
             onChangeText={text => {
               handleInputChange('name', text);
               setErrorMsg({ ...errorMsg, ['name']: null })
             }}
-            placeholder={'Enter Your Name'}
+            placeholder={translate('common.enteryourname')}
             required
             error={errorMsg['name']}
           />
           <AppInput
-            label="Phone Number"
+            label={translate('common.phonenumber')}
             value={inputFields.phone_number}
             onChangeText={text => handleInputChange('phone_number', text)}
-            placeholder={'Enter Your Phone Number'}
+            placeholder={translate('common.enteryourphonenumber')}
             maxLength={10}
             keyboardType={'numeric'}
           />
 
           <Separator separatorStyle={{ marginVertical: '8%' }} />
 
-          <ProductHeader title={'Save as'} />
+          <ProductHeader title={translate('common.saveas')} />
           <View style={{ flexDirection: 'row', alignItems: "flex-start" }}>
             <DeliveryType
               isSelected={inputFields.address_type}
               onPress={(val) => setInputFields({ ...inputFields, address_type: val })}
             />
           </View>
-          <AppButton label={editDataDetail ? 'Update Address' : 'Save Address'} containerStyle={{ marginVertical: '5%' }} onPress={handleSubmit} />
+          <AppButton label={editDataDetail ? translate('common.updateaddress') : translate('common.saveaddress')} containerStyle={{ marginVertical: '5%' }} onPress={handleSubmit} />
         </KeyboardAwareScrollView>
       </ScrollView>
     </AppBackground>

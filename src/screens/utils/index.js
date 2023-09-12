@@ -66,7 +66,7 @@ export const validatePassword = value => {
     if (!value.trim().length) {
         return translate('common.passReq');
     } else if (!passwordRegex.test(value)) {
-        return translate('common.validPass');
+        return translate('common.pleaseenteravalidpassword');
     }
 };
 
@@ -78,7 +78,7 @@ export const validateBlankPassword = value => {
 
 export const validateOnlyPassword = value => {
     if (!passwordRegex.test(value)) {
-        return translate('common.validPass');
+        return translate('common.pleaseenteravalidpassword');
     }
 };
 
@@ -99,7 +99,7 @@ export const capitalizeFirstLetter = (string) => {
 
 export const validateDescription = value => {
     if (!value.trim().length) {
-        return translate('common.enterQuery');
+        return translate('common.pleaseenteryourquery');
     } else {
         return false;
     }

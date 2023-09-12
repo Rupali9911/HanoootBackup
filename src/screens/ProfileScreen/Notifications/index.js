@@ -5,9 +5,10 @@ import AppHeader from '../../Components/AppHeader'
 import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import ToggleSwitch from 'toggle-switch-react-native'
+import { translate } from '../../../utility'
 
 const Notification = () => {
-    
+
     const CustomToggleSwitch = (props) => {
         const [isEnabled, setIsEnabled] = useState(false);
 
@@ -17,24 +18,24 @@ const Notification = () => {
         }
 
         return (
-                <ToggleSwitch
-                    isOn={isEnabled}
-                    onColor={Colors.themeColor}
-                    offColor={Colors.GRAY}
-                    size='medium'
-                    onToggle={(isOn) => toggleSwitch(isOn)}
-                />
+            <ToggleSwitch
+                isOn={isEnabled}
+                onColor={Colors.themeColor}
+                offColor={Colors.GRAY}
+                size='medium'
+                onToggle={(isOn) => toggleSwitch(isOn)}
+            />
         );
     };
 
     const ListItems = (props) => {
-        return(
+        return (
             <View style={styles.listContainer}>
                 <View>
                     <Text style={styles.notify}>{props.title}</Text>
                     <Text style={styles.notifyDesc} >{props.desc}</Text>
                 </View>
-                <CustomToggleSwitch 
+                <CustomToggleSwitch
                     setToggle={props.getToggleValue}
                 />
             </View>
@@ -45,35 +46,35 @@ const Notification = () => {
         <AppBackground>
             <AppHeader
                 showBackButton
-                title={'Notification Preferences'}
+                title={translate('common.notificationpreferences')}
             />
 
-            <Text style={styles.topLine}>Get Notification from Hanooot on your mobile</Text>
+            <Text style={styles.topLine}>{translate('common.getNotifcations')}</Text>
 
-            <ListItems 
-            title={'My Orders'}
-            desc={'Latest updates on your orders'}
-            // getToggleValue={(toggle) => console.log('Check First Toggle Value : ', toggle)}    
+            <ListItems
+                title={translate('common.myorders')}
+                desc={translate('common.latestupdatesonyourorders')}
+                getToggleValue={(toggle) => console.log('Check First Toggle Value : ', toggle)}
             />
-            <ListItems 
-            title={'Reminder'}
-            desc={'Price drops, Back-in-stock products, etc'}
-            // getToggleValue={(toggle) => console.log('Check Second Toggle Value : ', toggle)} 
+            <ListItems
+                title={translate('common.reminder')}
+                desc={translate('common.priceDrop')}
+                getToggleValue={(toggle) => console.log('Check Second Toggle Value : ', toggle)}
             />
-            <ListItems 
-            title={'New Offers'}
-            desc={'Top deals, offers & more'}  
-            // getToggleValue={(toggle) => console.log('Check THIRD Toggle Value : ', toggle)} 
+            <ListItems
+                title={translate('common.newoffers')}
+                desc={translate('common.topDeal')}
+                getToggleValue={(toggle) => console.log('Check THIRD Toggle Value : ', toggle)}
             />
-            <ListItems 
-            title={'Hanooot Community'}
-            desc={'Profile updates, communication, news'}
-            // getToggleValue={(toggle) => console.log('Check FOURTH Toggle Value : ', toggle)} 
+            <ListItems
+                title={translate('common.hanoootcommunity')}
+                desc={translate('common.profileUpdates')}
+                getToggleValue={(toggle) => console.log('Check FOURTH Toggle Value : ', toggle)}
             />
-            <ListItems 
-            title={'Feedback & Review'}
-            desc={'Ratings and reviews of your purchase'}
-            // getToggleValue={(toggle) => console.log('Check FIVE Toggle Value : ', toggle)}   
+            <ListItems
+                title={translate('common.feedbackNreview')}
+                desc={translate('common.ratingsNReview')}
+                getToggleValue={(toggle) => console.log('Check FIVE Toggle Value : ', toggle)}
             />
         </AppBackground>
     )

@@ -200,7 +200,7 @@ const Signup = () => {
                             <>
                                 <AppInput
                                     label={translate('common.email')}
-                                    placeholder={translate('common.enteryoureamil')}
+                                    placeholder={translate('common.enteryouremail')}
                                     onChangeText={(email) => {
                                         setEmail(email)
                                         setError({ ...error, ['emailErr']: null })
@@ -257,7 +257,7 @@ const Signup = () => {
 
                 <AuthBottomContainer
                     title={translate('common.orsignupwith')}
-                    isAccountText={translate('common.alreadyhaveanaccount')}
+                    isAccountText={translate('common.alreadyhaveanaccount?')}
                     // button={' Sign in'}
                     isSignUp={true}
                     onPressButton={() => navigation.navigate('Login')}

@@ -11,6 +11,7 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Colors from '../../../constant/Colors';
 import { fetchAddressDetails } from '../../Store/actions/checkoutAction';
 import Loader from '../../../constant/Loader';
+import { translate } from '../../../utility';
 
 const MyAddress = () => {
 
@@ -27,7 +28,7 @@ const MyAddress = () => {
         <AppBackground>
             <AppHeader
                 showBackButton
-                title={'My Address'}
+                title={translate('common.myaddress')}
             />
             {
                 isAddresDetailLoading ?
@@ -39,9 +40,9 @@ const MyAddress = () => {
                         />
                         : <EmptyDetailScreen
                             image={Images.EmptyAddress}
-                            title={'Whare is your saved address?'}
-                            description={'Add an address so we can get cracking on the delivery!'}
-                            buttonLabel={'Add Address'}
+                            title={translate('common.whareYourAdd')}
+                            description={translate('common.addAnAddress')}
+                            buttonLabel={translate('common.addAddress')}
                             imgStyle={{
                                 width: wp(73)
                             }}

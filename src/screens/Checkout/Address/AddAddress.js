@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
 import { setAddressDetails, updateAddress } from '../../Store/actions/checkoutAction'
 import DropdownPicker from '../../../constant/DropdownPicker'
+import { translate } from '../../../utility'
 
 
 
@@ -94,22 +95,22 @@ const AddAddress = (props) => {
 
         if (streetName && buildingType && houseFlatNo && nearByLandMark && name && phoneNo) {
             // Navigate to another screen and pass the input field values
-            if(EDIT){
-                dispatch(updateAddress({editData: inputFields, editId: EDIT.id}))
+            if (EDIT) {
+                dispatch(updateAddress({ editData: inputFields, editId: EDIT.id }))
             }
-            else{
+            else {
                 dispatch(setAddressDetails(inputFields));
             }
             navigation.navigate('CheckoutScreen');
         } else {
-            alert('Please fill all the fields');
+            alert(translate('common.pleasefillallthefields'));
         }
 
-       
+
     };
 
     const handleError = (value) => {
-        const errorMsg = (`Please fill ${value} field`);
+        const errorMsg = (translate('commin.pleaseFillField', { label: `${value}` }));
         return errorMsg;
     }
 
@@ -117,11 +118,11 @@ const AddAddress = (props) => {
 
     return (
         <AppBackground>
-            <AppHeader 
-            showBackButton 
-            title={'Add Address'} />
+            <AppHeader
+                showBackButton
+                title={translate('common.addAddress')} />
             <ScrollView>
-                <ProductHeader title={'Address Detail'} />
+                <ProductHeader title={translate('common.addressdetail')} />
                 {/* <View style={{ zIndex: 2 }}>
                     <AppInput
                         label="Town/City"
@@ -131,80 +132,79 @@ const AddAddress = (props) => {
                 </View> */}
                 <View style={{ zIndex: 1 }}>
                     <DropdownPicker
-                    onSetCountry={(country) => 
-                        {
+                        onSetCountry={(country) => {
                             console.log('country value : ', country);
                             // setCountryValue(country.name)
                             handleInputChange('countryName', country)
                         }}
 
-                    SetValue={setCountryValue}
-                    Value={countryValue}
+                        SetValue={setCountryValue}
+                        Value={countryValue}
                     />
                 </View>
                 <AppInput
-                    label="Street Name"
-                    placeholder={'Enter Street Name'}
+                    label={translate('common.streetname')}
+                    placeholder={translate('common.enterstreetname')}
                     required
                     value={inputFields.streetName}
                     onChangeText={text => handleInputChange('streetName', text)}
-                    // error={handleError('Street Name')}
+                // error={handleError('Street Name')}
                 />
                 <AppInput
-                    label="Building Type"
+                    label={translate('common.buildingtype')}
                     value={inputFields.buildingType}
                     onChangeText={text => handleInputChange('buildingType', text)}
-                    placeholder={'Enter Building Type'}
+                    placeholder={translate('common.enterbuildingtype')}
                     required
                 />
                 <AppInput
-                    label="House/Flat No."
+                    label={translate('common.houseNo')}
                     value={inputFields.houseFlatNo}
                     onChangeText={text => handleInputChange('houseFlatNo', text)}
-                    placeholder={'Enter House/Flat No.'}
+                    placeholder={translate('common.enterHouseNo')}
                 />
                 <AppInput
-                    label="NearBy Landmark"
+                    label={translate('common.nearbylandmark')}
                     value={inputFields.nearByLandMark}
                     onChangeText={text => handleInputChange('nearByLandMark', text)}
-                    placeholder={'Enter NearBy Landmark'}
+                    placeholder={translate('common.enternearbylandmark')}
                     required
                 />
 
                 <AppButton
                     isEmptyBG
-                    label={'Pin Your Location'}
+                    label={translate('common.pinyourlocation')}
                     leftSideImg
                     ImgURI={Images.PinLocation}
                     containerStyle={{ marginVertical: "6%" }}
-                onPress={() => navigation.navigate('PinLocation')}
+                    onPress={() => navigation.navigate('PinLocation')}
                 />
 
-                <ProductHeader title={'Delivery Contact Detail'} />
+                <ProductHeader title={translate('common.deliverycontactdetail')} />
 
                 <AppInput
-                    label="Name"
+                    label={translate('common.name')}
                     value={inputFields.name}
                     onChangeText={text => handleInputChange('name', text)}
-                    placeholder={'Enter Your Name'}
+                    placeholder={translate('common.enteryourname')}
                 />
                 <AppInput
-                    label="Phone Number"
+                    label={translate('common.phonenumber')}
                     value={inputFields.phoneNo}
                     onChangeText={text => handleInputChange('phoneNo', text)}
-                    placeholder={'Enter Your Phone Number'}
+                    placeholder={translate('common.enteryourphonenumber')}
                 />
 
                 <Separator separatorStyle={{ marginVertical: '8%' }} />
 
-                <ProductHeader title={'Save as'} />
+                <ProductHeader title={translate('common.saveas')} />
                 <View style={{ flexDirection: 'row', alignItems: "flex-start" }}>
                     <ToggleButtons
-                    Value={inputFields.streetName}
-                    onPress={(val) => setInputFields({...inputFields, saveAddAs: val})}
+                        Value={inputFields.streetName}
+                        onPress={(val) => setInputFields({ ...inputFields, saveAddAs: val })}
                     />
                 </View>
-                <AppButton label={'Save Address'} containerStyle={{ marginVertical: '5%' }} onPress={handleSubmit} />
+                <AppButton label={translate('common.saveaddress')} containerStyle={{ marginVertical: '5%' }} onPress={handleSubmit} />
             </ScrollView>
         </AppBackground>
     )

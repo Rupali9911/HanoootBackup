@@ -12,6 +12,7 @@ import AppButton from '../../Components/AppButton'
 import { maxLength32, validateEmail, maxLength50 } from '../../utils'
 import { useNavigation } from '@react-navigation/native'
 import { sendPasswordResetEmail } from '../../../services/socialAuth'
+import { translate } from '../../../utility'
 const ForgotPassword = () => {
     const [email, setEmail] = useState('')
     const [error, setError] = useState({})
@@ -49,15 +50,15 @@ const ForgotPassword = () => {
 
             <KeyboardAwareScrollView>
                 <AuthHeader
-                    title={'Lost Your Password?'}
+                    title={translate('common.lostyourpassword')}
                 />
 
-                <Text style={styles.text}>Enter the email associated with your Hanooot account.</Text>
+                <Text style={styles.text}>{translate('common.emailAssociated')}</Text>
 
                 <AppInput
-                    label={'Email Address'}
+                    label={translate('common.emailaddress')}
                     required
-                    placeholder={'Enter Your Email Address'}
+                    placeholder={translate('common.enteryouremailaddress')}
                     onChangeText={(email) => {
                         setEmail(email)
                         setError({ ...error, ['emailErr']: null })
@@ -66,10 +67,10 @@ const ForgotPassword = () => {
                     validate={[maxLength32, validateEmail]}
                     error={error['emailErr']}
                 />
-                <AppButton label={'Continue'} containerStyle={{ marginVertical: '5%' }} onPress={forgotPassTapped} />
+                <AppButton label={translate('common.continue')} containerStyle={{ marginVertical: '5%' }} onPress={forgotPassTapped} />
 
                 <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Text style={[styles.text, { color: Colors.themeColor, fontWeight: '600' }]}>Back to Sign In</Text>
+                    <Text style={[styles.text, { color: Colors.themeColor, fontWeight: '600' }]}>{translate('common.backtosignin')}</Text>
                 </TouchableOpacity>
             </KeyboardAwareScrollView>
 

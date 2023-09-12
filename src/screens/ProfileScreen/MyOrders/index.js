@@ -11,6 +11,7 @@ import Separator from '../../../constant/Separator'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { orderListLoadingStart, orderListReset, orderListPageChange, getOrderList } from '../../Store/actions/orderAction'
 import Loader from '../../../constant/Loader'
+import { translate } from '../../../utility'
 
 const MyOrderList = () => {
     const { orderList, isOrderDataLoading, orderPageChange, orderTotal } = useSelector(state => state.orderReducer);
@@ -70,7 +71,7 @@ const MyOrderList = () => {
                     style={styles.button}
                     onPress={() => navigation.navigate('OrderDetail', { orderId: mainItem?.id, productId: subItem?.product_id })}
                 >
-                    <Text style={styles.buttonText}>VIEW DETAIL</Text>
+                    <Text style={styles.buttonText}>{translate('common.viewdetail')}</Text>
                 </TouchableOpacity>
                 <View style={styles.separator} />
 
@@ -99,8 +100,8 @@ const MyOrderList = () => {
                         <View style={styles.container}>
                             <View style={styles.rowContainer}>
                                 <View style={{ paddingHorizontal: '5%' }}>
-                                    <Text style={styles.orderDetail}>ORDER ID : <Text style={{ color: Colors.BLACK }}>{item?.id}</Text></Text>
-                                    <Text style={styles.orderDetail}>ORDER PLACED : <Text style={{ color: Colors.BLACK }}>{renderOrderPlacedDate(item?.createdAt)}</Text></Text>
+                                    <Text style={styles.orderDetail}>{translate('common.orderid')} <Text style={{ color: Colors.BLACK }}>{item?.id}</Text></Text>
+                                    <Text style={styles.orderDetail}>{translate('common.orderplaced')} <Text style={{ color: Colors.BLACK }}>{renderOrderPlacedDate(item?.createdAt)}</Text></Text>
                                 </View>
                                 <View style={[styles.separator, { marginTop: '2%' }]} />
 
@@ -190,7 +191,7 @@ const MyOrderList = () => {
     const renderNoDataFound = () => {
         return (
             <View style={styles.sorryMessageCont}>
-                <Text style={styles.sorryMessage}>{'No data found'}</Text>
+                <Text style={styles.sorryMessage}>{translate('common.nodatafound')}</Text>
             </View>
         );
     }
@@ -204,7 +205,7 @@ const MyOrderList = () => {
         <AppBackground>
             <AppHeader
                 showBackButton
-                title={'My Orders'}
+                title={translate('common.myorders')}
             />
             {
                 isOrderDataLoading && orderPageChange === 1 ?
@@ -214,9 +215,9 @@ const MyOrderList = () => {
                         :
                         <EmptyDetailScreen
                             image={Images.Shoping}
-                            title={'We’re waiting for your first order'}
-                            description={'No orders placed yet. Shop from our categories and grab the best deals on your order.'}
-                            buttonLabel={'Continue Shopping'}
+                            title={translate('common.waitingFirstOrder')}
+                            description={translate('common.noOrderYet')}
+                            buttonLabel={translate('common.continueshopping')}
                         />
             }
 

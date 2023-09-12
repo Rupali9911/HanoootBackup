@@ -9,6 +9,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Colors from "../../constant/Colors";
 import Images from "../../constant/Images";
 import fonts from "../../constant/fonts";
+import { translate } from "../../utility";
 
 export default DeliveryType = React.memo((props) => {
     // console.log('chekc delivery type : ', props)
@@ -74,7 +75,7 @@ export default DeliveryType = React.memo((props) => {
                     style={[styles.image, { tintColor: toggle1 ? Colors.WHITE : Colors.themeColor }]}
                     source={Images.HomeButton}
                 />
-                <Text style={[styles.text, { color: toggle1 ? Colors.WHITE : Colors.themeColor }]}>{'Home'}</Text>
+                <Text style={[styles.text, { color: toggle1 ? Colors.WHITE : Colors.themeColor }]}>{translate('common.home')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -90,7 +91,7 @@ export default DeliveryType = React.memo((props) => {
                     style={[styles.image, { tintColor: toggle2 ? Colors.WHITE : Colors.themeColor }]}
                     source={Images.HomeButton}
                 />
-                <Text style={[styles.text, { color: toggle2 ? Colors.WHITE : Colors.themeColor }]}>{'Office'}</Text>
+                <Text style={[styles.text, { color: toggle2 ? Colors.WHITE : Colors.themeColor }]}>{translate('common.office')}</Text>
             </TouchableOpacity>
         </View>
     );
@@ -147,5 +148,4 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5
     }
 });
- 
- 
+

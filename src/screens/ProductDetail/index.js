@@ -44,6 +44,7 @@ import { showErrorToast, showInfoToast } from '../../Components/universal/Toast'
 import { getItemsFromCart } from '../Store/actions/cartAction';
 import { useIsFocused } from '@react-navigation/native';
 import AppModal from '../../Components/universal/Modal';
+import { translate } from '../../utility';
 
 const ProductDetail = (props) => {
     const product_detail_Id = props?.route?.params?.id;
@@ -176,7 +177,7 @@ const ProductDetail = (props) => {
     const renderNoDataFound = () => {
         return (
             <View style={styles.sorryMessageCont}>
-                <Text style={styles.sorryMessage}>{'No data found'}</Text>
+                <Text style={styles.sorryMessage}>{translate('common.nodatafound')}</Text>
             </View>
         );
     }

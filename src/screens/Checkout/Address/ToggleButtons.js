@@ -173,7 +173,7 @@ export default ToggleButtons = (props) => {
                     style={[styles.image, { tintColor: toggle1 ? Colors.WHITE : Colors.themeColor }]}
                     source={Images.HomeButton}
                 />
-                <Text style={[styles.text, { color: toggle1 ? Colors.WHITE : Colors.themeColor }]}>{'Home'}</Text>
+                <Text style={[styles.text, { color: toggle1 ? Colors.WHITE : Colors.themeColor }]}>{translate('common.home')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -189,7 +189,7 @@ export default ToggleButtons = (props) => {
                     style={[styles.image, { tintColor: toggle2 ? Colors.WHITE : Colors.themeColor }]}
                     source={Images.HomeButton}
                 />
-                <Text style={[styles.text, { color: toggle2 ? Colors.WHITE : Colors.themeColor }]}>{'Office'}</Text>
+                <Text style={[styles.text, { color: toggle2 ? Colors.WHITE : Colors.themeColor }]}>{translate('common.office')}</Text>
             </TouchableOpacity>
         </View>
     );

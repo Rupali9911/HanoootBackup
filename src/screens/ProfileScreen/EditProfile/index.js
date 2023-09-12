@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import AppBackground from '../../Components/AppBackground'
 import AppHeader from '../../Components/AppHeader'
@@ -6,10 +5,11 @@ import AppInput from '../../../constant/AppInput'
 import AppButton from '../../Components/AppButton'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
-import { maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName, maxLength50, validateEmail } from '../../utils'
+import { validateUserName, validateFullName, maxLength50, validateEmail } from '../../utils'
 import { updateProfile } from '../../../services/apis'
-import { setUserData, updateNameEmail } from '../../Store/actions/userAction'
-import { updateDisplayName, updateEmail } from '../../../services/socialAuth'
+import { updateNameEmail } from '../../Store/actions/userAction'
+import { updateDisplayName } from '../../../services/socialAuth'
+import { translate } from '../../../utility'
 
 const EditProfile = () => {
     const { userData } = useSelector((state) => state.userReducer)
@@ -46,8 +46,8 @@ const EditProfile = () => {
             .then((response) => {
                 updateDisplayName(null, name)
                 //updateEmail(email)
-                dispatch(updateNameEmail({ displayName: name, email: email}))
-                navigation.navigate('ToastMessageScreen', { title: 'Profile Updated Successfully!', navigate: 'ProfileScreen' })
+                dispatch(updateNameEmail({ displayName: name, email: email }))
+                navigation.navigate('ToastMessageScreen', { title: translate('common.profileupdatedsuccessfully'), navigate: 'ProfileScreen' })
             })
             .catch((error) => {
 
@@ -58,11 +58,11 @@ const EditProfile = () => {
         <AppBackground>
             <AppHeader
                 showBackButton
-                title={'Edit Profile'}
+                title={translate('common.editprofile')}
             />
             <AppInput
-                label={'Your Name'}
-                placeholder={'Enter your Name'}
+                label={translate('common.yourname')}
+                placeholder={translate('common.enteryourname')}
                 required
                 onChangeText={(name) => {
                     setName(name);
@@ -75,8 +75,8 @@ const EditProfile = () => {
             />
 
             <AppInput
-                label={'Email'}
-                placeholder={'Enter your eamil'}
+                label={translate('common.email')}
+                placeholder={translate('common.enteryouremail')}
                 onChangeText={(email) => {
                     setEmail(email)
                     setError({ ...error, ['emailErr']: null })
@@ -89,7 +89,7 @@ const EditProfile = () => {
             />
 
             <AppButton
-                label={'UPDATE PROFILE'}
+                label={translate('common.updateprofile')}
                 containerStyle={{ position: 'absolute', bottom: 10 }}
                 onPress={() => UpdateProfile()}
             />
@@ -98,5 +98,3 @@ const EditProfile = () => {
 }
 
 export default EditProfile
-
-const styles = StyleSheet.create({})

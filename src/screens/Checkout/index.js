@@ -1,9 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import EmptyAddress from './Address/EmptyAddress'
 import Address from './Address/Address'
-import AddAddress from './Address/AddAddress'
-import OrderSuccessScreen from './SucessFull'
 import ReviewOrder from './Review/ReviewOrder'
 import Payment from './Payment'
 import Colors from '../../constant/Colors'
@@ -11,36 +8,21 @@ import fonts from '../../constant/fonts'
 import AppBackground from '../Components/AppBackground'
 import AppHeader from '../Components/AppHeader'
 import { useIsFocused } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import LoactionPin from './Address/LoactionPin'
 import { useSelector } from 'react-redux';
-import DropdownPicker from '../../constant/DropdownPicker'
+import { translate } from '../../utility'
 
 const Checkout = (props) => {
   const { route } = props;
   const getData = route?.params?.AddressDetail;
   const editData = route?.params?.EDIT;
-
   const { addressRecordList } = useSelector(state => state.checkoutReducer);
-
-
-
-
-
   // const { ADDRESS_DETAIL } = useSelector(state => state.checkoutReducer);
-
   // console.log('Address details show from reducers : ', ADDRESS_DETAIL);
-
-
   const isFocused = useIsFocused();
   // console.log('Checkout screen Data : ', getData);
-
   const [screenType, setScreenType] = useState('ADDRESS')
   const [addressID, setAddressID] = useState(addressRecordList[0]?.id)
-
   console.log('chekcslkfj ', addressRecordList[0]?.id, addressID)
-
-
 
   //   useEffect(() => {
   // console.log('useeffct call')
@@ -70,7 +52,7 @@ const Checkout = (props) => {
       <AppBackground>
 
         <AppHeader
-          title={'Checkout'}
+          title={translate('common.checkout')}
           showRightComponent
           titleComponentStyle={{ alignItems: 'flex-start' }}
         />
@@ -81,21 +63,21 @@ const Checkout = (props) => {
             <TouchableOpacity style={styles.circle} >
               <Text style={styles.btnText}>1</Text>
             </TouchableOpacity>
-            <Text style={styles.text}>Address</Text>
+            <Text style={styles.text}>{translate('common.addressTxt')}</Text>
             <View style={styles.line1(screenType)} />
           </View>
           <View style={styles.row}>
             <TouchableOpacity style={styles.circle1(screenType)} >
               <Text style={styles.btnText}>2</Text>
             </TouchableOpacity>
-            <Text style={styles.text}>Payment</Text>
+            <Text style={styles.text}>{translate('common.payment')}</Text>
             <View style={styles.line2(screenType)} />
           </View>
           <View style={styles.row}>
             <TouchableOpacity style={styles.circle2(screenType)} >
               <Text style={styles.btnText}>3</Text>
             </TouchableOpacity>
-            <Text style={styles.text}>Place Order</Text>
+            <Text style={styles.text}>{translate('common.placeorder')}</Text>
           </View>
         </View>
 

@@ -35,6 +35,7 @@ import { getHomeCollection, homeDataLoadingStart, updateFeaturedCart, homeDataRe
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../constant/Loader';
 import { useIsFocused } from '@react-navigation/native';
+import { translate } from '../../utility';
 
 export default function HomeScreen() {
    const navigation = useNavigation();
@@ -227,7 +228,7 @@ export default function HomeScreen() {
    const renderNoDataFound = () => {
       return (
          <View style={styles.sorryMessageCont}>
-            <Text style={styles.sorryMessage}>{'No data found'}</Text>
+            <Text style={styles.sorryMessage}>{translate('common.nodatafound')}</Text>
          </View>
       );
    }

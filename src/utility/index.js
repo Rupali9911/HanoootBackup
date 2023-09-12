@@ -29,6 +29,11 @@ export const regionLanguage = RNLocalize.getLocales()
   .values()
   .next().value;
 
+export const regionCountry = RNLocalize.getLocales()
+  .map(a => a.countryCode)
+  .values()
+  .next().value;
+
 
 //=========================== SetI18nConfig (Language) Function =============================
 export function setI18nConfig(tag) {

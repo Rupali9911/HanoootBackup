@@ -13,7 +13,7 @@ import { categoryLoadingStart, getCategoryList, categoryPageChange, getSubCatego
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../../constant/Loader'
 import { capitalizeFirstLetter } from '../utils'
-
+import { translate } from '../../utility'
 const Category = () => {
     const [selectedFeedIndex, setSelectedFeedIndex] = useState(0)
     const [expanded, setExpanded] = useState(false);
@@ -218,7 +218,7 @@ const Category = () => {
     const renderNoDataFound = () => {
         return (
             <View style={styles.sorryMessageCont}>
-                <Text style={styles.sorryMessage}>{'No data found'}</Text>
+                <Text style={styles.sorryMessage}>{translate('common.nodatafound')}</Text>
             </View>
         );
     }

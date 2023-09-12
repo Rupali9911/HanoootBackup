@@ -54,8 +54,9 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Colors from './Colors';
 import fonts from './fonts';
 import { wp, hp } from './responsiveFunc';
-import {getStates} from 'country-state-picker';
-import { Country, State, City }  from 'country-state-city';
+import { getStates } from 'country-state-picker';
+import { Country, State, City } from 'country-state-city';
+import { translate } from '../utility';
 
 
 
@@ -399,33 +400,33 @@ const DropdownPicker = (props) => {
   useEffect(() => {
     const array = [];
     // // if ('France') {
-      // getStates('in').map((item) => {
-      //   array.push(
-      //     {
-      //       label: item,
-      //       value: item
-      //     }
-      //   );
-      // });
-      // // setStates(array);
-      // setItems(array)
+    // getStates('in').map((item) => {
+    //   array.push(
+    //     {
+    //       label: item,
+    //       value: item
+    //     }
+    //   );
+    // });
+    // // setStates(array);
+    // setItems(array)
 
 
-      City.getCitiesOfCountry('IQ').map((item) => {
-        array.push(
-          {
-            label: item?.name,
-            value: item?.name
-          }
-        );
-      });
-      setItems(array);
+    City.getCitiesOfCountry('IQ').map((item) => {
+      array.push(
+        {
+          label: item?.name,
+          value: item?.name
+        }
+      );
+    });
+    setItems(array);
 
-      // console.log('cities : ', getCity)
+    // console.log('cities : ', getCity)
 
-      // console.log('cgecxh state arry : ', array)
-      // console.log('cgecxh state arry : ',Country.getCountryByCode())
-      // console.log('state  : ',State.getStatesOfCountry('IN'))
+    // console.log('cgecxh state arry : ', array)
+    // console.log('cgecxh state arry : ',Country.getCountryByCode())
+    // console.log('state  : ',State.getStatesOfCountry('IN'))
     // }
   }, []);
 
@@ -451,7 +452,7 @@ const DropdownPicker = (props) => {
                 onChangeItem={item => setSelectedValue(item.value)}
             /> */}
 
-        <Text style={[styles.label, props.labelStyle]}>{'Town/City'}<Text style={{ color: 'red' }}>*</Text></Text>
+        <Text style={[styles.label, props.labelStyle]}>{translate('common.townCity')}<Text style={{ color: 'red' }}>*</Text></Text>
 
 
         <DropDownPicker
@@ -464,7 +465,7 @@ const DropdownPicker = (props) => {
           // listMode={'MODAL'}
           // defaultValue={props.Value}
 
-          placeholder={'Select Country'}
+          placeholder={translate('common.selectcountry')}
           placeholderStyle={{
             fontFamily: fonts.VisbyCF_Medium,
             fontWeight: '500',

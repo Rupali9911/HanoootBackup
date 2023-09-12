@@ -10,7 +10,7 @@ import SVGS from '../../constant/Svgs';
 import { useDispatch } from 'react-redux';
 import { globalSearchAPICall } from '../Store/actions/productListAction';
 import { useNavigation } from '@react-navigation/native';
-
+import { translate } from '../../utility';
 const { SearchGrayIcon, SearchArrow, CrossIcon } = SVGS;
 
 
@@ -206,7 +206,7 @@ const AppSearch = (props) => {
         </View>
       ) : searchTxt ? (
         <View style={[styles.listContainer, styles.noDataFoundStyle]}>
-          <Text>{'no data found'}</Text>
+          <Text>{translate('common.nodatafound')}</Text>
         </View>
       ) : null} */}
       {loading || searchData?.length ? (
@@ -233,7 +233,7 @@ const AppSearch = (props) => {
           </View>
         </View>
         // <View >
-        //   <Text>{'no data found'}</Text>
+        //   <Text>{translate('common.nodatafound')}</Text>
         // </View>
       ) : null
       }

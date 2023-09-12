@@ -6,7 +6,7 @@ import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import { hp, wp } from '../../../constant/responsiveFunc'
 import Images from '../../../constant/Images'
-
+import { translate } from '../../../utility'
 const ToastScreen = (props) => {
     const navigation = useNavigation();
     const popAction = StackActions.pop(2);
@@ -23,7 +23,7 @@ const ToastScreen = (props) => {
                 >{props.route.params.title}</Text>
             </View>
             <AppButton
-                label={'Go Back'}
+                label={translate('common.goback')}
                 containerStyle={styles.btn}
                 onPress={() => navigation.dispatch(popAction)}
             />

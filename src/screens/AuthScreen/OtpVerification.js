@@ -13,7 +13,7 @@ import { setUserData } from '../Store/actions/userAction'
 import { useDispatch } from 'react-redux'
 import { userRegister } from '../../services/apis'
 import { saveUserDetails, updateNameWithSaveDetails } from '../../helpers/user'
-
+import { translate } from '../../utility'
 const otpObj = {
     otp1: "",
     otp2: "",
@@ -228,7 +228,7 @@ const OtpVerification = ({ route }) => {
                     onPress={() => verifyOTP()
                     }
                 />
-                <Text suppressHighlighting={true} onPress={() => changeNumber()} style={[styles.text, styles.themeColor]}>Go Back</Text>
+                <Text suppressHighlighting={true} onPress={() => changeNumber()} style={[styles.text, styles.themeColor]}>{translate('common.goback')}</Text>
             </View>
 
         </AppBackground>

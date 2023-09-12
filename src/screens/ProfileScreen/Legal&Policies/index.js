@@ -7,6 +7,7 @@ import fonts from '../../../constant/fonts';
 import Colors from '../../../constant/Colors';
 import { useNavigation } from '@react-navigation/native';
 import PolicyView from './PolicyView';
+import { translate } from '../../../utility';
 
 const LegalPolicies = () => {
 
@@ -36,36 +37,36 @@ const LegalPolicies = () => {
         <AppBackground>
             <AppHeader
                 showBackButton
-                title={'Legal and Policies'}
+                title={translate('common.legalandpolicies')}
             />
             <ListItem
-                Text={'Terms & Conditions'}
+                Text={translate('common.termsNconditions')}
                 onPress={() => {
-                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: 'Terms & Conditions', url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
+                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: translate('common.termsNconditions'), url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
                 }}
             />
             <ListItem
-                Text={'Privacy Policy'}
+                Text={translate('common.privacypolicy')}
                 onPress={() => {
-                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: 'Privacy Policy', url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
+                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: translate('common.termsNconditions'), url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
                 }}
             />
             <ListItem
-                Text={'Warranty Policy'}
+                Text={translate('common.warrantypolicy')}
                 onPress={() => {
-                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: 'Warranty Policy', url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
+                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: translate('common.warrantypolicy'), url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
                 }}
             />
             <ListItem
-                Text={'Return Policy'}
+                Text={translate('common.returnpolicy')}
                 onPress={() => {
-                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: 'Return Policy', url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
+                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: translate('common.returnpolicy'), url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
                 }}
             />
             <ListItem
-                Text={'Sell with us'}
+                Text={translate('common.sellwithus')}
                 onPress={() => {
-                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: 'Sell with us', url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
+                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: translate('common.sellwithus'), url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
                 }}
             />
         </AppBackground>

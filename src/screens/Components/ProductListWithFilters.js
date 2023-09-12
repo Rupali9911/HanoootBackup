@@ -17,7 +17,7 @@ import fonts from '../../constant/fonts'
 import { capitalizeFirstLetter } from '../utils'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { showErrorToast } from '../../Components/universal/Toast'
-
+import { translate } from '../../utility'
 
 const ProductListWithFilters = (props) => {
     const DATA = props?.route?.params;
@@ -181,7 +181,7 @@ const ProductListWithFilters = (props) => {
     const renderNoDataFound = () => {
         return (
             <View style={styles.sorryMessageCont}>
-                <Text style={styles.sorryMessage}>{'No data found'}</Text>
+                <Text style={styles.sorryMessage}>{translate('common.nodatafound')}</Text>
             </View>
         );
     }

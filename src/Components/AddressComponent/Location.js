@@ -20,6 +20,7 @@ import {
   RESULTS,
   requestMultiple,
 } from 'react-native-permissions';
+import { translate } from '../../utility';
 
 const Location = (props) => {
   const updateRegion = props?.route?.params?.updateAddress;
@@ -66,11 +67,11 @@ const Location = (props) => {
       }
       else {
         Alert.alert(
-          `Turn on Location Services to determine your location.`,
+          translate('common.trunOnLoc'),
           '',
           [
-            { text: 'Go to Settings', onPress: openSettings },
-            { text: "Don't Use Location", onPress: () => { } },
+            { text: translate('common.gotosettings'), onPress: openSettings },
+            { text: translate('common.dontUseLocation'), onPress: () => { } },
           ],
         );
       }
@@ -89,11 +90,11 @@ const Location = (props) => {
       }
       else {
         Alert.alert(
-          `Turn on Location Services to determine your location.`,
+          translate('common.trunOnLoc'),
           '',
           [
-            { text: 'Go to Settings', onPress: openSettings },
-            { text: "Don't Use Location", onPress: () => { } },
+            { text: translate('common.gotosettings'), onPress: openSettings },
+            { text: translate('common.dontUseLocation'), onPress: () => { } },
           ],
         );
       }
@@ -159,12 +160,8 @@ const Location = (props) => {
           <MarkerIconBlue />
           <Text>{address}</Text>
         </View>
-        <AppButton label={'Confirm Location'}
-
-
+        <AppButton label={translate('common.confirmlocation')}
           onPress={goBack}
-
-
         />
       </View>
     );
@@ -200,7 +197,7 @@ const Location = (props) => {
     <AppBackground>
       <AppHeader
         showBackButton
-        title={'Pin Your Location'}
+        title={translate('common.pinyourlocation')}
       />
       <View style={styles.screenContainer}>
         <MapView
