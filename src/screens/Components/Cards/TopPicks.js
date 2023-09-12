@@ -3,30 +3,22 @@ import React, { useState } from 'react'
 import { hp, wp } from '../../../constant/responsiveFunc'
 import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
-import Images from '../../../constant/Images'
 import ProductHeader from './ProductHeader'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector, useDispatch } from 'react-redux'
 import { showErrorToast } from '../../../Components/universal/Toast'
 import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
 import { showInfoToast } from '../../../Components/universal/Toast'
-import { updateTopPicksCart } from '../../Store/actions/HomeAction'
-
-
 
 
 const TopPicks = (props) => {
   const Data = props.Data;
   const navigation = useNavigation();
-  const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.userReducer.userData);
   const [isAddToCart, setAddToCart] = useState('');
 
-
-
   const onAddtoCartPress = async (isCartedItem, productId, topPicksId) => {
-    console.log('check isCartedItem : ', topPicksId)
     try {
       if (!isCartedItem) {
 
@@ -35,7 +27,6 @@ const TopPicks = (props) => {
           setTimeout(() => {
             setAddToCart(true)
             showInfoToast('SUCCESS', response?.message)
-            // dispatch(updateTopPicksCart({ productId: productId, topPicksId: topPicksId }))
           }, 1000);
         }
         else {
@@ -53,6 +44,8 @@ const TopPicks = (props) => {
     }
   }
 
+
+
   const renderListItems = (item, index, topPicksId) => {
     return (
       <TouchableOpacity
@@ -69,7 +62,6 @@ const TopPicks = (props) => {
         <TouchableOpacity style={styles.cartBtn}
           onPress={() =>
             userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.id, topPicksId) : showErrorToast('For all your shopping needs', 'Please Login First')}
-        // userData ? {} : showErrorToast('For all your shopping needs', 'Please Login First')}
         >
           <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? 'View Cart' : 'Add to Cart'}</Text>
         </TouchableOpacity>
@@ -77,9 +69,11 @@ const TopPicks = (props) => {
     );
   }
 
+
   const keyExtractor = (item, index) => {
     return index;
   };
+
 
   const renderItem = ({ item, index }) => {
     const topPicksItem = item
@@ -119,34 +113,6 @@ const TopPicks = (props) => {
   }
 
   return (
-    // <>
-    //   <ProductHeader title={props.Title} />
-    //   <View style={styles.mainContainer}>
-    //     <Image
-    //       source={{ uri: props.bannerImage }}
-    //       style={styles.bannerImg}
-    //     />
-    //     <View style={styles.container}>
-    //       <View style={styles.headingContainer}>
-    //         <View>
-    //           <Text style={styles.title} numberOfLines={2}>PC Gaming Top Picks</Text>
-    //           <Text style={styles.description} numberOfLines={2}>Find your passion</Text>
-    //         </View>
-    //         <TouchableOpacity style={styles.seeAllBtn}>
-    //           <Text style={styles.seeAllBtnText}>Shop Now</Text>
-    //         </TouchableOpacity>
-    //       </View>
-    //       <FlatList
-    //         data={[1, 2, 3]}
-    //         renderItem={renderItem}
-    //         keyExtractor={keyExtractor}
-    //         numColumns={3}
-    //         scrollEnabled={false}
-    //         contentContainerStyle={{ alignItems: 'center' }}
-    //       />
-    //     </View>
-    //   </View>
-    // </>
     <>
       <View >
         <FlatList
@@ -171,16 +137,11 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     width: wp(86.67),
     paddingVertical: '5%',
-    // backgroundColor: 'green',
-    // alignItems: 'center'
   },
   headingContainer: {
     flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '5%', paddingBottom: '2%'
   },
   productContainer: {
-    // alignItems: 'center'
-    // alignItems: 'center', justifyContent: 'center'
-    // justifyContent: 'center',
     paddingHorizontal: '2%'
   },
   title: {

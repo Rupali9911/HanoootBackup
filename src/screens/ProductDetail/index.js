@@ -1,70 +1,53 @@
 import {
-    ScrollView, StyleSheet, Text, View, TouchableHighlight, Modal, ToastAndroid,
+    ScrollView, StyleSheet, Text, View,
     TouchableOpacity,
     Image,
-    Dimensions,
     FlatList,
-    ActivityIndicator,
 } from 'react-native'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import AppBackground from '../Components/AppBackground';
 import AppHeader from '../Components/AppHeader';
 import AppButton from '../Components/AppButton';
 import Colors from '../../constant/Colors';
 import ProductDetailCard from './ProductDetailCard';
 import UserReview from './UserReview';
-import ProductwithTitle from '../Components/Cards/ProductWithTitle';
 import ProductHeader from '../Components/Cards/ProductHeader';
-import ProductList from '../Components/Cards/ProductList';
-import { productCollection, productColorVariation, productMemoryVariation, productVersionVariation, Description } from '../../constant/DemoArray';
 import ProductVariation from './ProductVariation';
 import ProductQuantity from './ProductQty';
 import ProductSpecification from './ProductSpecification';
 import Banner from '../Components/Cards/Banner';
 import Images from '../../constant/Images';
 import { hp, wp } from '../../constant/responsiveFunc';
-import Separator from '../../constant/Separator';
 import ProductSpecCard from './ProductSpecCard';
 import ProductDelivery from './ProductDeliveryOptn';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-// import Toast from 'react-native-toast-message';
 import fonts from '../../constant/fonts';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart, setCartLabel } from '../Store/actions/cartAction';
-import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import { getProductDetail, productDetailReset, productDetailLoading, productInfoStore, setTappedButtonName } from '../Store/actions/productListAction';
 import Loader from '../../constant/Loader';
 import ListView from '../../Components/ListView';
 import ProductDescription from './ProductDescription';
 import { capitalizeFirstLetter } from '../utils';
-import { changeCartButtonLabel } from '../Store/actions/cartAction';
 import { AddtoCartAPICall } from '../../services/apis/CartAPI';
 import { showErrorToast, showInfoToast } from '../../Components/universal/Toast';
-import { getItemsFromCart } from '../Store/actions/cartAction';
 import { useIsFocused } from '@react-navigation/native';
 import AppModal from '../../Components/universal/Modal';
 import { translate } from '../../utility';
 
 const ProductDetail = (props) => {
     const product_detail_Id = props?.route?.params?.id;
-    const { isDetailPageLoad, productDetail, productFilterByCategory } = useSelector(state => state.productListReducer);
-    const { cartButtonLabel, cartItems } = useSelector(state => state.cartReducer);
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [productQty, setProductQty] = useState(Number(1));
+    const [isProductChecked, setProductChecked] = useState([])
     const [totalCartItemDetail, setTotalCartItemDetail] = useState({
         totalPrice: 0,
         noOfProducts: []
     });
-    const [modalVisible, setModalVisible] = useState(false);
 
-    const [productQty, setProductQty] = useState(Number(1));
-    const [isAddedToBag, setAddedToBag] = useState(false);
-    const [buttonLabel, setButtonLabel] = useState('Add to Cart');
-    const [isProductChecked, setProductChecked] = useState([])
+    const { isDetailPageLoad, productDetail, productFilterByCategory } = useSelector(state => state.productListReducer);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
     const userData = useSelector((state) => state.userReducer.userData);
-
-
-
-
 
 
     const dispatch = useDispatch();
@@ -75,7 +58,6 @@ const ProductDetail = (props) => {
         dispatch(productDetailReset())
         dispatch(productDetailLoading())
         dispatch(getProductDetail(product_detail_Id, userData))
-
 
         // return () => dispatch(setTappedButtonName(''));
     }, [isFocused])
@@ -98,11 +80,8 @@ const ProductDetail = (props) => {
 
     //     // lastContentOffset.value = event.contentOffset.y;
     //     // setLastContentOffset(scrollY);
-
     // };
 
-
-    console.log('PRODUCTDETAILAPICALLL------------', productDetail)
 
     const renderProductImages = () => {
         const images = productDetail?.ManagementProductDetail?.product_images;
@@ -118,7 +97,6 @@ const ProductDetail = (props) => {
     }
 
     const onAddtoCartPress = async (isCartedItem) => {
-        console.log('check isCartedItem : ', isCartedItem)
         dispatch(setTappedButtonName(false))
         try {
             if (!isCartedItem) {
@@ -135,7 +113,6 @@ const ProductDetail = (props) => {
                     // setTimeout(() => {
                     //     showInfoToast('SUCCESS', response?.message)
                     // }, 1000);
-
                 }
                 else {
                     showErrorToast()
@@ -150,8 +127,6 @@ const ProductDetail = (props) => {
             console.log('Error from onAddtoCartPress api ', error)
         }
     }
-
-    console.log('productDetail : ', productDetail)
 
     const onAddMultipleItemToCart = async () => {
         try {
@@ -207,9 +182,6 @@ const ProductDetail = (props) => {
     }
 
 
-
-
-
     return (
         <>
             <AppBackground>
@@ -227,8 +199,8 @@ const ProductDetail = (props) => {
                                 <ScrollView>
                                     <ProductDetailCard
                                         carouselData={productDetail?.images}
-                                        categoryName={productDetail?.ManagementCategory?.name}
-                                        title={productDetail?.title}
+                                        categoryName={selectedLanguageItem?.language_id === 0 ? productDetail?.ManagementCategory?.name : productDetail?.ManagementCategory?.name_arabic}
+                                        title={selectedLanguageItem?.language_id === 0 ? productDetail?.ManagementProductSeo?.product_name : productDetail?.ManagementProductSeo?.product_name_arabic}
                                         avgRating={productDetail?.ManagementProductReview?.average_rating}
                                         noOfReview={productDetail?.ManagementProductReview?.number_of_reviews}
                                         price={productDetail?.ManagementProductPricing?.hanooot_price}

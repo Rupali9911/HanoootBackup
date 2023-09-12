@@ -10,7 +10,6 @@ const SuggestedProducts = (props) => {
     const Data = props.Data;
     const navigation = useNavigation();
 
-
     const renderItem = ({ item, index }) => {
         console.log('suggestedProducts item id : ', item?.id)
         return (

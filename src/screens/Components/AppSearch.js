@@ -15,7 +15,6 @@ const { SearchGrayIcon, SearchArrow, CrossIcon } = SVGS;
 
 
 const AppSearch = (props) => {
-  // const [searchTxt, setSearchTxt] = useState('');
   const [loading, setloading] = useState(false);
 
   const [searchTxt, setSearchTxt] = useState('');
@@ -26,40 +25,6 @@ const AppSearch = (props) => {
 
   const navigation = useNavigation();
 
-  const [results, setResults] = useState(
-    [
-      {
-        "id": 1,
-        "title": "Apple iPhone 11 Pro Max",
-        "price": "1,249.99",
-        "image": "https://www.apple.com/iphone-11-pro/images/overview/og.jpg"
-      },
-      {
-        "id": 2,
-        "title": "Samsung Galaxy S20 Ultra",
-        "price": "1,399.99",
-        "image": "https://www.samsung.com/us/smartphones/galaxy-s20-ultra/images/galaxy-s20-ultra_front_black_s1.jpg"
-      },
-      {
-        "id": 3,
-        "title": "Google Pixel 4 XL",
-        "price": "899.99",
-        "image": "https://storage.googleapis.com/madebygoog/v1/Pixel/Pixel4_Black_Zoom.png"
-      },
-      {
-        "id": 4,
-        "title": "OnePlus 8 Pro",
-        "price": "999.99",
-        "image": "https://images-na.ssl-images-amazon.com/images/I/61aV6J6yCXL._AC_SL1500_.jpg"
-      }
-    ]
-  )
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     searchText();
-  //   }, 1000);
-  // }, [searchTxt]);
 
   useEffect(() => {
     if (searchTxt !== '') {
@@ -97,20 +62,6 @@ const AppSearch = (props) => {
 
 
 
-
-
-
-
-  // const searchText = () => {
-  //   let filteredName = results.filter((item) => {
-  //     return item.title.toLowerCase().match(searchTxt.toLowerCase());
-  //   })
-  //   if (!results || results != '') {
-  //     setSearchData(filteredName);
-  //   }
-  // }
-
-
   const handleFlatListRenderItem = ({ item, index }) => {
     console.log('handleFlatListRenderItem : ', item?.id)
     return (
@@ -120,9 +71,6 @@ const AppSearch = (props) => {
         borderBottomColor: Colors.GRAY,
         borderBottomWidth: 1,
         flex: 1
-        // flexDirection: 'row',
-        // alignItems: 'center',
-        // justifyContent: 'space-between'
       }}
         onPress={() => navigation.push('ProductDetail', { id: item?.id })}
       >
@@ -131,13 +79,9 @@ const AppSearch = (props) => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between'
-            // alignItems: 'center',
-            // gap: 10,
-            // backgroundColor: 'red'
           }}
           onPress={() => { }}
         >
-          {/* <Image source={Images.searchIcon} style={{ height: 20, width: 20, resizeMode: 'contain', tintColor: Colors.BLACK5 }} /> */}
           <Text style={{
             fontFamily: fonts.VisbyCF_Medium,
             fontWeight: 600,
@@ -151,7 +95,6 @@ const AppSearch = (props) => {
         </View>
 
       </TouchableOpacity>
-      // <Text>{'item?.title'}</Text>
     );
   };
 
@@ -188,27 +131,6 @@ const AppSearch = (props) => {
 
 
       </View>
-      {/* {loading || searchData?.length ? (
-        <View style={styles.listContainer}>
-          {loading ? (
-            <View style={styles.loaderContainer}>
-              <ActivityIndicator color={Colors.themeColor} size={25} />
-            </View>
-          ) : searchData.length > 0 && searchTxt ? (
-            <FlatList
-              data={searchData}
-              keyboardShouldPersistTaps={'handled'}
-              style={{ height: hp(50), backgroundColor: 'green' }}
-              renderItem={handleFlatListRenderItem}
-              keyExtractor={keyExtractor}
-            />
-          ) : null}
-        </View>
-      ) : searchTxt ? (
-        <View style={[styles.listContainer, styles.noDataFoundStyle]}>
-          <Text>{translate('common.nodatafound')}</Text>
-        </View>
-      ) : null} */}
       {loading || searchData?.length ? (
         <View >
           {loading ? (
@@ -232,33 +154,8 @@ const AppSearch = (props) => {
             <Text style={{ textAlign: 'center' }}>{'Oops!! No Products Found'}</Text>
           </View>
         </View>
-        // <View >
-        //   <Text>{translate('common.nodatafound')}</Text>
-        // </View>
       ) : null
       }
-
-
-
-
-
-
-
-      {/* {
-        searchData.length && searchTxt ?
-          (
-            <View >
-              <FlatList
-                data={searchData}
-                keyboardShouldPersistTaps={'handled'}
-                style={styles.listContainer}
-                renderItem={handleFlatListRenderItem}
-                keyExtractor={keyExtractor}
-              />
-            </View>
-          )
-          : null
-      } */}
     </View>
   )
 }

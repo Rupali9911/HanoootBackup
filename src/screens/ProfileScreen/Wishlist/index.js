@@ -14,6 +14,8 @@ import { removeWishlistItem } from '../../Store/actions/wishlistActions';
 import { addToCart } from '../../Store/actions/cartAction';
 import Toast from 'react-native-toast-message';
 import { translate } from '../../../utility';
+import { productCollection } from '../../../constant/DemoArray';
+
 
 const Wishlist = () => {
     const dispatch = useDispatch();
@@ -21,7 +23,7 @@ const Wishlist = () => {
     const { cartItems } = useSelector(state => state.cartReducer);
     const { WISHLIST_ITEMS } = useSelector(state => state.wishlistReducer);
 
-    // console.log('Check wishlist data : ', WISHLIST_ITEMS)
+    console.log('Check wishlist data : ', productCollection)
 
     const RemoveButton = (props) => {
         return (
@@ -63,12 +65,9 @@ const Wishlist = () => {
 
 
     const renderItem = ({ item, index }) => {
+        console.log('item : ', item)
         return (
-
-
             <TouchableOpacity
-                // onLongPress={onLongPress}
-                // onPress={onPress}
                 style={styles.collectionListItem}>
                 <View style={styles.listItemContainer}>
                     <RemoveButton
@@ -80,8 +79,7 @@ const Wishlist = () => {
                     <View style={{
                         alignItems: 'center'
                     }}>
-
-                        <Image source={item.image} style={{ height: 100, width: 100, resizeMode: 'contain' }} />
+                        <Image source={Images.Android} style={{ height: 100, width: 100, resizeMode: 'contain' }} />
                     </View>
 
                     <View style={{
@@ -134,41 +132,20 @@ const Wishlist = () => {
         <AppBackground>
             <AppHeader
                 showBackButton
-                title={translate('common.wishlist')}
-                showRightIcon
-                rightIcon={
-                    <Image
-                        source={Images.cart}
-                        style={{
-                            height: 20,
-                            width: 20,
-                            resizeMode: 'contain',
-                            tintColor: Colors.BLACK
-                        }}
-                    />
-                }
+            // title={translate('common.wishlist')}
             />
 
             {
-                WISHLIST_ITEMS.length ?
-                    <View
-                        style={{
-                            // flex: 1,
-                            // width: wp(100),
-                            // paddingHorizontal: '1%'
-                        }}
-                    >
-                        <FlatList
-                            numColumns={2}
-                            data={WISHLIST_ITEMS}
-                            renderItem={renderItem}
-                            keyExtractor={keyExtractor}
-                            showsVerticalScrollIndicator={false}
-                            contentContainerStyle={{
-                                // flexGrow: 1,
-                            }}
-                        />
-                    </View>
+                productCollection?.length > 0
+                    ?
+                    <FlatList
+                        numColumns={2}
+                        data={productCollection}
+                        renderItem={renderItem}
+                        keyExtractor={keyExtractor}
+                        showsVerticalScrollIndicator={false}
+
+                    />
                     :
                     <EmptyDetailScreen
                         image={Images.WishlistBanner}
@@ -176,14 +153,26 @@ const Wishlist = () => {
                         description={translate('common.startAdding')}
                         buttonLabel={translate('common.findItem')}
                     />
+
             }
 
-            <Toast
+            {/* :
+            <Text>jsdflk</Text> */}
+            {/* <EmptyDetailScreen
+                image={Images.WishlistBanner}
+                title={'Ready to make a Wish?'}
+                description={'Start adding items you love to your wishlist by tapping on the heart icon'}
+                buttonLabel={'Find Items to Save'}
+            />
+            {/* } */}
+
+            {/*<Toast
                 config={toastConfig}
                 position="bottom"
                 visibilityTime={2000}
                 autoHide={true}
-            />
+            /> */}
+
         </AppBackground>
     )
 }

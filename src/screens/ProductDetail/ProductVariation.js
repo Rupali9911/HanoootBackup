@@ -116,15 +116,18 @@ import React from 'react'
 import fonts from '../../constant/fonts';
 import Colors from '../../constant/Colors';
 import { hp } from '../../constant/responsiveFunc';
+import { useSelector } from 'react-redux';
 
 const ProductVariation = (props) => {
     const { variants } = props;
     // console.log('variants : ', variants, typeof (variants))
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
 
     // console.log( Object.keys(variants).length ? 'data hai ' : 'data ni hai') 
 
-    const renderTitle = (key) => {
+    const renderEnglishTitle = (key) => {
         switch (key) {
             case 'variant_size':
                 return 'Size'
@@ -149,11 +152,42 @@ const ProductVariation = (props) => {
         }
     }
 
-    const renderDescription = (str) => {
-        if (str.includes(':')) {
-            return str.split(':')[1];
+    const renderArabicTitle = (key) => {
+        switch (key) {
+            case 'platform_arabic':
+                return 'منصة'
+            case 'variant_book_arabic':
+                return 'كتاب'
+            case 'variant_color_arabic':
+                return 'لون'
+            // case 'variant_item_package_quantity_arabic':
+            //     return 'كمية حزمة السلعة'
+            case 'variant_material_arabic':
+                return 'مادة'
+            case 'variant_model_arabic':
+                return 'مشروط'
+            case 'variant_size_arabic':
+                return 'مقاس'
+            case 'variant_style_arabic':
+                return 'أسلوب'
+            default:
+                return null;
         }
-        return str;
+    }
+
+    const renderDescription = (str, key) => {
+        console.log("selectedLanguageItem", str, "key", key);
+        if (selectedLanguageItem?.language_id == 1) {
+            if (key.includes('arabic')) {
+                return str;
+            }
+        }
+        else {
+            if (str.includes(':')) {
+                return str.split(':')[1];
+            }
+            return str;
+        }
     }
 
     const renderVariantions = () => {
@@ -163,14 +197,14 @@ const ProductVariation = (props) => {
                     return (
                         <View key={key}>
                             <View style={styles.mainCont}>
-                                <Text style={styles.heading}>{renderTitle(key)}</Text>
+                                <Text style={styles.heading}>{selectedLanguageItem?.language_id === 0 ? renderEnglishTitle(key) : renderArabicTitle(key)}</Text>
                                 <View style={styles.container}
                                     onPress={() => { }}>
                                     <Text style={{
                                         borderColor: Colors.themeColor,
                                         color: Colors.themeColor,
                                         ...styles.item
-                                    }}>{renderDescription(variants[key])}</Text>
+                                    }}>{renderDescription(variants[key], key)}</Text>
                                 </View>
                             </View>
                         </View>

@@ -4,15 +4,12 @@ import ProductHeader from './ProductHeader'
 import { hp, wp } from '../../../constant/responsiveFunc'
 import Colors from '../../../constant/Colors'
 import fonts from '../../../constant/fonts'
-import Images from '../../../constant/Images'
 import { capitalizeFirstLetter } from '../../utils'
 import { useNavigation } from '@react-navigation/native'
 
 const CategoryList = (props) => {
     const Data = props.Data;
-
     const navigation = useNavigation();
-
 
     const renderChildren = ({ item, index }) => {
         return (
@@ -44,12 +41,11 @@ const CategoryList = (props) => {
                 />
             </>
         );
-
     }
 
     return (
         <>
-            <View >
+            <View>
                 <FlatList
                     data={Data?.categoryList}
                     renderItem={renderItem}

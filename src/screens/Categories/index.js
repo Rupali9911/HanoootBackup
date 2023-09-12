@@ -7,23 +7,25 @@ import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
 import Images from '../../constant/Images'
 import { useNavigation } from '@react-navigation/native'
-// import { FeedArray } from '../../constant/DemoArray'
-import { FeedArray } from '../../constant/DemoArray'
-import { categoryLoadingStart, getCategoryList, categoryPageChange, getSubCategoryList } from '../Store/actions/categoryAction'
+import { categoryLoadingStart, getCategoryList, categoryPageChange, getSubCategoryList, categoryListReset } from '../Store/actions/categoryAction'
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../../constant/Loader'
 import { capitalizeFirstLetter } from '../utils'
 import { translate } from '../../utility'
 const Category = () => {
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+
     const [selectedFeedIndex, setSelectedFeedIndex] = useState(0)
     const [expanded, setExpanded] = useState(false);
     const [subCategoryIndex, setSubCategoryIndex] = useState(null);
+
     const { isCatgListLoading, categoryList, subCategoryList, categoryPageNum, categoryTotalCounts } = useSelector(state => state.categoryReducer);
-    const dispatch = useDispatch();
-    const userData = useSelector((state) => state.userReducer.userData);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
 
-    const navigation = useNavigation();
+    console.log('selectedLanguageItem : ', selectedLanguageItem)
+
 
     useEffect(() => {
         dispatch(categoryLoadingStart());
@@ -35,21 +37,18 @@ const Category = () => {
         dispatch(getCategoryList(page));
     }, []);
 
-    console.log('USERDATA: ', userData)
-
     const renderCategories = ({ item, index }) => {
         return (
             <TouchableOpacity style={styles.categorySection(selectedFeedIndex, index)}
                 onPress={() => {
                     setSelectedFeedIndex(index)
-                    // setSelectedFeedItems(item)
                     dispatch(getSubCategoryList(item))
                 }}
             >
                 <Text
                     style={styles.categoryText(selectedFeedIndex, index)}
                     numberOfLines={2}>
-                    {capitalizeFirstLetter(item?.name)}
+                    {selectedLanguageItem?.language_id === 0 ? capitalizeFirstLetter(item?.name) : item?.name_arabic}
                 </Text>
             </TouchableOpacity>
         );
@@ -75,6 +74,7 @@ const Category = () => {
             !isCatgListLoading &&
             categoryList?.rows.length !== categoryTotalCounts
         ) {
+            console.log('if called', categoryPageNum + 1)
             let num = categoryPageNum + 1;
             // dispatch(categoryLoadingStart());
             getData(num);
@@ -107,7 +107,8 @@ const Category = () => {
 
     const SubCategoryListItems = (props) => {
         return (
-            <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters', { category_id: subCategoryList?.id, headerTitle: subCategoryList?.name })}>
+            // <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters', { category_id: subCategoryList?.id, headerTitle: subCategoryList?.name })}>
+            <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters', { category_id: props?.id, headerTitle: props?.name })}>
                 <Image
                     source={{ uri: props.image }}
                     style={styles.image}
@@ -136,11 +137,9 @@ const Category = () => {
     }
 
     const RightComponentList = (subCategory, idx) => {
-
-        console.log('RightComponentList : ', subCategoryList)
         return (
             <>
-                {subCategory?.name && <SubCategoriesTitle title={capitalizeFirstLetter(subCategory?.name)} index={idx} />}
+                {subCategory?.name && <SubCategoriesTitle title={selectedLanguageItem?.language_id === 0 ? capitalizeFirstLetter(subCategory?.name) : subCategory?.name_arabic} index={idx} />}
 
                 {expanded && subCategoryIndex === idx && (
                     <ListView
@@ -153,8 +152,9 @@ const Category = () => {
                                 index != 5 ?
                                     <SubCategoryListItems
                                         image={item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png'}
-                                        name={item?.name}
-                                        id={subCategory?.parent_id}
+                                        name={selectedLanguageItem?.language_id === 0 ? item?.name : item?.name_arabic}
+                                        // id={subCategory?.parent_id}
+                                        id={item?.id}
                                     />
                                     :
                                     <ViewMoreButton
@@ -172,18 +172,39 @@ const Category = () => {
         );
     }
 
+    const refreshFunc = () => {
+        dispatch(categoryListReset());
+        getData(1);
+        dispatch(categoryPageChange(1));
+    }
+
+    const handleFlatlistRefresh = () => {
+        dispatch(categoryLoadingStart());
+        refreshFunc()
+        console.log('Top Refresh Called')
+    }
+
+    const renderFooter = () => {
+        if (!isCatgListLoading) return null;
+        return (
+            <ActivityIndicator size='small' color={Colors.themeColor} />
+        )
+    }
+
 
     const renderCategoryCollectionList = () => {
         return (
-
             <View style={styles.container}>
                 <View style={styles.categoryContainer}>
                     <ListView
                         data={categoryList?.rows}
                         renderItem={renderCategories}
-                        onEndReached={handleFlatListEndReached}
-                        onEndReachedThreshold={0.5}
-                    // ListFooterComponent={() => console.log('Footer Called')}
+                        keyExtractor={(item, index) => index.toString()}
+                    // onEndReached={handleFlatListEndReached}
+                    // onEndReachedThreshold={0.5}
+                    // ListFooterComponent={renderFooter}
+                    // onRefresh={handleFlatlistRefresh}
+                    // refreshing={categoryPageNum === 1 && isCatgListLoading}
                     />
                 </View>
 
@@ -229,7 +250,7 @@ const Category = () => {
         <AppBackground>
             <AppHeader placeholderText={'What are you looking for?'} />
             {isCatgListLoading && categoryPageNum === 1 ?
-                (<Loader />) :
+                <Loader /> :
                 categoryList?.rows?.length > 0 ?
                     renderCategoryCollectionList()
                     :
@@ -242,7 +263,6 @@ export default Category
 
 const styles = StyleSheet.create({
     SubCategoryItemsContainer: {
-        // height: hp(13),
         width: wp(21),
         backgroundColor: Colors.WHITE,
         margin: 5.5,

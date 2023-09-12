@@ -54,39 +54,39 @@ const HomeReducer = (state = initialState, action) => {
                 item.id === id1
             })
 
-            // console.log('UPADTE_TOP_PICK_CART : ', indexOfARR1, action.payload)
+            console.log('UPADTE_TOP_PICK_CART : ', indexOfARR1, action.payload)
 
 
-            var arrUpdated = state.HomeCollection?.topPicksJson?.topPicks[indexOfARR1]?.TopPicksProducts.map((item, index) => {
-                if (item.id !== id2) {
-                    return item
-                }
-                return {
-                    ...item,
-                    isCart: true
-                }
-            })
-            console.log('arrUpdated : ', arrUpdated)
+        // var arrUpdated = state.HomeCollection?.topPicksJson?.topPicks[indexOfARR1]?.TopPicksProducts.map((item, index) => {
+        //     if (item.id !== id2) {
+        //         return item
+        //     }
+        //     return {
+        //         ...item,
+        //         isCart: true
+        //     }
+        // })
+        // console.log('arrUpdated : ', arrUpdated)
 
-            arrFinal = arrFinal.map((item, index) => {
-                if (index === indexOfARR1) {
-                    return arrUpdated
-                }
-                return {
-                    item
-                }
-            })
+        // arrFinal = arrFinal.map((item, index) => {
+        //     if (index === indexOfARR1) {
+        //         return arrUpdated
+        //     }
+        //     return {
+        //         item
+        //     }
+        // })
 
-            return {
-                ...state,
-                HomeCollection: {
-                    ...state.HomeCollection,
-                    topPicksJson: {
-                        ...state.HomeCollection.topPicksJson,
-                        topPicks: arrFinal
-                    }
-                }
-            }
+        // return {
+        //     ...state,
+        //     HomeCollection: {
+        //         ...state.HomeCollection,
+        //         topPicksJson: {
+        //             ...state.HomeCollection.topPicksJson,
+        //             topPicks: arrFinal
+        //         }
+        //     }
+        // }
 
 
         case HOME_DATA_FAIL:

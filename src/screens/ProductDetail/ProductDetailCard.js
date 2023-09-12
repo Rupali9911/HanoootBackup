@@ -9,7 +9,7 @@ import { ExpressView } from '../../constant/ListConstant';
 import Separator from '../../constant/Separator';
 import { addToWishlistAPICall } from '../../services/apis/WishlistAPI';
 import { capitalizeFirstLetter } from '../utils';
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Rating } from 'react-native-ratings';
 import SVGS from '../../constant/Svgs';
 import { showErrorToast } from '../../Components/universal/Toast';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,37 +19,20 @@ import { showInfoToast } from '../../Components/universal/Toast';
 const { HeartIconActive, HeartIcon, ShareIcon } = SVGS
 
 
-
 const ProductDetailCard = (props) => {
-    const [isLike, setLike] = useState(false)
-    const { carouselData, title, avgRating, noOfReview, price, discount, categoryName, isItemLiked, productLink } = props;
-    const userData = useSelector((state) => state.userReducer.userData);
     const dispatch = useDispatch();
+
+    const [isLike, setLike] = useState(false)
+
+    const { carouselData, title, avgRating, noOfReview, price, categoryName, productLink } = props;
+    const userData = useSelector((state) => state.userReducer.userData);
     const { productDetail } = useSelector(state => state.productListReducer);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
 
     const addToWishlistProduct = async () => {
         if (userData) {
-            // if (response?.success) {
-            //     dispatch(productDetailLoading())
-            //     const resp1 = dispatch(getProductDetail(product_detail_Id, userData))
-            //     if (resp1) {
-            //         setTimeout(() => {
-            //             showInfoToast('SUCCESS', response?.message)
-            //         }, 1000);
-            //     }
-            //     // setTimeout(() => {
-            //     //     showInfoToast('SUCCESS', response?.message)
-            //     // }, 1000);
-
-            // }
-            // else {
-            //     showErrorToast()
-            // }
-
-
-
-
             try {
                 const response = await addToWishlistAPICall(props.productId);
                 if (response?.success) {
@@ -63,15 +46,12 @@ const ProductDetailCard = (props) => {
                         }, 1000);
 
                     }
-
-
                     setLike(!isLike)
                 }
                 else {
                     setLike(false)
                 }
 
-                // setLike(!isLike);
             }
             catch (error) {
                 setLike(false)
@@ -83,13 +63,6 @@ const ProductDetailCard = (props) => {
             showErrorToast('For all your shopping needs', 'Please Login First')
         }
     }
-
-
-    console.log('productDetail API ', productDetail)
-
-
-    console.log('productDetail islike key check : ', productDetail?.isLike)
-
 
     const onShare = async () => {
         let productName = title
@@ -121,10 +94,6 @@ const ProductDetailCard = (props) => {
                 <TouchableOpacity
                     onPress={() => onShare()}
                 >
-                    {/* <Image
-                        source={Images.ShareIcon}
-                        style={[{ height: 20, width: 20, resizeMode: 'center', tintColor: Colors.GRAY2}, props.imageStyle]}
-                    /> */}
                     <ShareIcon />
                 </TouchableOpacity>
             </View>
@@ -133,32 +102,13 @@ const ProductDetailCard = (props) => {
 
     const WishlistButton = (props) => {
         return (
-            // <View style={[styles.circleView, props.contStyle]}>
-            //     <TouchableOpacity
-            //         onPress={props.onPress}
-            //     >
-            //         <Image
-            //             source={props.Image}
-            //             style={[{ height: 20, width: 20, resizeMode: 'center', tintColor: Colors.GRAY}, props.imageStyle]}
-            //         />
-            //     </TouchableOpacity>
-            //     <HeartIconActive  />
-            // </View>
-
-
             <View style={[styles.circleView, props.contStyle]}>
                 <TouchableOpacity
                     onPress={addToWishlistProduct}
                 >
-                    {/* {
-                        isItemLiked ? <HeartIconActive /> : isLike ? <HeartIconActive /> : <HeartIcon />
-                    } */}
-
                     {productDetail?.isLike ? <HeartIconActive /> : <HeartIcon />}
                 </TouchableOpacity>
-                {/* <HeartIconActive  /> */}
             </View>
-
         )
     }
 
@@ -186,19 +136,7 @@ const ProductDetailCard = (props) => {
             }
         }
 
-
-        // return stars;
         return (
-            // <View style={{ flexDirection: 'row', gap: 2, alignItems: 'center' }}>
-            //     {stars}
-            //     <Text style={{
-            //         fontSize: 11,
-            //         lineHeight: 21,
-            //         letterSpacing: 0.5,
-            //         fontFamily: fonts.VISBY_CF_REGULAR,
-            //         fontWeight: 500
-            //     }}>{`(${noOfReview})`}</Text>
-            // </View>
             <View style={{ flexDirection: 'row', gap: 2, alignItems: 'center' }}>
                 <Rating
                     type='custom'
@@ -217,14 +155,6 @@ const ProductDetailCard = (props) => {
                     fontWeight: 500
                 }}>{`(${noOfReview})`}</Text>
             </View >
-
-            //             <AirbnbRating
-            //   count={11}
-            //   reviews={["Terrible", "Bad", "Meh", "OK", "Good", "Hmm...", "Very Good", "Wow", "Amazing", "Unbelievable", "Jesus"]}
-            //   defaultRating={11}
-            //   size={20}
-            // />
-
         );
     }, [])
 
@@ -243,8 +173,6 @@ const ProductDetailCard = (props) => {
                     <Text style={styles.brandName}>
                         {categoryName ? capitalizeFirstLetter(categoryName) : ''}
                     </Text>
-                    {/* <Rating />
-                     */}
                     <RatingAndReview />
                 </View>
 
@@ -263,16 +191,12 @@ const ProductDetailCard = (props) => {
             </View>
             <Separator />
             <ProductImageCarousel
-                // data={carouselData}
                 data={carouselData}
             />
             <Separator />
 
 
             <View style={styles.iconCotainer}>
-                {/* <ShareWishlistView Image={isLike ? Images.CartImage : Images.Wishlist} onPress={addToWishlistProduct}  /> */}
-                {/* <ShareWishlistView Image={Images.ShareIcon} /> */}
-                {/* <ShareWishlistView /> */}
                 <WishlistButton />
                 <ShareButton />
             </View>

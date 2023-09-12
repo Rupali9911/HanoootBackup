@@ -7,9 +7,6 @@ import Colors from '../../constant/Colors'
 import ListView from '../../Components/ListView'
 import { ProductListData } from '../../constant/DemoArray'
 import { wp, hp } from '../../constant/responsiveFunc'
-// import { productListLoadingStart, productListPageChange } from '../Store/actions/ProductListAction'
-// import { useSelector, useDispatch } from 'react-redux'
-// import { productListLoadingStart, productListPageChange } from '../Store/actio'
 import { productListLoadingStart, productListPageChange, getProductList, productListReset } from '../Store/actions/productListAction'
 import { useSelector, useDispatch } from 'react-redux'
 import Loader from '../../constant/Loader'
@@ -29,6 +26,8 @@ const ProductListWithFilters = (props) => {
 
     const { isListLoading, productList, productListPage, productTotalCount } = useSelector(state => state.productListReducer);
     const userData = useSelector((state) => state.userReducer.userData);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
 
     useEffect(() => {
@@ -43,13 +42,10 @@ const ProductListWithFilters = (props) => {
     }, []);
 
 
-    console.log('product list data is here : ', productList)
-
 
 
 
     const renderItem = ({ item, index }) => {
-        console.log('liked item  :', item?.isLike)
         return (
 
             DATA?.isNavigationSection === 'NewArrivals'
@@ -97,7 +93,7 @@ const ProductListWithFilters = (props) => {
                         <ListView
                             item={item}
                             centerImage={item?.images[0]}
-                            productName={item?.title}
+                            productName={selectedLanguageItem?.language_id === 0 ? capitalizeFirstLetter(item?.ManagementProductSeo?.product_name) : item?.ManagementProductSeo?.product_name_arabic}
                             price={item?.ManagementProductPricing?.hanooot_price}
                             // discount={item?.ManagementProductPricing.hanooot_discount}
                             averageRating={item?.ManagementProductReview?.average_rating}
@@ -109,8 +105,6 @@ const ProductListWithFilters = (props) => {
                             isItemLiked={item?.isLike}
                             ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), }}
                         />
-
-
         );
     }
 
@@ -125,8 +119,6 @@ const ProductListWithFilters = (props) => {
         )
     }
 
-
-    // console.log(productList.length, productTotalCount)
 
     const handleFlatListEndReached = () => {
         if (
@@ -195,14 +187,10 @@ const ProductListWithFilters = (props) => {
             <AppHeader
                 showBackButton
                 title={capitalizeFirstLetter(DATA?.headerTitle)}
-                // showRightIcon
                 titleComponentStyle={{ alignItems: 'flex-start', marginStart: 10 }}
                 showLikeIcon
-                // onLikePress={() => userData ? navigation.navigate('WishlistScreen') : renderToastMsg()}
                 showSearchIcon
                 showCartIcon
-            // onCartPress={() => navigation.navigate('CartScreen')}
-
             />
             {
                 isListLoading && productListPage === 1 ?

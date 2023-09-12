@@ -9,7 +9,6 @@ const RecentlyViewProduct = (props) => {
     const Data = props.Data;
     const navigation = useNavigation();
 
-
     const renderItem = ({ item, index }) => {
         return (
             <ListView
@@ -50,9 +49,6 @@ const RecentlyViewProduct = (props) => {
                     :
                     null
             }
-
-
-
         </>
     )
 }

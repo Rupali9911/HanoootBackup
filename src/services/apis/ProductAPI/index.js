@@ -37,14 +37,22 @@ export const ProductListAPICall = (pageNumber, category_id, limit, isNavigationS
 
 
 export const ProductDetailAPICall = (id, userData) => {
+    console.log('detail api param : ', id, userData)
     return new Promise((resolve, _reject) => {
-        sendRequest({
-            url: `${PRODUCT_API}/detail/${id}`,
-            method: 'GET',
-            headers: {
-                'Authorization': !userData && 'No'
-            },
-        }).
+
+        (userData
+            ? sendRequest({
+                url: `${PRODUCT_API}/detail/${id}`,
+                method: 'GET',
+            })
+            : sendRequest({
+                url: `${PRODUCT_API}/detail/${id}`,
+                method: 'GET',
+                headers: {
+                    'Authorization': 'No'
+                },
+            })
+        ).
             then((response) => {
                 console.log('Response Product Detail API : ', response);
                 resolve(response);

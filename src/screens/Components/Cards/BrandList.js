@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import Images from '../../../constant/Images';
 import { hp, wp } from '../../../constant/responsiveFunc';
 import Colors from '../../../constant/Colors';
 import { useNavigation } from '@react-navigation/native'
@@ -12,7 +11,6 @@ const BrandList = (props) => {
 
 
     const renderBrandList = ({ item, index }) => {
-        console.log('renderBrandList : ', item)
         return (
             <TouchableOpacity
                 style={styles.brandContainer} key={item?.id}
@@ -55,7 +53,6 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         marginHorizontal: 5,
         marginTop: hp(3)
-
     },
     brandImage: {
         height: hp(9.85),
