@@ -1,16 +1,12 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, View, Image } from 'react-native'
 import React from 'react'
 import { hp, wp } from '../../../constant/responsiveFunc'
-import Images from '../../../constant/Images'
 import Carousels from '../Carousel'
 
 const BannerCollage = (props) => {
     const Data = props.Data;
 
     const slideWidth = wp(86.93);
-
-    console.log('BannerCollage : ', Data)
-
 
     const renderItem = ({ item, index }) => {
         return (
@@ -33,8 +29,6 @@ const BannerCollage = (props) => {
                 dotStyle={{ bottom: 30 }}
                 containerStyle={{ paddingVertical: '1%' }}
                 enablePagination
-            // itemWidth={100}
-            // sliderWidth={100}
             />
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flex: 1 }}>
                 <Image source={{ uri: Data?.smallBanner[0]?.image_url }} style={{ width: wp(42.40), height: hp(14.53), resizeMode: 'cover', marginHorizontal: '1%', borderRadius: 10 }} />

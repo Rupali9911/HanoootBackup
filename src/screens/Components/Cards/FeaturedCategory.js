@@ -1,5 +1,5 @@
-import { Image, StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions } from 'react-native'
-import React, { useState, useRef } from 'react'
+import { Image, StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
+import React, { useState } from 'react'
 import Images from '../../../constant/Images'
 import { hp, wp } from '../../../constant/responsiveFunc'
 import fonts from '../../../constant/fonts'
@@ -17,31 +17,9 @@ const FeaturedCategory = (props) => {
     const navigation = useNavigation();
     const [isAddToCart, setAddToCart] = useState('')
 
-
-    const arr = [];
-    console.log('FeaturedCategory : ', Data)
     const userData = useSelector((state) => state.userReducer.userData);
 
-
-    const _renderListView = () => {
-        return (
-            <View style={styles.listContainer}>
-                <View style={styles.itemImgContainer}>
-                    <Image source={Images.Android2} style={styles.itemImg} />
-                </View>
-                <View style={{ gap: 18 }}>
-                    <Text numberOfLines={2} style={styles.itemName}>{item?.title}</Text>
-                    <Text style={styles.itemPrice}>$ 249.00</Text>
-                </View>
-                <TouchableOpacity style={styles.cartBtn}>
-                    <Text style={styles.cartBtnTxt}>Add to Cart</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
-
     const onAddtoCartPress = async (isCartedItem, productId) => {
-        console.log('check isCartedItem : ', isCartedItem, productId)
         try {
             if (!isCartedItem) {
 
@@ -70,13 +48,11 @@ const FeaturedCategory = (props) => {
 
     function sliceIntoChunks(arr, chunkSize) {
         const res = [];
-        // console.log('here is an array  : ', arr)
         if (arr.length > 3) {
             for (let i = 0; i < arr.length; i += chunkSize) {
                 const chunk = arr.slice(i, i + chunkSize);
                 res.push(chunk);
             }
-            // console.log('sliceIntoChunks', res)
             return res;
         }
         else {
@@ -112,19 +88,6 @@ const FeaturedCategory = (props) => {
     };
 
     const renderCarousal = ({ item, index }) => {
-        // console.log('renderCarousal : ', item)
-        // if (Array.isArray(item)) {
-        //     console.log('renderCarousal : ', true)
-        // }
-        // else {
-        //     console.log('renderCarousal : ', false)
-        //     arr.push(item)
-        // }
-
-
-
-        // console.log('arr is herer : ', arr)
-
         return (
             <View style={styles.productContainer}>
                 <FlatList
@@ -135,16 +98,7 @@ const FeaturedCategory = (props) => {
                     scrollEnabled={false}
                     contentContainerStyle={{ alignItems: item?.length > 3 ? 'center' : 'flex-start' }}
                 />
-
-
-
-
-
-
-
-
             </View>
-
         )
     }
 
@@ -179,7 +133,6 @@ const FeaturedCategory = (props) => {
                         enablePagination
                     />
                 }
-
             </View>
         </View>
     )
@@ -205,9 +158,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '5%', paddingBottom: '2%'
     },
     productContainer: {
-        // alignItems: 'center'
-        // alignItems: 'center', justifyContent: 'center'
-        // justifyContent: 'center',
         paddingHorizontal: '2%'
     },
     title: {

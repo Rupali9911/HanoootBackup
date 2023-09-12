@@ -3,6 +3,7 @@ import sendRequest from "../../axios/AxiosApiRequest";
 import { showInfoToast, showErrorToast } from "../../../Components/universal/Toast";
 
 export const HomeDataAPICall = (userData) => {
+    console.log('home api callled')
     return new Promise((resolve, _reject) => {
         (userData
             ? sendRequest({

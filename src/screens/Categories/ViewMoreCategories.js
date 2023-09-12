@@ -6,6 +6,7 @@ import { hp, wp } from '../../constant/responsiveFunc'
 import fonts from '../../constant/fonts'
 import Colors from '../../constant/Colors'
 import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
 
 const ViewMoreCategories = (props) => {
@@ -13,14 +14,22 @@ const ViewMoreCategories = (props) => {
 
     const navigation = useNavigation();
 
+    const { subCategoryList } = useSelector(state => state.categoryReducer);
+
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
+
+
 
     // console.log('ViewMoreCategories : ', ITEMS);
 
     const renderItem = ({ item, index }) => {
+        console.log('this are items from view more categories : ', item)
         return (
             <TouchableOpacity style={styles.itemContainer}
-                // onPress={() => navigation.navigate('ProductListWithFilters')}
-                onPress={() => { }}
+                onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: selectedLanguageItem?.language_id === 0 ? item?.name : item?.name_arabic })}
+            // onPress={() => { }}
+
             >
                 <Image
                     source={{ uri: item?.thumbnail_image }}
@@ -30,9 +39,9 @@ const ViewMoreCategories = (props) => {
                     item?.name &&
                     <Text numberOfLines={2}
                         style={styles.subCategoryText}
-                    >{item?.name}</Text>
+                    >{selectedLanguageItem?.language_id === 0 ? item?.name : item?.name_arabic}</Text>
                 }
-            </TouchableOpacity>
+            </TouchableOpacity >
         );
     }
 
@@ -40,7 +49,7 @@ const ViewMoreCategories = (props) => {
     return (
         <AppBackground>
             <AppHeader placeholderText={'What are you looking for?'} />
-            <Text style={styles.title}>{ITEMS?.name}</Text>
+            <Text style={styles.title}>{selectedLanguageItem?.language_id === 0 ? capitalizeFirstLetter(ITEMS?.name) : ITEMS?.name_arabic}</Text>
             <View style={styles.centerView}>
                 <FlatList
                     data={ITEMS?.children}

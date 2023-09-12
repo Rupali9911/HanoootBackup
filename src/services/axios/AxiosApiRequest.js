@@ -8,7 +8,7 @@ import axios from 'axios';
 
 //=============== API Calling function ========================
 async function sendRequest(payload) {
-  // console.log('payload check : ', payload, 'and ', payload.headers, 'and ')
+  console.log('payload check : ', payload)
   try {
     const token = await getAccessToken('ACCESS_TOKEN');
     console.log('token received from getAccessToken method', token)
@@ -58,6 +58,7 @@ axiosInstance.interceptors.response.use(
   },
   async err => {
     const { response, config } = err;
+    console.log('Error from API', err)
     try {
       if (response?.status === 401 || response?.status === 403) {
         // const rest = await APIRefreshToken();
@@ -127,7 +128,7 @@ export async function getAccessToken(tokenName) {
     let sessionToken = null;
     const token = await EncryptedStorage.getItem('SESSION_TOKEN');
     console.log('EncryptedStorage token', token)
-    
+
     if (token !== undefined) {
       sessionToken = JSON.parse(token);
       return tokenName === 'ACCESS_TOKEN'
