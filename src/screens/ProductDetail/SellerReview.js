@@ -11,6 +11,7 @@ import ProductList from '../Components/Cards/ProductList'
 import { ProductListData } from '../../constant/DemoArray'
 import ListView from '../../Components/ListView'
 import { wp } from '../../constant/responsiveFunc'
+import { translate } from '../../utility'
 
 const SellerReview = () => {
 
@@ -37,7 +38,7 @@ const SellerReview = () => {
 
   return (
     <AppBackground>
-      <AppHeader placeholderText={'What are you looking for?'} showBackButton Search />
+      <AppHeader placeholderText={translate('common.whatLookingFor')} showBackButton Search />
       <View style={{ padding: 20, backgroundColor: Colors.WHITE, borderBottomColor: Colors.GRAY, borderBottomWidth: 1 }}>
         <Text style={{
           fontFamily: fonts.VisbyCF_Demibold,

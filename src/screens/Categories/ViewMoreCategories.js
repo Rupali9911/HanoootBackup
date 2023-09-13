@@ -7,6 +7,7 @@ import fonts from '../../constant/fonts'
 import Colors from '../../constant/Colors'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
+import { translate } from '../../utility'
 
 
 const ViewMoreCategories = (props) => {
@@ -48,7 +49,7 @@ const ViewMoreCategories = (props) => {
 
     return (
         <AppBackground>
-            <AppHeader placeholderText={'What are you looking for?'} />
+            <AppHeader placeholderText={translate('common.whatLookingFor')} />
             <Text style={styles.title}>{selectedLanguageItem?.language_id === 0 ? capitalizeFirstLetter(ITEMS?.name) : ITEMS?.name_arabic}</Text>
             <View style={styles.centerView}>
                 <FlatList

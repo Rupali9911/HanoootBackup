@@ -11,6 +11,7 @@ import Rating from '../rating'
 import Separator from '../../../constant/Separator'
 import ListReview from './ReviewList'
 import { ProgressView } from "@react-native-community/progress-view";
+import { translate } from '../../../utility'
 
 
 
@@ -130,7 +131,7 @@ const ReviewMainPage = (props) => {
 
   return (
     <AppBackground>
-      <AppHeader placeholderText={'What are you looking for?'} showBackButton/>
+      <AppHeader placeholderText={translate('common.whatLookingFor')} showBackButton />
       <ScrollView>
         <View style={styles.ProductView}>
           <Image source={route.params.Product.image} style={{ height: 65, width: 65 }} />
@@ -148,23 +149,24 @@ const ReviewMainPage = (props) => {
 
         <View style={styles.mainContainer}>
           {/* <Separator /> */}
-          <View style={{marginHorizontal: '5%', marginVertical: '2%'}}>
-          <Text style={styles.Heading}>User Reviews</Text>
-          <Rating
-            RatingReview
-            isBottomLine
-            ImageStyle={{ height: 15, width: 15 }}
-          />
-           </View>
-         <View style={{
-          paddingVertical: '5%', paddingHorizontal: '5%', borderTopColor: Colors.GRAY,
-                        borderBottomColor: Colors.GRAY,
-                        borderTopWidth: 1,
-                        borderBottomWidth: 1,
-                        justifyContent: 'center'}}>
-          <UserProgress />
+          <View style={{ marginHorizontal: '5%', marginVertical: '2%' }}>
+            <Text style={styles.Heading}>User Reviews</Text>
+            <Rating
+              RatingReview
+              isBottomLine
+              ImageStyle={{ height: 15, width: 15 }}
+            />
           </View>
-         
+          <View style={{
+            paddingVertical: '5%', paddingHorizontal: '5%', borderTopColor: Colors.GRAY,
+            borderBottomColor: Colors.GRAY,
+            borderTopWidth: 1,
+            borderBottomWidth: 1,
+            justifyContent: 'center'
+          }}>
+            <UserProgress />
+          </View>
+
 
           {/* <View style={{paddingVertical: '4%', paddingHorizontal: '5%', borderTopColor: Colors.GRAY,
                         borderBottomColor: Colors.GRAY,
@@ -273,9 +275,9 @@ const styles = StyleSheet.create({
   },
   progressViewCont: {
     flexDirection: 'row',
-     justifyContent: 'space-between', 
-     alignItems: 'center', 
-     marginVertical: '1%'
-    
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: '1%'
+
   }
 })

@@ -186,7 +186,7 @@ const ProductDetail = (props) => {
         <>
             <AppBackground>
                 <AppHeader
-                    placeholderText={'What are you looking for?'}
+                    placeholderText={translate('common.whatLookingFor')}
                     showBackButton
                 />
                 {

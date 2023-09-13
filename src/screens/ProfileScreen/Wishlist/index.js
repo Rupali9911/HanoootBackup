@@ -112,7 +112,7 @@ const Wishlist = () => {
                                 letterSpacing: 0.5,
                                 color: Colors.themeColor
                             }}
-                        >MOVE TO CART</Text>
+                        >{translate('common.movetocart')}</Text>
                     </TouchableOpacity>
                 </View>
             </TouchableOpacity>
@@ -132,7 +132,7 @@ const Wishlist = () => {
         <AppBackground>
             <AppHeader
                 showBackButton
-            // title={translate('common.wishlist')}
+                title={translate('common.wishlist')}
             />
 
             {

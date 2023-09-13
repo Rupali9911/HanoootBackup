@@ -131,7 +131,7 @@ const Category = () => {
             >
                 <Text numberOfLines={2}
                     style={[styles.subCategoryText, { color: Colors.themeColor }]}
-                >{'View More'}</Text>
+                >{translate('common.viewmore')}</Text>
             </TouchableOpacity>
         );
     }
@@ -248,7 +248,7 @@ const Category = () => {
 
     return (
         <AppBackground>
-            <AppHeader placeholderText={'What are you looking for?'} />
+            <AppHeader placeholderText={translate('common.whatLookingFor')} />
             {isCatgListLoading && categoryPageNum === 1 ?
                 <Loader /> :
                 categoryList?.rows?.length > 0 ?

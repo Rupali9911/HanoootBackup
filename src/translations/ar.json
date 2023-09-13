@@ -1,5 +1,14 @@
 {
   "common": {
+    "whatLookingFor": "ما الذي تبحث عنه؟",
+    "viewmore": "عرض المزيد",
+    "loginFirstText": "لجميع احتياجات التسوق الخاصة بك،",
+    "oopsNoProduct": "أُووبس!! لم يتم العثور على منتجات",
+    "item": "غرض",
+    "cart": "عربة التسوق",
+    "proceedcheckout": "المضي قدما في الخروج",
+    "startshopping": "ابدأ التسوق",
+    "startAddingItems": "ابدأ بإضافة العناصر التي تحبها إلى قائمة أمنياتك من خلال النقر على أيقونة القلب!",
     "selectcountry": "حدد الدولة",
     "townCity": "بلدة/مدينة",
     "cartEmpty": "سلة التسوق الخاصة بك Hanooot فارغة",

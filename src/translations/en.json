@@ -1,5 +1,14 @@
 {
   "common": {
+    "whatLookingFor": "What are you looking for?",
+    "viewmore": "View More",
+    "loginFirstText": "For all your shopping needs', 'Please Login First",
+    "oopsNoProduct": "Oops!! No Products Found",
+    "item": "item",
+    "cart": "Cart",
+    "proceedcheckout": "Proceed Checkout",
+    "startshopping": "Start Shopping",
+    "startAddingItems": "Start adding items you love to your wishlist by tapping on the heart icon!",
     "selectcountry": "Select Country",
     "townCity": "Town/City",
     "cartEmpty": "Your Hanooot Cart is empty",

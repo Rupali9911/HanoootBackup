@@ -6,23 +6,18 @@ import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
 import AppButton from '../Components/AppButton'
 import { useNavigation } from '@react-navigation/native';
+import { translate } from '../../utility'
 
 
 const EmptyCart = () => {
     const navigation = useNavigation();
 
     return (
-        // <View style={styles.container}>
-        //     <Image source={Images.CartImage} style={styles.cartImg} />
-        //     <Text style={styles.emptyText}>Your Hanooot Cart is empty</Text>
-        //     <Text style={styles.addItemText}>Start adding items you love to your wishlist by tapping on the heart icon</Text>
-        //     <AppButton containerStyle={{ width: '70%' }} label={'Start Shopping'} onPress={() => navigation.navigate('Home')}/>
-        // </View>
         <View style={styles.container}>
             <Image source={Images.CartImage} style={styles.cartImg} />
-            <Text style={styles.emptyText}>Your Hanooot Cart is empty</Text>
-            <Text style={styles.addItemText}>Start adding items you love to your wishlist by tapping on the heart icon</Text>
-            <AppButton containerStyle={{ width: '100%'}} label={'Start Shopping'} onPress={() => navigation.navigate('Home')} />
+            <Text style={styles.emptyText}>{translate('common.cartEmpty')}</Text>
+            <Text style={styles.addItemText}>{translate('common.startAddingItems')}</Text>
+            <AppButton containerStyle={{ width: '100%' }} label={translate('common.startshopping')} onPress={() => navigation.navigate('Home')} />
         </View>
     )
 }

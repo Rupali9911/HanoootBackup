@@ -17,7 +17,7 @@ import Loader from '../../constant/Loader'
 import { showErrorToast } from '../../Components/universal/Toast'
 import EmptyDetailScreen from '../../Components/EmptyDetailScreen'
 import { wp } from '../../constant/responsiveFunc'
-
+import { translate } from '../../utility'
 const CartScreen = (props) => {
 
   const screen = props?.route?.params?.screen;
@@ -51,7 +51,7 @@ const CartScreen = (props) => {
         <AppHeader
           // showBackButton
           showBackButton={screen ? true : false}
-          title={`Cart (${cartItems.length ? cartItems.length : 0} item)`}
+          title={`${translate('common.cart')} (${cartItems.length ? cartItems.length : 0} ${translate('common.item')})`}
           showLikeIcon
           titleComponentStyle={{ alignItems: 'flex-start' }}
         />
@@ -63,9 +63,9 @@ const CartScreen = (props) => {
               :
               <EmptyDetailScreen
                 image={Images.CartImage}
-                title={'Your Hanoot Cart is empty'}
-                description={'Start adding items you love to your wishlist by tapping on the heart icon!'}
-                buttonLabel={'Start Shopping'}
+                title={translate('common.cartEmpty')}
+                description={translate('common.startAddingItems')}
+                buttonLabel={translate('common.startshopping')}
                 imgStyle={{
                   width: wp(73)
                 }}
@@ -75,7 +75,7 @@ const CartScreen = (props) => {
         {
           cartItems?.length !== 0 && !isCartDataLoading &&
           <View style={styles.buttonContainer}>
-            <AppButton label={'Proceed Checkout'}
+            <AppButton label={translate('common.proceedcheckout')}
               onPress={() => navigation.navigate('CheckoutScreen')}
             />
           </View>

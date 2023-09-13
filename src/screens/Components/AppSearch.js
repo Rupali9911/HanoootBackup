@@ -151,7 +151,7 @@ const AppSearch = (props) => {
       ) : searchTxt ? (
         <View >
           <View style={styles.listContainer}>
-            <Text style={{ textAlign: 'center' }}>{'Oops!! No Products Found'}</Text>
+            <Text style={{ textAlign: 'center' }}>{translate('common.oopsNoProduct')}</Text>
           </View>
         </View>
       ) : null

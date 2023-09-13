@@ -9,6 +9,7 @@ import { SIZE, hp, wp } from '../../constant/responsiveFunc';
 import SVGS from '../../constant/Svgs';
 import { useSelector } from 'react-redux';
 import { showErrorToast } from '../../Components/universal/Toast';
+import { translate } from '../../utility';
 
 const { HeartIconBlack, CartIcon, SearchIcon } = SVGS;
 
@@ -37,7 +38,7 @@ export default function AppHeader(props) {
   }
 
   const renderToastMsg = () => {
-    showErrorToast('For all your shopping needs', 'Please Login First')
+    showErrorToast(translate('common.loginFirstText'))
   }
 
   return (

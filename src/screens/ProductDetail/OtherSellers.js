@@ -7,6 +7,7 @@ import Colors from '../../constant/Colors'
 import { ExpressView } from '../../constant/ListConstant'
 import { hp, wp } from '../../constant/responsiveFunc'
 import Images from '../../constant/Images'
+import { translate } from '../../utility'
 
 
 const OtherSellers = (props) => {
@@ -114,7 +115,7 @@ const OtherSellers = (props) => {
 
     return (
         <AppBackground>
-            <AppHeader placeholderText={'What are you looking for?'} showBackButton />
+            <AppHeader placeholderText={translate('common.whatLookingFor')} showBackButton />
             <Text style={styles.offerAvail}>2 offers available</Text>
             {ProductDetail()}
             <FlatList
