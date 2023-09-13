@@ -7,9 +7,10 @@ import Fonts from '../../constant/fonts';
 import { hp, wp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
 import SVGS from '../../constant/Svgs';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { globalSearchAPICall } from '../Store/actions/productListAction';
 import { useNavigation } from '@react-navigation/native';
+
 
 const { SearchGrayIcon, SearchArrow, CrossIcon } = SVGS;
 
@@ -24,6 +25,9 @@ const AppSearch = (props) => {
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
+
+  const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
 
   useEffect(() => {
@@ -88,7 +92,7 @@ const AppSearch = (props) => {
             letterSpacing: 0.5,
             lineHeight: 21,
             maxWidth: wp(82.13)
-          }} numberOfLines={1}>{item?.title}</Text>
+          }} numberOfLines={1}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}</Text>
           <View style={{ alignSelf: 'flex-end' }}>
             <SearchArrow />
           </View>

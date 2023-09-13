@@ -306,7 +306,7 @@ const ProductDetail = (props) => {
                                                             <ListView
                                                                 // item={item}
                                                                 centerImage={item?.product_image}
-                                                                productName={item?.title}
+                                                                productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
                                                                 price={item?.ManagementProductPricing?.hanooot_price}
                                                                 detailId={item?.product_details_id}
                                                             />
