@@ -1,125 +1,35 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState, useCallback } from 'react'
+import { StyleSheet, Text, View, Image } from 'react-native'
+import React, { } from 'react'
 import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
 import { ExpressView } from '../../constant/ListConstant'
 import { wp, hp } from '../../constant/responsiveFunc'
 import { useSelector } from 'react-redux'
-import ProductCounter from '../../constant/ProductCounter'
-import { getItemsFromCart } from '../../screens/Store/actions/cartAction'
+import { getEnglishTitle, getArabicTitle } from '../../constant/SwitchRenders'
+import { getVariantsData } from '../../screens/utils'
+import { estimatedDelivery } from '../../screens/utils'
+import CartItemQuantity from './CartItemQty'
 
 
 const CartProductCards = (props) => {
     const { item } = props;
 
-    const { isCartDataLoading, cartItems, cartData } = useSelector(state => state.cartReducer);
-    const { isProductLoading, Product, ProductData } = useSelector(state => state.orderReducer);
-    const { productQtyIdInfo, isBuyNowButton } = useSelector(state => state.productListReducer);
+    const { cartData } = useSelector(state => state.cartReducer);
+    const { ProductData } = useSelector(state => state.orderReducer);
+    const { isBuyNowButton } = useSelector(state => state.productListReducer);
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
-
     const data = isBuyNowButton ? ProductData : cartData;
-
-
-    const renderTitle = (key) => {
-        switch (key) {
-            case 'variant_size':
-                return 'Size'
-            case 'variant_color':
-                return 'Color'
-            case 'variant_style':
-                return 'Style'
-            case 'variant_model':
-                return 'Modal'
-            case 'variant_material':
-                return 'Material'
-            case 'platform':
-                return 'Platform'
-            case 'edition':
-                return 'Edition'
-            case 'configuration':
-                return 'Configuration'
-            case 'variant_book':
-                return 'Book'
-            default:
-                return null;
-        }
-    }
-
-    const renderEnglishTitle = (key) => {
-        switch (key) {
-            case 'variant_size':
-                return 'Size'
-            case 'variant_color':
-                return 'Color'
-            case 'variant_style':
-                return 'Style'
-            case 'variant_model':
-                return 'Modal'
-            case 'variant_material':
-                return 'Material'
-            case 'platform':
-                return 'Platform'
-            case 'edition':
-                return 'Edition'
-            case 'configuration':
-                return 'Configuration'
-            case 'variant_book':
-                return 'Book'
-            default:
-                return null;
-        }
-    }
-
-    const renderArabicTitle = (key) => {
-        switch (key) {
-            case 'platform_arabic':
-                return 'منصة'
-            case 'variant_book_arabic':
-                return 'كتاب'
-            case 'variant_color_arabic':
-                return 'لون'
-            // case 'variant_item_package_quantity_arabic':
-            //     return 'كمية حزمة السلعة'
-            case 'variant_material_arabic':
-                return 'مادة'
-            case 'variant_model_arabic':
-                return 'مشروط'
-            case 'variant_size_arabic':
-                return 'مقاس'
-            case 'variant_style_arabic':
-                return 'أسلوب'
-            default:
-                return null;
-        }
-    }
-
-    const renderDescription = (str, key) => {
-        // if (str.includes(':')) {
-        //     return str.split(':')[1];
-        // }
-        // return str;
-
-        if (selectedLanguageItem?.language_id == 1) {
-            if (key.includes('arabic')) {
-                return str;
-            }
-        }
-        else {
-            if (str.includes(':')) {
-                return str.split(':')[1];
-            }
-            return str;
-        }
-    }
 
 
     const getVariations = (data) => {
         if (Object.keys(data).length > 0) {
             return (
                 Object.keys(data).map(key => {
+                    if ((key.includes('arabic') && selectedLanguageItem?.language_id == 0)) { return null }
+                    if ((!key.includes('arabic') && selectedLanguageItem?.language_id == 1)) { return null }
                     if (data[key] && key !== 'updatedAt' && key !== 'createdAt' && key !== 'id' && key !== 'variants' && key !== 'variant_item_package_quantity') {
-                        return <Text key={key} style={styles.itemDetail}>{`${selectedLanguageItem?.language_id === 0 ? renderEnglishTitle(key) === null ? null : renderEnglishTitle(key) : renderArabicTitle(key)} : `}<Text style={{ color: Colors.PRICEGRAY }}>{renderDescription(data[key], key)}</Text></Text>
+                        return <Text key={key} style={styles.itemDetail}>{`${selectedLanguageItem?.language_id === 0 ? getEnglishTitle(key) : getArabicTitle(key)} : `}<Text style={{ color: Colors.PRICEGRAY }}>{getVariantsData(data[key], key, selectedLanguageItem?.language_id)}</Text></Text>
                     }
                 })
             )
@@ -133,14 +43,13 @@ const CartProductCards = (props) => {
 
             return `${time[0]}hr ${time[1]}mins.`
         }
-
     }
 
     const getDeliveryInfo = () => {
         return (
             <>
-                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Estimated Delivery on <Text style={{ color: Colors.BLACK }}>{data?.deliveryDays?.delivery}</Text></Text>
-                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Order Within  <Text style={{ color: Colors.BLACK }}>{getTime(data?.deliveryDays?.time)}</Text></Text>
+                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Estimated Delivery on <Text style={{ color: Colors.BLACK }}>{estimatedDelivery(cartData?.deliveryDays?.delivery)}</Text></Text>
+                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Order Within  <Text style={{ color: Colors.BLACK }}>{getTime(cartData?.deliveryDays?.time)}</Text></Text>
             </>
         )
     }
@@ -153,13 +62,15 @@ const CartProductCards = (props) => {
             </View>
         )
     }
+
+
     return (
         <View style={styles.mainContainer}>
-            <View style={{ flexDirection: 'row', padding: '5%', }}>
-                <View style={{ width: '20%', alignContent: 'center' }}>
-                    <Image source={{ uri: item?.ManagementProduct?.images[0] }} style={{ height: hp(8), width: wp(16), resizeMode: 'contain', margin: '2%' }} />
+            <View style={styles.cardCont}>
+                <View style={styles.imgCont}>
+                    <Image source={{ uri: item?.ManagementProduct?.images[0] }} style={styles.image} />
                 </View>
-                <View style={{ gap: 5, width: '80%' }}>
+                <View style={styles.rightViewCont}>
                     <Text style={styles.itemName} >{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>
                     {getVariations(item?.ManagementProduct?.ManagementProductVariantStyle)}
                     {getDeliveryInfo()}
@@ -168,46 +79,14 @@ const CartProductCards = (props) => {
                     <Text style={styles.itemName} >{item?.price ? item?.price : 0}</Text>
                 </View>
             </View>
-            {/* <View style={styles.itemQuantityView}>
-                <Text style={styles.quantityText}>Qty : </Text>
-                <ProductCounter />
-            </View> */}
-
-            <View style={styles.container}>
-                <Text style={styles.Text}>Qty : </Text>
-                <ProductCounter
-                    getCountValue={(val) => props.getCount(val)}
-                    productId={item?.product_id}
-                    noOfQty={item?.quantity}
-                    onIncPressed={(val) => props.onIncrement(val)}
-
-                />
-                {/* <TouchableOpacity
-                    onPress={props.onRemovePress}
-                >
-                    <Text style={[styles.Text, { color: Colors.themeColor }]}>REMOVE</Text>
-                </TouchableOpacity> */}
-            </View>
-
-
-            {/* <CartItemQuantity
-                onRemovePress={() => {
-                    dispatch(removeItemsFromCart(item?.product_id))
-                }}
+            <CartItemQuantity
+                onRemovePress={props.onRemovePress}
                 productId={item?.product_id}
-                onIncrement={(data) => {
-                    if (data?.success === true) {
-                        dispatch(getItemsFromCart(1))
-                    }
-                }}
+                onIncrement={props.onIncrement}
                 getCount={(val) => { console.log(val) }}
                 quantity={item?.quantity}
-
-            /> */}
-
-
-
-
+                isRemoveShow={props.isRemoveShow}
+            />
         </View>
     )
 }
@@ -215,6 +94,7 @@ const CartProductCards = (props) => {
 export default CartProductCards;
 
 const styles = StyleSheet.create({
+
     mainContainer: {
         backgroundColor: Colors.WHITE,
         flex: 1,
@@ -306,37 +186,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         gap: 10,
     },
-
-    itemQuantityView: {
-        borderTopColor: Colors.GRAY,
-        borderTopWidth: 1,
-        width: wp(100),
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: '2%',
-        backgroundColor: Colors.WHITE,
-        gap: 8,
-
+    cardCont: {
+        flexDirection: 'row', padding: '5%',
     },
-    quantityText: {
-        fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
-        letterSpacing: 0.5
+    imgCont: {
+        width: '20%', alignContent: 'center'
     },
-
-    container: {
-        borderTopColor: Colors.GRAY,
-        borderBottomColor: Colors.GRAY,
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
-        width: wp(100),
-        flexDirection: 'row',
-        // justifyContent: 'center'
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        paddingVertical: '2%'
-
+    image: {
+        height: hp(8), width: wp(16), resizeMode: 'contain', margin: '2%'
     },
+    rightViewCont: {
+        gap: 5, width: '80%'
+    }
 
 })

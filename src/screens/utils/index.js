@@ -1,4 +1,5 @@
 import { translate } from "../../utility";
+import { getWeekDays, getMonths } from "../../constant/SwitchRenders";
 
 export const maxLength = max => value =>
     value && value.length > max
@@ -105,3 +106,53 @@ export const validateDescription = value => {
     }
 };
 
+
+export const estimatedDelivery = value => {
+    try {
+        if (value.trim().length) {
+            const splitTo = value.split(' to '); //["Sat Sep 23 2023 ", " Mon Sep 25 2023"]
+
+            const splitFirstObj = splitTo[0].split(" ");//["Sat", "Sep", "23", "2023"]
+            const splitSecondObj = splitTo[1].split(" ");//["Mon", "Sep", "25", "2023"]
+
+            splitFirstObj[0] = getWeekDays(splitFirstObj[0])
+            splitFirstObj[1] = getMonths(splitFirstObj[1])
+
+            splitSecondObj[0] = getWeekDays(splitSecondObj[0])
+            splitSecondObj[1] = getMonths(splitSecondObj[1])
+
+
+            const resultString = `${splitFirstObj.join(' ')} to ${splitSecondObj.join(' ')}`
+
+            console.log('final result ', resultString)
+
+
+            return resultString;
+        }
+    }
+    catch (error) {
+        console.log('estimatedDelivery err', error)
+    }
+
+};
+
+
+export const getVariantsData = (str, key, isLanguage) => {
+    try {
+        if (isLanguage == 1) {
+            if (key.includes('arabic')) {
+                return str;
+            }
+        }
+        else {
+            if (str.includes(':')) {
+                return str.split(':')[1];
+            }
+            return str;
+        }
+    }
+    catch (error) {
+        // console.log(error)
+    }
+
+};

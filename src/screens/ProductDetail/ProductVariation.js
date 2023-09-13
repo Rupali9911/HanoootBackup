@@ -117,66 +117,14 @@ import fonts from '../../constant/fonts';
 import Colors from '../../constant/Colors';
 import { hp } from '../../constant/responsiveFunc';
 import { useSelector } from 'react-redux';
+import { getEnglishTitle, getArabicTitle } from '../../constant/SwitchRenders';
+import { getVariantsData } from '../utils';
 
 const ProductVariation = (props) => {
     const { variants } = props;
-    // console.log('variants : ', variants, typeof (variants))
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
-
-
-    // console.log( Object.keys(variants).length ? 'data hai ' : 'data ni hai') 
-
-    const renderEnglishTitle = (key) => {
-        switch (key) {
-            case 'variant_size':
-                return 'Size'
-            case 'variant_color':
-                return 'Color'
-            case 'variant_style':
-                return 'Style'
-            case 'variant_model':
-                return 'Modal'
-            case 'variant_material':
-                return 'Material'
-            case 'platform':
-                return 'Platform'
-            case 'edition':
-                return 'Edition'
-            case 'configuration':
-                return 'Configuration'
-            case 'variant_book':
-                return 'Book'
-            default:
-                return null;
-        }
-    }
-
-    const renderArabicTitle = (key) => {
-        switch (key) {
-            case 'platform_arabic':
-                return 'منصة'
-            case 'variant_book_arabic':
-                return 'كتاب'
-            case 'variant_color_arabic':
-                return 'لون'
-            // case 'variant_item_package_quantity_arabic':
-            //     return 'كمية حزمة السلعة'
-            case 'variant_material_arabic':
-                return 'مادة'
-            case 'variant_model_arabic':
-                return 'مشروط'
-            case 'variant_size_arabic':
-                return 'مقاس'
-            case 'variant_style_arabic':
-                return 'أسلوب'
-            default:
-                return null;
-        }
-    }
-
     const renderDescription = (str, key) => {
-        console.log("selectedLanguageItem", str, "key", key);
         if (selectedLanguageItem?.language_id == 1) {
             if (key.includes('arabic')) {
                 return str;
@@ -194,17 +142,21 @@ const ProductVariation = (props) => {
         return (
             Object.keys(variants).map(key => {
                 if (variants[key] && key !== 'updatedAt' && key !== 'createdAt' && key !== 'id' && key !== 'variants' && key !== 'variant_item_package_quantity') {
+                    if ((key.includes('arabic') && selectedLanguageItem?.language_id == 0)) { return null }
+                    if ((!key.includes('arabic') && selectedLanguageItem?.language_id == 1)) { return null }
+
                     return (
                         <View key={key}>
                             <View style={styles.mainCont}>
-                                <Text style={styles.heading}>{selectedLanguageItem?.language_id === 0 ? renderEnglishTitle(key) : renderArabicTitle(key)}</Text>
+                                <Text style={styles.heading}>{selectedLanguageItem?.language_id === 0 ? getEnglishTitle(key) : getArabicTitle(key)}</Text>
                                 <View style={styles.container}
                                     onPress={() => { }}>
                                     <Text style={{
                                         borderColor: Colors.themeColor,
                                         color: Colors.themeColor,
                                         ...styles.item
-                                    }}>{renderDescription(variants[key], key)}</Text>
+                                        // }}>{renderDescription(variants[key], key)}</Text>
+                                    }}>{getVariantsData(variants[key], key, selectedLanguageItem?.language_id)}</Text>
                                 </View>
                             </View>
                         </View>

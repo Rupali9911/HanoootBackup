@@ -21,6 +21,7 @@ import Coupon from '../../CartScreen/Coupon'
 import { showInfoToast, showErrorToast } from '../../../Components/universal/Toast'
 import { getBuyNowData } from '../../Store/actions/orderAction'
 import Loader from '../../../constant/Loader'
+import CartItemCard from '../../CartScreen/CartItemCard'
 
 
 const ReviewOrder = (props) => {
@@ -150,35 +151,8 @@ const ReviewOrder = (props) => {
   const ReviewItemDetail = ({ item, index }) => {
     return (
       <>
-        {/* <ProductHeader title={'Review Item'} />
-        <View style={styles.itemReviewCard}>
-          <View style={{ flexDirection: 'row' }}>
-            <View>
-              <Image source={Images.mobile4} style={styles.reviewItemImage} />
-            </View>
-            <View style={{ gap: 5 }}>
-              <Text style={styles.itemName} numberOfLines={2}>{'Apple iPad  10.2 - inch Bionic chip rose (4th Generation)'}</Text>
-              <Text style={styles.itemDetail}>Memory : <Text style={styles.grayColor}>128 GB</Text></Text>
-              <Text>Color : <Text style={styles.grayColor}>Purple Black</Text></Text>
-              <Text style={[styles.itemDetail, styles.grayColor]}>Estimated Delivery on <Text style={styles.blackColor}>{'Sunday, 5 February.'}</Text></Text>
-              <Text style={[styles.itemDetail, styles.grayColor]}>Order Within  <Text style={styles.blackColor}>{'8hr 40 mins.'}</Text></Text>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.itemDetail}>Fullfilled by <Text>Hanooot </Text></Text>
-                <ExpressView containerStyle={{ width: '20%', marginHorizontal: '1%' }} />
-              </View>
-              <Text style={styles.itemDetail} >Sold by <Text style={styles.themeColor}>Ecom Nation</Text></Text>
-              <Text style={styles.itemName} >{'$ 5,00.00'}</Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.itemQuantityView}>
-          <Text style={styles.quantityText}>Qty : </Text>
-          <ProductCounter />
-        </View> */}
-
         <CartProductCards
           item={item}
-          getCount={(val) => { console.log('check quantiti : ', productQtyIdInfo?.productId, val), setQuantity(Number(val)) }}
           onIncrement={(data) => {
             if (data?.success === true) {
               // dispatch(getItemsFromCart(1))
@@ -190,8 +164,7 @@ const ReviewOrder = (props) => {
                 dispatch(getItemsFromCart(1));
               }
             }
-          }}
-        />
+          }} />
       </>
     );
   }
