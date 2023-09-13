@@ -3,21 +3,22 @@ import React from 'react'
 import Colors from '../../constant/Colors'
 import Separator from '../../constant/Separator'
 import fonts from '../../constant/fonts'
+import { translate } from '../../utility'
 
 const CartTotal = (props) => {
     return (
         <View style={styles.mainCont}>
             <View style={styles.container}>
-                <Text style={styles.Text}>SubTotal(1 Item)</Text>
+                <Text style={styles.Text}>{translate('common.subtotal')}(1 {translate('common.itemCap')})</Text>
                 <Text style={[styles.Text, { fontWeight: 'bold' }]}>{`$ ${props.totalCost ? props.totalCost : 0}`}</Text>
             </View>
             <View style={styles.container}>
-                <Text style={styles.Text}>Coupon Discount</Text>
+                <Text style={styles.Text}>{translate('common.coupondiscount')}</Text>
                 <Text style={[styles.Text, { fontWeight: 'bold', color: Colors.GREEN }]}>{`$ ${props.couponAmt}`}</Text>
             </View>
             <Separator />
             <View style={styles.container}>
-                <Text style={[styles.Text, { fontWeight: 'bold', fontSize: 16 }]}>Total <Text style={{ fontSize: 12, color: Colors.PRICEGRAY }}> (Inclusive of Vat)</Text></Text>
+                <Text style={[styles.Text, { fontWeight: 'bold', fontSize: 16 }]}>{translate('common.total')} <Text style={{ fontSize: 12, color: Colors.PRICEGRAY }}> ({translate('common.inclusiveofvat')})</Text></Text>
                 <Text style={[styles.Text, { fontWeight: 'bold', fontSize: 18 }]}>{`$ ${Number(props.totalCost) - Number(props.couponAmt)}`}</Text>
             </View>
         </View>

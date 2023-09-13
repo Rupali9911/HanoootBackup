@@ -4,6 +4,7 @@ import fonts from '../../constant/fonts'
 import Colors from '../../constant/Colors'
 import ProductHeader from '../Components/Cards/ProductHeader'
 import { wp } from '../../constant/responsiveFunc'
+import { translate } from '../../utility'
 
 const ProductSpecification = (props) => {
   const [specifications, setSpecifications] = useState([])
@@ -64,7 +65,7 @@ const ProductSpecification = (props) => {
       {
         specifications.length ?
           <>
-            <ProductHeader TitleStyle={{ fontSize: 18 }} title={'Specification & Highlight'} />
+            <ProductHeader TitleStyle={{ fontSize: 18 }} title={translate('common.specificationNhighlight')} />
 
             <View style={{ paddingHorizontal: '5%' }}>
               <FlatList

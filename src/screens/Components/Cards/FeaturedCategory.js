@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
 import { showInfoToast, showErrorToast } from '../../../Components/universal/Toast'
 import { updateFeaturedCart } from '../../Store/actions/HomeAction'
+import { translate } from '../../../utility'
 
 const FeaturedCategory = (props) => {
     const Data = props.Data;
@@ -75,7 +76,7 @@ const FeaturedCategory = (props) => {
                     <Text style={styles.itemPrice}>$ {item?.ManagementProductPricing?.hanooot_price}</Text>
                 </View>
                 <TouchableOpacity style={styles.cartBtn}
-                    onPress={() => userData ? onAddtoCartPress(item?.isCart, item?.id) : showErrorToast('For all your shopping needs', 'Please Login First')}
+                    onPress={() => userData ? onAddtoCartPress(item?.isCart, item?.id) : showErrorToast(translate('common.loginFirstText'))}
                 >
                     <Text style={styles.cartBtnTxt}>{item?.isCart ? 'View Cart' : 'Add to Cart'}</Text>
                 </TouchableOpacity>

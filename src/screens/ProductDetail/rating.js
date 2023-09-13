@@ -4,6 +4,7 @@ import Images from '../../constant/Images'
 import fonts from '../../constant/fonts'
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import Colors from '../../constant/Colors';
+import { translate } from '../../utility';
 
 
 const UserRating = (props) => {
@@ -47,11 +48,11 @@ const UserRating = (props) => {
                         imageSize={10}
                         ratingColor={Colors.YELLOW}
                         ratingBackgroundColor={Colors.GRAY}
-                        
+
                     />
                     {
                         props.reviewText ? <Text style={styles.review}>
-                            {`Based on ${props.reviewText} Ratings`}
+                            {`${translate('common.basedon')} ${props.reviewText} ${translate('common.ratings')}`}
                         </Text> : null
                     }
                 </View>

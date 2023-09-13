@@ -145,7 +145,7 @@ const ProductListWithFilters = (props) => {
     }
 
     const renderToastMsg = () => {
-        showErrorToast('For all your shopping needs', 'Please Login First')
+        showErrorToast(translate('common.loginFirstText'))
     }
 
 

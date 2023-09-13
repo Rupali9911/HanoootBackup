@@ -15,6 +15,7 @@ import { showErrorToast } from '../../Components/universal/Toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductDetail } from '../Store/actions/productListAction';
 import { showInfoToast } from '../../Components/universal/Toast';
+import { translate } from '../../utility';
 
 const { HeartIconActive, HeartIcon, ShareIcon } = SVGS
 
@@ -60,7 +61,7 @@ const ProductDetailCard = (props) => {
             }
         }
         else {
-            showErrorToast('For all your shopping needs', 'Please Login First')
+            showErrorToast(translate('common.loginFirstText'))
         }
     }
 
@@ -69,7 +70,7 @@ const ProductDetailCard = (props) => {
         let productUrl = productLink
         try {
             const result = await Share.share({
-                title: 'Product Detail',
+                title: translate('common.productdetail'),
                 url: productUrl,
                 message: productName + ' ' + productUrl,
             });
@@ -184,7 +185,7 @@ const ProductDetailCard = (props) => {
                             source={Images.Logo}
                             style={styles.logoStyle}
                         />
-                        <Text style={styles.choiceTextStyle}>Choice</Text>
+                        <Text style={styles.choiceTextStyle}>{translate('common.choice')}</Text>
                     </View>
                     <Text style={styles.forTextStyle}>{renderText(props?.title)}</Text>
                 </View>
@@ -206,7 +207,7 @@ const ProductDetailCard = (props) => {
 
                     <View style={styles.textView}>
                         <Text style={styles.totalPrice}>$ {price}</Text>
-                        <Text style={styles.inclusiveTax}>(Inclusive of VAT)</Text>
+                        <Text style={styles.inclusiveTax}>{translate('common.inclusiveofvat')}</Text>
                     </View>
                     <ExpressView />
                 </View>
@@ -214,7 +215,7 @@ const ProductDetailCard = (props) => {
                     <Text style={styles.discountPrice}>{price}</Text>
                     <Text style={styles.discountPercent}>{props.PricePercentOff}</Text>
                 </View> */}
-                <Text style={styles.discountPercent}>{'Free Shipipng'}</Text>
+                <Text style={styles.discountPercent}>{translate('common.freeshipping')}</Text>
             </View>
 
         </View>

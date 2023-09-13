@@ -10,6 +10,7 @@ import Colors from '../../../constant/Colors'
 import { useNavigation } from '@react-navigation/native';
 import ListReview from './ReviewList'
 import UserRating from '../rating'
+import { translate } from '../../../utility'
 
 
 const UserReview = (props) => {
@@ -25,7 +26,7 @@ const UserReview = (props) => {
             <View style={styles.mainContainer}>
                 {/* <Separator /> */}
                 <View style={{ paddingHorizontal: '5%', paddingVertical: '2%' }}>
-                    <Text style={styles.Heading}>User Reviews</Text>
+                    <Text style={styles.Heading}>{translate('common.userreviews')}</Text>
                     <UserRating 
                     startingValue={data?.average_rating}
                     isRatingText

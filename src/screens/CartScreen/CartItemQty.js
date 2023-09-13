@@ -5,12 +5,13 @@ import { wp } from '../../constant/responsiveFunc'
 import { DataTable } from 'react-native-paper';
 import ProductCounter from '../../constant/ProductCounter';
 import fonts from '../../constant/fonts';
+import { translate } from '../../utility';
 
 
 const CartItemQuantity = (props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.Text}>Qty : </Text>
+      <Text style={styles.Text}>{translate('common.qty')} : </Text>
       <ProductCounter
         getCountValue={(val) => props.getCount(val)}
         productId={props.productId}
@@ -21,7 +22,7 @@ const CartItemQuantity = (props) => {
       <TouchableOpacity
         onPress={props.onRemovePress}
       >
-        <Text style={[styles.Text, { color: Colors.themeColor }]}>REMOVE</Text>
+        <Text style={[styles.Text, { color: Colors.themeColor }]}>{translate('common.remove')}</Text>
       </TouchableOpacity>
     </View>
   )

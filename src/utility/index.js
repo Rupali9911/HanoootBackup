@@ -29,10 +29,7 @@ export const regionLanguage = RNLocalize.getLocales()
   .values()
   .next().value;
 
-export const regionCountry = RNLocalize.getLocales()
-  .map(a => a.countryCode)
-  .values()
-  .next().value;
+export const regionCountry = RNLocalize.getCountry()
 
 
 //=========================== SetI18nConfig (Language) Function =============================

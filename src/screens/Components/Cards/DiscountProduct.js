@@ -21,7 +21,7 @@ const DiscountProduct = (props) => {
                             <Text style={styles.discountArrowTxt}>Up to 50% off</Text>
                         </ImageBackground>
                         <Text style={styles.itemName}>{'Mouse'}</Text>
-                        <Text style={styles.itemDesc}>{'Electronic Device'}</Text>
+                    <Text style={styles.itemDesc}>{'Electronic Device'}</Text>
 
                         <View style={styles.buttonView}>
                             <Text style={styles.btnTxt}>{'EXPRESS'}</Text>

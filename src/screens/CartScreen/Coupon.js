@@ -5,6 +5,7 @@ import fonts from '../../constant/fonts'
 import { hp } from '../../constant/responsiveFunc'
 import RadioButton from 'react-native-radio-button'
 import { useSelector } from 'react-redux'
+import { translate } from '../../utility'
 
 
 const Coupon = () => {
@@ -45,7 +46,7 @@ const Coupon = () => {
                 // setInfoMsg(Colors.GREEN)
                 setBtnText('Change');
                 setMsg('');
-                setCouponCode('hanoot 15% off is Applied')
+                setCouponCode(`${translate('common.hanoootSmall')} 15% ${translate('common.offisapplied')}`)
 
                 // setMsg('hanoot 15% off is Applied');
 
@@ -60,7 +61,7 @@ const Coupon = () => {
                 setCouponClr(Colors.WHITE)
                 setInfoMsg(Colors.RED)
                 setBtnText('Apply')
-                setMsg('Oops! Coupon code invalid');
+                setMsg(translate('common.coupanInvalid'));
             }
         }
         // else {

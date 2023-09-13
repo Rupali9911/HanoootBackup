@@ -3,6 +3,7 @@ import React from 'react'
 import ProductHeader from '../Components/Cards/ProductHeader';
 import fonts from '../../constant/fonts';
 import Colors from '../../constant/Colors';
+import { translate } from '../../utility';
 
 const ProductDescription = (props) => {
     const { data } = props;
@@ -10,7 +11,7 @@ const ProductDescription = (props) => {
         <>
             {data ?
                 <>
-                    <ProductHeader TitleStyle={{ fontSize: 18 }} title={'Description'} />
+                    <ProductHeader TitleStyle={{ fontSize: 18 }} title={translate('common.description')} />
                     <View style={{ marginHorizontal: '5%' }}>
                         <Text style={styles.items}>{data.trim()}</Text>
                     </View>

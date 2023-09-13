@@ -1,18 +1,18 @@
-import { Image, StyleSheet, Text,  View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import React, { } from 'react'
 import Colors from '../../constant/Colors';
 import { hp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
 import ProductCounter from '../../constant/ProductCounter';
-
+import { translate } from '../../utility';
 const ProductQuantity = (props) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.qtyText}>Qty : </Text>
+            <Text style={styles.qtyText}>{translate('common.qty')} : </Text>
             <View style={styles.buttonWithCounter}>
-                <ProductCounter 
-                getCountValue={(val) => {props.getNoOfQty(val)}}
-                productId={props.productId} 
+                <ProductCounter
+                    getCountValue={(val) => { props.getNoOfQty(val) }}
+                    productId={props.productId}
                 />
             </View>
         </View>
