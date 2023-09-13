@@ -1,4 +1,4 @@
-import { CART_API } from "../../../utility/apiUrls";
+import { CART_API, COUPON_API } from "../../../utility/apiUrls";
 import sendRequest from "../../axios/AxiosApiRequest";
 import { showInfoToast, showErrorToast } from "../../../Components/universal/Toast";
 
@@ -14,24 +14,24 @@ export const AddtoCartAPICall = (product_id, quantity) => {
                 quantity: quantity
             }
         }).
-        then((response) => {
-            console.log('Response from Add to cart API : ', response);
-            if (response?.success === true) {
-                resolve(response)
+            then((response) => {
+                console.log('Response from Add to cart API : ', response);
+                if (response?.success === true) {
+                    resolve(response)
 
-                // showInfoToast('SUCCESS', response?.message)
-            }
-            else{
-                showErrorToast('Auth Error', response?.message)
-            }
-        }).
-        catch((error) => {
-            console.log('Error from Add to cart API : ', error);
-            _reject(error)
-            if(error?.status == 401){
-                showErrorToast('Auth Error', '')
-            }
-        })
+                    // showInfoToast('SUCCESS', response?.message)
+                }
+                else {
+                    showErrorToast('Auth Error', response?.message)
+                }
+            }).
+            catch((error) => {
+                console.log('Error from Add to cart API : ', error);
+                _reject(error)
+                if (error?.status == 401) {
+                    showErrorToast('Auth Error', '')
+                }
+            })
     })
 }
 
@@ -45,19 +45,19 @@ export const getCartItemAPICall = (page) => {
                 pageSize: 1000
             }
         }).
-        then((response) => {
-            console.log('Response from get cart items API : ', response);
-            if (response?.success === true) {
-                resolve(response)
-            }
-            else{
-                showErrorToast('Auth Error', response?.message)
-            }
-        }).
-        catch((error) => {
-            console.log('Error from get cart items API : ', error);
-            _reject(error)
-        })
+            then((response) => {
+                console.log('Response from get cart items API : ', response);
+                if (response?.success === true) {
+                    resolve(response)
+                }
+                else {
+                    showErrorToast('Auth Error', response?.message)
+                }
+            }).
+            catch((error) => {
+                console.log('Error from get cart items API : ', error);
+                _reject(error)
+            })
     })
 }
 
@@ -72,20 +72,45 @@ export const removeCartItemAPICall = (product_id) => {
                 product_id: product_id
             }
         }).
-        then((response) => {
-            console.log('Response from remove items API : ', response);
-            if (response?.success === true) {
-                resolve(response)
+            then((response) => {
+                console.log('Response from remove items API : ', response);
+                if (response?.success === true) {
+                    resolve(response)
 
-                showInfoToast('REMOVE', response?.message)
-            }
-            else{
-                showErrorToast('Auth Error', response?.message)
-            }
+                    showInfoToast('REMOVE', response?.message)
+                }
+                else {
+                    showErrorToast('Auth Error', response?.message)
+                }
+            }).
+            catch((error) => {
+                console.log('Error from remove cart items API : ', error);
+                _reject(error)
+            })
+    })
+}
+
+
+
+export const getCouponAPICall = () => {
+    console.log('coupon api called')
+    return new Promise((resolve, _reject) => {
+        sendRequest({
+            url: COUPON_API,
+            method: 'GET',
         }).
-        catch((error) => {
-            console.log('Error from remove cart items API : ', error);
-            _reject(error)
-        })
+            then((response) => {
+                console.log('Response from COUPON_API : ', response);
+                if (response?.success === true) {
+                    resolve(response)
+                }
+                else {
+                    showErrorToast('Auth Error', response?.message)
+                }
+            }).
+            catch((error) => {
+                console.log('Error from COUPON_API : ', error);
+                _reject(error)
+            })
     })
 }

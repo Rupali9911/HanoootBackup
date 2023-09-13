@@ -1,7 +1,5 @@
-import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
-import React, { useState, useEffect, useCallback } from 'react'
-import AppModal from '../../constant/AppModal'
-import EmptyCart from './EmptyCart'
+import { StyleSheet, View } from 'react-native'
+import React, { useEffect, useCallback } from 'react'
 import AppBackground from '../Components/AppBackground'
 import AppHeader from '../Components/AppHeader'
 import CartItemCard from './CartItemCard'
@@ -12,9 +10,8 @@ import fonts from '../../constant/fonts'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import Images from '../../constant/Images'
-import { getItemsFromCart, cartLoadingStart, cartItemReset, cartDataLPageChange } from '../Store/actions/cartAction'
+import { getItemsFromCart, cartLoadingStart, cartItemReset, getCoupon } from '../Store/actions/cartAction'
 import Loader from '../../constant/Loader'
-import { showErrorToast } from '../../Components/universal/Toast'
 import EmptyDetailScreen from '../../Components/EmptyDetailScreen'
 import { wp } from '../../constant/responsiveFunc'
 import { translate } from '../../utility'
@@ -26,16 +23,17 @@ const CartScreen = (props) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-
-  const { isCartDataLoading, cartItems, cartItemFail, cartPageNo, cartTotalCount, cartData } = useSelector(state => state.cartReducer);
-  const userData = useSelector((state) => state.userReducer.userData);
+  const { isCartDataLoading, cartItems, cartPageNo, couponSucess } = useSelector(state => state.cartReducer);
 
 
   useEffect(() => {
     dispatch(cartLoadingStart(true))
     dispatch(cartItemReset())
-    // dispatch(getItemsFromCart())
     getCartedProducts(1)
+
+
+    dispatch(getCoupon());
+
     // dispatch(cartDataLPageChange(1));
 
   }, [isFocused]);
@@ -44,12 +42,13 @@ const CartScreen = (props) => {
     dispatch(getItemsFromCart(page));
   }, []);
 
+  console.log('Here is our coupon : ', couponSucess)
+
 
   return (
     <>
       <AppBackground>
         <AppHeader
-          // showBackButton
           showBackButton={screen ? true : false}
           title={`${translate('common.cart')} (${cartItems.length ? cartItems.length : 0} ${translate('common.item')})`}
           showLikeIcon
@@ -111,13 +110,4 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: fonts.VisbyCF_Demibold,
   },
-  //   bottomButtonContainer: {
-  //     position: 'absolute',
-  //     bottom: 0,
-  //     left: 0,
-  //     right: 0,
-  //     justifyContent: 'center',
-  //     alignItems: 'center',
-  //     backgroundColor: Colors.WHITE,
-  // },
 })

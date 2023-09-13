@@ -1,16 +1,13 @@
 import { FlatList, Image, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import Colors from '../../constant/Colors'
 import fonts from '../../constant/fonts'
 import { ExpressView } from '../../constant/ListConstant'
 import CartItemQuantity from './CartItemQty'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import Coupon from './Coupon';
 import CartTotal from './CartTotal'
 import { useDispatch, useSelector } from 'react-redux';
-import { getItemsFromCart, removeCartItem } from '../Store/actions/cartAction'
-import { setCartLabel } from '../Store/actions/cartAction'
-import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
+import { getItemsFromCart } from '../Store/actions/cartAction'
 import Images from '../../constant/Images'
 import { removeItemsFromCart } from '../Store/actions/cartAction'
 import { wp, hp } from '../../constant/responsiveFunc'
@@ -19,21 +16,20 @@ import { AddtoCartAPICall } from '../../services/apis/CartAPI'
 
 
 
-const CartItemCard = (props) => {
+const CartItemCard = () => {
     const dispatch = useDispatch();
-    const [signleProductPrice, setSigleProductPrice] = useState()
     const [counter, setCounter] = useState(1);
 
 
     const { cartItems, cartData } = useSelector(state => state.cartReducer);
     const userData = useSelector((state) => state.userReducer.userData);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
 
     const keyExtractor = (item, index) => {
         return index;
     };
-
-    // console.log('signleProductPrice : ', signleProductPrice)
 
     const renderTitle = (key) => {
         switch (key) {
@@ -60,11 +56,71 @@ const CartItemCard = (props) => {
         }
     }
 
-    const renderDescription = (str) => {
-        if (str.includes(':')) {
-            return str.split(':')[1];
+    const renderEnglishTitle = (key) => {
+        switch (key) {
+            case 'variant_size':
+                return 'Size'
+            case 'variant_color':
+                return 'Color'
+            case 'variant_style':
+                return 'Style'
+            case 'variant_model':
+                return 'Modal'
+            case 'variant_material':
+                return 'Material'
+            case 'platform':
+                return 'Platform'
+            case 'edition':
+                return 'Edition'
+            case 'configuration':
+                return 'Configuration'
+            case 'variant_book':
+                return 'Book'
+            default:
+                return null;
         }
-        return str;
+    }
+
+    const renderArabicTitle = (key) => {
+        switch (key) {
+            case 'platform_arabic':
+                return 'منصة'
+            case 'variant_book_arabic':
+                return 'كتاب'
+            case 'variant_color_arabic':
+                return 'لون'
+            // case 'variant_item_package_quantity_arabic':
+            //     return 'كمية حزمة السلعة'
+            case 'variant_material_arabic':
+                return 'مادة'
+            case 'variant_model_arabic':
+                return 'مشروط'
+            case 'variant_size_arabic':
+                return 'مقاس'
+            case 'variant_style_arabic':
+                return 'أسلوب'
+            default:
+                return null;
+        }
+    }
+
+    const renderDescription = (str, key) => {
+        // if (str.includes(':')) {
+        //     return str.split(':')[1];
+        // }
+        // return str;
+
+        if (selectedLanguageItem?.language_id == 1) {
+            if (key.includes('arabic')) {
+                return str;
+            }
+        }
+        else {
+            if (str.includes(':')) {
+                return str.split(':')[1];
+            }
+            return str;
+        }
     }
 
     const getVariations = (data) => {
@@ -72,7 +128,7 @@ const CartItemCard = (props) => {
             return (
                 Object.keys(data).map(key => {
                     if (data[key] && key !== 'updatedAt' && key !== 'createdAt' && key !== 'id' && key !== 'variants' && key !== 'variant_item_package_quantity') {
-                        return <Text key={key} style={styles.itemDetail}>{`${renderTitle(key)} : `}<Text style={{ color: Colors.PRICEGRAY }}>{renderDescription(data[key])}</Text></Text>
+                        return <Text key={key} style={styles.itemDetail}>{`${selectedLanguageItem?.language_id === 0 ? renderEnglishTitle(key) === null ? null : renderEnglishTitle(key) : renderArabicTitle(key)} : `}<Text style={{ color: Colors.PRICEGRAY }}>{renderDescription(data[key], key)}</Text></Text>
                     }
                 })
             )
@@ -107,73 +163,6 @@ const CartItemCard = (props) => {
         )
     }
 
-    const incrementCounter = async (productId) => {
-        try {
-            const incVal = Number(counter + 1) || Number(1);
-            const response = await AddtoCartAPICall(productId, incVal)
-            // console.log(response)
-            if (response?.success) {
-                setCounter(counter + 1);
-                dispatch(getItemsFromCart(1))
-                // props.getCountValue(incVal)
-                // props.onIncPressed(response?.data)
-                // dispatch(getItemsFromCart())
-                // props.onIncrementPress
-                // props.onIncPressed(dispatch(getItemsFromCart()))
-                // props.getCountClickData(response?.data)
-                // dispatch(getItemsFromCart())
-
-            }
-        }
-        catch (error) {
-            // console.log('error  from add to cart api : ', error)
-        }
-    };
-
-
-    const decrementCounter = async (productId) => {
-
-        try {
-            if (counter !== 1) {
-                const decVal = Number(counter - 1) || Number(1)
-                const response = await AddtoCartAPICall(productId, decVal)
-                if (response?.success) {
-                    setCounter(counter - 1);
-                    dispatch(getItemsFromCart(1))
-                    // props.getCountValue(decVal)
-                    // props.getCountClickData(response?.data)
-
-                }
-            }
-        }
-        catch (error) {
-            // console.log('error  from add to cart api : ', error)
-        }
-        // props.onIncrement
-        // props.onDecrementPress
-
-        // setCounter(counter - 1);
-        // props.getCountValue(Number(counter - 1) || Number(0))
-
-    };
-
-
-    const Quantity = useCallback((props) => {
-        return (
-            <TouchableOpacity
-                style={[styles.buttonView, { backgroundColor: props.Image === Images.MinusIcon ? Colors.GRAYDARK : Colors.themeColor }]}
-                onPress={
-                    props.onPress
-                }
-            >
-                <Image source={props.Image} style={{ height: 12, width: 12, resizeMode: 'contain' }} />
-            </TouchableOpacity>
-        );
-    }, [])
-
-
-    console.log('cartItems : ', JSON.stringify(cartItems))
-
     const renderItem = ({ item, index }) => {
         return (
             <>
@@ -184,7 +173,7 @@ const CartItemCard = (props) => {
                             <Image source={{ uri: item?.ManagementProduct?.images[0] }} style={{ height: hp(8), width: wp(16), resizeMode: 'contain', margin: '2%' }} />
                         </View>
                         <View style={{ gap: 5, width: '80%' }}>
-                            <Text style={styles.itemName} >{item?.ManagementProduct?.title}</Text>
+                            <Text style={styles.itemName} >{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>
                             {getVariations(item?.ManagementProduct?.ManagementProductVariantStyle)}
                             {getDeliveryInfo()}
                             {getExpressView()}
@@ -193,11 +182,9 @@ const CartItemCard = (props) => {
                         </View>
                     </View>
 
-
                     <CartItemQuantity
                         onRemovePress={() => {
                             dispatch(removeItemsFromCart(item?.product_id))
-                            // dispatch(getItemsFromCart())
                         }}
                         productId={item?.product_id}
                         onIncrement={(data) => {
@@ -207,60 +194,14 @@ const CartItemCard = (props) => {
                         }}
                         getCount={(val) => { console.log(val) }}
                         quantity={item?.quantity}
-                    // Increment={() => {console.log('pressed')}}
-                    // getData={(data) => {setSigleProductPrice(data?.total_cost)}}
-                    // onIcrementPressed={() => {incrementCounter(item?.product_id); setCounter(counter+1)}}
-                    // onDcrementPressed={() => decrementCounter(item?.product_id)}
-                    // counter={counter}
                     />
 
-
-
-                    {/* <View style={styles.mainQtyContainer}>
-                    <Text style={styles.Text}>Qty : </Text>
-            
-                    <View style={styles.container}>
-                        <Quantity onPress={() => decrementCounter(item?.product_id)} Image={Images.MinusIcon} />
-
-                        <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={styles.counter}>{counter}</Text>
-                        </View>
-                        <Quantity onPress={() => incrementCounter(item?.product_id)} Image={Images.PlusWhiteIcon} />
-                    </View>
-
-                    <TouchableOpacity
-                        onPress={() => {
-                            dispatch(removeItemsFromCart(item?.product_id))
-                        }}
-                    >
-                        <Text style={[styles.Text, { color: Colors.themeColor }]}>REMOVE</Text>
-                    </TouchableOpacity>
-                </View> */}
                 </View>
             </>
         );
     }
 
     return (
-        // <ScrollView style={{}}>
-        //     <Text style={styles.deliveryLine}>Deliver to Japan-Iraq</Text>
-        //     <FlatList
-        //         data={CART}
-        //         renderItem={renderItem}
-        //         keyExtractor={keyExtractor}
-        //         scrollEnabled={false}
-        //     />
-        //     <Coupon />
-        //     <CartTotal />
-
-        //     <Toast 
-        //         config={toastConfig}
-        //         position="bottom"
-        //         visibilityTime={10000}
-        //         autoHide={true}
-        //     />
-
-        // </ScrollView>
         <ScrollView style={{ marginBottom: hp(7) }}
         >
             <View style={{ height: hp(4.93), backgroundColor: Colors.YELLOWLIGHT, justifyContent: 'center', paddingHorizontal: '5%' }}>

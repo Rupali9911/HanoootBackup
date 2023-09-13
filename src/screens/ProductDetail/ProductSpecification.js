@@ -7,29 +7,12 @@ import { wp } from '../../constant/responsiveFunc'
 
 const ProductSpecification = (props) => {
   const [specifications, setSpecifications] = useState([])
-  // const {data} = props;
-  // console.log('data : ', data)
-
 
   useEffect(() => {
     const data = props?.data;
     const spec = data?.split('|')
     setSpecifications(spec)
-    // console.log('this are specifications : ', specifications.split('|'));
   }, [])
-
-  // const stringData = data;
-  // const separatedData = stringData.split('<li>');
-  // const data = [
-  //   { spec: '15.54 cm (6.1-inch) Super Retina XDR display' },
-  //   { spec: 'featuring Always-On and ProMotion' },
-  //   { spec: 'Dynamic Island, a magical new way to interact with iPad ' },
-  //   { spec: '48MP Main camera for up to 4x greater resolution ' },
-  //   { spec: 'Calling supported (Yes); 6 GB RAM| 128 GB ROM expandable upto 256 GB; Processor' },
-  //   { spec: 'Battery power - 7700 mAH battery' },
-  //   { spec: 'Finger print sensor - No' }
-
-  // ]
 
   const keyExtractor = (item, index) => {
     return `_${index}`;
@@ -88,11 +71,11 @@ const ProductSpecification = (props) => {
                 data={specifications}
                 renderItem={({ item, index }) => {
                   return (
-                    <View style={{ flexDirection: 'row', gap: 5}}>
+                    <View style={{ flexDirection: 'row', gap: 5 }}>
                       <Text style={styles.items}>{`\u25CF`}</Text>
                       <Text style={styles.items}>{`${item.trim()}`}</Text>
                     </View>
-                  ); 
+                  );
                 }}
                 keyExtractor={keyExtractor}
               />

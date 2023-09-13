@@ -7,14 +7,18 @@ import fonts from '../../constant/fonts';
 import Separator from '../../constant/Separator';
 import Images from '../../constant/Images';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 
 const ProductSpecCard = (props) => {
     const { data } = props;
     const navigation = useNavigation();
 
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
+
     const renderdata = () => {
-        const str = data?.ManagementOtherField?.others;
+        const str = selectedLanguageItem?.language_id === 0 ? data?.ManagementOtherField?.others : data?.ManagementOtherField?.others_arabic;
         let formatedString = str.replace(/"/g, "'").replace(/'/g, '"');
         const tableData = JSON.parse(formatedString);
 
@@ -36,9 +40,8 @@ const ProductSpecCard = (props) => {
             <>
                 <View style={styles.BorderView}>
                     <View style={styles.tableHeaderCont}>
-                        <Text style={styles.tableItemName}>{data?.title}</Text>
-                        <Text style={styles.tableItemName}>$
-                            {data?.ManagementProductPricing?.hanooot_price}</Text>
+                        <Text style={styles.tableItemName}>{selectedLanguageItem?.language_id === 0 ? data?.ManagementProductSeo?.product_name : data?.ManagementProductSeo?.product_name_arabic}</Text>
+                        <Text style={styles.tableItemName}>$ {data?.ManagementProductPricing?.hanooot_price}</Text>
                         <Text style={[styles.tableItemName, { color: Colors.GRAYDARK, fontSize: 12 }]}>Essential information</Text>
                     </View>
                     <View style={styles.Separator} />

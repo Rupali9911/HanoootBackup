@@ -15,6 +15,8 @@ const CartProductCards = (props) => {
     const { isCartDataLoading, cartItems, cartData } = useSelector(state => state.cartReducer);
     const { isProductLoading, Product, ProductData } = useSelector(state => state.orderReducer);
     const { productQtyIdInfo, isBuyNowButton } = useSelector(state => state.productListReducer);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
     const data = isBuyNowButton ? ProductData : cartData;
 
@@ -44,11 +46,71 @@ const CartProductCards = (props) => {
         }
     }
 
-    const renderDescription = (str) => {
-        if (str.includes(':')) {
-            return str.split(':')[1];
+    const renderEnglishTitle = (key) => {
+        switch (key) {
+            case 'variant_size':
+                return 'Size'
+            case 'variant_color':
+                return 'Color'
+            case 'variant_style':
+                return 'Style'
+            case 'variant_model':
+                return 'Modal'
+            case 'variant_material':
+                return 'Material'
+            case 'platform':
+                return 'Platform'
+            case 'edition':
+                return 'Edition'
+            case 'configuration':
+                return 'Configuration'
+            case 'variant_book':
+                return 'Book'
+            default:
+                return null;
         }
-        return str;
+    }
+
+    const renderArabicTitle = (key) => {
+        switch (key) {
+            case 'platform_arabic':
+                return 'منصة'
+            case 'variant_book_arabic':
+                return 'كتاب'
+            case 'variant_color_arabic':
+                return 'لون'
+            // case 'variant_item_package_quantity_arabic':
+            //     return 'كمية حزمة السلعة'
+            case 'variant_material_arabic':
+                return 'مادة'
+            case 'variant_model_arabic':
+                return 'مشروط'
+            case 'variant_size_arabic':
+                return 'مقاس'
+            case 'variant_style_arabic':
+                return 'أسلوب'
+            default:
+                return null;
+        }
+    }
+
+    const renderDescription = (str, key) => {
+        // if (str.includes(':')) {
+        //     return str.split(':')[1];
+        // }
+        // return str;
+
+        if (selectedLanguageItem?.language_id == 1) {
+            if (key.includes('arabic')) {
+                return str;
+            }
+        }
+        else {
+            if (str.includes(':')) {
+                return str.split(':')[1];
+            }
+            return str;
+        }
     }
 
 
@@ -57,7 +119,7 @@ const CartProductCards = (props) => {
             return (
                 Object.keys(data).map(key => {
                     if (data[key] && key !== 'updatedAt' && key !== 'createdAt' && key !== 'id' && key !== 'variants' && key !== 'variant_item_package_quantity') {
-                        return <Text key={key} style={styles.itemDetail}>{`${renderTitle(key)} : `}<Text style={{ color: Colors.PRICEGRAY }}>{renderDescription(data[key])}</Text></Text>
+                        return <Text key={key} style={styles.itemDetail}>{`${selectedLanguageItem?.language_id === 0 ? renderEnglishTitle(key) === null ? null : renderEnglishTitle(key) : renderArabicTitle(key)} : `}<Text style={{ color: Colors.PRICEGRAY }}>{renderDescription(data[key], key)}</Text></Text>
                     }
                 })
             )
@@ -98,7 +160,7 @@ const CartProductCards = (props) => {
                     <Image source={{ uri: item?.ManagementProduct?.images[0] }} style={{ height: hp(8), width: wp(16), resizeMode: 'contain', margin: '2%' }} />
                 </View>
                 <View style={{ gap: 5, width: '80%' }}>
-                    <Text style={styles.itemName} >{item?.ManagementProduct?.title}</Text>
+                    <Text style={styles.itemName} >{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>
                     {getVariations(item?.ManagementProduct?.ManagementProductVariantStyle)}
                     {getDeliveryInfo()}
                     {getExpressView()}

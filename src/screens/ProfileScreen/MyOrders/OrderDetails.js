@@ -112,7 +112,7 @@ const OrderDetails = (props) => {
 
                         {/* ================PRODUCT DETAIL============== */}
 
-                        <View style={styles.row}>
+                        {/* <View style={styles.row}>
                             <View style={styles.invoiceView}>
                                 <Image
                                     source={Images.Invoice}
@@ -128,10 +128,10 @@ const OrderDetails = (props) => {
                                     style={styles.icon}
                                 />
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
 
 
-                        {/* ================SHIPPING ADDRESS============== */}
+                        {/* ================SHIPPING ADDRESS============== */} 
 
                         <View style={[styles.row, { flexDirection: 'column', gap: 8 }]}>
                             <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}> SHIPPING ADDRESS </Text>
