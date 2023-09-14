@@ -8,7 +8,7 @@ import Separator from '../../constant/Separator';
 import Images from '../../constant/Images';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-
+import { translate } from '../../utility';
 
 const ProductSpecCard = (props) => {
     const { data } = props;
@@ -42,7 +42,7 @@ const ProductSpecCard = (props) => {
                     <View style={styles.tableHeaderCont}>
                         <Text style={styles.tableItemName}>{selectedLanguageItem?.language_id === 0 ? data?.ManagementProductSeo?.product_name : data?.ManagementProductSeo?.product_name_arabic}</Text>
                         <Text style={styles.tableItemName}>$ {data?.ManagementProductPricing?.hanooot_price}</Text>
-                        <Text style={[styles.tableItemName, { color: Colors.GRAYDARK, fontSize: 12 }]}>Essential information</Text>
+                        <Text style={[styles.tableItemName, { color: Colors.GRAYDARK, fontSize: 12 }]}>{translate('common.essentialinformation')}</Text>
                     </View>
                     <View style={styles.Separator} />
                     <DataTable>
@@ -61,7 +61,7 @@ const ProductSpecCard = (props) => {
                 <View style={styles.offerViewContainer}>
                     <Image source={Images.OfferKey} style={styles.offerKeyImg} />
                     <View>
-                        <Text style={styles.offerContent}>2 other offers from other sellers</Text>
+                        <Text style={styles.offerContent}>2 {translate('common.otherOffers')}</Text>
                         <Text style={[styles.offerContent, { color: Colors.GREEN }]}>$ 4,82.00</Text>
 
                     </View>
@@ -86,11 +86,11 @@ const ProductSpecCard = (props) => {
 
                 <View style={{ flexDirection: 'row', }}>
                     <View style={{ width: '30%', gap: 10 }}>
-                        <Text style={styles.cardDetails}>Fulfilled by</Text>
+                        <Text style={styles.cardDetails}>{translate('common.fulfilledby')}</Text>
                         {/* <Text style={styles.cardDetails}>Sort by</Text> */}
                     </View>
                     <View style={{ width: '60%', gap: 10 }}>
-                        <Text style={styles.cardDetails}>Hanooot</Text>
+                        <Text style={styles.cardDetails}>{translate('common.hanooot')}</Text>
                         {/* <TouchableOpacity onPress={() => navigation.navigate('SellerReview')}>
                             <Text style={[styles.cardDetails, { color: Colors.themeColor }]}>Ecom Nation</Text>
                         </TouchableOpacity> */}

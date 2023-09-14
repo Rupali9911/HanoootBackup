@@ -4,13 +4,14 @@ import Colors from './Colors'
 import fonts from './fonts'
 import Images from './Images'
 import { hp, wp } from './responsiveFunc'
+import { translate } from '../utility'
 
 
 
 export const ExpressView = (props) => {
     return (
         <View style={[styles.container, props.containerStyle]}>
-            <Text style={styles.name}>{'EXPRESS'}</Text>
+            <Text style={styles.name}>{translate('common.express')}</Text>
         </View>
     )
 }
@@ -30,11 +31,11 @@ export const LikeImage = (props) => {
         <TouchableOpacity
             onPress={props.onPress}
 
-            style={{alignItems: 'flex-end', flex: 1, }}
-        
-            // style={{backgroundColor: 'red'}}
+            style={{ alignItems: 'flex-end', flex: 1, }}
+
+        // style={{backgroundColor: 'red'}}
         >
-            <Image source={props.image} style={[styles.like, props.imgStyle]}/>
+            <Image source={props.image} style={[styles.like, props.imgStyle]} />
         </TouchableOpacity>
 
     )
@@ -69,6 +70,6 @@ const styles = StyleSheet.create({
     like: {
         height: 16, width: 16, resizeMode: 'contain',
         // tintColor: 'red',
-        
+
     }
 })

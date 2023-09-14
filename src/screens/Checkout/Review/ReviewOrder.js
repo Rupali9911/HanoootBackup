@@ -22,6 +22,7 @@ import { showInfoToast, showErrorToast } from '../../../Components/universal/Toa
 import { getBuyNowData } from '../../Store/actions/orderAction'
 import Loader from '../../../constant/Loader'
 import CartItemCard from '../../CartScreen/CartItemCard'
+import { translate } from '../../../utility'
 
 
 const ReviewOrder = (props) => {
@@ -71,24 +72,24 @@ const ReviewOrder = (props) => {
   const OrderSummary = () => {
     return (
       <>
-        <ProductHeader title={'Order Summary'} />
+        <ProductHeader title={translate('common.ordersummary')} />
 
         <View style={styles.priceViewCont}>
           <View style={styles.rowCont}>
-            <Text style={styles.priceLeftText}>Subtotal (1 item)</Text>
+            <Text style={styles.priceLeftText}>{translate('common.subtotal')} (1 {translate('common.item')})</Text>
             <Text style={styles.price}>$ {data?.total_cost}</Text>
           </View>
           <View style={styles.rowCont}>
-            <Text style={styles.priceLeftText}>Coupon Discount</Text>
+            <Text style={styles.priceLeftText}>{translate('common.coupondiscount')}</Text>
             <Text style={[styles.price, { color: Colors.GREEN }]}>$ 0</Text>
           </View>
           <View style={styles.rowCont}>
-            <Text style={styles.priceLeftText}>Shipping Cost</Text>
+            <Text style={styles.priceLeftText}>{translate('common.shippingcost')}</Text>
             <Text style={styles.price}>$ 0</Text>
           </View>
           <Separator separatorStyle={{ width: wp(90) }} />
           <View style={styles.rowCont}>
-            <Text style={styles.TotalPrice}>Total <Text style={{ color: Colors.PRICEGRAY, fontWeight: 500 }}>(Inclusive of VAT)</Text></Text>
+            <Text style={styles.TotalPrice}>{translate('common.total')} <Text style={{ color: Colors.PRICEGRAY, fontWeight: 500 }}>({translate('common.inclusiveofvat')})</Text></Text>
             <Text style={styles.TotalPrice}>$ {data?.total_cost}</Text>
           </View>
         </View>
@@ -99,7 +100,7 @@ const ReviewOrder = (props) => {
   const PayDetail = () => {
     return (
       <>
-        <ProductHeader title={'Pay With'} rightButtonLabel={'Change'} onPress={() => props.setScreenType('PAYMENT')} />
+        <ProductHeader title={translate('common.paywith')} rightButtonLabel={translate('common.change')} onPress={() => props.setScreenType('PAYMENT')} />
 
         {/* <View style={styles.payCard}>
           <Image source={Images.ZainCash} style={{ height: 40, width: 45 }} />
@@ -117,8 +118,8 @@ const ReviewOrder = (props) => {
           <View>
             <Text
               style={styles.payMode}
-            >{'Cash On Delivery'}</Text>
-            <Text style={styles.payModeDesc} numberOfLines={2}>{'Pay when you get order'}</Text>
+            >{translate('common.cashondelivery')}</Text>
+            <Text style={styles.payModeDesc} numberOfLines={2}>{translate('common.paywhenyougetorder')}</Text>
           </View>
         </View>
       </>
@@ -132,7 +133,7 @@ const ReviewOrder = (props) => {
   const DeliveryDetail = () => {
     return (
       <>
-        <ProductHeader title={'Deliver to'} rightButtonLabel={'Change'} onPress={() => props.setScreenType('ADDRESS')} />
+        <ProductHeader title={translate('common.deliverto')} rightButtonLabel={translate('common.change')} onPress={() => props.setScreenType('ADDRESS')} />
         <View style={styles.DeliveryCard}>
           <View style={styles.rowCont}>
             <Text style={styles.deliverUserName}>{signleAddressDetail?.name}</Text>
@@ -207,7 +208,7 @@ const ReviewOrder = (props) => {
   const CouponDetail = () => {
     return (
       <>
-        <ProductHeader title={'Coupon'} />
+        <ProductHeader title={translate('common.coupan')} />
         <Coupon />
       </>
     )
@@ -229,7 +230,7 @@ const ReviewOrder = (props) => {
               {OrderSummary()}
               {PayDetail()}
               {DeliveryDetail()}
-              <ProductHeader title={'Review Item'} />
+              <ProductHeader title={translate('common.reviewitem')} />
               {
                 listItems?.length > 0
                   ?
@@ -242,7 +243,7 @@ const ReviewOrder = (props) => {
                   />
                   :
                   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={styles.priceLeftText}>{'No Item Found'}</Text>
+                    <Text style={styles.priceLeftText}>{translate('common.noitemfound')}</Text>
                   </View>
               }
 
@@ -250,7 +251,7 @@ const ReviewOrder = (props) => {
             </ScrollView>
             <View style={styles.bottomButtonCont}>
               <AppButton
-                label={'Place Your Order'}
+                label={translate('common.placeyourorder')}
                 onPress={OnPlaceOrder}
               />
             </View>

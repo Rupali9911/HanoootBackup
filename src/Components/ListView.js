@@ -12,6 +12,7 @@ import { addToWishlist, removeWishlistItem } from '../screens/Store/actions/wish
 import { addToWishlistAPICall } from '../services/apis/WishlistAPI'
 import SVGS from '../constant/Svgs'
 import { showErrorToast, showInfoToast } from './universal/Toast'
+import { translate } from '../utility'
 
 
 const { HeartIconActive, HeartIcon, DiscountTag } = SVGS
@@ -94,7 +95,7 @@ const ListView = (props) => {
             }
         }
         else {
-            showErrorToast('For all your shopping needs', 'Please Login First')
+            showErrorToast(translate('common.loginFirstText'))
         }
 
     }

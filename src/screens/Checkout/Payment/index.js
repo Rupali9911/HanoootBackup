@@ -11,6 +11,7 @@ import RadioButton from 'react-native-radio-button'
 import AppButton from '../../Components/AppButton';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { translate } from '../../../utility';
 
 
 const Payment = (props) => {
@@ -27,7 +28,7 @@ const Payment = (props) => {
         // <AppBackground>
         //     <AppHeader />
         <>
-            <ProductHeader title={'Select a Payment method'} />
+            <ProductHeader title={translate('common.selectPayment')} />
             <View style={{ marginTop: 20 }}>
                 <View style={styles.payCard}>
                     <RadioButton
@@ -42,8 +43,8 @@ const Payment = (props) => {
                     <View>
                         <Text
                             style={styles.payMode}
-                        >{'Cash On Delivery'}</Text>
-                        <Text style={styles.payModeDesc} numberOfLines={2}>{'Pay when you get order'}</Text>
+                        >{translate('common.cashondelivery')}</Text>
+                        <Text style={styles.payModeDesc} numberOfLines={2}>{translate('common.paywhenyougetorder')}</Text>
                     </View>
                 </View>
                 {/* <Separator separatorStyle={{ marginVertical: 0 }} /> */}
@@ -67,12 +68,11 @@ const Payment = (props) => {
             </View>
             <Text
                 style={styles.privacyText}
-            >Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in
-                our privacy policy.</Text>
+            >{translate('common.paymentWarning')}</Text>
 
 
             <View style={styles.bottomButtonCont}>
-                <AppButton label={'Continue'}
+                <AppButton label={translate('common.continue')}
                     onPress={() => {
                         // const storeUser = async () => {
                         //     try {

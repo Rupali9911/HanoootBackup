@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { showErrorToast } from '../../../Components/universal/Toast'
 import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
 import { showInfoToast } from '../../../Components/universal/Toast'
+import { translate } from '../../../utility'
 
 
 const TopPicks = (props) => {
@@ -63,7 +64,7 @@ const TopPicks = (props) => {
         </View>
         <TouchableOpacity style={styles.cartBtn}
           onPress={() =>
-            userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.id, topPicksId) : showErrorToast('For all your shopping needs', 'Please Login First')}
+            userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.id, topPicksId) : showErrorToast(translate('common.loginFirstText'))}
         >
           <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? 'View Cart' : 'Add to Cart'}</Text>
         </TouchableOpacity>

@@ -34,7 +34,7 @@ const OtherSellers = (props) => {
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 2 }}>
                                 <Text>3</Text>
                                 <Image source={Images.star} style={{ height: 10, width: 10 }} />
-                                <Text>(79 Rating)</Text>
+                                <Text>(79 {translate('common.ratings')})</Text>
                             </View>
                         }
 
@@ -49,8 +49,8 @@ const OtherSellers = (props) => {
     const DeliveryDetail = () => {
         return (
             <View style={styles.deliveryView}>
-                <Text style={styles.deliveryDetal}>Estimated Delivery on <Text style={{ color: Colors.BLACK }}>{'Sunday, 5 February.'}</Text></Text>
-                <Text style={styles.deliveryDetal}>Order Within  <Text style={{ color: Colors.BLACK }}>{'8hr 40 mins.'}</Text></Text>
+                <Text style={styles.deliveryDetal}>{translate('common.estimateddeliveryon')} <Text style={{ color: Colors.BLACK }}>{'Sunday, 5 February.'}</Text></Text>
+                <Text style={styles.deliveryDetal}>{translate('common.orderwithin')}  <Text style={{ color: Colors.BLACK }}>{'8hr 40 mins.'}</Text></Text>
             </View>
         );
     }
@@ -58,7 +58,7 @@ const OtherSellers = (props) => {
     const SoldByDetail = () => {
         return (
             <View style={{ flexDirection: "row", gap: 50, marginBottom: 20 }}>
-                <Text style={styles.soldDetail}>Sold by</Text>
+                <Text style={styles.soldDetail}>{translate('common.soldby')}</Text>
                 <Text style={[styles.soldDetail, { color: Colors.themeColor }]}>Smart Gad</Text>
             </View>
         );
@@ -68,10 +68,10 @@ const OtherSellers = (props) => {
         return (
             <View style={styles.buttonView}>
                 <TouchableOpacity style={styles.ButtonTouchable}>
-                    <Text style={styles.buttonText}>View Offer</Text>
+                    <Text style={styles.buttonText}>{translate('common.viewoffer')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.ButtonTouchable}>
-                    <Text style={styles.buttonText}>Add to Cart</Text>
+                    <Text style={styles.buttonText}>{translate('common.addtocart')}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -82,7 +82,7 @@ const OtherSellers = (props) => {
             <View style={{ marginBottom: 10 }}>
                 <View style={styles.cardView}>
                     <View style={styles.pricePercentDiscountView}>
-                        <Text style={styles.pricePercentDiscount}>10% Off</Text>
+                        <Text style={styles.pricePercentDiscount}>10% {translate('common.off')}</Text>
                     </View>
                     <View style={styles.rowItem}>
                         <View style={{ flexDirection: 'row', gap: 10 }}>
@@ -116,7 +116,7 @@ const OtherSellers = (props) => {
     return (
         <AppBackground>
             <AppHeader placeholderText={translate('common.whatLookingFor')} showBackButton />
-            <Text style={styles.offerAvail}>2 offers available</Text>
+            <Text style={styles.offerAvail}>2 {translate('common.offersavailable')}</Text>
             {ProductDetail()}
             <FlatList
                 data={[1, 2]}

@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getItemsFromCart } from '../Store/actions/cartAction'
 import { removeItemsFromCart } from '../Store/actions/cartAction'
 import { wp, hp } from '../../constant/responsiveFunc'
+import { AddtoCartAPICall } from '../../services/apis/CartAPI'
+import { translate } from '../../utility'
 import CartProductCards from '../../Components/CartedProducts'
-
 
 const CartItemCard = () => {
     const dispatch = useDispatch();
@@ -40,9 +41,10 @@ const CartItemCard = () => {
     }
 
     return (
-        <ScrollView style={{ marginBottom: hp(7) }}>
+        <ScrollView style={{ marginBottom: hp(7) }}
+        >
             <View style={styles.yellowLineView}>
-                <Text style={styles.deliveryLine}>{`Deliver to ${userData?.displayName ? userData?.displayName : 'UserName'}-Iraq`}</Text>
+                <Text style={styles.deliveryLine}>{`${translate('common.deliverto')} ${userData?.displayName ? userData?.displayName : 'UserName'}-Iraq`}</Text>
             </View>
             <FlatList
                 data={cartItems}

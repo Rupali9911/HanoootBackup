@@ -131,7 +131,7 @@ const ProductDetail = (props) => {
                 totalCartItemDetail?.noOfProducts.map(async id => {
                     const response = await AddtoCartAPICall(id, 1)
                     if (response?.success) {
-                        showInfoToast('SUCCESS', `${totalCartItemDetail?.noOfProducts?.length} Items Added in Cart!!`)
+                        showInfoToast('SUCCESS', `${totalCartItemDetail?.noOfProducts?.length} ${translate('common.itemsAdded!!')}`)
                     }
                     else {
                         showErrorToast()
@@ -157,20 +157,20 @@ const ProductDetail = (props) => {
     const ModalContent = (props) => {
         return (
             <View style={styles.modalContainer}>
-                <Text style={styles.removeHeading}>Before proceeding further, you must login first.</Text>
-                <Text style={styles.removeDesc}>Do you want to continue?</Text>
+                <Text style={styles.removeHeading}>{translate('common.loginFirstMessage')}</Text>
+                <Text style={styles.removeDesc}>{translate('common.wantContinue')}</Text>
                 <View style={styles.modalBtnCont}>
                     <TouchableOpacity
                         onPress={props.onCancelPress}
                         style={styles.btnViewCont}
                     >
-                        <Text style={styles.modalBtnText}>No</Text>
+                        <Text style={styles.modalBtnText}>{translate('common.no')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={props.onOkPress}
                         style={[styles.btnViewCont, { backgroundColor: Colors.themeColor }]}
                     >
-                        <Text style={[styles.modalBtnText, { color: Colors.WHITE }]}>Yes</Text>
+                        <Text style={[styles.modalBtnText, { color: Colors.WHITE }]}>{translate('common.yes')}</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -216,12 +216,12 @@ const ProductDetail = (props) => {
                                         productId={productDetail?.product_details_id}
                                     />
                                     <AppButton
-                                        label={productDetail?.isCart ? 'View Cart' : 'Add to Cart'}
+                                        label={productDetail?.isCart ? translate('common.viewcart') : translate('common.addtocart')}
                                         onPress={() => userData ? onAddtoCartPress(productDetail?.isCart) : setModalVisible(true)}
                                         isIndicatorLoading={isDetailPageLoad}
                                     />
 
-                                    <AppButton label={'Buy Now'} containerStyle={styles.outLineButton}
+                                    <AppButton label={translate('common.buynow')} containerStyle={styles.outLineButton}
                                         onPress={() => userData ?
                                             (
                                                 dispatch(setTappedButtonName(true)),
@@ -237,7 +237,7 @@ const ProductDetail = (props) => {
                                     {
                                         productDetail?.children.length > 0 ?
                                             <>
-                                                <ProductHeader title={'Frequently Bought Together'} />
+                                                <ProductHeader title={translate('common.frequently')} />
                                                 <FlatList
                                                     data={productDetail?.children}
                                                     renderItem={({ item, index }) => {
@@ -280,14 +280,14 @@ const ProductDetail = (props) => {
                                                 <View style={{ marginHorizontal: 20, marginTop: 10 }}>
                                                     <View style={styles.infoView}>
                                                         <Image source={Images.InfoIcon} style={{ height: 15, width: 15 }} />
-                                                        <Text style={[styles.infoMsg, { fontSize: 12 }]}>These items are dispatched from and sold by different sellers</Text>
+                                                        <Text style={[styles.infoMsg, { fontSize: 12 }]}>{translate('common.itemsSoldSeller')}</Text>
                                                     </View>
 
-                                                    <Text style={[styles.infoMsg, { margin: 10 }]}>{`Total Price : $ ${totalCartItemDetail?.totalPrice}`}</Text>
+                                                    <Text style={[styles.infoMsg, { margin: 10 }]}>{`${translate('common.totalprice')} : $ ${totalCartItemDetail?.totalPrice}`}</Text>
                                                 </View>
                                                 <AppButton
                                                     containerStyle={{ backgroundColor: Colors.LightGray }}
-                                                    label={`Add ${totalCartItemDetail?.noOfProducts?.length} Items to Cart`}
+                                                    label={`${translate('common.add')} ${totalCartItemDetail?.noOfProducts?.length} ${translate('common.itemstocart')}`}
                                                     labelStyle={{ color: Colors.themeColor }}
                                                     onPress={() => onAddMultipleItemToCart()}
                                                 />
@@ -299,7 +299,7 @@ const ProductDetail = (props) => {
                                     {
                                         productFilterByCategory?.length > 0 ?
                                             <>
-                                                <ProductHeader title={`More From ${capitalizeFirstLetter(productDetail?.ManagementCategory?.name)}`} />
+                                                <ProductHeader title={`${translate('common.morefrom')} ${capitalizeFirstLetter(productDetail?.ManagementCategory?.name)}`} />
                                                 <FlatList
                                                     data={productFilterByCategory}
                                                     renderItem={({ item, index }) => {
