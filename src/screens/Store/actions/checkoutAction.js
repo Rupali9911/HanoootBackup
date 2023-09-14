@@ -3,6 +3,8 @@ import { REMOVE_ADDRESS } from "../types";
 import { UPDATE_ADDRESS } from "../types";
 import { AddNewAddressAPICall, FetchAddressAPICall, updateAddressAPICall, deleteAddressAPICall, FetchSelectedAddressAPICall } from "../../../services/apis/AddressAPI";
 import { showInfoToast } from "../../../Components/universal/Toast";
+import { Store } from '../../Store'
+
 
 export const setAddressDetails = data => {
     return {
@@ -68,7 +70,7 @@ export const fetchAddressDetails = () => {
     return async dispatch => {
         try {
             await FetchAddressAPICall().
-                then(async(response) => {
+                then(async (response) => {
                     console.log('response from fetch address detail api', response)
                     if (response?.data) {
                         await dispatch(setAddressDetails(response?.data))
@@ -114,17 +116,22 @@ export const removeAddressDetails = (Deleteid) => {
     // console.log('check id : ', Deleteid)
     // return async dispatch => {
     return async (dispatch, getState) => {
+        const { selectedLanguageItem } = getState().languageReducer;
+
         // try {
-            await deleteAddressAPICall(Deleteid).
+        await deleteAddressAPICall(Deleteid).
             then(async (response) => {
                 console.log('response from remove address api', response)
-                if(response?.success === true){
+                if (response?.success === true) {
                     // dispatch(setAddressDetails(response?.data))
+                    const isLanguage = Store.getState().languageReducer.selectedLanguageItem?.language_id;
+                    console.log('Store.getState().LanguageReducer.selectedLanguageItem', Store.getState().languageReducer.selectedLanguageItem)
+
+                    showInfoToast('REMOVE', isLanguage === 0 ? response?.message : response?.message_arabic)
 
                     await dispatch(fetchAddressDetails());
 
-                    showInfoToast('REMOVE', response?.message)
-                    
+
                 }
             }).
             catch((err) => {
@@ -143,7 +150,7 @@ export const getParticularSelectedAddress = (addId) => {
     return async dispatch => {
         try {
             await FetchSelectedAddressAPICall(addId).
-                then(async(response) => {
+                then(async (response) => {
                     console.log('response from fetch selected address detail api', response)
                     if (response?.data) {
                         await dispatch(fetchSingleAddress(response?.data))

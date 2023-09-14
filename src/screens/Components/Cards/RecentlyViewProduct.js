@@ -15,7 +15,7 @@ const RecentlyViewProduct = (props) => {
                 centerImage={item?.ManagementProduct?.product_image}
                 productName={item?.ManagementProduct?.title}
                 price={item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}
-                isLeftImage
+                isLeftImage={item?.ManagementBrand?.name}
                 showLike
                 isItemLiked={item?.isLike}
                 detailId={item?.product_id}

@@ -1,21 +1,22 @@
 import { translate } from "../utility"
 
+
 export const getWeekDays = (key) => {
     switch (key) {
         case 'Sat':
             return translate('common.sat')
         case 'Sun':
-            return translate('common.sat')
+            return translate('common.sun')
         case 'Mon':
-            return translate('common.sat')
+            return translate('common.mon')
         case 'Tue':
-            return translate('common.sat')
+            return translate('common.tue')
         case 'Wed':
-            return translate('common.sat')
+            return translate('common.wed')
         case 'Thu':
-            return translate('common.sat')
+            return translate('common.thu')
         case 'Fri':
-            return translate('common.sat')
+            return translate('common.fri')
         default:
             return null;
     }
@@ -25,29 +26,29 @@ export const getWeekDays = (key) => {
 export const getMonths = (key) => {
     switch (key) {
         case 'Jan':
-            return translate('common.sat')
+            return translate('common.jan')
         case 'Feb':
-            return translate('common.sat')
+            return translate('common.feb')
         case 'Mar':
-            return translate('common.sat')
+            return translate('common.mar')
         case 'Apr':
-            return translate('common.sat')
+            return translate('common.apr')
         case 'May':
-            return translate('common.sat')
+            return translate('common.may')
         case 'Jun':
-            return translate('common.sat')
+            return translate('common.jan')
         case 'Jul':
-            return translate('common.sat')
+            return translate('common.jul')
         case 'Aug':
-            return translate('common.sat')
+            return translate('common.aug')
         case 'Sep':
-            return translate('common.sat')
+            return translate('common.sep')
         case 'Oct':
-            return translate('common.sat')
+            return translate('common.oct')
         case 'Nov':
-            return translate('common.sat')
+            return translate('common.nov')
         case 'Dec':
-            return translate('common.sat')
+            return translate('common.dec')
         default:
             return null;
     }

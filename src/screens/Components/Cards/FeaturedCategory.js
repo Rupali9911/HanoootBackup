@@ -18,6 +18,8 @@ const FeaturedCategory = (props) => {
     const [isAddToCart, setAddToCart] = useState('')
 
     const userData = useSelector((state) => state.userReducer.userData);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
     const onAddtoCartPress = async (isCartedItem, productId) => {
         try {
@@ -27,7 +29,7 @@ const FeaturedCategory = (props) => {
                 if (response?.success) {
                     setTimeout(() => {
                         setAddToCart(true)
-                        showInfoToast('SUCCESS', response?.message)
+                        showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
                         dispatch(updateFeaturedCart(productId))
                     }, 1000);
                 }

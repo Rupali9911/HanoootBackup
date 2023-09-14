@@ -107,7 +107,7 @@ const ProductDetail = (props) => {
                     const resp1 = dispatch(getProductDetail(product_detail_Id, userData))
                     if (resp1) {
                         setTimeout(() => {
-                            showInfoToast('SUCCESS', response?.message)
+                            showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
                         }, 1000);
                     }
                 }

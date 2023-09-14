@@ -6,6 +6,7 @@ import appleAuth from '@invertase/react-native-apple-authentication'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { showErrorToast } from '../../Components/universal/Toast'
 import EncryptedStorage from 'react-native-encrypted-storage';
+import { translate } from '../../utility';
 
 auth().onAuthStateChanged((user) => {
     console.log('Auth State changed');
@@ -182,11 +183,11 @@ export const updateDisplayName = (userCredentials, name) => {
     return new Promise(async (resolve, reject) => {
         try {
             var response
-            if(userCredentials){
-                 response = await userCredentials.user.updateProfile({
+            if (userCredentials) {
+                response = await userCredentials.user.updateProfile({
                     displayName: name
                 })
-            }else{
+            } else {
                 response = await auth().currentUser.updateProfile({
                     displayName: name
                 })
@@ -357,5 +358,5 @@ export const handleAuthError = (error) => {
             errorMessage = "Something went wrong";
             break;
     }
-    showErrorToast('Auth Error', errorMessage)
+    showErrorToast(translate('common.autherror'), errorMessage)
 }

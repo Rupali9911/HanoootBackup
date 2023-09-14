@@ -1,6 +1,11 @@
 import { CART_API, COUPON_API } from "../../../utility/apiUrls";
 import sendRequest from "../../axios/AxiosApiRequest";
 import { showInfoToast, showErrorToast } from "../../../Components/universal/Toast";
+import { Store } from "../../../screens/Store";
+import { translate } from "../../../utility";
+
+const isLanguage = Store.getState().languageReducer.selectedLanguageItem?.language_id;
+
 
 export const AddtoCartAPICall = (product_id, quantity) => {
     // console.log('check product id and qty : ', product_id, quantity)
@@ -22,14 +27,14 @@ export const AddtoCartAPICall = (product_id, quantity) => {
                     // showInfoToast('SUCCESS', response?.message)
                 }
                 else {
-                    showErrorToast('Auth Error', response?.message)
+                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             }).
             catch((error) => {
                 console.log('Error from Add to cart API : ', error);
                 _reject(error)
                 if (error?.status == 401) {
-                    showErrorToast('Auth Error', '')
+                    showErrorToast(translate('common.autherror'), '')
                 }
             })
     })
@@ -51,7 +56,7 @@ export const getCartItemAPICall = (page) => {
                     resolve(response)
                 }
                 else {
-                    showErrorToast('Auth Error', response?.message)
+                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             }).
             catch((error) => {
@@ -77,10 +82,10 @@ export const removeCartItemAPICall = (product_id) => {
                 if (response?.success === true) {
                     resolve(response)
 
-                    showInfoToast('REMOVE', response?.message)
+                    showInfoToast('REMOVE', isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
                 else {
-                    showErrorToast('Auth Error', response?.message)
+                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             }).
             catch((error) => {
@@ -105,7 +110,7 @@ export const getCouponAPICall = () => {
                     resolve(response)
                 }
                 else {
-                    showErrorToast('Auth Error', response?.message)
+                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             }).
             catch((error) => {

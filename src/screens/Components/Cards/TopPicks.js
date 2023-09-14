@@ -16,6 +16,8 @@ const TopPicks = (props) => {
   const navigation = useNavigation();
 
   const userData = useSelector((state) => state.userReducer.userData);
+  const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
   const [isAddToCart, setAddToCart] = useState('');
 
   const onAddtoCartPress = async (isCartedItem, productId, topPicksId) => {
@@ -26,7 +28,7 @@ const TopPicks = (props) => {
         if (response?.success) {
           setTimeout(() => {
             setAddToCart(true)
-            showInfoToast('SUCCESS', response?.message)
+            showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
           }, 1000);
         }
         else {

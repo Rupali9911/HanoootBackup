@@ -1,6 +1,11 @@
 import { ADD_NEW_ADDRESS, FETCH_ADDRESS_DETAIL, UPDATE_ADDRESS_DETAIL, DELETE_ADDRESS_DETAIL } from "../../../utility/apiUrls";
 import sendRequest from "../../axios/AxiosApiRequest";
 import { showSuccessToast, showInfoToast } from "../../../Components/universal/Toast";
+import { Store } from "../../../screens/Store";
+import { translate } from "../../../utility";
+
+const isLanguage = Store.getState().languageReducer.selectedLanguageItem?.language_id;
+
 
 export const AddNewAddressAPICall = (data) => {
 
@@ -19,7 +24,7 @@ export const AddNewAddressAPICall = (data) => {
 
                     // showInfoToast('SUCCESS', response?.message)
                 } else {
-                    showErrorToast('Auth Error', response?.message)
+                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             })
             .catch(error => {
@@ -41,11 +46,11 @@ export const FetchAddressAPICall = () => {
                 // console.log('Response from ADD_NEW_ADDRESS api', response, response?.success, response?.success === true)
                 console.log('Response from FETCH_ADDRESS_DETAIL api', response)
                 if (response?.success === true) {
-                    
+
                     //
                     resolve(response)
-                // } else {
-                //     showErrorToast('Auth Error', response?.message)
+                    // } else {
+                    //     showErrorToast('Auth Error', response?.message)
                 }
             })
             .catch(error => {
@@ -68,14 +73,14 @@ export const updateAddressAPICall = (data) => {
                 // console.log('Response from ADD_NEW_ADDRESS api', response, response?.success, response?.success === true)
                 console.log('Response from UPDATE_ADDRESS_DETAIL api', response)
                 if (response?.success === true) {
-                    
-                //     showInfoToast('SUCCESS', response?.message)
+
+                    //     showInfoToast('SUCCESS', response?.message)
                     resolve(response)
 
                     // showInfoToast('SUCCESS', response?.message)
 
-                // } else {
-                //     showErrorToast('Auth Error', response?.message)
+                    // } else {
+                    //     showErrorToast('Auth Error', response?.message)
                 }
             })
             .catch(error => {
@@ -100,9 +105,9 @@ export const deleteAddressAPICall = (deleteId) => {
                 if (response?.success === true) {
                     resolve(response)
 
-                    showInfoToast('REMOVE', response?.message)
-                // } else {
-                //     showErrorToast('Auth Error', response?.message)
+                    showInfoToast('REMOVE', isLanguage === 0 ? response?.message : response?.message_arabic)
+                    // } else {
+                    //     showErrorToast('Auth Error', response?.message)
                 }
             })
             .catch(error => {
@@ -124,11 +129,11 @@ export const FetchSelectedAddressAPICall = (id) => {
                 // console.log('Response from ADD_NEW_ADDRESS api', response, response?.success, response?.success === true)
                 console.log('Response from selected address detail api', response)
                 if (response?.success === true) {
-                    
+
                     //
                     resolve(response)
-                // } else {
-                //     showErrorToast('Auth Error', response?.message)
+                    // } else {
+                    //     showErrorToast('Auth Error', response?.message)
                 }
             })
             .catch(error => {

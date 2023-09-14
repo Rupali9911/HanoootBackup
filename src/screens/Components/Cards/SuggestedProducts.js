@@ -17,7 +17,7 @@ const SuggestedProducts = (props) => {
                 centerImage={item?.product_image}
                 productName={item?.title}
                 price={item?.ManagementProductPricing?.hanooot_price}
-                isLeftImage
+                isLeftImage={item?.ManagementBrand?.name}
                 showLike
                 isItemLiked={item?.isLike}
                 detailId={item?.id}
