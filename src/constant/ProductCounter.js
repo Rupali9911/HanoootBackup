@@ -13,7 +13,6 @@ const ProductCounter = (props) => {
     const [counter, setCounter] = useState(1);
     const userData = useSelector((state) => state.userReducer.userData);
 
-
     const dispatch = useDispatch();
 
     const incrementCounter = async () => {
