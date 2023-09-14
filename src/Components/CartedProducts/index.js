@@ -9,6 +9,7 @@ import { getEnglishTitle, getArabicTitle } from '../../constant/SwitchRenders'
 import { getVariantsData } from '../../screens/utils'
 import { estimatedDelivery } from '../../screens/utils'
 import CartItemQuantity from './CartItemQty'
+import { translate } from '../../utility'
 
 
 const CartProductCards = (props) => {
@@ -48,8 +49,8 @@ const CartProductCards = (props) => {
     const getDeliveryInfo = () => {
         return (
             <>
-                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Estimated Delivery on <Text style={{ color: Colors.BLACK }}>{estimatedDelivery(cartData?.deliveryDays?.delivery)}</Text></Text>
-                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>Order Within  <Text style={{ color: Colors.BLACK }}>{getTime(cartData?.deliveryDays?.time)}</Text></Text>
+                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.estimateddeliveryon')} <Text style={{ color: Colors.BLACK }}>{estimatedDelivery(cartData?.deliveryDays?.delivery)}</Text></Text>
+                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.orderwithin')}  <Text style={{ color: Colors.BLACK }}>{getTime(cartData?.deliveryDays?.time)}</Text></Text>
             </>
         )
     }
@@ -57,7 +58,7 @@ const CartProductCards = (props) => {
     const getExpressView = () => {
         return (
             <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.itemDetail}>Fullfilled by <Text>Hanooot </Text></Text>
+                <Text style={styles.itemDetail}>{translate('common.fulfilledby')} <Text>{translate('common.hanooot')} </Text></Text>
                 <ExpressView />
             </View>
         )

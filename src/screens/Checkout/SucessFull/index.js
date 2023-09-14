@@ -8,6 +8,7 @@ import AppHeader from '../../Components/AppHeader'
 import Colors from '../../../constant/Colors'
 import { wp } from '../../../constant/responsiveFunc'
 import { useNavigation } from '@react-navigation/native';
+import { translate } from '../../../utility'
 
 
 const OrderSuccessScreen = () => {
@@ -19,17 +20,16 @@ const OrderSuccessScreen = () => {
                 <Image source={Images.OrderSuccess} style={styles.image} />
                 <Text
                     style={styles.orderSuccessHeading}
-                >Order placed Successfully</Text>
-                <Text style={styles.orderSuccessDesc}>Thank you for Your Order. We have sent you an email with your order details. You can track your order from your Dashboard. For your support, you can send us a direct
-                    messages or chat with us</Text>
+                >{translate('common.orderplacedsuccessfully')}</Text>
+                <Text style={styles.orderSuccessDesc}>{translate('common.thankYouForOrder')}</Text>
                 <View>
                     <AppButton
                         isEmptyBG
-                        label={'View Order'}
+                        label={translate('common.vieworder')}
                         onPress={() => navigation.navigate('OrderList')}
                     />
                     <AppButton
-                        label={'Back to Shopping'}
+                        label={translate('common.backtoshopping')}
                         onPress={() => navigation.navigate('HomeTab')}
                     />
                 </View>
