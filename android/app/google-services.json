@@ -14,11 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "154905673298-i67d2hcbnorcviuhdfs7q8ohchgd18os.apps.googleusercontent.com",
+          "client_id": "154905673298-cqg187dcutam1229ksaafvv6ct4pod33.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hanooot.android",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "154905673298-csevja77vjg73gmh4mkvaadq6oimq4r1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hanooot.android",
+            "certificate_hash": "38876c3d9c38e63240503c7758cffde4691765be"
           }
         },
         {
@@ -29,6 +37,56 @@
       "api_key": [
         {
           "current_key": "AIzaSyDgYEhFKOXi6VpeYxb6QVNyPmfzWh0_ZZI"
+        },
+        {
+          "current_key": "AIzaSyAF7_vZvqfPsyPcIADP_X_QFDX41vIRpWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154905673298-1ojcgdc10gsfbat0l7d3aqivo0kd8lk0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "154905673298-ri9sfojvsn0jrd8qo375ujfqqd2k30j5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hanooot.ios"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154905673298:android:fba5710ea4c1ae32a5a98b",
+        "android_client_info": {
+          "package_name": "com.hanooot.mobileapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154905673298-k14h4bvtrclh9p9rkbgs09oai64rckjl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hanooot.mobileapp",
+            "certificate_hash": "054aa888a2cdb0156bb2771ec6e634a2a41da4b3"
+          }
+        },
+        {
+          "client_id": "154905673298-1ojcgdc10gsfbat0l7d3aqivo0kd8lk0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgYEhFKOXi6VpeYxb6QVNyPmfzWh0_ZZI"
+        },
+        {
+          "current_key": "AIzaSyAF7_vZvqfPsyPcIADP_X_QFDX41vIRpWo"
         }
       ],
       "services": {

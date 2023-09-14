@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>154905673298-ri9sfojvsn0jrd8qo375ujfqqd2k30j5.apps.googleusercontent.com</string>
+	<string>154905673298-ssadvk4jj0qegs0dvtbd03lk911au5kv.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.154905673298-ri9sfojvsn0jrd8qo375ujfqqd2k30j5</string>
+	<string>com.googleusercontent.apps.154905673298-ssadvk4jj0qegs0dvtbd03lk911au5kv</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>154905673298-cqg187dcutam1229ksaafvv6ct4pod33.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBrzXVff2NFocJdPwtn3fLyTR8vLkZpJQE</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.hanooot.ios</string>
+	<string>com.hanooot.app</string>
 	<key>PROJECT_ID</key>
 	<string>hanooot-app-web</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:154905673298:ios:2565b009c1277340a5a98b</string>
+	<string>1:154905673298:ios:f6160fb5a8cb4b72a5a98b</string>
 </dict>
 </plist>

@@ -1,4 +1,4 @@
-package com.hanooot.android;
+package com.hanooot.mobileapp;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
