@@ -1,5 +1,6 @@
 {
   "common": {
+    "checkout": "Checkout",
     "gotoshopping": "Go to Shopping",
     "thankForRegister": "Thank you for registering!",
     "numberVerified": "Mobile Number verified Successfully!",
@@ -132,7 +133,6 @@
     "iraq": "Iraq",
     "remove": "REMOVE",
     "edit": "EDIT",
-    "checkout": "checkout",
     "saveaddress": "Save Address",
     "saveas": "Save as",
     "phonenumber": "Phone Number",

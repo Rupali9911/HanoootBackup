@@ -141,7 +141,7 @@ export default function AppHeader(props) {
             <Text
               style={[styles.title, { color: Colors.themeColor, paddingRight: 10 }]}
               onPressRightText
-            >{translate('common.loginFirstText')}</Text>
+            >{translate('common.cancel')}</Text>
           </TouchableOpacity>
         )}
       </View>
