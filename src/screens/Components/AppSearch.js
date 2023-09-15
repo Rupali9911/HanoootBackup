@@ -148,6 +148,7 @@ const AppSearch = (props) => {
               renderItem={handleFlatListRenderItem}
               keyExtractor={keyExtractor}
               scrollEnabled={true}
+              nestedScrollEnabled={true}
             />
           ) : null}
         </View>
