@@ -1,6 +1,7 @@
 import { ORDER_LIST_LOADING, ORDER_LIST_SUCCESS, ORDER_LIST_FAIL, ORDER_LIST_RESET, ORDER_LIST_PAGE_CHANGE, ORDER_DETAIL_DATA_LOADING, ORDER_DETAIL_SUCCESS, ORDER_DETAIL_FAIL, ORDER_DETAIL_RESET, BUY_NOW_LIST_LOADING, BUY_NOW_LIST_SUCCESS, BUY_NOW_LIST_FAIL } from "../types";
 import { OrderAPICall, OrderDetailAPICall, BuyNowAPICall } from "../../../services/apis/OrdersAPI";
 import { showErrorToast } from "../../../Components/universal/Toast";
+import { translate } from "../../../utility";
 
 export const orderListLoadingStart = bool => ({
     type: ORDER_LIST_LOADING,
@@ -75,7 +76,7 @@ export const getOrderList = (page) => {
                     dispatch(orderListSuccess(response?.data));
                 }
                 else {
-                    showErrorToast('Auth Error')
+                    showErrorToast(translate('common.autherror'))
                 }
             }).
             catch((err) => { dispatch(orderListFail(err)) })
@@ -94,7 +95,7 @@ export const getOrderDetail = (orderId, productId) => {
                     dispatch(orderDetailSuccess(response?.data));
                 }
                 else {
-                    showErrorToast('Auth Error')
+                    showErrorToast(translate('common.autherror'))
                 }
             }).
             catch((err) => { dispatch(orderDetailFail(err)) })
@@ -113,7 +114,7 @@ export const getBuyNowData = (productid, qty) => {
                     dispatch(buyNowSuccess(response?.data));
                 }
                 else {
-                    showErrorToast('Auth Error')
+                    showErrorToast(translate('common.autherror'))
                 }
             }).
             catch((err) => { dispatch(buyNowFail(err)) })

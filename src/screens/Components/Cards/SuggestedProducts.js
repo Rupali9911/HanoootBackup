@@ -4,6 +4,7 @@ import ProductHeader from './ProductHeader'
 import ListView from '../../../Components/ListView'
 import { wp } from '../../../constant/responsiveFunc'
 import { useNavigation } from '@react-navigation/native'
+import { translate } from '../../../utility'
 
 
 const SuggestedProducts = (props) => {
@@ -17,7 +18,7 @@ const SuggestedProducts = (props) => {
                 centerImage={item?.product_image}
                 productName={item?.title}
                 price={item?.ManagementProductPricing?.hanooot_price}
-                isLeftImage
+                isLeftImage={item?.ManagementBrand?.name}
                 showLike
                 isItemLiked={item?.isLike}
                 detailId={item?.id}
@@ -35,7 +36,7 @@ const SuggestedProducts = (props) => {
                 Data?.suggestedProducts.length > 0
                     ?
                     (<>
-                        <ProductHeader title={Data?.tittle} rightButtonLabel={'See All'} onPress={() => { navigation.navigate('ProductListWithFilters', { headerTitle: Data?.tittle, isNavigationSection: 'SuggestedProducts' }) }} />
+                        <ProductHeader title={Data?.tittle} rightButtonLabel={translate('common.seeall')} onPress={() => { navigation.navigate('ProductListWithFilters', { headerTitle: Data?.tittle, isNavigationSection: 'SuggestedProducts' }) }} />
                         <FlatList
                             data={Data?.suggestedProducts}
                             renderItem={renderItem}

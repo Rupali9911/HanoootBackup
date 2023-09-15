@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { orderDetailLoadingStart, orderDetailReset, getOrderDetail } from '../../Store/actions/orderAction';
 import { capitalizeFirstLetter } from '../../utils';
 import Loader from '../../../constant/Loader';
+import { translate } from '../../../utility';
+import { getMonths } from '../../../constant/SwitchRenders';
 
 const OrderDetails = (props) => {
     const { orderId, productId } = props?.route?.params;
@@ -29,9 +31,9 @@ const OrderDetails = (props) => {
     const renderOrderPlacedDate = (dateString) => {
         const date = new Date(dateString);
         const year = date.getFullYear();
-        const month = date.toLocaleString('default', { month: 'long' });
+        const month = date.toLocaleString('default', { month: 'short' });
         const day = date.getDate();
-        const formattedDate = `${day} ${month} ${year}`;
+        const formattedDate = `${day} ${getMonths(month)} ${year}`;
 
         return formattedDate;
     }
@@ -51,8 +53,8 @@ const OrderDetails = (props) => {
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.productName}>{item?.ManagementProduct?.title}</Text>
-                    <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>QUANTITY  : <Text style={{ color: Colors.BLACK }}>{item?.quantity}</Text></Text>
-                    <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]}>{item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
+                    <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>{translate('common.quantity')}<Text style={{ color: Colors.BLACK }}>{item?.quantity}</Text></Text>
+                    <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]}>$ {item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
                 </View>
             </View>
         );
@@ -62,7 +64,7 @@ const OrderDetails = (props) => {
         <AppBackground>
             <AppHeader
                 showBackButton
-                title={'Order Details'}
+                title={translate('common.orderdetails')}
             />
             {
                 isOrderDetailLoading && Object.keys(orderDetail).length === 0
@@ -74,15 +76,15 @@ const OrderDetails = (props) => {
 
                         {/* ================ORDER ID============== */}
                         <View style={styles.row}>
-                            <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>ORDER ID  :  <Text style={{ color: Colors.BLACK }}>{orderDetail?.id}</Text></Text>
+                            <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>{translate('common.orderid')}<Text style={{ color: Colors.BLACK }}>{orderDetail?.id}</Text></Text>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
                             <View style={styles.column}>
-                                <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>ORDER PLACED</Text>
+                                <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>{translate('common.orderplaced')}</Text>
                                 <Text style={styles.orderDetail}>{renderOrderPlacedDate(orderDetail?.createdAt)}</Text>
                             </View>
                             <View style={styles.column}>
-                                <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>PATMENT METHOD</Text>
+                                <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>{translate('common.patmentmethod')}</Text>
                                 <Text style={styles.orderDetail}>{orderDetail?.payment_method}</Text>
                             </View>
                         </View>
@@ -131,10 +133,10 @@ const OrderDetails = (props) => {
                         </View> */}
 
 
-                        {/* ================SHIPPING ADDRESS============== */} 
+                        {/* ================SHIPPING ADDRESS============== */}
 
                         <View style={[styles.row, { flexDirection: 'column', gap: 8 }]}>
-                            <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}> SHIPPING ADDRESS </Text>
+                            <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>{translate('common.shippingaddress')}</Text>
                             <View>
                                 <Text style={[styles.orderDetail, styles.otherStyle]}>{`${(orderDetail?.UserAddress?.name)}, ${orderDetail?.UserAddress?.house}, ${orderDetail?.UserAddress?.building} \n${orderDetail?.UserAddress?.street}, ${orderDetail?.UserAddress?.city}`}</Text>
                                 <Text style={[styles.orderDetail, styles.otherStyle]}>{orderDetail?.UserAddress?.phone_number}</Text>
@@ -147,21 +149,21 @@ const OrderDetails = (props) => {
                         <View style={[styles.row, { flexDirection: 'column', gap: 8 }]}>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.orderDetail}>Subtotal (1 item)</Text>
+                                <Text style={styles.orderDetail}>{`${translate('common.subtotal')} (${orderDetail?.OrderProducts?.length} ${translate('common.itemCap')})`}</Text>
                                 <Text style={[styles.orderDetail, styles.fontIncrease]}>$ {orderDetail?.total_amount}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.orderDetail}>Coupon Discount</Text>
+                                <Text style={styles.orderDetail}>{translate('common.coupondiscount')}</Text>
                                 <Text style={[styles.orderDetail, styles.fontIncrease, { color: Colors.GREEN }]}>$ {orderDetail?.coupon_percentage}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.orderDetail}>Shipping Cost</Text>
+                                <Text style={styles.orderDetail}>{translate('common.shippingcost')}</Text>
                                 <Text style={[styles.orderDetail, styles.fontIncrease]}>$ {orderDetail?.shipping_cost}</Text>
                             </View>
                             <View style={styles.separator} />
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
-                                <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>Total  <Text style={{ color: Colors.PRICEGRAY, fontWeight: 500 }}>(Inclusive of VAT)</Text></Text>
+                                <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>{translate('common.total')}<Text style={{ color: Colors.PRICEGRAY, fontWeight: 500 }}>{`(${translate('common.inclusiveofvat')})`}</Text></Text>
 
                                 <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>$ {orderDetail?.total_payable_amount}</Text>
                             </View>

@@ -1,6 +1,11 @@
 import { CHECK_PHONE_NUMBER, USER_REGISTER, UPDATE_PROFILE, HELPNSUPPORT, UPDATE_PASSWORD } from '../../utility/apiUrls'
 import sendRequest from '../../services/axios/AxiosApiRequest'
 import { showErrorToast, showSuccessToast } from '../../Components/universal/Toast'
+import { Store } from '../../screens/Store';
+import { translate } from '../../utility';
+
+const isLanguage = Store.getState().languageReducer.selectedLanguageItem?.language_id;
+
 
 export const checkPhoneNumberOrEmailExists = (numberOrEmail) => {
     return new Promise((resolve, _reject) => {
@@ -12,11 +17,14 @@ export const checkPhoneNumberOrEmailExists = (numberOrEmail) => {
             }
         })
             .then(async (response) => {
+
+                console.log('check language type : ', isLanguage)
+
                 console.log('Response from CHECK_PHONE_NUMBER api', response, response?.success, response?.success === true)
                 if (response?.success === true) {
                     resolve(response)
                 } else {
-                    showErrorToast('Auth Error', response?.message)
+                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             })
             .catch(error => {
@@ -45,7 +53,7 @@ export const userRegister = (firebase_user_id, password) => {
                 if (response?.success === true) {
                     resolve(response)
                 } else {
-                    showErrorToast('Auth Error', response?.message)
+                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             })
             .catch(error => {
@@ -73,7 +81,7 @@ export const updateProfile = (name, email) => {
                 if (response?.success === true) {
                     resolve(response)
                 } else {
-                    showErrorToast('Auth Error', response?.message)
+                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                     _reject(response)
                 }
             })
@@ -99,7 +107,7 @@ export const updatePassword = (pwd) => {
                 if (response?.success === true) {
                     resolve(response)
                 } else {
-                    showErrorToast('Auth Error', response?.message)
+                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             })
             .catch(error => {
@@ -126,7 +134,7 @@ export const helpNSupport = (name, email, description) => {
                     showSuccessToast('Help & Support', 'Query Submitted Successfully')
                     resolve(response)
                 } else {
-                    showErrorToast('Auth Error', response?.message)
+                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             })
             .catch(error => {

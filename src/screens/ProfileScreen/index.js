@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Linking } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import AppBackground from '../Components/AppBackground'
 import Images from '../../constant/Images'
@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearUserData } from '../Store/actions/userAction'
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { translate } from '../../utility'
+// import { WebView } from 'react-native-webview';
+
 
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
@@ -83,7 +85,7 @@ const ProfileScreen = (props) => {
     const SocialIcon = (props) => {
         return (
             <TouchableOpacity
-                onPress={() => console.log('Social Icons')}
+                onPress={props.onPress}
                 style={{ margin: '5%' }}
             >
                 <Image source={props.image} style={styles.icon} />
@@ -169,16 +171,19 @@ const ProfileScreen = (props) => {
                 <View style={styles.socialIconContainer}>
                     <SocialIcon
                         image={Images.Facebook}
+                        onPress={() => { Linking.openURL('https://www.facebook.com/Hanooot.iq/') }}
                     />
                     <SocialIcon
                         image={Images.Instagram}
+                        onPress={() => { Linking.openURL('https://www.instagram.com/hanooot.iq/') }}
                     />
                     <SocialIcon
                         image={Images.Tiktok}
+                        onPress={() => { Linking.openURL('https://www.tiktok.com/@hanooot.iq') }}
                     />
-                    <SocialIcon
+                    {/* <SocialIcon
                         image={Images.Linkedin}
-                    />
+                    /> */}
                 </View>
                 {
                     userData &&

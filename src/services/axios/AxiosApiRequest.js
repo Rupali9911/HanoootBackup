@@ -1,10 +1,12 @@
-// import NetInfo from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import axios from 'axios';
+import { Alert } from 'react-native';
+import { getRefreshFirebaseToken } from '../socialAuth';
 // import { NEW_BASE_URL } from '../common/constants';
 // import { modalAlert } from '../common/function';
 
-// var isAlert = false;
+var isAlert = false;
 
 //=============== API Calling function ========================
 async function sendRequest(payload) {
@@ -29,21 +31,21 @@ async function sendRequest(payload) {
         : {
           'content-type': 'application/json',
         };
-    // const state = await NetInfo.fetch();
-    // if (state.isConnected) {
-    //   isAlert = false;
-    const response = await axiosInstance.request(payload);
-    return response?.data;
-    // } else {
-    //   if (!isAlert) {
-    //     modalAlert(
-    //       'Alert',
-    //       'Slow or no internet connection. Please check your internet connection',
-    //     );
-    //   } else {
-    //     // return Promise.reject()
-    //   }
-    // }
+    const state = await NetInfo.fetch();
+    if (state.isConnected) {
+      isAlert = false;
+      const response = await axiosInstance.request(payload);
+      return response?.data;
+    } else {
+      if (!isAlert) {
+        Alert.alert(
+          'Alert',
+          'Slow or no internet connection. Please check your internet connection',
+        );
+      } else {
+        // return Promise.reject()
+      }
+    }
   } catch (error) {
     return Promise.reject(error);
   }
@@ -54,15 +56,18 @@ export const axiosInstance = axios.create();
 //=============== Axios Interceptors ========================
 axiosInstance.interceptors.response.use(
   response => {
+
     return response;
+
   },
   async err => {
     const { response, config } = err;
     console.log('Error from API', err)
     try {
       if (response?.status === 401 || response?.status === 403) {
-        // const rest = await APIRefreshToken();
+        const rest = await APIRefreshToken();
         // console.log('response from APIRefreshToken', rest)
+
         // if (!rest || !rest.newToken) {
         //   return Promise.reject(response);
         // }
@@ -142,17 +147,26 @@ export async function getAccessToken(tokenName) {
   }
 }
 
+
 //================== Refresh Token API call =====================
 export async function APIRefreshToken() {
-  const token = await getAccessToken('ACCESS_TOKEN');
-  const refreshToken = await getAccessToken('REFRESH_TOKEN');
-  if (!token || !refreshToken) return undefined;
+  // const token = await getAccessToken('ACCESS_TOKEN');
+  // const refreshToken = await getAccessToken('REFRESH_TOKEN');
+  // if (!token || !refreshToken) return undefined;
 
-  return sendRequest({
-    url: `${NEW_BASE_URL}/auth/refresh-token`,
-    method: 'POST',
-    data: { token, refreshToken },
-  });
+  return getRefreshFirebaseToken()
+    .then(async (resp) => {
+      console.log('getRefreshFirebaseToken response :', resp)
+      await setAccesToken(resp);
+    })
+    .catch((err) => console.log('getRefreshFirebaseToken err :', err))
+
+  // return sendRequest({
+  //   url: `${NEW_BASE_URL}/auth/refresh-token`,
+  //   method: 'POST',
+  //   data: { token, refreshToken },
+  // });
+  // return refreshToken;
 }
 
 //=================== Get Headers =====================

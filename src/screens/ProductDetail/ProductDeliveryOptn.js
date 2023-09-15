@@ -3,6 +3,7 @@ import React from 'react'
 import Colors from '../../constant/Colors';
 import { hp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
+import { estimatedDelivery } from '../utils';
 import { translate } from '../../utility';
 
 const ProductDelivery = (props) => {
@@ -12,15 +13,15 @@ const ProductDelivery = (props) => {
         let newStr = val.replace(/-/g, "").trim();
         const time = newStr.split(' ');
 
-        return `${time[0]}hr ${time[1]}mins.`
+        return `${time[0]}${translate('common.hours')} ${time[1]}${translate('common.minutes')}`
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>{translate('common.estimateddeliveryon')} <Text style={{ color: Colors.BLACK }}>{data?.delivery}</Text></Text>
+            <Text style={styles.text}>{translate('common.estimateddeliveryon')} <Text style={{ color: Colors.BLACK }}>{estimatedDelivery(data?.delivery)}</Text></Text>
             <Text style={styles.text}>{translate('common.orderwithin')}  <Text style={{ color: Colors.BLACK }}>{data?.time ? getTime(data?.time) : null}</Text></Text>
             <Text style={[styles.text, { color: Colors.themeColor }]}>{`${data?.city} - ${translate('common.signinforbetterdeliveryestimate')}`}</Text>
-        </View>
+        </View >
     )
 }
 

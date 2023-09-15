@@ -14,6 +14,7 @@ import SVGS from '../constant/Svgs'
 import { showErrorToast, showInfoToast } from './universal/Toast'
 import { translate } from '../utility'
 
+
 const { HeartIconActive, HeartIcon, DiscountTag } = SVGS
 
 
@@ -56,6 +57,8 @@ const ListView = (props) => {
     // const { item } = props;
     const navigation = useNavigation();
     const userData = useSelector((state) => state.userReducer.userData);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
 
     var total = 0
@@ -68,18 +71,16 @@ const ListView = (props) => {
                 if (response?.success) {
                     // console.log('response : ', reponse)
 
-                    const typeCheck = response?.message == 'product added successfully in wishlist' ? 'SUCCESS' : 'REMOVE'
-
                     if (response?.message == 'product added successfully in wishlist') {
                         setTimeout(() => {
                             setLiked(true)
-                            showInfoToast('SUCCESS', response?.message)
+                            showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
                         }, 500);
                     }
                     else {
                         setTimeout(() => {
                             setLiked(false)
-                            showInfoToast('REMOVE', response?.message)
+                            showInfoToast('REMOVE', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
                         }, 500);
                     }
                 }
@@ -130,7 +131,10 @@ const ListView = (props) => {
                         isExpress && <ExpressView />
                     }
                     {
-                        isLeftImage && <Image source={{ uri: 'https://w7.pngwing.com/pngs/455/531/png-transparent-%E7%B4%A2%E5%B0%BC-logo-sony-television-business-sony-television-text-logo.png' }} style={{ height: hp(1.74), width: wp(11.48) }} />
+                        isLeftImage
+                        &&
+                        <Text>{isLeftImage}</Text>
+                        // <Image source={{ uri: 'https://w7.pngwing.com/pngs/455/531/png-transparent-%E7%B4%A2%E5%B0%BC-logo-sony-television-business-sony-television-text-logo.png' }} style={{ height: hp(1.74), width: wp(11.48) }} />
                     }
                     {/* {
                         props.isLike ?

@@ -19,6 +19,8 @@ const FeaturedCategory = (props) => {
     const [isAddToCart, setAddToCart] = useState('')
 
     const userData = useSelector((state) => state.userReducer.userData);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
     const onAddtoCartPress = async (isCartedItem, productId) => {
         try {
@@ -28,7 +30,7 @@ const FeaturedCategory = (props) => {
                 if (response?.success) {
                     setTimeout(() => {
                         setAddToCart(true)
-                        showInfoToast('SUCCESS', response?.message)
+                        showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
                         dispatch(updateFeaturedCart(productId))
                     }, 1000);
                 }
@@ -78,7 +80,7 @@ const FeaturedCategory = (props) => {
                 <TouchableOpacity style={styles.cartBtn}
                     onPress={() => userData ? onAddtoCartPress(item?.isCart, item?.id) : showErrorToast(translate('common.loginFirstText'))}
                 >
-                    <Text style={styles.cartBtnTxt}>{item?.isCart ? 'View Cart' : 'Add to Cart'}</Text>
+                    <Text style={styles.cartBtnTxt}>{item?.isCart ? translate('common.viewcart') : translate('common.addtocart')}</Text>
                 </TouchableOpacity>
             </TouchableOpacity>
         );
@@ -116,7 +118,7 @@ const FeaturedCategory = (props) => {
                         style={styles.seeAllBtn}
                         onPress={() => navigation.navigate('ProductListWithFilters', { category_id: Data?.featuredCategoryByProduct?.id, headerTitle: Data?.featuredCategoryByProduct?.name })}
                     >
-                        <Text style={styles.seeAllBtnText}>See All</Text>
+                        <Text style={styles.seeAllBtnText}>{translate('common.seeall')}</Text>
                     </TouchableOpacity>
                 </View>
                 {

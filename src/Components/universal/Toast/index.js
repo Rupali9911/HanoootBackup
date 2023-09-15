@@ -24,7 +24,7 @@ const toastConfig = {
     ),
     info: ({ text1, props }) => (
         <View style={styles.msgContaniner}>
-            <Image source={props.imageType == 'SUCCESS' ? Images.ToastSuccess : props.imageType === 'REMOVE' ?  Images.deleteIcon : null} style={styles.img} />
+            <Image source={props.imageType == 'SUCCESS' ? Images.ToastSuccess : props.imageType === 'REMOVE' ? Images.deleteIcon : null} style={styles.img} />
             <View>
                 <Text style={styles.msgText}>{props.text1}</Text>
                 {
@@ -36,7 +36,7 @@ const toastConfig = {
 };
 
 export const showInfoToast = (imageType, message1, message2) => {
-    console.log('Toast Message Called')
+    console.log('Toast Message Called', message1)
     Toast.show({
         type: 'info',
         props: {

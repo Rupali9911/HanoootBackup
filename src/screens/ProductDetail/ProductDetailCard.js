@@ -43,9 +43,8 @@ const ProductDetailCard = (props) => {
                         const typeCheck = response?.message == 'product added successfully in wishlist' ? 'SUCCESS' : 'REMOVE'
 
                         setTimeout(() => {
-                            showInfoToast(typeCheck, response?.message)
+                            showInfoToast(typeCheck, selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
                         }, 1000);
-
                     }
                     setLike(!isLike)
                 }

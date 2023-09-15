@@ -284,19 +284,17 @@ const styles = StyleSheet.create({
         color: Colors.PRICEGRAY
     },
     modalBtnCont: {
-        flexDirection: 'row', marginVertical: '5%', justifyContent: 'space-between'
+        flexDirection: 'row',
+        //  marginVertical: '5%', 
+        justifyContent: 'space-between'
     },
     btnViewCont: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        // backgroundColor: Colors.themeColor,
         borderRadius: 24,
-        padding: 8,
-        width: '50%',
         justifyContent: 'center',
-        marginHorizontal: '1%',
         borderWidth: 1,
-        borderColor: Colors.themeColor
+        borderColor: Colors.themeColor,
+        height: hp(4.06),
+        width: wp(35.73)
     },
     modalBtnText: {
         fontFamily: fonts.VISBY_CF_REGULAR,
@@ -306,7 +304,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: Colors.themeColor
     },
-
     DeliveryCard: {
         backgroundColor: Colors.WHITE,
         padding: 20,

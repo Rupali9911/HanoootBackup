@@ -6,6 +6,7 @@ import appleAuth from '@invertase/react-native-apple-authentication'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { showErrorToast } from '../../Components/universal/Toast'
 import EncryptedStorage from 'react-native-encrypted-storage';
+import { translate } from '../../utility';
 
 auth().onAuthStateChanged((user) => {
     console.log('Auth State changed');
@@ -171,6 +172,25 @@ const authSignIn = async (credential) => {
         })
 }
 
+export const getRefreshFirebaseToken = () => {
+    return new Promise((resolve, _reject) => {
+        auth().currentUser.getIdToken(true)
+            .then(function (idToken) {
+                console.log('firebaseAuth idToken : ', idToken)
+                resolve(idToken)
+
+            }).catch(function (error) {
+                console.log('firebaseAuth error : ', error)
+                _reject(_error)
+            });
+    })
+        .catch(_error => {
+            handleAuthError(_error)
+            _reject(_error)
+        })
+
+}
+
 //Response from Google Signin
 // {"additionalUserInfo": {"isNewUser": false, "profile": {"at_hash": "uzXLf40glEUu2QLqS-1oZQ", "aud": "154905673298-1ojcgdc10gsfbat0l7d3aqivo0kd8lk0.apps.googleusercontent.com", "azp": "154905673298-ri9sfojvsn0jrd8qo375ujfqqd2k30j5.apps.googleusercontent.com", "email": "shubham.k@webllisto.com", "email_verified": true, "exp": 1689863984, "family_name": "Kothari", "given_name": "Shubham", "hd": "webllisto.com", "iat": 1689860384, "iss": "https://accounts.google.com", "locale": "en", "name": "Shubham Kothari", "nonce": "4T19x-gx_epRPrx1E-OmsG1cpkffo3dsPWqFrYUAVE4", "picture": "https://lh3.googleusercontent.com/a/AAcHTtdRm2zI7HlOZbauFu9kouWelpPCfKs7B6MIObQMKO-f=s96-c", "sub": "109019173735327576761"}, "providerId": "google.com", "username": null}, "user": {"displayName": "Shubham Kothari", "email": "shubham.k@webllisto.com", "emailVerified": true, "isAnonymous": false, "metadata": [Object], "multiFactor": [Object], "phoneNumber": null, "photoURL": "https://lh3.googleusercontent.com/a/AAcHTtdRm2zI7HlOZbauFu9kouWelpPCfKs7B6MIObQMKO-f=s96-c", "providerData": [Array], "providerId": "firebase", "refreshToken": "AMf-vBx1ZyxSNAozdEQhDkfk-q73HtpNdN7TzMEK0csxv6ns9kxEMC7wpaLx53CzUhRN0s8Fyd7kvCdqQJMspYcv8O5mLLMsI3p52TDjZLbt4UB8PgV2EQGtHvdakKMX8cXrqKU0bGPxuWmXF-2LJ2zIFyNS1wCPwN0yg0PdlIDNnWbwGijUkWrTPC37XQyoYnBnTKcTOJSmSAYYLkpDcmVt-1wV5UfbYTOLfJHqINgTIJTSW24OoC_jFWMD-voQpfBehpGbYvriidsrKsQkFn_32cht5LFZ0mEsPeZzX6fQXyWyFfBWGKro9n3zEXN38BmcbQyPTHU4zCdvDjLQrLDh9ZKIevRIlPiUNMO8AMC281CUHi0MDU_G2SaAVHwOLIZ9w9XhgbxWPFcBxJAXrv5isHlx3Xueg6LfMrij5nMuV-Xdj_tyEDQ", "tenantId": null, "uid": "i5tyBcy7SLOwab1CR7T8876ymVB2"}}
 
@@ -182,11 +202,11 @@ export const updateDisplayName = (userCredentials, name) => {
     return new Promise(async (resolve, reject) => {
         try {
             var response
-            if(userCredentials){
-                 response = await userCredentials.user.updateProfile({
+            if (userCredentials) {
+                response = await userCredentials.user.updateProfile({
                     displayName: name
                 })
-            }else{
+            } else {
                 response = await auth().currentUser.updateProfile({
                     displayName: name
                 })
@@ -357,5 +377,5 @@ export const handleAuthError = (error) => {
             errorMessage = "Something went wrong";
             break;
     }
-    showErrorToast('Auth Error', errorMessage)
+    showErrorToast(translate('common.autherror'), errorMessage)
 }

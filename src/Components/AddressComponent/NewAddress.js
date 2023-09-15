@@ -19,6 +19,7 @@ import Location from './Location';
 import fonts from '../../constant/fonts';
 import Colors from '../../constant/Colors';
 import { translate } from '../../utility';
+import { useSelector } from 'react-redux';
 
 
 
@@ -50,6 +51,9 @@ const NewAddress = (props) => {
   });
   const [errorMsg, setErrorMsg] = useState('')
   const [cityValue, setCityName] = useState()
+
+  const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
 
   console.log('editDataDetail : ', editDataDetail)
@@ -148,7 +152,7 @@ const NewAddress = (props) => {
         navigation.navigate('ToastScreen', { title: translate('common.addressSaved') })
         :
         (navigation.navigate('CheckoutScreen'),
-          showInfoToast(translate('common.success'), response?.message))
+          showInfoToast(translate('common.success'), selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic))
     }
     catch (error) {
       console.log('Error from add new address api ', error)
@@ -163,7 +167,7 @@ const NewAddress = (props) => {
         ?
         navigation.navigate('ToastScreen', { title: translate('common.addressSaved') })
         :
-        (navigation.navigate('CheckoutScreen'), showInfoToast(translate('common.success'), response?.message))
+        (navigation.navigate('CheckoutScreen'), showInfoToast(translate('common.success'), selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic))
     }
     catch (error) {
       console.log('Error from add new address api ', error)
