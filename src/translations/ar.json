@@ -1,5 +1,6 @@
 {
   "common": {
+    "checkout": "الدفع",
     "gotoshopping": "الذهاب للتسوق",
     "thankForRegister": "شكرا لتسجيلك!",
     "numberVerified": "تم التحقق من رقم الجوال بنجاح!",
@@ -132,7 +133,6 @@
     "iraq": "العراق",
     "remove": "يزيل",
     "edit": "يحرر",
-    "checkout": "الدفع",
     "saveaddress": "حفظ العنوان",
     "saveas": "حفظ باسم",
     "phonenumber": "رقم التليفون",

@@ -1,4 +1,4 @@
-package com.hanooot.android;
+package com.hanooot.mobileapp;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
@@ -9,7 +9,6 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import com.hanooot.ReactNativeFlipper;
-import com.hanooot.android.BuildConfig;
 
 import java.util.List;
 

@@ -63,21 +63,21 @@ const Checkout = (props) => {
             <TouchableOpacity style={styles.circle} >
               <Text style={styles.btnText}>1</Text>
             </TouchableOpacity>
-            <Text style={styles.text}>{translate('common.addressTxt')}</Text>
+            <Text style={styles.text}>{' ' + translate('common.addressTxt')}</Text>
             <View style={styles.line1(screenType)} />
           </View>
           <View style={styles.row}>
             <TouchableOpacity style={styles.circle1(screenType)} >
               <Text style={styles.btnText}>2</Text>
             </TouchableOpacity>
-            <Text style={styles.text}>{translate('common.payment')}</Text>
+            <Text style={styles.text}>{' ' + translate('common.payment')}</Text>
             <View style={styles.line2(screenType)} />
           </View>
           <View style={styles.row}>
             <TouchableOpacity style={styles.circle2(screenType)} >
               <Text style={styles.btnText}>3</Text>
             </TouchableOpacity>
-            <Text style={styles.text}>{translate('common.placeorder')}</Text>
+            <Text style={styles.text}>{' ' + translate('common.placeorder')}</Text>
           </View>
         </View>
 

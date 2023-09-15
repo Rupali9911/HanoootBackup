@@ -3,6 +3,7 @@ import { API_BASE_URL } from './constants.js';
 
 //Other Configs
 const GOOGLE_CLIENT_ID = '154905673298-1ojcgdc10gsfbat0l7d3aqivo0kd8lk0.apps.googleusercontent.com';
+// const GOOGLE_CLIENT_ID = '154905673298-k14h4bvtrclh9p9rkbgs09oai64rckjl.apps.googleusercontent.com';
 const GOOGLE_API_KEY = Platform.OS === 'ios' ? 'AIzaSyBrzXVff2NFocJdPwtn3fLyTR8vLkZpJQE' : 'AIzaSyDgYEhFKOXi6VpeYxb6QVNyPmfzWh0_ZZI';
 
 

@@ -65,35 +65,35 @@ axiosInstance.interceptors.response.use(
     console.log('Error from API', err)
     try {
       if (response?.status === 401 || response?.status === 403) {
-        const rest = await APIRefreshToken();
+        const freshToken = await APIRefreshToken();
         // console.log('response from APIRefreshToken', rest)
 
         // if (!rest || !rest.newToken) {
         //   return Promise.reject(response);
         // }
         // await setAccesToken(rest.newToken);
-        // if (response?.request?._headers?.x - amz - tagging) {
-        //   let xtag = response?.request?._headers?.x - amz - tagging
-        //   console.log('xtag', xtag)
+        if (response?.request?._headers?.x - amz - tagging) {
+          let xtag = response?.request?._headers?.x - amz - tagging
+          console.log('xtag', xtag)
 
 
 
-        //   let params = new URLSearchParams(xtag)
+          let params = new URLSearchParams(xtag)
 
-        //   console.log(params.toString())
-        //   params.delete('token')
-        //   params.append('token', rest.newToken)
-        //   console.log(params.toString())
+          console.log(params.toString())
+          params.delete('token')
+          params.append('token', freshToken)
+          console.log(params.toString())
 
 
 
-        //   config.headers['x-amz-tagging'] = rest.newToken
-        //   config.headers['Authorization'] = rest.newToken
-        // } else {
-        //   config.headers['Authorization'] = 'Bearer ' + rest.newToken;
-        // }
+          config.headers['x-amz-tagging'] = freshToken
+          config.headers['Authorization'] = freshToken
+        } else {
+          config.headers['Authorization'] = freshToken;
+        }
 
-        // return axiosInstance(config);
+        return axiosInstance(config);
       } else if (response?.status === 403) {
       } else if (response?.status === 455) {
       } else if (response?.status === 502) {
@@ -153,11 +153,11 @@ export async function APIRefreshToken() {
   // const token = await getAccessToken('ACCESS_TOKEN');
   // const refreshToken = await getAccessToken('REFRESH_TOKEN');
   // if (!token || !refreshToken) return undefined;
-
-  return getRefreshFirebaseToken()
-    .then(async (resp) => {
-      console.log('getRefreshFirebaseToken response :', resp)
-      await setAccesToken(resp);
+  getRefreshFirebaseToken()
+    .then(async (token) => {
+      console.log('getRefreshFirebaseToken response :', token)
+      await setAccesToken(token);
+      return token
     })
     .catch((err) => console.log('getRefreshFirebaseToken err :', err))
 

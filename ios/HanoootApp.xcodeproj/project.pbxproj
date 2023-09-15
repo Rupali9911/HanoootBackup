@@ -546,18 +546,20 @@
 				DEVELOPMENT_TEAM = 27X4TMF449;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HanoootApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Hanooot;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 23.09.14;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanooot.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hanooot.app;
 				PRODUCT_NAME = HanoootApp;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -575,18 +577,20 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 27X4TMF449;
 				INFOPLIST_FILE = HanoootApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Hanooot;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 23.09.14;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanooot.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hanooot.app;
 				PRODUCT_NAME = HanoootApp;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
