@@ -6,6 +6,7 @@ import Colors from '../../../constant/Colors'
 import fonts from '../../../constant/fonts'
 import { capitalizeFirstLetter } from '../../utils'
 import { useNavigation } from '@react-navigation/native'
+import { translate } from '../../../utility'
 
 const CategoryList = (props) => {
     const Data = props.Data;
@@ -30,7 +31,7 @@ const CategoryList = (props) => {
     const renderItem = ({ item, index }) => {
         return (
             <>
-                <ProductHeader title={capitalizeFirstLetter(item?.name)} rightButtonLabel={'See All'} onPress={() => { navigation.navigate('Category') }} />
+                <ProductHeader title={capitalizeFirstLetter(item?.name)} rightButtonLabel={translate('common.seeall')} onPress={() => { navigation.navigate('Category') }} />
                 <FlatList
                     data={item?.children}
                     renderItem={renderChildren}

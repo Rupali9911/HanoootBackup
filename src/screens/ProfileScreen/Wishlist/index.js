@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import AppBackground from '../../Components/AppBackground';
 import AppHeader from '../../Components/AppHeader';
@@ -15,10 +15,24 @@ import { addToCart } from '../../Store/actions/cartAction';
 import Toast from 'react-native-toast-message';
 import { translate } from '../../../utility';
 import { productCollection } from '../../../constant/DemoArray';
+import { useIsFocused } from '@react-navigation/native';
+import { wishlistLoading, wishlistSuccess, wishlistFailed, wishlistReset, wishlistPageChange } from '../../Store/actions/wishlistActions';
 
 
 const Wishlist = () => {
     const dispatch = useDispatch();
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        dispatch(wishlistReset())
+        dispatch(wishlistLoading());
+        // getProductListData(1);
+        dispatch(wishlistPageChange(1));
+    }, [isFocused]);
+
+    // const getProductListData = useCallback(page => {
+    //     // dispatch(getProductList(page, DATA?.category_id, DATA?.isNavigationSection));
+    // }, []);
 
     const { cartItems } = useSelector(state => state.cartReducer);
     const { WISHLIST_ITEMS } = useSelector(state => state.wishlistReducer);
@@ -136,11 +150,11 @@ const Wishlist = () => {
             />
 
             {
-                productCollection?.length > 0
+                WISHLIST_ITEMS?.length > 0
                     ?
                     <FlatList
                         numColumns={2}
-                        data={productCollection}
+                        data={WISHLIST_ITEMS}
                         renderItem={renderItem}
                         keyExtractor={keyExtractor}
                         showsVerticalScrollIndicator={false}

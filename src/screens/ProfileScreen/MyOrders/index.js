@@ -12,6 +12,7 @@ import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { orderListLoadingStart, orderListReset, orderListPageChange, getOrderList } from '../../Store/actions/orderAction'
 import Loader from '../../../constant/Loader'
 import { translate } from '../../../utility'
+import { getMonths } from '../../../constant/SwitchRenders'
 
 const MyOrderList = () => {
     const { orderList, isOrderDataLoading, orderPageChange, orderTotal } = useSelector(state => state.orderReducer);
@@ -38,9 +39,9 @@ const MyOrderList = () => {
     const renderOrderPlacedDate = (dateString) => {
         const date = new Date(dateString);
         const year = date.getFullYear();
-        const month = date.toLocaleString('default', { month: 'long' });
+        const month = date.toLocaleString('default', { month: 'short' });
         const day = date.getDate();
-        const formattedDate = `${day} ${month} ${year}`;
+        const formattedDate = `${day} ${getMonths(month)} ${year}`;
 
         return formattedDate;
     }
@@ -139,7 +140,6 @@ const MyOrderList = () => {
 
             </>
         );
-
     }
 
     const handleFlatListEndReached = () => {
@@ -161,6 +161,12 @@ const MyOrderList = () => {
         return (
             <ActivityIndicator size='small' color={Colors.themeColor} />
         )
+    }
+
+    const refreshFunc = () => {
+        dispatch(orderListReset());
+        getOrders(1);
+        dispatch(orderListPageChange(1));
     }
 
 

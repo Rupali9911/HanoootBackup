@@ -24,7 +24,7 @@ export const OrderAPICall = (pageNumber, limit) => {
 }
 
 export const OrderDetailAPICall = (orderId, productId) => {
-    console.log('OrderDetailAPICall')
+    console.log('OrderDetailAPICall : ', orderId, productId)
     console.log('RESPONSEdsfgs : ', `${ORDER_DETAIL_API}/${orderId}/${productId}`)
     return new Promise((resolve, _reject) => {
         sendRequest({

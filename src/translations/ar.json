@@ -1,5 +1,18 @@
 {
   "common": {
+    "gotoshopping": "الذهاب للتسوق",
+    "thankForRegister": "شكرا لتسجيلك!",
+    "numberVerified": "تم التحقق من رقم الجوال بنجاح!",
+    "in": "في",
+    "seconds": "ثواني",
+    "resendotp": "إعادة إرسال كلمة المرور لمرة واحدة",
+    "OTPDidntGet": "لم تحصل على OTP؟",
+    "OTPSent": "لقد أرسلنا OTP على الهاتف المحمول أدناه",
+    "youronetimepassword": "كلمة المرور الخاصة بك لمرة واحدة",
+    "shippingaddress": "عنوان الشحن",
+    "quantity": "كمية",
+    "patmentmethod": "طريقة الحصول على البراءة",
+    "orderdetails": "تفاصيل الطلب",
     "minutes": "دقيقة.",
     "hours": "ساعة",
     "paywith": "ادفع عن طريق",

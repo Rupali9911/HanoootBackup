@@ -4,6 +4,7 @@ import ProductHeader from './ProductHeader'
 import ListView from '../../../Components/ListView'
 import { wp } from '../../../constant/responsiveFunc'
 import { useNavigation } from '@react-navigation/native'
+import { translate } from '../../../utility'
 
 const RecentlyViewProduct = (props) => {
     const Data = props.Data;
@@ -34,7 +35,7 @@ const RecentlyViewProduct = (props) => {
                     ?
                     (
                         <>
-                            <ProductHeader title={Data?.tittle} rightButtonLabel={'See All'} onPress={() => { navigation.navigate('ProductListWithFilters', { headerTitle: Data?.tittle, isNavigationSection: 'RecentlyViewProduct' }) }} />
+                            <ProductHeader title={Data?.tittle} rightButtonLabel={translate('common.seeall')} onPress={() => { navigation.navigate('ProductListWithFilters', { headerTitle: Data?.tittle, isNavigationSection: 'RecentlyViewProduct' }) }} />
                             <FlatList
                                 data={Data?.listOfRecentViewProduct?.UserRecentProductVisits}
                                 renderItem={renderItem}

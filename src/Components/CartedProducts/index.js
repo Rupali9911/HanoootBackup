@@ -42,7 +42,8 @@ const CartProductCards = (props) => {
             let newStr = val.replace(/-/g, "").trim();
             const time = newStr.split(' ');
 
-            return `${time[0]}hr ${time[1]}mins.`
+            // return `${time[0]}hr ${time[1]}mins.`
+            return `${time[0]}${translate('common.hours')} ${time[1]}${translate('common.minutes')}`
         }
     }
 

@@ -3,12 +3,8 @@ import { REMOVE_ADDRESS } from "../types";
 import { UPDATE_ADDRESS } from "../types";
 import { AddNewAddressAPICall, FetchAddressAPICall, updateAddressAPICall, deleteAddressAPICall, FetchSelectedAddressAPICall } from "../../../services/apis/AddressAPI";
 import { showInfoToast } from "../../../Components/universal/Toast";
-<<<<<<< HEAD
 import { Store } from '../../Store'
 
-=======
-import {Store} from '../../Store'
->>>>>>> f55c6987fa4b60cc88c0534eabb3666188c4dc51
 
 console.log('Store.getState().LanguageReducer.selectedLanguageItem', Store.getState().languageReducer.selectedLanguageItem)
 export const setAddressDetails = data => {

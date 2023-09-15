@@ -46,9 +46,10 @@ export const validateUserName = value => {
 export const validateFullName = value => {
     if (!value.trim().length) {
         return translate('common.yournameisrequired');
-    } else if (!fullNameRegex.test(value)) {
-        return translate('common.stringCheck');
     }
+    // else if (!fullNameRegex.test(value)) {
+    //     return translate('common.stringCheck');
+    // }
 };
 
 
@@ -87,7 +88,7 @@ export const validateEmail = value => {
     if (!value.trim().length) {
         return translate('common.emailisrequired');
     } else if (!emailRegex.test(value)) {
-        return translate('common.validEmail');
+        return translate('common.pleaseentervalidemailaddress');
     } else {
         return false;
     }

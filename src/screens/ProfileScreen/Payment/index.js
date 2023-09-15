@@ -5,13 +5,14 @@ import AppHeader from '../../Components/AppHeader'
 import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import Images from '../../../constant/Images'
+import { translate } from '../../../utility'
 
 const Payment = () => {
     return (
         <AppBackground>
             <AppHeader
                 showBackButton
-                title={'Payment Method'}
+                title={translate('common.paymentmethods')}
             />
 
             <View>
@@ -20,11 +21,11 @@ const Payment = () => {
                     <View>
                         <Text
                             style={styles.payMode}
-                        >{'Cash On Delivery'}</Text>
-                        <Text style={styles.payModeDesc} numberOfLines={2}>{'Pay when you get order'}</Text>
+                        >{translate('common.cashondelivery')}</Text>
+                        <Text style={styles.payModeDesc} numberOfLines={2}>{translate('common.paywhenyougetorder')}</Text>
                     </View>
                 </View>
-                <View style={styles.payCard}>
+                {/* <View style={styles.payCard}>
                     <Image source={Images.ZainCash} style={styles.image} />
                     <View>
                         <Text
@@ -32,16 +33,15 @@ const Payment = () => {
                         >{'ZainCash'}</Text>
                         <Text style={styles.payModeDesc} numberOfLines={2}>{'Pay online via Zaincash'}</Text>
                     </View>
-                </View>
+                </View> */}
             </View>
-            <Text
-                style={styles.privacyText}
-            >
-                Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in
-                our privacy policy.
-                <Text style={{ color: Colors.themeColor }}
-                > privacy policy. </Text>
-            </Text>
+            <Text style={{ margin: '5%' }}>
+                <Text
+                    style={styles.privacyText}
+                >{translate('common.paymentWarning')}
+                    <Text style={{ color: Colors.themeColor }} suppressHighlighting={true} onPress={() => { console.log('onPress') }}
+                    > privacy policy. </Text>
+                </Text></Text>
         </AppBackground>
     )
 }

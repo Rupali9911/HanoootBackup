@@ -66,7 +66,7 @@ const TopPicks = (props) => {
           onPress={() =>
             userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.id, topPicksId) : showErrorToast(translate('common.loginFirstText'))}
         >
-          <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? 'View Cart' : 'Add to Cart'}</Text>
+          <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? translate('common.viewcart') : translate('common.addtocart')}</Text>
         </TouchableOpacity>
       </TouchableOpacity>
     );
@@ -98,7 +98,7 @@ const TopPicks = (props) => {
                 style={styles.seeAllBtn}
                 onPress={() => navigation.navigate('Category')}
               >
-                <Text style={styles.seeAllBtnText}>Shop Now</Text>
+                <Text style={styles.seeAllBtnText}>{translate('common.shopnow')}</Text>
               </TouchableOpacity>
             </View>
             <FlatList

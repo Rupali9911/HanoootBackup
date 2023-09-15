@@ -195,15 +195,15 @@ const OtpVerification = ({ route }) => {
         >
             <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('10%') }} />
             <AuthHeader
-                title={'Your One Time Password'}
+                title={translate('common.youronetimepassword')}
             />
             <View style={styles.container}>
                 {/* <Text style={styles.title}>{'Enter your OTP'}</Text> */}
-                <Text style={[styles.text, styles.grayColor]}>{'We have sent a OTP on below mobile'}</Text>
+                <Text style={[styles.text, styles.grayColor]}>{translate('common.OTPSent')}</Text>
                 <Text style={[styles.rowContainer, { gap: 5 }]}>
                     <Text style={styles.text}>{phoneNumber}</Text>
                     <Text suppressHighlighting={true} onPress={() => changeNumber()} style={[styles.text, styles.themeColor]}>
-                        {' Change'}
+                        {` ${translate('common.change')}`}
                     </Text>
                 </Text>
 
@@ -211,19 +211,19 @@ const OtpVerification = ({ route }) => {
                 <View style={styles.OTPView}>
                     <View style={styles.otpContainer}>{renderOTPInput()}</View>
                     <View>
-                        <Text style={styles.text}>Didn't get the OTP?</Text>
+                        <Text style={styles.text}>{translate('common.OTPDidntGet')}</Text>
                         <View style={{ height: hp(5), marginTop: 5 }}>
                             {seconds > 0 ? (
-                                <Text style={[styles.text, styles.grayColor]}>{`Resend OTP in ${seconds} seconds`}</Text>
+                                <Text style={[styles.text, styles.grayColor]}>{`${translate('common.resendotp')} ${translate('common.in')} ${seconds} ${translate('common.seconds')}`}</Text>
                             ) : (
-                                <Text suppressHighlighting={true} onPress={() => handleResendOTP()} style={[styles.text, styles.themeColor]}>Resend OTP</Text>
+                                <Text suppressHighlighting={true} onPress={() => handleResendOTP()} style={[styles.text, styles.themeColor]}>{translate('common.resendotp')}</Text>
                             )}
                         </View>
                     </View>
                 </View>
 
                 <AppButton
-                    label={'Submit'}
+                    label={translate('common.submit')}
                     disabled={(otp1 && otp2 && otp3 && otp4 && otp5 && otp6) ? false : true}
                     onPress={() => verifyOTP()
                     }
