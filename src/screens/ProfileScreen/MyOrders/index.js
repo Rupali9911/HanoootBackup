@@ -224,6 +224,7 @@ const MyOrderList = () => {
                             title={translate('common.waitingFirstOrder')}
                             description={translate('common.noOrderYet')}
                             buttonLabel={translate('common.continueshopping')}
+                            onpress={() => navigation.navigate('HomeTab')}
                         />
             }
 

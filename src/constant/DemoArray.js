@@ -97,44 +97,7 @@ export const Data = [
 ];
 
 
-export const productCollection = [
-    {
-        name: 'One Plus 5',
-        price: '$ 5,52.00',
-        offerPrice: '$ 5,00.00',
-        image: Images.mobile
-
-    },
-    {
-        name: 'One Plus 5',
-        price: '$ 5,52.00',
-        offerPrice: '$ 5,00.00',
-        image: Images.mobile2
-
-    },
-    {
-        name: 'One Plus 5',
-        price: '$ 5,52.00',
-        offerPrice: '$ 5,00.00',
-        image: Images.mobile3
-
-    },
-    {
-        name: 'One Plus 5',
-        price: '$ 5,52.00',
-        offerPrice: '$ 5,00.00',
-        image: Images.mobile4
-
-    },
-    {
-        name: 'One Plus 5',
-        price: '$ 5,52.00',
-        offerPrice: '$ 5,00.00',
-        image: Images.mobile5
-
-    }
-
-]
+export const productCollection = []
 
 export const BannerData = [
     {

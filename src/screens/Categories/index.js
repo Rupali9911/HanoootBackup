@@ -24,7 +24,7 @@ const Category = () => {
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
 
-    console.log('selectedLanguageItem : ', selectedLanguageItem)
+    console.log('categoryListcategoryListcategoryList : ', categoryList)
 
 
     useEffect(() => {
@@ -72,9 +72,8 @@ const Category = () => {
     const handleFlatListEndReached = () => {
         if (
             !isCatgListLoading &&
-            categoryList?.rows.length !== categoryTotalCounts
+            categoryList.length < categoryTotalCounts
         ) {
-            console.log('if called', categoryPageNum + 1)
             let num = categoryPageNum + 1;
             // dispatch(categoryLoadingStart());
             getData(num);
@@ -197,11 +196,11 @@ const Category = () => {
             <View style={styles.container}>
                 <View style={styles.categoryContainer}>
                     <ListView
-                        data={categoryList?.rows}
+                        data={categoryList}
                         renderItem={renderCategories}
                         keyExtractor={(item, index) => index.toString()}
-                    // onEndReached={handleFlatListEndReached}
-                    // onEndReachedThreshold={0.5}
+                        onEndReached={handleFlatListEndReached}
+                        onEndReachedThreshold={0.5}
                     // ListFooterComponent={renderFooter}
                     // onRefresh={handleFlatlistRefresh}
                     // refreshing={categoryPageNum === 1 && isCatgListLoading}
@@ -251,7 +250,7 @@ const Category = () => {
             <AppHeader placeholderText={translate('common.whatLookingFor')} />
             {isCatgListLoading && categoryPageNum === 1 ?
                 <Loader /> :
-                categoryList?.rows?.length > 0 ?
+                categoryList.length > 0 ?
                     renderCategoryCollectionList()
                     :
                     renderNoDataFound()}

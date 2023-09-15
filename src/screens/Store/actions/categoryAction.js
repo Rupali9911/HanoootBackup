@@ -51,14 +51,16 @@ export const getCategoryList = (pageNum) => {
   // const a = getCategoryListAPI(1, 10)
 
   // try {
-  let limit = 500;
+  let limit = 20;
   return async dispatch => {
     await categoryList(pageNum, limit).
       then(response => {
         if (response?.success) {
           if (response?.data?.categories?.rows) {
             dispatch(categorySuccess(response?.data?.categories));
-            dispatch(getSubCategoryList(response?.data?.categories?.rows[0]));
+            if (pageNum === 1) {
+              dispatch(getSubCategoryList(response?.data?.categories?.rows[0]));
+            }
           }
         }
       }).

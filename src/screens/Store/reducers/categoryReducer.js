@@ -20,10 +20,8 @@ const categoryReducer = (state = initialState, action) => {
         case CATEGORY_LIST_SUCCESS:
             return {
                 ...state,
-                categoryList: {
-                    ...state.categoryList,
-                    ...action.payload,
-                },
+                categoryList: [
+                    ...state.categoryList, ...action.payload.rows],
                 categoryTotalCounts: action.payload.count,
                 isCatgListLoading: false,
                 categoryFailed: ''
@@ -40,8 +38,8 @@ const categoryReducer = (state = initialState, action) => {
             return (state = { ...state, categoryList: [] });
 
         case CATEGORY_PAGE_CHANGE:
-            return (state = { ...state, categoryPage: action.payload });
-            
+            return (state = { ...state, categoryPageNum: action.payload });
+
         case SUB_CATEGORY_LIST:
             return {
                 ...state,

@@ -2,6 +2,7 @@ import { CATEGORY_LIST } from "../../../utility/apiUrls";
 import sendRequest from "../../axios/AxiosApiRequest";
 
 export const categoryList = (pageNumber, limit) => {
+    console.log('pageNumber & limit', pageNumber, limit)
     return new Promise((resolve, _reject) => {
         sendRequest({
             url: CATEGORY_LIST,
@@ -12,7 +13,7 @@ export const categoryList = (pageNumber, limit) => {
             }
         })
             .then((response) => {
-                console.log('Response from CATEGORY_LIST api', response)
+                console.log('Response from CATEGORY_LIST api', response.data.categories.rows.length)
                 resolve(response)
             })
             .catch(error => {

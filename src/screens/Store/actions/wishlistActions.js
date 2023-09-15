@@ -39,3 +39,19 @@ export const wishlistPageChange = page => ({
   type: WISHLIST_PAGE_CHANGE,
   payload: page,
 });
+
+
+export const getProductList = (page) => {
+  let limit = 10;
+  return async dispatch => {
+    await ProductListAPICall(page).
+      then((response) => {
+        console.log('response from product list api call : ', response)
+        if (response?.data) {
+          dispatch(productListSuccess(response?.data));
+        }
+      }).
+      catch((err) => { dispatch(productListFail(err)) })
+  }
+
+}

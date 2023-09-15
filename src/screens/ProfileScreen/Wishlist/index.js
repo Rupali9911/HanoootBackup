@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import AppBackground from '../../Components/AppBackground';
 import AppHeader from '../../Components/AppHeader';
@@ -16,28 +16,28 @@ import Toast from 'react-native-toast-message';
 import { translate } from '../../../utility';
 import { productCollection } from '../../../constant/DemoArray';
 import { useIsFocused } from '@react-navigation/native';
-import { wishlistLoading, wishlistSuccess, wishlistFailed, wishlistReset, wishlistPageChange } from '../../Store/actions/wishlistActions';
+import { wishlistLoading, wishlistReset, wishlistPageChange } from '../../Store/actions/wishlistActions';
 
 
 const Wishlist = () => {
     const dispatch = useDispatch();
     const isFocused = useIsFocused();
 
-    useEffect(() => {
-        dispatch(wishlistReset())
-        dispatch(wishlistLoading());
-        // getProductListData(1);
-        dispatch(wishlistPageChange(1));
-    }, [isFocused]);
+    // useEffect(() => {
+    //     dispatch(wishlistReset())
+    //     dispatch(wishlistLoading());
+    //     getWislistItem(1)
+    //     dispatch(wishlistPageChange(1));
+    // }, [isFocused]);
 
-    // const getProductListData = useCallback(page => {
-    //     // dispatch(getProductList(page, DATA?.category_id, DATA?.isNavigationSection));
+    // const getWislistItem = useCallback(page => {
+    //     dispatch(getWishlistCollection(page))
     // }, []);
 
-    const { cartItems } = useSelector(state => state.cartReducer);
-    const { WISHLIST_ITEMS } = useSelector(state => state.wishlistReducer);
+    // const { cartItems } = useSelector(state => state.cartReducer);
+    const { wishlistItems } = useSelector(state => state.wishlistReducer);
 
-    console.log('Check wishlist data : ', productCollection)
+    console.log('Check wishlist data : ', wishlistItems)
 
     const RemoveButton = (props) => {
         return (
@@ -150,11 +150,11 @@ const Wishlist = () => {
             />
 
             {
-                WISHLIST_ITEMS?.length > 0
+                productCollection?.length > 0
                     ?
                     <FlatList
                         numColumns={2}
-                        data={WISHLIST_ITEMS}
+                        data={productCollection}
                         renderItem={renderItem}
                         keyExtractor={keyExtractor}
                         showsVerticalScrollIndicator={false}
