@@ -69,11 +69,35 @@
       },
       "oauth_client": [
         {
+          "client_id": "154905673298-9i5hq1fnn6426fi27guqq9tqd4mjosrl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hanooot.mobileapp",
+            "certificate_hash": "4f251e97239e28007634f2c9778a648643a1de3b"
+          }
+        },
+        {
           "client_id": "154905673298-k14h4bvtrclh9p9rkbgs09oai64rckjl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hanooot.mobileapp",
             "certificate_hash": "054aa888a2cdb0156bb2771ec6e634a2a41da4b3"
+          }
+        },
+        {
+          "client_id": "154905673298-m7co9egmdpfso960vgj3hnbgken1kklp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hanooot.mobileapp",
+            "certificate_hash": "948051e04f6016ce03c03d572adf6a742608a9a6"
+          }
+        },
+        {
+          "client_id": "154905673298-vf3cl3qo4brhpce80sq3c0tetf785tt0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hanooot.mobileapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {

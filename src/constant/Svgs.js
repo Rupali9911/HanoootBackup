@@ -13,6 +13,7 @@ import ShareIcon from '../assets/svgs/ShareIcon.svg';
 import DiscountTag from '../assets/svgs/discountTag.svg';
 import SearchArrow from '../assets/svgs/SearchArrow.svg';
 import CrossIcon from '../assets/svgs/CrossIcon.svg';
+import WorkIcon from '../assets/svgs/workIcon.svg';
 
 export default {
   HomeIcon,
@@ -29,5 +30,6 @@ export default {
   ShareIcon,
   DiscountTag,
   SearchArrow,
-  CrossIcon
+  CrossIcon,
+  WorkIcon
 };

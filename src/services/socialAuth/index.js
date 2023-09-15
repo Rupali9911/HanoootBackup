@@ -107,8 +107,16 @@ export const confirmOtp = (authResult, otp) => {
     })
 }
 
-
-
+export const googleLogout = async () => {
+    try {
+        if (GoogleSignin.isSignedIn) {
+            await GoogleSignin.revokeAccess();
+            await GoogleSignin.signOut();
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 export const googleSignIn = () => {
     GoogleSignin.configure({
@@ -125,6 +133,7 @@ export const googleSignIn = () => {
                     resolve(response)
                 })
         } catch (error) {
+            googleLogout()
             _reject(error)
         }
     })

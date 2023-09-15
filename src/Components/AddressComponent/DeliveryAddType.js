@@ -10,6 +10,10 @@ import Colors from "../../constant/Colors";
 import Images from "../../constant/Images";
 import fonts from "../../constant/fonts";
 import { translate } from "../../utility";
+import SVGS from "../../constant/Svgs";
+
+const { WorkIcon } = SVGS;
+
 
 export default DeliveryType = React.memo((props) => {
     // console.log('chekc delivery type : ', props)
@@ -91,6 +95,7 @@ export default DeliveryType = React.memo((props) => {
                     style={[styles.image, { tintColor: toggle2 ? Colors.WHITE : Colors.themeColor }]}
                     source={Images.HomeButton}
                 />
+                {/* <WorkIcon /> */}
                 <Text style={[styles.text, { color: toggle2 ? Colors.WHITE : Colors.themeColor }]}>{translate('common.office')}</Text>
             </TouchableOpacity>
         </View>

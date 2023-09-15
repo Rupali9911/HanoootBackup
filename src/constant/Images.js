@@ -99,5 +99,6 @@ export default {
     MapImage: require(`../assets/images/MapImage.png`),
     // Tiktok: require(`../assets/images/tiktok.jpg`),
     DiscountTag: require(`../assets/images/discountTag.png`),
-    BannerCollage: require(`../assets/images/BannerCollage.jpg`)
+    BannerCollage: require(`../assets/images/BannerCollage.jpg`),
+    work: require(`../assets/images/work.png`),
 }

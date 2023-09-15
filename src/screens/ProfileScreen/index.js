@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearUserData } from '../Store/actions/userAction'
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { translate } from '../../utility'
+import { googleLogout } from '../../services/socialAuth'
 // import { WebView } from 'react-native-webview';
 
 
@@ -94,6 +95,7 @@ const ProfileScreen = (props) => {
     }
 
     const logout = async () => {
+        googleLogout()
         dispatch(clearUserData())
         await EncryptedStorage.clear();
         signOut()

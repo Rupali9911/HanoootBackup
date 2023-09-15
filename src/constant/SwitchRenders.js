@@ -18,7 +18,7 @@ export const getWeekDays = (key) => {
         case 'Fri':
             return translate('common.fri')
         default:
-            return null;
+            return key;
     }
 }
 
@@ -50,7 +50,7 @@ export const getMonths = (key) => {
         case 'Dec':
             return translate('common.dec')
         default:
-            return null;
+            return key;
     }
 }
 

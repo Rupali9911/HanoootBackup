@@ -96,7 +96,14 @@ export const validateEmail = value => {
 
 
 export const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    try {
+        var strCpital = string.charAt(0).toUpperCase() + string?.slice(1);
+        return strCpital
+    }
+    catch {
+        return ''
+    }
+
 }
 
 export const validateDescription = value => {

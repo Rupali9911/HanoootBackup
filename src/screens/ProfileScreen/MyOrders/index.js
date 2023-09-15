@@ -16,6 +16,8 @@ import { getMonths } from '../../../constant/SwitchRenders'
 
 const MyOrderList = () => {
     const { orderList, isOrderDataLoading, orderPageChange, orderTotal } = useSelector(state => state.orderReducer);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
     const navigation = useNavigation();
     const isFocused = useIsFocused();
     const dispatch = useDispatch();
@@ -41,6 +43,7 @@ const MyOrderList = () => {
         const year = date.getFullYear();
         const month = date.toLocaleString('default', { month: 'short' });
         const day = date.getDate();
+        console.log('monthss is here : ', date, month, day, date.toLocaleString('default', { month: 'short' }))
         const formattedDate = `${day} ${getMonths(month)} ${year}`;
 
         return formattedDate;
@@ -59,7 +62,7 @@ const MyOrderList = () => {
                     </View>
                     <View style={styles.rightContainer}>
                         <View style={styles.rowContainer}>
-                            <Text style={styles.name}>{subItem?.ManagementProduct?.title}</Text>
+                            <Text style={styles.name}>{selectedLanguageItem?.language_id === 0 ? subItem?.ManagementProduct?.ManagementProductSeo?.product_name : subItem?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>
                             {/* <Text style={styles.orderDetail}>ORDER ID : <Text style={{ color: Colors.BLACK }}>{item?.id}</Text></Text>
                             <Text style={styles.orderDetail}>ORDER PLACED : <Text style={{ color: Colors.BLACK }}>{renderOrderPlacedDate(item?.createdAt)}</Text></Text> */}
                         </View>

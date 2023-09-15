@@ -3,7 +3,7 @@ import sendRequest from '../../services/axios/AxiosApiRequest'
 import { showErrorToast, showSuccessToast } from '../../Components/universal/Toast'
 import { Store } from '../../screens/Store';
 import { translate } from '../../utility';
-
+import { googleLogout } from '../socialAuth';
 const isLanguage = Store.getState().languageReducer.selectedLanguageItem?.language_id;
 
 
@@ -53,6 +53,7 @@ export const userRegister = (firebase_user_id, password) => {
                 if (response?.success === true) {
                     resolve(response)
                 } else {
+                    googleLogout()
                     showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             })

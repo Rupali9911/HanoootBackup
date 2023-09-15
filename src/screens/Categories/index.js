@@ -81,11 +81,11 @@ const Category = () => {
         }
     };
 
-    const toggleExpand = (index) => {
-        setExpanded(!expanded);
+    const toggleExpand = useCallback((index) => {
+        setExpanded(true);
         setSubCategoryIndex(index);
 
-    };
+    }, []);
 
     const SubCategoriesTitle = (props) => {
         return (

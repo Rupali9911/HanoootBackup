@@ -18,6 +18,8 @@ const OrderDetails = (props) => {
     const isFocused = useIsFocused();
     const dispatch = useDispatch();
     const { isOrderDetailLoading, orderDetail } = useSelector(state => state.orderReducer);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
     console.log('check isOrderDetailLoading : ', isOrderDetailLoading)
 
@@ -52,7 +54,7 @@ const OrderDetails = (props) => {
                     />
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={styles.productName}>{item?.ManagementProduct?.title}</Text>
+                    <Text style={styles.productName}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>
                     <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>{translate('common.quantity')}<Text style={{ color: Colors.BLACK }}>{item?.quantity}</Text></Text>
                     <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]}>$ {item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
                 </View>
