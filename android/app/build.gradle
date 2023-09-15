@@ -117,11 +117,17 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        release {
+        // release {
+        //     storeFile file('release.keystore')
+        //     storePassword 'Hanooot'
+        //     keyAlias 'androidreleasekey'
+        //     keyPassword 'Hanooot'
+        // }
+         release {
             storeFile file('release.keystore')
-            storePassword 'Hanooot'
-            keyAlias 'androidreleasekey'
-            keyPassword 'Hanooot'
+            storePassword 'Hanooot@123'
+            keyAlias 'Hanooot-App'
+            keyPassword 'Hanooot@123'
         }
     }
     buildTypes {
