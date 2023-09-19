@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView, Button, Image, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, ScrollView, Button, Image, Text, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import ProductHeader from '../../screens/Components/Cards/ProductHeader';
 import AppHeader from '../../screens/Components/AppHeader';
@@ -190,177 +190,500 @@ const NewAddress = (props) => {
       <AppHeader
         showBackButton
         title={editDataDetail ? translate('common.updateaddress') : translate('common.addAddress')} />
-      <ScrollView>
-        <ProductHeader title={translate('common.addressdetail')} />
-        <View style={{ zIndex: 1 }}>
-          <DropdownPicker
-            onSetCountry={(city) => {
-              console.log('country value : ', city);//{"code": "KA", "name": "Bangalore"}
-              handleInputChange('city', city)
-              setErrorMsg({ ...errorMsg, ['city']: null })
-            }}
-            SetValue={setCityName}
-            Value={cityValue}
-            error={errorMsg['city']}
-          />
-        </View>
-        <KeyboardAwareScrollView>
-          <AppInput
-            label={translate('common.streetname')}
-            placeholder={translate('common.enterstreetname')}
-            required
-            value={inputFields.street}
-            onChangeText={text => {
-              handleInputChange('street', text)
-              setErrorMsg({ ...errorMsg, ['street']: null })
-            }}
-            error={errorMsg['street']}
-          />
-          <AppInput
-            label={translate('common.buildingtype')}
-            value={inputFields.building}
-            onChangeText={text => {
-              handleInputChange('building', text)
-              setErrorMsg({ ...errorMsg, ['building']: null })
-            }}
-            placeholder={translate('common.enterbuildingtype')}
-            required
-            error={errorMsg['building']}
-          />
-          <AppInput
-            label={translate('common.houseNo')}
-            value={inputFields.house}
-            onChangeText={text => handleInputChange('house', text)}
-            placeholder={translate('common.enterHouseNo')}
-          />
-          <AppInput
-            label={translate('common.nearbylandmark')}
-            value={inputFields.landmark}
-            onChangeText={text => {
-              handleInputChange('landmark', text)
-              setErrorMsg({ ...errorMsg, ['landmark']: null })
-            }}
-            placeholder={translate('common.enternearbylandmark')}
-            required
-            error={errorMsg['landmark']}
-          />
+      <KeyboardAwareScrollView nestedScrollEnabled={true}>
+        <DropdownPicker
+          onSetCountry={(city) => {
+            console.log('country value : ', city);//{"code": "KA", "name": "Bangalore"}
+            handleInputChange('city', city)
+            setErrorMsg({ ...errorMsg, ['city']: null })
+          }}
+          SetValue={setCityName}
+          Value={cityValue}
+          error={errorMsg['city']}
+        // mainStyle={{ zIndex: 1 }}
+        />
+        <AppInput
+          label={translate('common.streetname')}
+          placeholder={translate('common.enterstreetname')}
+          required
+          value={inputFields.street}
+          onChangeText={text => {
+            handleInputChange('street', text)
+            setErrorMsg({ ...errorMsg, ['street']: null })
+          }}
+          error={errorMsg['street']}
+        />
+        <AppInput
+          label={translate('common.buildingtype')}
+          value={inputFields.building}
+          onChangeText={text => {
+            handleInputChange('building', text)
+            setErrorMsg({ ...errorMsg, ['building']: null })
+          }}
+          placeholder={translate('common.enterbuildingtype')}
+          required
+          error={errorMsg['building']}
+        />
+        <AppInput
+          label={translate('common.houseNo')}
+          value={inputFields.house}
+          onChangeText={text => handleInputChange('house', text)}
+          placeholder={translate('common.enterHouseNo')}
+        />
+        <AppInput
+          label={translate('common.nearbylandmark')}
+          value={inputFields.landmark}
+          onChangeText={text => {
+            handleInputChange('landmark', text)
+            setErrorMsg({ ...errorMsg, ['landmark']: null })
+          }}
+          placeholder={translate('common.enternearbylandmark')}
+          required
+          error={errorMsg['landmark']}
+        />
 
-          {
-            inputFields?.locationDetail?.address != ''
-              // Object.keys(inputFields?.locationDetail).length
-              ?
-              (
-                <View style={{ flexDirection: 'row', margin: '5%' }}>
-                  <Image
-                    source={Images.MapImage}
-                    style={{ width: 85, height: 85 }}
-                  />
-                  <View style={{ flex: 1, margin: 10, justifyContent: 'space-between' }}>
+        {
+          inputFields?.locationDetail?.address != ''
+            // Object.keys(inputFields?.locationDetail).length
+            ?
+            (
+              <View style={{ flexDirection: 'row', margin: '5%' }}>
+                <Image
+                  source={Images.MapImage}
+                  style={{ width: 85, height: 85 }}
+                />
+                <View style={{ flex: 1, margin: 10, justifyContent: 'space-between' }}>
+                  <Text style={{
+                    fontFamily: fonts.VISBY_CF_REGULAR,
+                    fontWeight: 500,
+                    letterSpacing: 0.5,
+                    textAlign: 'left'
+                  }} numberOfLines={2}>{translate('common.address')} {inputFields?.locationDetail?.address}</Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('Location', {
+                        updateAddress: inputFields.locationDetail,
+                        onGoBack: (data) => {
+                          console.log('location data : ', data), setInputFields({
+                            ...inputFields, locationDetail: {
+                              latitude: data?.latitude,
+                              longitude: data?.longitude,
+                              address: data?.address
+                            }
+                          })
+                        }
+                      });
+                    }}
+                  >
                     <Text style={{
                       fontFamily: fonts.VISBY_CF_REGULAR,
                       fontWeight: 500,
                       letterSpacing: 0.5,
-                      textAlign: 'left'
-                    }} numberOfLines={2}>{translate('common.address')} {inputFields?.locationDetail?.address}</Text>
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate('Location', {
-                          updateAddress: inputFields.locationDetail,
-                          onGoBack: (data) => {
-                            console.log('location data : ', data), setInputFields({
-                              ...inputFields, locationDetail: {
-                                latitude: data?.latitude,
-                                longitude: data?.longitude,
-                                address: data?.address
-                              }
-                            })
-                          }
-                        });
-                      }}
-                    >
-                      <Text style={{
-                        fontFamily: fonts.VISBY_CF_REGULAR,
-                        fontWeight: 500,
-                        letterSpacing: 0.5,
-                        textAlign: 'left',
-                        color: Colors.themeColor
-                      }}>{translate('common.update')}</Text>
-                    </TouchableOpacity>
-                  </View>
+                      textAlign: 'left',
+                      color: Colors.themeColor
+                    }}>{translate('common.update')}</Text>
+                  </TouchableOpacity>
                 </View>
-              )
-              :
-              (
-                <AppButton
-                  isEmptyBG
-                  label={translate('common.pinyourlocation')}
-                  leftSideImg
-                  ImgURI={Images.PinLocation}
-                  containerStyle={{ marginVertical: "6%" }}
-                  // onPress={() => navigation.navigate('Location')}
-                  onPress={() => {
-                    navigation.navigate('Location', {
-                      onGoBack: (data) => {
-                        console.log('location data : ', data), setInputFields({
-                          ...inputFields, locationDetail: {
-                            latitude: data?.latitude,
-                            longitude: data?.longitude,
-                            address: data?.address
-                          }
-                        })
-                      }
-                    });
-                  }}
+              </View>
+            )
+            :
+            (
+              <AppButton
+                isEmptyBG
+                label={translate('common.pinyourlocation')}
+                leftSideImg
+                ImgURI={Images.PinLocation}
+                containerStyle={{ marginVertical: "6%" }}
+                // onPress={() => navigation.navigate('Location')}
+                onPress={() => {
+                  navigation.navigate('Location', {
+                    onGoBack: (data) => {
+                      console.log('location data : ', data), setInputFields({
+                        ...inputFields, locationDetail: {
+                          latitude: data?.latitude,
+                          longitude: data?.longitude,
+                          address: data?.address
+                        }
+                      })
+                    }
+                  });
+                }}
 
-                />
-              )
-          }
-
-
-
+              />
+            )
+        }
 
 
 
-          <ProductHeader title={translate('common.deliverycontactdetail')} />
 
-          <AppInput
-            label={translate('common.name')}
-            value={inputFields.name}
-            onChangeText={text => {
-              handleInputChange('name', text);
-              setErrorMsg({ ...errorMsg, ['name']: null })
-            }}
-            placeholder={translate('common.enteryourname')}
-            required
-            error={errorMsg['name']}
+
+
+        <ProductHeader title={translate('common.deliverycontactdetail')} />
+
+        <AppInput
+          label={translate('common.name')}
+          value={inputFields.name}
+          onChangeText={text => {
+            handleInputChange('name', text);
+            setErrorMsg({ ...errorMsg, ['name']: null })
+          }}
+          placeholder={translate('common.enteryourname')}
+          required
+          error={errorMsg['name']}
+        />
+        <AppInput
+          label={translate('common.phonenumber')}
+          value={inputFields.phone_number}
+          onChangeText={text => handleInputChange('phone_number', text)}
+          placeholder={translate('common.enteryourphonenumber')}
+          maxLength={10}
+          keyboardType={'numeric'}
+        />
+
+        <Separator separatorStyle={{ marginVertical: '8%' }} />
+
+        <ProductHeader title={translate('common.saveas')} />
+        <View style={{ flexDirection: 'row', alignItems: "flex-start" }}>
+          <DeliveryType
+            isSelected={inputFields.address_type}
+            onPress={(val) => setInputFields({ ...inputFields, address_type: val })}
           />
-          <AppInput
-            label={translate('common.phonenumber')}
-            value={inputFields.phone_number}
-            onChangeText={text => handleInputChange('phone_number', text)}
-            placeholder={translate('common.enteryourphonenumber')}
-            maxLength={10}
-            keyboardType={'numeric'}
-          />
+        </View>
 
-          <Separator separatorStyle={{ marginVertical: '8%' }} />
-
-          <ProductHeader title={translate('common.saveas')} />
-          <View style={{ flexDirection: 'row', alignItems: "flex-start" }}>
-            <DeliveryType
-              isSelected={inputFields.address_type}
-              onPress={(val) => setInputFields({ ...inputFields, address_type: val })}
-            />
-          </View>
-          <AppButton label={editDataDetail ? translate('common.updateaddress') : translate('common.saveaddress')} containerStyle={{ marginVertical: '5%' }} onPress={handleSubmit} />
-        </KeyboardAwareScrollView>
-      </ScrollView>
+        <AppButton label={editDataDetail ? translate('common.updateaddress') : translate('common.saveaddress')} containerStyle={{ marginVertical: '5%' }} onPress={handleSubmit} />
+      </KeyboardAwareScrollView>
     </AppBackground>
+
+
+
+
+
+
+
+    // <AppBackground>
+    //   <AppHeader
+    //     showBackButton
+    //     title={editDataDetail ? translate('common.u{pdateaddress') : translate('common.addAddress')} />
+    //   <KeyboardAwareScrollView nestedScrollEnabled={true}>
+    //     <DropdownPicker
+    //       onSetCountry={(city) => {
+    //         console.log('country value : ', city);//{"code": "KA", "name": "Bangalore"}
+    //         handleInputChange('city', city)
+    //         setErrorMsg({ ...errorMsg, ['city']: null })
+    //       }}
+    //       SetValue={setCityName}
+    //       Value={cityValue}
+    //       error={errorMsg['city']}
+    //       mainStyle={{ zIndex: 1 }}
+    //     />
+    //     {/* <AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     /><AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     /> */}
+    //   </KeyboardAwareScrollView>
+
+    // </AppBackground>
+    // <AppBackground>
+    //   <AppHeader
+    //     showBackButton
+    //     title={editDataDetail ? translate('common.updateaddress') : translate('common.addAddress')} />
+    //   {/* <ScrollView> */}
+    //   <KeyboardAwareScrollView
+    //     nestedScrollEnabled={true}
+    //     scrollEnabled={true}
+    //   >
+
+    //     <ProductHeader title={translate('common.addressdetail')} />
+    //     <View style={{ zIndex: 1 }}>
+    // <DropdownPicker
+    //   onSetCountry={(city) => {
+    //     console.log('country value : ', city);//{"code": "KA", "name": "Bangalore"}
+    //     handleInputChange('city', city)
+    //     setErrorMsg({ ...errorMsg, ['city']: null })
+    //   }}
+    //   SetValue={setCityName}
+    //   Value={cityValue}
+    //   error={errorMsg['city']}
+    // />
+    //     </View>
+    //     <AppInput
+    //       label={translate('common.streetname')}
+    //       placeholder={translate('common.enterstreetname')}
+    //       required
+    //       value={inputFields.street}
+    //       onChangeText={text => {
+    //         handleInputChange('street', text)
+    //         setErrorMsg({ ...errorMsg, ['street']: null })
+    //       }}
+    //       error={errorMsg['street']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.buildingtype')}
+    //       value={inputFields.building}
+    //       onChangeText={text => {
+    //         handleInputChange('building', text)
+    //         setErrorMsg({ ...errorMsg, ['building']: null })
+    //       }}
+    //       placeholder={translate('common.enterbuildingtype')}
+    //       required
+    //       error={errorMsg['building']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.houseNo')}
+    //       value={inputFields.house}
+    //       onChangeText={text => handleInputChange('house', text)}
+    //       placeholder={translate('common.enterHouseNo')}
+    //     />
+    //     <AppInput
+    //       label={translate('common.nearbylandmark')}
+    //       value={inputFields.landmark}
+    //       onChangeText={text => {
+    //         handleInputChange('landmark', text)
+    //         setErrorMsg({ ...errorMsg, ['landmark']: null })
+    //       }}
+    //       placeholder={translate('common.enternearbylandmark')}
+    //       required
+    //       error={errorMsg['landmark']}
+    //     />
+
+    //     {
+    //       inputFields?.locationDetail?.address != ''
+    //         // Object.keys(inputFields?.locationDetail).length
+    //         ?
+    //         (
+    //           <View style={{ flexDirection: 'row', margin: '5%' }}>
+    //             <Image
+    //               source={Images.MapImage}
+    //               style={{ width: 85, height: 85 }}
+    //             />
+    //             <View style={{ flex: 1, margin: 10, justifyContent: 'space-between' }}>
+    //               <Text style={{
+    //                 fontFamily: fonts.VISBY_CF_REGULAR,
+    //                 fontWeight: 500,
+    //                 letterSpacing: 0.5,
+    //                 textAlign: 'left'
+    //               }} numberOfLines={2}>{translate('common.address')} {inputFields?.locationDetail?.address}</Text>
+    //               <TouchableOpacity
+    //                 onPress={() => {
+    //                   navigation.navigate('Location', {
+    //                     updateAddress: inputFields.locationDetail,
+    //                     onGoBack: (data) => {
+    //                       console.log('location data : ', data), setInputFields({
+    //                         ...inputFields, locationDetail: {
+    //                           latitude: data?.latitude,
+    //                           longitude: data?.longitude,
+    //                           address: data?.address
+    //                         }
+    //                       })
+    //                     }
+    //                   });
+    //                 }}
+    //               >
+    //                 <Text style={{
+    //                   fontFamily: fonts.VISBY_CF_REGULAR,
+    //                   fontWeight: 500,
+    //                   letterSpacing: 0.5,
+    //                   textAlign: 'left',
+    //                   color: Colors.themeColor
+    //                 }}>{translate('common.update')}</Text>
+    //               </TouchableOpacity>
+    //             </View>
+    //           </View>
+    //         )
+    //         :
+    //         (
+    //           <AppButton
+    //             isEmptyBG
+    //             label={translate('common.pinyourlocation')}
+    //             leftSideImg
+    //             ImgURI={Images.PinLocation}
+    //             containerStyle={{ marginVertical: "6%" }}
+    //             // onPress={() => navigation.navigate('Location')}
+    //             onPress={() => {
+    //               navigation.navigate('Location', {
+    //                 onGoBack: (data) => {
+    //                   console.log('location data : ', data), setInputFields({
+    //                     ...inputFields, locationDetail: {
+    //                       latitude: data?.latitude,
+    //                       longitude: data?.longitude,
+    //                       address: data?.address
+    //                     }
+    //                   })
+    //                 }
+    //               });
+    //             }}
+
+    //           />
+    //         )
+    //     }
+
+
+
+
+
+
+    //     <ProductHeader title={translate('common.deliverycontactdetail')} />
+
+    //     <AppInput
+    //       label={translate('common.name')}
+    //       value={inputFields.name}
+    //       onChangeText={text => {
+    //         handleInputChange('name', text);
+    //         setErrorMsg({ ...errorMsg, ['name']: null })
+    //       }}
+    //       placeholder={translate('common.enteryourname')}
+    //       required
+    //       error={errorMsg['name']}
+    //     />
+    //     <AppInput
+    //       label={translate('common.phonenumber')}
+    //       value={inputFields.phone_number}
+    //       onChangeText={text => handleInputChange('phone_number', text)}
+    //       placeholder={translate('common.enteryourphonenumber')}
+    //       maxLength={10}
+    //       keyboardType={'numeric'}
+    //     />
+
+    //     <Separator separatorStyle={{ marginVertical: '8%' }} />
+
+    //     <ProductHeader title={translate('common.saveas')} />
+    //     <View style={{ flexDirection: 'row', alignItems: "flex-start" }}>
+    //       <DeliveryType
+    //         isSelected={inputFields.address_type}
+    //         onPress={(val) => setInputFields({ ...inputFields, address_type: val })}
+    //       />
+    //     </View>
+    //     <AppButton label={editDataDetail ? translate('common.updateaddress') : translate('common.saveaddress')} containerStyle={{ marginVertical: '5%' }} onPress={handleSubmit} />
+    //   </KeyboardAwareScrollView>
+    //   {/* </ScrollView> */}
+    // </AppBackground>
   )
 }
 
 export default React.memo(NewAddress);
 
 const styles = StyleSheet.create({
-
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10
+  }
 })

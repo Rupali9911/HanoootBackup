@@ -181,6 +181,7 @@ const Location = (props) => {
   // console.log('get : ', getInitialState)
 
   const onMapPress = (event) => {
+    console.log('onMapPress : ', event)
     if (event?.nativeEvent?.coordinate) {
       setGetInitialState({
         region: {

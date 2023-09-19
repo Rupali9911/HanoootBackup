@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
     backgroundColor: Colors.LightGray,
+    // justifyContent: 'flex-start',
+    // alignItems: 'flex-start'
   },
   safeArea: {
     backgroundColor: Colors.WHITE,

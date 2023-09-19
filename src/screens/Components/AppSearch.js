@@ -42,9 +42,12 @@ const AppSearch = (props) => {
             ) {
               console.log('if')
               setSearchData(response?.data?.product);
+              // searchTxt ? props.onChangeText(true) : props.onChangeText(false)
+              props.onChangeText(true)
             } else {
               console.log('else')
               setSearchData([]);
+              props.onChangeText(false)
             }
           })
           .catch(err => {
@@ -56,6 +59,8 @@ const AppSearch = (props) => {
     } else {
       setloading(false);
       setSearchData([]);
+      props.onChangeText(false)
+
     }
   }, [searchTxt]);
 
@@ -109,7 +114,12 @@ const AppSearch = (props) => {
   };
   return (
 
-    <View >
+    <View style={{
+      // flexGrow: 1,
+      // alignItems: 'center',
+      // justifyContent: 'center',
+      // top: 50
+    }}>
       <View
         style={styles.searchContainer}>
         <View style={{ justifyContent: 'flex-start', width: wp(5) }}>
@@ -119,15 +129,17 @@ const AppSearch = (props) => {
           placeholder={props.placeholderText}
           onChangeText={(text) => {
             setSearchTxt(text);
-            text ? props.onChangeText(true) : props.onChangeText(false)
+            // text ? props.onChangeText(true) : props.onChangeText(false)
           }}
           value={searchTxt}
           placeholderTextColor={Colors.GRAYDARK}
-          style={{ left: 10, alignSelf: 'center', height: '100%', color: Colors.BLACK, width: wp(75) }}
+          style={{
+            left: 10, alignSelf: 'center', height: '100%', color: Colors.BLACK, width: wp(75), height: hp(4.93),
+          }}
         />
         {
           searchTxt &&
-          <TouchableOpacity style={{ justifyContent: 'flex-end', width: wp(5) }} onPress={() => setSearchTxt('')}>
+          <TouchableOpacity style={{ justifyContent: 'flex-end', width: wp(5) }} onPress={() => { setSearchTxt(''), props.onChangeText(false) }}>
             <CrossIcon />
           </TouchableOpacity>
         }
@@ -168,25 +180,25 @@ export default AppSearch;
 
 const styles = StyleSheet.create({
   listContainer: {
-    flex: 1,
+    // flex: 1,
     // zIndex: 1,
     width: Dimensions.get('window').width,
     // position: 'absolute',
     backgroundColor: Colors.WHITE,
     marginTop: hp('1%'),
-    borderRadius: wp('1%'),
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    // borderRadius: wp('1%'),
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
     // elevation: 5,
     // minHeight: hp(20),
-    minHeight: Dimensions.get('window').height / 2,
+    // minHeight: Dimensions.get('window').height / 2,
 
-    height: hp(50),
+    // height: hp(50),
   },
   searchContainer: {
     borderRadius: 12,
@@ -197,7 +209,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: wp('3%'),
     paddingHorizontal: wp('3%'),
-    height: hp(4.93),
     // position: 'absolute',
     // width: wp(100)
   },

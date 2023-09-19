@@ -58,7 +58,7 @@ const TopPicks = (props) => {
         <View style={styles.itemImgContainer}>
           <Image source={{ uri: item?.ManagementProduct?.product_image ? item?.ManagementProduct?.product_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }} style={styles.itemImg} />
         </View>
-        <View style={{ gap: 18 }}>
+        <View style={{}}>
           <Text numberOfLines={2} style={styles.itemName}>{item?.ManagementProduct?.title}</Text>
           <Text style={styles.itemPrice}>$ {item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
         </View>
@@ -90,9 +90,9 @@ const TopPicks = (props) => {
           />
           <View style={styles.container}>
             <View style={styles.headingContainer}>
-              <View>
+              <View style={{ width: '60%' }}>
                 <Text style={styles.title} numberOfLines={2}>{item?.inner_heading}</Text>
-                <Text style={styles.description} numberOfLines={2}>{item?.description}</Text>
+                <Text style={styles.description} numberOfLines={1}>{item?.description}</Text>
               </View>
               <TouchableOpacity
                 style={styles.seeAllBtn}
@@ -174,10 +174,13 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: wp(25.33),
-    gap: 8,
+    // gap: 8,
     marginHorizontal: '1%',
     marginVertical: '2%',
-    alignContent: 'center'
+    alignContent: 'center',
+    height: hp(25.95),
+    // backgroundColor: 'red',
+    justifyContent: 'space-between'
   },
   itemImgContainer: {
     height: hp(11.70),

@@ -68,335 +68,6 @@ const DropdownPicker = (props) => {
 
 
 
-
-  // console.log('get all cities : ', cities )
-
-  // const [countries, setCountries] = useState([
-  //   {
-  //     "label": "Delhi",
-  //     "value": "DL"
-  //   },
-  //   {
-  //     "label": "Mumbai",
-  //     "value": "MH"
-  //   },
-  //   {
-  //     "label": "Kolkata",
-  //     "value": "WB"
-  //   },
-  //   {
-  //     "label": "Chennai",
-  //     "value": "TN"
-  //   },
-  //   {
-  //     "label": "Bangalore",
-  //     "value": "KA"
-  //   },
-  //   {
-  //     "label": "Hyderabad",
-  //     "value": "TS"
-  //   },
-  //   {
-  //     "label": "Ahmedabad",
-  //     "value": "GJ"
-  //   },
-  //   {
-  //     "label": "Pune",
-  //     "value": "MH"
-  //   },
-  //   {
-  //     "label": "Surat",
-  //     "value": "GJ"
-  //   },
-  //   {
-  //     "label": "Lucknow",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Kanpur",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Nagpur",
-  //     "value": "MH"
-  //   },
-  //   {
-  //     "label": "Patna",
-  //     "value": "BR"
-  //   },
-  //   {
-  //     "label": "Indore",
-  //     "value": "MP"
-  //   },
-  //   {
-  //     "label": "Vadodara",
-  //     "value": "GJ"
-  //   },
-  //   {
-  //     "label": "Bhopal",
-  //     "value": "MP"
-  //   },
-  //   {
-  //     "label": "Ludhiana",
-  //     "value": "PB"
-  //   },
-  //   {
-  //     "label": "Agra",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Jaipur",
-  //     "value": "RJ"
-  //   },
-  //   {
-  //     "label": "Ghaziabad",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Varanasi",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Srinagar",
-  //     "value": "JK"
-  //   },
-  //   {
-  //     "label": "Kota",
-  //     "value": "RJ"
-  //   },
-  //   {
-  //     "label": "Jodhpur",
-  //     "value": "RJ"
-  //   },
-  //   {
-  //     "label": "Amritsar",
-  //     "value": "PB"
-  //   },
-  //   {
-  //     "label": "Visakhapatnam",
-  //     "value": "AP"
-  //   },
-  //   {
-  //     "label": "Rajkot",
-  //     "value": "GJ"
-  //   },
-  //   {
-  //     "label": "Coimbatore",
-  //     "value": "TN"
-  //   },
-  //   {
-  //     "label": "Madurai",
-  //     "value": "TN"
-  //   },
-  //   {
-  //     "label": "Allahabad",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Noida",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Jabalpur",
-  //     "value": "MP"
-  //   },
-  //   {
-  //     "label": "Gwalior",
-  //     "value": "MP"
-  //   },
-  //   {
-  //     "label": "Vijayawada",
-  //     "value": "AP"
-  //   },
-  //   {
-  //     "label": "Kochi",
-  //     "value": "KL"
-  //   },
-  //   {
-  //     "label": "Dehradun",
-  //     "value": "UA"
-  //   },
-  //   {
-  //     "label": "Ranchi",
-  //     "value": "JH"
-  //   },
-  //   {
-  //     "label": "Thiruvananthapuram",
-  //     "value": "KL"
-  //   },
-  //   {
-  //     "label": "Guwahati",
-  //     "value": "AS"
-  //   },
-  //   {
-  //     "label": "Chandigarh",
-  //     "value": "CH"
-  //   },
-  //   {
-  //     "label": "Hubli",
-  //     "value": "KA"
-  //   },
-  //   {
-  //     "label": "Mysore",
-  //     "value": "KA"
-  //   },
-  //   {
-  //     "label": "Aurangabad",
-  //     "value": "MH"
-  //   },
-  //   {
-  //     "label": "Solapur",
-  //     "value": "MH"
-  //   },
-  //   {
-  //     "label": "Nashik",
-  //     "value": "MH"
-  //   },
-  //   {
-  //     "label": "Jalandhar",
-  //     "value": "PB"
-  //   },
-  //   {
-  //     "label": "Gorakhpur",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Bhubaneswar",
-  //     "value": "OD"
-  //   },
-  //   {
-  //     "label": "Kolhapur",
-  //     "value": "MH"
-  //   },
-  //   {
-  //     "label": "Guntur",
-  //     "value": "AP"
-  //   },
-  //   {
-  //     "label": "Udaipur",
-  //     "value": "RJ"
-  //   },
-  //   {
-  //     "label": "Kurnool",
-  //     "value": "AP"
-  //   },
-  //   {
-  //     "label": "Bokaro",
-  //     "value": "JH"
-  //   },
-  //   {
-  //     "label": "Mangalore",
-  //     "value": "KA"
-  //   },
-  //   {
-  //     "label": "Tiruchirappalli",
-  //     "value": "TN"
-  //   },
-  //   {
-  //     "label": "Belgaum",
-  //     "value": "KA"
-  //   },
-  //   {
-  //     "label": "Aligarh",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Jamshedpur",
-  //     "value": "JH"
-  //   },
-  //   {
-  //     "label": "Bareilly",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Moradabad",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Raipur",
-  //     "value": "CG"
-  //   },
-  //   {
-  //     "label": "Shimla",
-  //     "value": "HP"
-  //   },
-  //   {
-  //     "label": "Gulbarga",
-  //     "value": "KA"
-  //   },
-  //   {
-  //     "label": "Tiruppur",
-  //     "value": "TN"
-  //   },
-  //   {
-  //     "label": "Gaya",
-  //     "value": "BR"
-  //   },
-  //   {
-  //     "label": "Jhansi",
-  //     "value": "UP"
-  //   },
-  //   {
-  //     "label": "Rohtak",
-  //     "value": "HR"
-  //   },
-  //   {
-  //     "label": "Korba",
-  //     "value": "CG"
-  //   },
-  //   {
-  //     "label": "Davanagere",
-  //     "value": "KA"
-  //   },
-  //   {
-  //     "label": "Ajmer",
-  //     "value": "RJ"
-  //   },
-  //   {
-  //     "label": "Kollam",
-  //     "value": "KL"
-  //   },
-  //   {
-  //     "label": "Kozhikode",
-  //     "value": "KL"
-  //   },
-  //   {
-  //     "label": "Akola",
-  //     "value": "MH"
-  //   },
-  //   {
-  //     "label": "Rajahmundry",
-  //     "value": "AP"
-  //   },
-  //   {
-  //     "label": "Bhilai",
-  //     "value": "CG"
-  //   },
-  //   {
-  //     "label": "Kakinada",
-  //     "value": "AP"
-  //   },
-  //   {
-  //     "label": "Nellore",
-  //     "value": "AP"
-  //   },
-  //   {
-  //     "label": "Bhavnagar",
-  //     "value": "GJ"
-  //   },
-  //   {
-  //     "label": "Tumkur",
-  //     "value": "KA"
-  //   },
-  //   {
-  //     "label": "Bhatinda",
-  //     "value": "PB"
-  //   },
-  //   {
-  //     "label": "Raurkela",
-  //     "value": "OD"
-  //   }]);
-
   useEffect(() => {
     const array = [];
     // // if ('France') {
@@ -460,6 +131,8 @@ const DropdownPicker = (props) => {
           value={props.Value}
           // value={value}
           items={items}
+          // maxHeight={open ? 500 : 0}
+          // minHeight={100}
           // closeAfterSelecting={true}
           // searchable={true}
           // listMode={'MODAL'}
@@ -489,15 +162,26 @@ const DropdownPicker = (props) => {
               props.onSetCountry && props.onSetCountry(country.label);
             }
           }}
-          style={[styles.pickerStyle, { borderRadius: open ? 0 : 100 }]}
-          dropDownContainerStyle={styles.dropDownContainer}
+          style={[styles.pickerStyle, { borderRadius: open ? 0 : 100, borderColor: open ? Colors.themeColor : Colors.GRAY }]}
+          // dropDownContainerStyle={styles.dropDownContainer}
+          dropDownContainerStyle={{
+            borderColor: Colors.themeColor,
+            position: 'relative', // to fix scroll issue ... it is by default 'absolute'
+            top: 0, //to fix gap between label box and container,
+            height: '100%'
+          }}
+          flatListProps={{
+            scrollEnabled: true,
+            nestedScrollEnabled: true
+          }}
+          autoScroll
         // textStyle={styles.title}
         // labelStyle={styles.label}
         // listItemLabelStyle={styles.itemLabel}
         // searchContainerStyle={styles.searchContainer}
         // searchTextInputStyle={styles.searchInput}
-        // ArrowUpIconComponent={({style}) => arrow}
-        // ArrowDownIconComponent={({style}) => arrow}
+        // ArrowUpIconComponent={({ style }) => arrow}
+        // ArrowDownIconComponent={({ style }) => arrow}
         />
         {props.error && <Text style={styles.errorMessage}>{props.error}</Text>}
       </View>
@@ -510,13 +194,16 @@ export default DropdownPicker
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     // backgroundColor: '#fff',
     // alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     marginHorizontal: '5%',
-    height: hp('6%'),
+    maxHeight: hp(33.62),
     marginTop: '5%',
+    zIndex: 1,
+    marginBottom: 50,
+    // backgroundColor: 'green'
     // backgroundColor: 'red',
 
   },
@@ -540,7 +227,7 @@ const styles = StyleSheet.create({
     // marginVertical: hp("1.5%")
 
     borderWidth: 1,
-    borderColor: Colors.GRAY,
+    // borderColor: Colors.themeColor,
     // paddingVertical: Platform.OS === 'ios' ? 15 : 8,
     // height: hp('6%'),
     // paddingHorizontal: 20,

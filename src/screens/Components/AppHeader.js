@@ -43,7 +43,7 @@ export default function AppHeader(props) {
 
   return (
 
-    <View style={[styles.container, props.mainContainerStyle]}>
+    <View style={[styles.container(isSearch), props.mainContainerStyle]}>
       <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
         {props.showBackButton ? (
           <TouchableOpacity
@@ -66,7 +66,7 @@ export default function AppHeader(props) {
 
       <View style={[styles.mainTitleStyle, props.titleComponentStyle]}>
         {props.placeholderText ? (
-          <View style={{ flex: 1, width: '100%', justifyContent: 'center', zIndex: 999 }}>
+          <View style={{}}>
             <AppSearch placeholderText={props.placeholderText} onChangeText={(val) => setSearch(val)} />
           </View>
         ) :
@@ -189,7 +189,7 @@ export default function AppHeader(props) {
 
 
 
-    </View>
+    </View >
 
 
 
@@ -198,17 +198,27 @@ export default function AppHeader(props) {
 
 const styles = StyleSheet.create({
 
-  container: {
-    zIndex: 999,
-    height: hp('8%'),
-    width: '100%',
+  container: isSearch => ({
+    // zIndex: 999,
+    height: isSearch ? hp('50%') : hp('8%'),
+    // height: hp('8%'),
+    width: wp(100),
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.WHITE,
+    // backgroundColor: Colors.WHITE,
     borderBottomColor: Colors.GRAY,
     borderBottomWidth: 1,
-    justifyContent: 'center'
-  },
+    justifyContent: 'center',
+    marginTop: isSearch ? '10%' : 0
+    // flex: 1,
+    // justifyContent: 'center'
+    // flex: 2
+  }),
+  // line1: type => ({
+  //   width: 20,
+  //   height: 1,
+  //   backgroundColor: type === 'ADDRESS' ? Colors.GRAY : Colors.themeColor
+  // }),
   titleContainer: {
     alignItems: 'center',
     flexDirection: 'row',

@@ -66,12 +66,15 @@ const ProductDetailCard = (props) => {
 
     const onShare = async () => {
         let productName = title
-        let productUrl = productLink
+        // let productUrl = productLink
+        let productUrl = `hanooot.com/product/${props.productId}`
+        console.log('this is product url : ', productUrl)
         try {
             const result = await Share.share({
                 title: translate('common.productdetail'),
                 url: productUrl,
-                message: productName + ' ' + productUrl,
+                // message: productName + ' ' + productUrl,
+                message: productUrl,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {

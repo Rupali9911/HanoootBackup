@@ -121,7 +121,8 @@ export default AppInput
 const styles = StyleSheet.create({
     mainContainer: {
         marginHorizontal: '5%',
-        marginTop: '5%'
+        marginTop: '5%',
+        // zIndex: -1
     },
     label: {
         fontFamily: fonts.VISBY_CF_REGULAR,
