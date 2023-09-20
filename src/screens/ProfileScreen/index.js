@@ -10,14 +10,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearUserData } from '../Store/actions/userAction'
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { translate } from '../../utility'
-import { googleLogout } from '../../services/socialAuth'
+import { googleLogout, deleteFirebaseAccount } from '../../services/socialAuth'
 // import { WebView } from 'react-native-webview';
+import AppModal from '../../Components/universal/Modal'
+import { hp, wp } from '../../constant/responsiveFunc'
+import { deleteUserFromDb } from '../../services/apis'
 
 
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.userReducer.userData);
+    const [modalVisible, setModalVisible] = useState(false);
 
 
     useEffect(() => {
@@ -103,6 +107,45 @@ const ProfileScreen = (props) => {
                 console.log('user Logout Succesfully', response, userData)
             })
     }
+    const deleteAccount = async () => {
+        deleteFirebaseAccount()
+            .then(async (response) => {
+                console.log('user deleted Succesfully', response, userData)
+                deleteUserFromDb(userData.email || userData.phoneNumber).then(async (response) => {
+                    console.log('user deleted Succesfully from db', response, userData)
+                    dispatch(clearUserData())
+                    await EncryptedStorage.clear();
+                    googleLogout()
+                })
+
+            })
+
+    }
+
+
+    const RemoveModalContent = (props) => {
+        return (
+            <View style={styles.modalContainer}>
+                <Text style={styles.removeHeading}>{translate('common.deleteaccount')}</Text>
+                <Text style={styles.removeDesc}>{translate('common.sureDeleteAcc')}</Text>
+                <View style={styles.modalBtnCont}>
+                    <TouchableOpacity
+                        onPress={props.onCancelPress}
+                        style={styles.btnViewCont}
+                    >
+                        <Text style={styles.modalBtnText}>{translate('common.no')}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={props.onRemovePress}
+                        style={[styles.btnViewCont, { backgroundColor: Colors.themeColor }]}
+                    >
+                        <Text style={[styles.modalBtnText, { color: Colors.WHITE }]}>{translate('common.yesDelete')}</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+        );
+    }
 
     return (
         <AppBackground safeAreaColor={Colors.LightGray}>
@@ -131,6 +174,11 @@ const ProfileScreen = (props) => {
                                 Image={Images.Payment}
                                 title={translate('common.paymentmethods')}
                                 onPress={() => navigation.navigate('PaymentMethods')}
+                            />
+                            <ListItem
+                                Image={Images.deleteIcon}
+                                title={translate('common.deletemyaccount')}
+                                onPress={() => setModalVisible(true)}
                             />
                         </> :
                         <ListItem
@@ -197,7 +245,21 @@ const ProfileScreen = (props) => {
                     </TouchableOpacity>
                 }
 
+
             </ScrollView>
+            <AppModal
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)}>
+                <RemoveModalContent
+                    onCancelPress={() => {
+                        setModalVisible(false);
+                    }}
+                    onRemovePress={() => {
+                        deleteAccount()
+                        setModalVisible(false);
+                    }}
+                />
+            </AppModal>
         </AppBackground>
 
 
@@ -304,5 +366,49 @@ const styles = StyleSheet.create({
         fontWeight: 600,
         letterSpacing: 0.5
     },
-
+    modalMainCont: {
+        flex: 1, justifyContent: "center", alignItems: "center"
+    },
+    modalContainer: {
+        backgroundColor: Colors.WHITE1,
+        padding: 20,
+        height: hp(20),
+        borderRadius: 4,
+        width: wp(85),
+        gap: 10
+    },
+    removeHeading: {
+        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontWeight: 600,
+        fontSize: 16,
+        lineHeight: 21,
+        letterSpacing: 0.5
+    },
+    removeDesc: {
+        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontWeight: 500,
+        letterSpacing: 0.5,
+        lineHeight: 19,
+        color: Colors.PRICEGRAY
+    },
+    modalBtnCont: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    btnViewCont: {
+        borderRadius: 24,
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: Colors.themeColor,
+        height: hp(4.06),
+        width: wp(35.73)
+    },
+    modalBtnText: {
+        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontWeight: 500,
+        fontSize: 12,
+        letterSpacing: 0.5,
+        textAlign: 'center',
+        color: Colors.themeColor
+    },
 })

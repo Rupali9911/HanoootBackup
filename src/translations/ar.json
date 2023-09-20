@@ -1,5 +1,11 @@
 {
   "common": {
+    "yesDelete": "نعم، احذفه",
+    "sureDeleteAcc": "هل أنت متأكد أنك تريد حذف هذا الحساب؟",
+    "deleteaccount": "حذف الحساب",
+    "deletemyaccount": "احذف حسابي",
+    "morefrom": "اكثر من",
+    "description": "وصف",
     "checkout": "الدفع",
     "gotoshopping": "الذهاب للتسوق",
     "thankForRegister": "شكرا لتسجيلك!",

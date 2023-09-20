@@ -39,6 +39,7 @@ const COUPON_API = `${API_BASE_URL}/api/v1/promocode`
 const HOME_API = `${API_BASE_URL}/api/v1/home-page`
 
 const SEARCH_API = `${API_BASE_URL}/api/v1/product/search`
+const DELETE_ACCOUNT = `${API_BASE_URL}/api/v1/user/deleteUser`
 
 
 
@@ -63,5 +64,6 @@ export {
     HOME_API,
     SEARCH_API,
     BASE_API,
-    COUPON_API
+    COUPON_API,
+    DELETE_ACCOUNT
 };
