@@ -408,7 +408,7 @@ export const handleAuthError = (error) => {
             errorMessage = "Email address is invalid.";
             break;
         case "auth/requires-recent-login":
-            errorMessage = "This operation is sensitive and requires recent authentication. Log in again before retrying this request.";
+            errorMessage = "Please login again";
             break;
         default:
             errorMessage = "Something went wrong";
