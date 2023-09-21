@@ -16,7 +16,7 @@ const HanoootProducts = (props) => {
                 TextViewStyle={{ alignItems: 'center', textAlign: 'center' }}
                 DisCountPrice
                 PriceInGreen
-                // ViewContStyle={{margin: 10}}
+            // ViewContStyle={{margin: 10}}
             />
             <ProductList
                 Data={ProductListData}
@@ -24,7 +24,7 @@ const HanoootProducts = (props) => {
                 TextViewStyle={{ alignItems: 'center' }}
                 DisCountPrice
                 PriceInGreen
-                // ViewContStyle={{margin: 10}}
+            // ViewContStyle={{margin: 10}}
             />
         </View>
     )
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         letterSpacing: 0.5,
         lineHeight: 22,
-        fontWeight: 700,
+        // fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold
     },
-    
+
 })

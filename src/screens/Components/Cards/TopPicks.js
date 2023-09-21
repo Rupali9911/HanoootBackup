@@ -10,11 +10,12 @@ import { showErrorToast } from '../../../Components/universal/Toast'
 import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
 import { showInfoToast } from '../../../Components/universal/Toast'
 import { translate } from '../../../utility'
-
+import { updateTopPicksCart } from '../../Store/actions/HomeAction'
 
 const TopPicks = (props) => {
   const Data = props.Data;
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.userReducer.userData);
   const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
@@ -28,7 +29,8 @@ const TopPicks = (props) => {
         const response = await AddtoCartAPICall(productId, 1)
         if (response?.success) {
           setTimeout(() => {
-            setAddToCart(true)
+            // setAddToCart(true)
+            dispatch(updateTopPicksCart({ TopPicks: topPicksId, ProductId: productId }))
             showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
           }, 1000);
         }
@@ -37,7 +39,7 @@ const TopPicks = (props) => {
         }
       }
       else if (isCartedItem) {
-        navigation.navigate('CartScreen', { screen: true })
+        // navigation.navigate('CartScreen', { screen: true })
       }
 
 
@@ -203,13 +205,13 @@ const styles = StyleSheet.create({
     fontWeight: 500
   },
   itemPrice: {
-    fontWeight: 700,
+    // fontWeight: 700,
     fontFamily: fonts.VisbyCF_Bold,
     letterSpacing: 0.5
   },
   cartBtn: {
     backgroundColor: Colors.themeColor,
-    padding: 6,
+    // padding: 6,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 29,

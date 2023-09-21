@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   btnText: {
     color: Colors.WHITE,
     fontFamily: fonts.VisbyCF_Demibold,
-    fontWeight: 700
+    // fontWeight: 700
   },
   text: {
     fontSize: 12,

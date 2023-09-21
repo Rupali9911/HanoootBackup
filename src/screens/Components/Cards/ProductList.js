@@ -215,20 +215,20 @@ const styles = StyleSheet.create({
         top: 10
     },
     price: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 19,
         letterSpacing: 0.5,
-        fontWeight: 700,
+        // fontWeight: 700,
     },
     imageContainer: {
         alignSelf: 'center',
         padding: 20
     },
     discountPrice: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 19,
         letterSpacing: 0.5,
-        fontWeight: 700,
+        // fontWeight: 700,
         color: Colors.PRICEGRAY,
         textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
@@ -248,19 +248,19 @@ const styles = StyleSheet.create({
         fontWeight: 500,
     },
     productDiscountPrice: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 19,
         letterSpacing: 0.5,
-        fontWeight: 700,
+        // fontWeight: 700,
         color: Colors.PRICEGRAY,
         textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
     },
     ProductDiscPercent: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 19,
         letterSpacing: 0.5,
-        fontWeight: 700,
+        // fontWeight: 700,
         color: Colors.PRICEGREEN
     },
     rating: {

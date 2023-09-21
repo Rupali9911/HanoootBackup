@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: fonts.VisbyCF_Bold,
-        fontWeight: 700,
+        // fontWeight: 700,
         fontSize: 24,
         letterSpacing: 0.5,
         textAlign: 'center'

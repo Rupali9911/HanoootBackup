@@ -41,7 +41,7 @@ const MyAddress = () => {
                         : <EmptyDetailScreen
                             image={Images.EmptyAddress}
                             title={translate('common.whareYourAdd')}
-                            description={translate('common.addAnAddress')}
+                            description={translate('common.addAnAddress!')}
                             buttonLabel={translate('common.addAddress')}
                             imgStyle={{
                                 width: wp(73)

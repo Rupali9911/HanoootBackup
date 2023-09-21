@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { showErrorToast } from '../../Components/universal/Toast';
 import { translate } from '../../utility';
 
-const { HeartIconBlack, CartIcon, SearchIcon } = SVGS;
+const { HeartIconBlack, CartIcon, SearchIcon, HanoootLogo } = SVGS;
 
 
 export default function AppHeader(props) {
@@ -70,12 +70,13 @@ export default function AppHeader(props) {
             <AppSearch placeholderText={props.placeholderText} onChangeText={(val) => setSearch(val)} />
           </View>
         ) :
-          props.Image ?
-            <Image source={Images.HanoootLogo} style={{
-              width: 90,
-              height: 60,
-              resizeMode: 'contain'
-            }} />
+          props.Logo ?
+            // <Image source={Images.HanoootLogo} style={{
+            //   width: 90,
+            //   height: 60,
+            //   resizeMode: 'contain'
+            // }} />
+            <HanoootLogo />
             :
             (
               <Text
@@ -129,7 +130,7 @@ export default function AppHeader(props) {
               onPress={() => userData ? navigation.navigate('CartScreen', { screen: true }) : renderToastMsg()}
             // image={Images.cart}
             >
-              <CartIcon width={SIZE(20)} height={SIZE(20)} />
+              <CartIcon width={SIZE(20)} height={SIZE(20)} color={'red'} />
             </RightSideIcon>
           }
         </View>
@@ -246,15 +247,25 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fonts.VisbyCF_Bold,
-    fontSize: 18,
+    fontSize: 16,
     letterSpacing: 0.5,
     lineHeight: 21,
-    fontWeight: 700,
+    // fontWeight: 700,
     color: Colors.BLACK,
     paddingHorizontal: '2%'
     // backgroundColor: 'red',
     // justifyContent: 'flex-start',
     // alignItems: 'flex-start'
+
+
+    //styleName: English/Body Text Bold;
+    // font-family: Visby CF;
+    // font-size: 16px;
+    // font-weight: 700;
+    // line-height: 21px;
+    // letter-spacing: 0.005em;
+    // text-align: left;
+
 
   },
   rightIcon: {

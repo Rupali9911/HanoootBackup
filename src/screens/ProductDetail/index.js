@@ -33,6 +33,9 @@ import { showErrorToast, showInfoToast } from '../../Components/universal/Toast'
 import { useIsFocused } from '@react-navigation/native';
 import AppModal from '../../Components/universal/Modal';
 import { translate } from '../../utility';
+import SVGS from '../../constant/Svgs';
+
+const { InfoIcon } = SVGS
 
 const ProductDetail = (props) => {
     const product_detail_Id = props?.route?.params?.id;
@@ -279,7 +282,9 @@ const ProductDetail = (props) => {
                                                 />
                                                 <View style={{ marginHorizontal: 20, marginTop: 10 }}>
                                                     <View style={styles.infoView}>
-                                                        <Image source={Images.InfoIcon} style={{ height: 15, width: 15 }} />
+                                                        {/* <Image source={Images.InfoIcon} style={{ height: 15, width: 15 }} />
+                                                         */}
+                                                        <InfoIcon />
                                                         <Text style={[styles.infoMsg, { fontSize: 12 }]}>{translate('common.itemsSoldSeller')}</Text>
                                                     </View>
 
@@ -310,6 +315,7 @@ const ProductDetail = (props) => {
                                                                 productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
                                                                 price={item?.ManagementProductPricing?.hanooot_price}
                                                                 detailId={item?.product_details_id}
+                                                            // ViewContStyle={{ height: hp(17.86) }}
                                                             />
                                                         );
                                                     }}
@@ -401,7 +407,9 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
     },
     infoView: {
-        flexDirection: 'row', gap: 2
+        flexDirection: 'row',
+        gap: 2,
+        alignItems: 'center'
     },
     button: {
         flex: 1,

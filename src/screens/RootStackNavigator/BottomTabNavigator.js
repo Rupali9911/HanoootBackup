@@ -13,6 +13,16 @@ import { hp, wp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
 // import Signup from '../AuthScreen/SignUp';
 import Category from '../Categories';
+import SVGS from '../../constant/Svgs';
+
+const { HomeIcon,
+    HomeActive,
+    ProfileIcon,
+    ProfileActive,
+    CartIcon,
+    CartActive,
+    CategoryIcon,
+    CategoryActive } = SVGS
 
 const Tab = createBottomTabNavigator();
 
@@ -20,18 +30,35 @@ const Tab = createBottomTabNavigator();
 export default function TabComponent() {
     const navigation = useNavigation();
 
-    const D = () => {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('ProfileScreen', { LoggedIn: true })}
-                >
-                    <Text>Show Logged in Profile</Text>
-                </TouchableOpacity>
+    const CustomTabIcon = ({ count }) => {
 
+        // <View style={styles.iconContainer}>
+        //     <CartActive />
+        //     {/* Add the count or any additional custom design */}
+        //     <View style={styles.countContainer}>
+        //         <Text style={styles.countText}>100</Text>
+        //     </View>
+        // </View>
+
+        const shouldDisplayPlusIcon = count > 100;
+
+        return (
+            <View style={styles.iconContainer}>
+                <CartActive />
+                {shouldDisplayPlusIcon && (
+                    <View style={styles.plusIconContainer}>
+                        <HomeIcon />
+                    </View>
+                )}
+                {count > 0 && (
+                    <View style={styles.countContainer}>
+                        <Text style={styles.countText}>{count > 100 ? '99+' : count}</Text>
+                    </View>
+                )}
             </View>
         );
-    }
+    };
+
     return (
         <Tab.Navigator
             initialRouteName="HomeTab"
@@ -43,26 +70,30 @@ export default function TabComponent() {
                 tabBarVisible: true,
                 tabBarStyle: {
                     // paddingVertical: hp('1%'),
+                    // backgroundColor: 'red',
+                    height: hp(9.85)
                 },
                 tabBarActiveTintColor: Colors.themeColor,
                 tabBarIcon: ({ focused, color }) => {
                     let iconName;
                     if (route.name === 'HomeTab') {
-                        iconName = focused ? Images.homeSelected : Images.home;
-                    } else if (route.name === 'Category') {
-                        iconName = focused ? Images.categorySelected : Images.categories;
-                    } else if (route.name === 'Cart') {
-                        iconName = focused ? Images.cartSelected : Images.cart;
-                    } else if (route.name === 'Profile') {
-                        iconName = focused ? Images.profileIcon : Images.profile;
+                        return (focused ? <HomeActive /> : <HomeIcon />);
                     }
-                    return (
-                        <Image
-                            source={iconName}
-                            resizeMode="contain"
-                            style={{ width: wp(6), height: hp(2.5) }}
-                        />
-                    );
+                    else if (route.name === 'Category') {
+                        // iconName = focused ? Images.categorySelected : Images.categories;
+                        return (focused ? <CategoryActive /> : <CategoryIcon />);
+                    } else if (route.name === 'Cart') {
+                        return (focused ? <CartActive /> : <CartIcon />);
+                    } else if (route.name === 'Profile') {
+                        return (focused ? <ProfileActive /> : <ProfileIcon />);
+                    }
+                    // return (
+                    //     // <Image
+                    //     //     source={iconName}
+                    //     //     resizeMode="contain"
+                    //     //     style={{ width: wp(6), height: hp(2.5) }}
+                    //     // />
+                    // );
                 },
             })}
         >
@@ -74,4 +105,58 @@ export default function TabComponent() {
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    // iconContainer: {
+    //     position: 'relative',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    // },
+    // countContainer: {
+    //     position: 'absolute',
+    //     top: -8,
+    //     right: -8,
+    //     backgroundColor: 'red',
+    //     borderRadius: 100,
+    //     // padding: 4,
+    //     height: hp(2.22),
+    //     width: wp(4.80),
+    //     justifyContent: 'center',
+    //     alignItems: 'center'
+    // },
+    // countText: {
+    //     color: Colors.WHITE,
+    //     fontSize: 12,
+    //     fontWeight: 'bold',
+    // },
+
+
+    iconContainer: {
+        position: 'relative',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    plusIconContainer: {
+        position: 'absolute',
+        top: -6,
+        right: -6,
+        backgroundColor: 'blue', // Adjust color as needed
+        borderRadius: 10,
+        width: 10,
+        height: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    countContainer: {
+        position: 'absolute',
+        top: -8,
+        right: -8,
+        backgroundColor: 'red',
+        borderRadius: 10,
+        padding: 4,
+    },
+    countText: {
+        color: 'white',
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+})

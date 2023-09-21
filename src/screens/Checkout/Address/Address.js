@@ -13,6 +13,7 @@ import { fetchAddressDetails } from '../../Store/actions/checkoutAction';
 import Loader from '../../../constant/Loader';
 import fonts from '../../../constant/fonts';
 import { translate } from '../../../utility';
+import { hp } from '../../../constant/responsiveFunc';
 
 const Address = (props) => {
     const { addressRecordList, isAddresDetailLoading } = useSelector(state => state.checkoutReducer);
@@ -105,6 +106,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.WHITE,
+        height: hp(9.85)
+
     },
     emptyViewCont: {
         backgroundColor: Colors.WHITE,

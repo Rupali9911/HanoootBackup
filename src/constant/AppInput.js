@@ -9,7 +9,7 @@ import { COLORS, SVGS } from '../constant'
 import { translate } from '../utility';
 import { regionCountry } from '../utility';
 console.log('regionCountry', regionCountry)
-const { DropDownIcon } = SVGS
+const { DropDownIcon, EyeOff, Eye } = SVGS
 
 const heightTextInput = hp('6%')
 
@@ -86,15 +86,19 @@ const AppInput = (props) => {
                                 onBlur={handleBlur}
                                 onFocus={handleFocus}
                                 keyboardType={props.keyboardType}
+                                selectionColor={Colors.themeColor}
                             />
                     }
                     {
                         props.rightComponent &&
                         <View style={styles.rightComp}>
                             <TouchableOpacity onPress={props.onPasswordPress}>
-                                <Image source={props.secureTextEntry ? Images.Eye : Images.EyeOff}
+                                {/* <Image source={props.secureTextEntry ? Images.Eye : Images.EyeOff}
                                     style={styles.imgEye}
-                                />
+                                /> */}
+
+                                {props.secureTextEntry ? <Eye /> : <EyeOff />}
+
                             </TouchableOpacity>
                         </View>
                     }

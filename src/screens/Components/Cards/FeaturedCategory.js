@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
         fontWeight: 500
     },
     itemPrice: {
-        fontWeight: 700,
+        // fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold,
         letterSpacing: 0.5
     },

@@ -46,7 +46,10 @@ const ForgotPassword = () => {
     return (
         <AppBackground
             safeAreaColor={Colors.themeColor}>
-            <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('10%') }} />
+            <AppHeader
+                Logo
+                titleComponentStyle={{ backgroundColor: Colors.themeColor }}
+                mainContainerStyle={{ height: hp(18.47) }} />
 
             <KeyboardAwareScrollView>
                 <AuthHeader

@@ -8,6 +8,7 @@ import Colors from '../../constant/Colors'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { translate } from '../../utility'
+import { capitalizeFirstLetter } from '../utils'
 
 
 const ViewMoreCategories = (props) => {
@@ -49,7 +50,7 @@ const ViewMoreCategories = (props) => {
 
     return (
         <AppBackground>
-            <AppHeader placeholderText={translate('common.whatLookingFor')} />
+            <AppHeader showBackButton placeholderText={translate('common.whatLookingFor')} />
             <Text style={styles.title}>{selectedLanguageItem?.language_id === 0 ? capitalizeFirstLetter(ITEMS?.name) : ITEMS?.name_arabic}</Text>
             <View style={styles.centerView}>
                 <FlatList

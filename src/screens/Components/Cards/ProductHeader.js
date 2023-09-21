@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         lineHeight: 17,
         letterSpacing: 0.5,
-        fontWeight: 700
+        // fontWeight: 700
     },
     rowContainer: {
         flexDirection: 'row',

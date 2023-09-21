@@ -151,7 +151,10 @@ const Signup = () => {
         <AppBackground
             safeAreaColor={Colors.themeColor}
         >
-            <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('15%') }} />
+            <AppHeader
+                Logo
+                titleComponentStyle={{ backgroundColor: Colors.themeColor }}
+                mainContainerStyle={{ height: hp(18.47) }} />
             <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'>
                 <AuthHeader title={translate('common.registertohanooot')} />
 

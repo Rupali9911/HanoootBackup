@@ -11,6 +11,10 @@ import { userRegister } from '../../services/apis'
 import { useDispatch } from 'react-redux'
 import { saveUserDetails } from '../../helpers/user'
 import { translate } from '../../utility'
+import SVGS from '../../constant/Svgs'
+
+const { Google, Apple } = SVGS
+
 
 const AuthBottomContainer = (props) => {
     const navigation = useNavigation();
@@ -19,10 +23,7 @@ const AuthBottomContainer = (props) => {
     const SocialIconSection = useCallback((props) => {
         return (
             <TouchableOpacity style={styles.container} onPress={props.onPress}>
-                <Image
-                    style={styles.icon}
-                    source={props.Image}
-                />
+                {props.children}
                 <Text style={styles.text}>{props.Text}</Text>
             </TouchableOpacity>
         )
@@ -96,9 +97,10 @@ const AuthBottomContainer = (props) => {
             <View style={styles.SocialIconContainer}>
                 <SocialIconSection
                     onPress={onPressGoggle}
-                    Image={Images.GoogleIcon}
                     Text={translate('common.google')}
-                />
+                >
+                    <Google />
+                </SocialIconSection>
                 {/* <SocialIconSection
                     onPress={onPressFacebook}
                     Image={Images.FacebookIcon}
@@ -106,9 +108,8 @@ const AuthBottomContainer = (props) => {
                 {Platform.OS === 'ios' &&
                     <SocialIconSection
                         onPress={onPressApple}
-                        Image={Images.AppleIcon}
                         Text={translate('common.apple')}
-                    />
+                    ><Apple /></SocialIconSection>
                 }
             </View>
             <View style={styles.rowContainer}>
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     text: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: fonts.VisbyCF_Demibold,
         fontSize: 12,
         fontWeight: 600,
         letterSpacing: 0.5,
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
 
     },
     titleText: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: fonts.VisbyCF_Demibold,
         fontWeight: 600,
         fontSize: 13,
         letterSpacing: 0.5,

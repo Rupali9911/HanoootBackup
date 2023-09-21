@@ -12,7 +12,7 @@ const MiniSlider = (props) => {
 
     const renderItem = ({ item, index }) => {
         return (
-            <Image source={{ uri: item?.thumbnail_image }} style={styles.image} key={item?.id} />
+            <Image source={{ uri: item?.image_url }} style={styles.image} key={item?.id} />
         );
     }
 

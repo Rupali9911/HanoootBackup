@@ -209,7 +209,7 @@ const ProductDetailCard = (props) => {
 
                     <View style={styles.textView}>
                         <Text style={styles.totalPrice}>$ {price}</Text>
-                        <Text style={styles.inclusiveTax}>{translate('common.inclusiveofvat')}</Text>
+                        <Text style={styles.inclusiveTax}>{`(${translate('common.inclusiveofvat')})`}</Text>
                     </View>
                     <ExpressView />
                 </View>
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
         color: Colors.themeColor
     },
     productName: {
-        fontWeight: 700,
+        // fontWeight: 700,
         lineHeight: 21,
         fontFamily: fonts.VisbyCF_Bold,
         letterSpacing: 0.5,
@@ -309,7 +309,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row', alignItems: 'center', gap: 5
     },
     totalPrice: {
-        fontFamily: fonts.VisbyCF_Bold, lineHeight: 23, letterSpacing: 0.5, fontWeight: 700, fontSize: 18
+        fontFamily: fonts.VisbyCF_Bold, lineHeight: 23, letterSpacing: 0.5,
+        // fontWeight: 700,
+        fontSize: 18
     },
     inclusiveTax: {
         fontFamily: fonts.VisbyCF_Medium, lineHeight: 23, letterSpacing: 0.5, fontWeight: 400, fontSize: 10, color: Colors.PRICEGRAY

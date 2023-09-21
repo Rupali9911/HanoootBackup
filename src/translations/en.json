@@ -1,5 +1,9 @@
 {
   "common": {
+    "selectcity": "Select City",
+    "itemsSoldSeller": "These items are dispatched from and sold by different sellers",
+    "morefrom": "More from",
+    "description": "Description",
     "checkout": "Checkout",
     "gotoshopping": "Go to Shopping",
     "thankForRegister": "Thank you for registering!",

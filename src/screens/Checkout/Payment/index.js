@@ -12,6 +12,7 @@ import AppButton from '../../Components/AppButton';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { translate } from '../../../utility';
+import { hp } from '../../../constant/responsiveFunc';
 
 
 const Payment = (props) => {
@@ -134,7 +135,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.WHITE,
-        paddingVertical: '2%'
+        // paddingVertical: '2%'
+        height: hp(9.85)
+
     },
 
 })

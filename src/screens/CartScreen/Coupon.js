@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
 
     },
     btnText: {
-        fontWeight: 700,
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        // fontWeight: 700,
+        fontFamily: fonts.VisbyCF_Bold,
         letterSpacing: 0.5,
         color: Colors.themeColor
     },

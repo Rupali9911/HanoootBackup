@@ -176,7 +176,7 @@ const ReviewMainPage = (props) => {
           <Text style={{
             fontFamily: fonts.VisbyCF_Bold,
             lineHeight: 19,
-            fontWeight: 700,
+            // fontWeight: 700,
             letterSpacing: 0.5,
             marginHorizontal: '5%',
             marginVertical: '2%'
@@ -226,8 +226,8 @@ const styles = StyleSheet.create({
 
   },
   Heading: {
-    fontWeight: 700,
-    fontFamily: fonts.VisbyCF_Demibold,
+    // fontWeight: 700,
+    fontFamily: fonts.VisbyCF_Bold,
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.5,

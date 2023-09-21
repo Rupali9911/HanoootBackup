@@ -75,7 +75,7 @@ const AddressDetail = (props) => {
                             <Text style={styles.deliverUserName} numberOfLines={2}>{item?.name ? item?.name : 'UserName'}</Text>
                         </View>
                         <View style={styles.deliveryLocation}>
-                            <Text style={styles.deliveryType}>{item?.address_type}</Text>
+                            <Text style={styles.deliveryType}>{item?.address_type.toUpperCase()}</Text>
                         </View>
                     </View>
                     <Text style={styles.deliverUserAdd}>{`${item?.house} ${item?.building}, ${item?.landmark}`}</Text>

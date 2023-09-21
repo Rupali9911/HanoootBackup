@@ -17,7 +17,7 @@ const CartItemQuantity = (props) => {
         productId={props.productId}
         onIncPressed={(val) => props.onIncrement(val)}
         noOfQty={props.quantity}
-      
+
       />
       <TouchableOpacity
         onPress={props.onRemovePress}
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 
   },
   Text: {
-    fontWeight: 700,
+    // fontWeight: 700,
     fontFamily: fonts.VisbyCF_Bold,
     letterSpacing: 0.5
   }

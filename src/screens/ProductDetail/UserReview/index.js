@@ -14,7 +14,7 @@ import { translate } from '../../../utility'
 
 
 const UserReview = (props) => {
-    const {data} = props;
+    const { data } = props;
 
     // const navigation = useNavigation();
 
@@ -27,14 +27,14 @@ const UserReview = (props) => {
                 {/* <Separator /> */}
                 <View style={{ paddingHorizontal: '5%', paddingVertical: '2%' }}>
                     <Text style={styles.Heading}>{translate('common.userreviews')}</Text>
-                    <UserRating 
-                    startingValue={data?.average_rating}
-                    isRatingText
-                    reviewText={data?.number_of_reviews}
-                     />
+                    <UserRating
+                        startingValue={data?.average_rating}
+                        isRatingText
+                        reviewText={data?.number_of_reviews}
+                    />
                 </View>
                 <Separator />
-{/*                
+                {/*                
                 <ListReview List={ReviewList.slice(0, 5)} />
 
              
@@ -52,9 +52,9 @@ const UserReview = (props) => {
                     >
                     <Text style={styles.ButtonText}>SEE MORE</Text>
                 </TouchableOpacity> */}
-           
-        </View >
-           
+
+            </View >
+
         </>
     )
 }
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
 
     },
     Heading: {
-        fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Demibold,
+        // fontWeight: 700,
+        fontFamily: fonts.VisbyCF_Bold,
         fontSize: 16,
         lineHeight: 21,
         letterSpacing: 0.5,

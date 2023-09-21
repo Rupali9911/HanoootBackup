@@ -5,6 +5,7 @@ import ButtonInputContainer from './ButtonInputContainer'
 import fonts from '../../constant/fonts'
 import Colors from '../../constant/Colors'
 import Images from '../../constant/Images'
+// impo
 
 const AppButton = (props) => {
     return (
@@ -21,7 +22,7 @@ const AppButton = (props) => {
             disabled={props.disabled}
         >
             <View style={styles.labelContainer}>
-                {props.leftSideImg ? <Image source={props.ImgURI} style={{ height: 15, width: 15, resizeMode: 'contain', right: 10 }} /> : null}
+                {props.leftSideImg ? <Image source={props.ImgURI} style={{ height: 16, width: 16, resizeMode: 'contain', right: 10 }} /> : null}
                 {props.isIndicatorLoading ? <ActivityIndicator style={styles.indicator} size="small" color={Colors.WHITE} /> : null}
                 <Text style={[styles.label, props.labelStyle, props.isEmptyBG && styles.isEmptyBtnText]}>
                     {props.label}
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
         fontSize: RF(1.8),
         letterSpacing: 0.5,
         lineHeight: 21,
-        
+
     },
     inActive: {
         opacity: 0.4,
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 100,
         // backgroundColor: 'green'
-        
+
 
         // left: 10,
         // justifyContent: 'center',

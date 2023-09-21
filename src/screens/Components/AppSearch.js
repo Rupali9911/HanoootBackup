@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TextInput, FlatList, Image, TouchableOpacity, D
 import React, { useEffect, useState } from 'react'
 import Images from '../../constant/Images';
 import Colors from '../../constant/Colors';
-import Fonts from '../../constant/fonts';
 import { hp, wp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
 import SVGS from '../../constant/Svgs';
@@ -134,7 +133,15 @@ const AppSearch = (props) => {
           value={searchTxt}
           placeholderTextColor={Colors.GRAYDARK}
           style={{
-            left: 10, alignSelf: 'center', height: '100%', color: Colors.BLACK, width: wp(75), height: hp(4.93),
+            left: 10,
+            alignSelf: 'center',
+            // height: '100%',
+            color: Colors.RED,
+            width: wp(75),
+            height: hp(4.93),
+            // fontFamily: fonts.VisbyCF_Medium,
+            // fontWeight: 500,
+            // letterSpacing:
           }}
         />
         {

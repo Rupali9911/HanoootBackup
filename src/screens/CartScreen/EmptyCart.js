@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     emptyText: {
-        fontWeight: 700,
+        // fontWeight: 700,
         fontSize: 20,
         fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 25,

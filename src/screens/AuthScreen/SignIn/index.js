@@ -107,7 +107,10 @@ const Login = (props) => {
     return (
         <AppBackground
             safeAreaColor={Colors.themeColor}>
-            <AppHeader Image titleComponentStyle={{ backgroundColor: Colors.themeColor }} mainContainerStyle={{ height: hp('15%') }} />
+            <AppHeader
+                Logo
+                titleComponentStyle={{ backgroundColor: Colors.themeColor }}
+                mainContainerStyle={{ height: hp(18.47) }} />
 
             <KeyboardAwareScrollView>
                 <AuthHeader
@@ -136,6 +139,7 @@ const Login = (props) => {
                             validate={[maxLength10, validatePhoneNo]}
                             error={error['phoneErr']}
                             onChangeFormattedText={(val) => setFormattedNum(val)}
+                            maxLength={10}
                         />
                         :
                         (

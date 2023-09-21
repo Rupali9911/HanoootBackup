@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     },
     price: {
         fontFamily: fonts.VisbyCF_Bold,
-        fontWeight: 700,
+        // fontWeight: 700,
         letterSpacing: 0.5
     },
     collectionListItem: {

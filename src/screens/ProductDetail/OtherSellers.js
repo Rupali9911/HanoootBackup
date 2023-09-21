@@ -50,7 +50,7 @@ const OtherSellers = (props) => {
         return (
             <View style={styles.deliveryView}>
                 <Text style={styles.deliveryDetal}>{translate('common.estimateddeliveryon')} <Text style={{ color: Colors.BLACK }}>{'Sunday, 5 February.'}</Text></Text>
-                <Text style={styles.deliveryDetal}>{translate('common.orderwithin')}  <Text style={{ color: Colors.BLACK }}>{'8hr 40 mins.'}</Text></Text>
+                <Text style={styles.deliveryDetal}>{translate('common.orderwithin')}  <Text style={{ color: Colors.BLACK, fontWeight: 700 }}>{'8hr 40 mins.'}</Text></Text>
             </View>
         );
     }
@@ -171,12 +171,12 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VisbyCF_Demibold
     },
     price: {
-        fontWeight: 700,
+        // fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold,
         fontSize: 18
     },
     discountPrice: {
-        fontWeight: 700,
+        // fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold,
         fontSize: 18,
         color: Colors.PRICEGRAY,
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     },
     soldDetail: {
         fontFamily: fonts.VisbyCF_Bold,
-        fontWeight: 700
+        // fontWeight: 700
     },
     buttonText: {
         fontFamily: fonts.VisbyCF_Demibold,

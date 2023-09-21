@@ -31,9 +31,9 @@ const BrandProductCarousal = () => {
 
     return (
         <View>
-            <Banner 
-                Image={Images.samsung} 
-                imgStyle={styles.BGImage} 
+            <Banner
+                Image={Images.samsung}
+                imgStyle={styles.BGImage}
             />
             <View style={styles.container}>
                 <View style={styles.headingContainer}>
@@ -97,35 +97,35 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VisbyCF_Demibold
     },
     centerItemImg: {
-        height: 70, 
-        width: 70, 
+        height: 70,
+        width: 70,
         alignSelf: 'center'
     },
     listContainer: {
-        height: hp(19), 
-        width: wp(41), 
-        borderWidth: 1, 
-        borderColor: Colors.themeColor, 
-        margin: 10, 
-        borderRadius: 10, 
-        justifyContent: 'center', 
+        height: hp(19),
+        width: wp(41),
+        borderWidth: 1,
+        borderColor: Colors.themeColor,
+        margin: 10,
+        borderRadius: 10,
+        justifyContent: 'center',
         alignItems: 'center'
     },
     priceArrowImg: {
-        width: 30, 
-        height: 40, 
-        position: 'absolute', 
-        right: 20, 
+        width: 30,
+        height: 40,
+        position: 'absolute',
+        right: 20,
         top: 0
     },
     priceArrowText: {
-        
-            fontFamily: fonts.VisbyCF_Bold,
-            fontWeight: 700,
-            lineHeight: 21,
-            letterSpacing: 0.5,
-            color: Colors.WHITE,
-            fontSize: 10, 
+
+        fontFamily: fonts.VisbyCF_Bold,
+        // fontWeight: 700,
+        lineHeight: 21,
+        letterSpacing: 0.5,
+        color: Colors.WHITE,
+        fontSize: 10,
     },
     bottomViewContainer: {
         width: wp(41),
@@ -139,11 +139,11 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10
     },
     bottomViewText: {
-            fontFamily: fonts.VisbyCF_Bold,
-            fontWeight: 700,
-            lineHeight: 21,
-            letterSpacing: 0.5,
-            color: Colors.WHITE
+        fontFamily: fonts.VisbyCF_Bold,
+        // fontWeight: 700,
+        lineHeight: 21,
+        letterSpacing: 0.5,
+        color: Colors.WHITE
     }
 
 })

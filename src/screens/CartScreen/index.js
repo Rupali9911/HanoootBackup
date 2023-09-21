@@ -13,8 +13,13 @@ import Images from '../../constant/Images'
 import { getItemsFromCart, cartLoadingStart, cartItemReset, getCoupon } from '../Store/actions/cartAction'
 import Loader from '../../constant/Loader'
 import EmptyDetailScreen from '../../Components/EmptyDetailScreen'
-import { wp } from '../../constant/responsiveFunc'
+import { hp, wp } from '../../constant/responsiveFunc'
 import { translate } from '../../utility'
+import SVGS from '../../constant/Svgs'
+
+const { EmptyCart } = SVGS;
+
+
 const CartScreen = (props) => {
 
   const screen = props?.route?.params?.screen;
@@ -50,7 +55,7 @@ const CartScreen = (props) => {
       <AppBackground>
         <AppHeader
           showBackButton={screen ? true : false}
-          title={`${translate('common.cart')} (${cartItems.length ? cartItems.length : 0} ${translate('common.item')})`}
+          title={`${translate('common.cart')} (${cartItems.length ? cartItems.length : 0} ${translate('common.itemCap')})`}
           showLikeIcon
           titleComponentStyle={{ alignItems: 'flex-start' }}
         />
@@ -70,6 +75,7 @@ const CartScreen = (props) => {
                 }}
                 onpress={() => navigation.navigate('HomeTab')}
               />
+
         }
         {
           cartItems?.length !== 0 && !isCartDataLoading &&
@@ -98,7 +104,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.WHITE,
-    paddingVertical: '2%',
+    // paddingVertical: '2%',
+    height: hp(9.85)
     // zIndex: -1
   },
   sorryMessageCont: {

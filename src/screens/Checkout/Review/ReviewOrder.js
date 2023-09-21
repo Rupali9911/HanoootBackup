@@ -285,13 +285,13 @@ const styles = StyleSheet.create({
   price: {
     fontFamily: fonts.VisbyCF_Bold,
     letterSpacing: 0.5,
-    fontWeight: 700,
+    // fontWeight: 700,
     lineHeight: 21
 
   },
   TotalPrice: {
     fontSize: 16,
-    fontWeight: 700,
+    // fontWeight: 700,
     lineHeight: 23,
     letterSpacing: 0.5,
     fontFamily: fonts.VisbyCF_Bold
@@ -363,7 +363,7 @@ const styles = StyleSheet.create({
     margin: '2%'
   },
   itemName: {
-    fontWeight: 700,
+    // fontWeight: 700,
     fontFamily: fonts.VisbyCF_Bold,
     fontSize: 16,
     lineHeight: 21,
@@ -401,7 +401,7 @@ const styles = StyleSheet.create({
 
   },
   quantityText: {
-    fontWeight: 700,
+    // fontWeight: 700,
     fontFamily: fonts.VisbyCF_Bold,
     letterSpacing: 0.5
   },
@@ -413,6 +413,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.WHITE,
-    paddingVertical: '2%'
+    // paddingVertical: '2%'
+    height: hp(9.85)
   },
 })

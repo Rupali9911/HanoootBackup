@@ -53,17 +53,17 @@ const styles = StyleSheet.create({
         width: wp(100)
     },
     imgSection: {
-        height: '40%', 
+        height: '40%',
         width: '100%',
-        justifyContent: 'center', 
-        alignItems: 'center', 
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: 'pink'
     },
     container: {
     },
     title: {
         fontSize: 16,
-        fontWeight: 700,
+        // fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold,
         letterSpacing: 0.5,
         lineHeight: 27,
@@ -83,16 +83,16 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     itemName: {
-        maxWidth: 150, 
-        lineHeight: 19, 
+        maxWidth: 150,
+        lineHeight: 19,
         top: 5,
         letterSpacing: 0.5,
         fontWeight: 600,
         fontFamily: fonts.VisbyCF_Demibold
     },
     itemImg: {
-        height: 75, 
-        width: 75, 
+        height: 75,
+        width: 75,
         resizeMode: 'contain'
     }
 })

@@ -11,9 +11,10 @@ import { clearUserData } from '../Store/actions/userAction'
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { translate } from '../../utility'
 import { googleLogout } from '../../services/socialAuth'
+import SVGS from '../../constant/Svgs'
 // import { WebView } from 'react-native-webview';
 
-
+const { Facebook, Instagram, Tictok } = SVGS
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -89,7 +90,9 @@ const ProfileScreen = (props) => {
                 onPress={props.onPress}
                 style={{ margin: '5%' }}
             >
-                <Image source={props.image} style={styles.icon} />
+                {/* <Image source={props.image} style={styles.icon} />
+                 */}
+                {props.children}
             </TouchableOpacity>
         );
     }
@@ -174,15 +177,21 @@ const ProfileScreen = (props) => {
                     <SocialIcon
                         image={Images.Facebook}
                         onPress={() => { Linking.openURL('https://www.facebook.com/Hanooot.iq/') }}
-                    />
+                    >
+                        <Facebook />
+                    </SocialIcon>
                     <SocialIcon
                         image={Images.Instagram}
                         onPress={() => { Linking.openURL('https://www.instagram.com/hanooot.iq/') }}
-                    />
+                    >
+                        <Instagram />
+                    </SocialIcon>
                     <SocialIcon
                         image={Images.Tiktok}
                         onPress={() => { Linking.openURL('https://www.tiktok.com/@hanooot.iq') }}
-                    />
+                    >
+                        <Tictok />
+                    </SocialIcon>
                     {/* <SocialIcon
                         image={Images.Linkedin}
                     /> */}
@@ -217,10 +226,21 @@ const styles = StyleSheet.create({
     },
     userName: {
         fontSize: 20,
-        fontWeight: 700,
+        // fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold,
+        // fontFamily: fonts.VISBY_CF_REGULAR,
         letterSpacing: 0.5,
-        color: Colors.BLACK
+        lineHeight: 25
+        // color: Colors.BLACK
+
+        //         //styleName: English/Body Text Bold;
+        // font-family: Visby CF;
+        // font-size: 20px;
+        // font-weight: 700;
+        // line-height: 25px;
+        // letter-spacing: 0.005em;
+        // text-align: left;
+
     },
     userEmail: {
         fontFamily: fonts.VisbyCF_Medium,

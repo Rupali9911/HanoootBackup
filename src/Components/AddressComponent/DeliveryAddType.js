@@ -77,9 +77,9 @@ export default DeliveryType = React.memo((props) => {
             >
                 <Image
                     style={[styles.image, { tintColor: toggle1 ? Colors.WHITE : Colors.themeColor }]}
-                    source={Images.HomeButton}
+                    source={Images.HomeAdd}
                 />
-                <Text style={[styles.text, { color: toggle1 ? Colors.WHITE : Colors.themeColor }]}>{translate('common.home')}</Text>
+                <Text style={[styles.text, { color: toggle1 ? Colors.WHITE : Colors.BLACK }]}>{translate('common.home')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -93,10 +93,10 @@ export default DeliveryType = React.memo((props) => {
             >
                 <Image
                     style={[styles.image, { tintColor: toggle2 ? Colors.WHITE : Colors.themeColor }]}
-                    source={Images.HomeButton}
+                    source={Images.WorkAdd}
                 />
                 {/* <WorkIcon /> */}
-                <Text style={[styles.text, { color: toggle2 ? Colors.WHITE : Colors.themeColor }]}>{translate('common.office')}</Text>
+                <Text style={[styles.text, { color: toggle2 ? Colors.WHITE : Colors.BLACK }]}>{translate('common.office')}</Text>
             </TouchableOpacity>
         </View>
     );

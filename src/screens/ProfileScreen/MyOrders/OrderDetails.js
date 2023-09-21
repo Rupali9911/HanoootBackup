@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     productName: {
         fontSize: 16,
         fontFamily: fonts.VisbyCF_Bold,
-        fontWeight: 700,
+        // fontWeight: 700,
         letterSpacing: 0.5,
         lineHeight: 21
     },

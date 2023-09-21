@@ -40,7 +40,7 @@ const ListView = (props) => {
     // console.log('averageRating : ', averageRating,noOfReview)
 
 
-    // console.log('CHECK LIKED ITEM : ', isItemLiked)
+    console.log('CHECK Product Detail ID : ', detailId)
 
 
 
@@ -312,27 +312,33 @@ const styles = StyleSheet.create({
         // verticalAlign: 'top',
         overflow: 'hidden',
         // alignContent: 'flex-start',
-        width: wp(33)
+        width: wp(33),
     },
     textView: {
         marginTop: SIZE(20),
+        // height: hp(12.32),
+        // backgroundColor: 'red'
         // maxWidth: wp(35)
     },
     price: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 19,
         letterSpacing: 0.5,
-        fontWeight: 700,
+        // fontWeight: 700,
     },
     imageContainer: {
         alignSelf: 'center',
+        // height: hp(12.32),
+        justifyContent: 'center'
+
+
         // padding: 10
     },
     discountPrice: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 19,
         letterSpacing: 0.5,
-        fontWeight: 700,
+        // fontWeight: 700,
         color: Colors.PRICEGRAY,
         textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
@@ -358,19 +364,19 @@ const styles = StyleSheet.create({
         // maxWidth: wp(35)
     },
     productDiscountPrice: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 19,
         letterSpacing: 0.5,
-        fontWeight: 700,
+        // fontWeight: 700,
         color: Colors.PRICEGRAY,
         textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
     },
     ProductDiscPercent: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 19,
         letterSpacing: 0.5,
-        fontWeight: 700,
+        // fontWeight: 700,
         color: Colors.PRICEGREEN
     },
     rating: {

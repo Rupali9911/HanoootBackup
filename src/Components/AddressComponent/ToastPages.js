@@ -6,6 +6,9 @@ import fonts from '../../constant/fonts'
 import AppButton from '../../screens/Components/AppButton'
 import { useNavigation, StackActions } from '@react-navigation/native'
 import { translate } from '../../utility'
+import SVGS from '../../constant/Svgs'
+
+const { SuccessIcon } = SVGS
 
 const ToastPages = (props) => {
     const navigation = useNavigation();
@@ -14,10 +17,11 @@ const ToastPages = (props) => {
     return (
         <>
             <View style={styles.container}>
-                <Image
+                {/* <Image
                     source={Images.ToastSuccessBanner}
                     style={[styles.img, props.imageStyle]}
-                />
+                /> */}
+                <SuccessIcon />
                 <Text
                     style={styles.title}
                 >{props.route.params.title}</Text>
@@ -49,7 +53,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: fonts.VisbyCF_Bold,
-        fontWeight: 700,
+        // fontWeight: 700,
         fontSize: 24,
         letterSpacing: 0.5,
         textAlign: 'center'

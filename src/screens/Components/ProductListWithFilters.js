@@ -60,7 +60,7 @@ const ProductListWithFilters = (props) => {
                     isItemLiked={item?.isLike}
                     isDiscountTag
                     TotalPriceStyle={{ color: Colors.PRICEGREEN }}
-                    detailId={item?.product_details_id}
+                    detailId={item?.id}
                     ViewContStyle={{ width: wp('100%') / 2 - wp('5%') }}
                 />
                 :
@@ -92,18 +92,20 @@ const ProductListWithFilters = (props) => {
                         :
                         <ListView
                             item={item}
-                            centerImage={item?.images[0]}
+                            centerImage={item?.product_image}
                             productName={selectedLanguageItem?.language_id === 0 ? capitalizeFirstLetter(item?.ManagementProductSeo?.product_name) : item?.ManagementProductSeo?.product_name_arabic}
                             price={item?.ManagementProductPricing?.hanooot_price}
                             // discount={item?.ManagementProductPricing.hanooot_discount}
                             averageRating={item?.ManagementProductReview?.average_rating}
                             noOfReview={item?.ManagementProductReview?.number_of_reviews}
-                            detailId={item?.product_details_id}
+                            detailId={item?.id}
                             // categoryId={item?.category_id}
                             isExpress
                             showLike
                             isItemLiked={item?.isLike}
-                            ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), }}
+                            ViewContStyle={{
+                                width: wp('100%') / 2 - wp('5%'), height: hp(33.62)
+                            }}
                         />
         );
     }

@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 25,
         letterSpacing: 0.5,
-        fontWeight: 700
+        // fontWeight: 700
     },
     price: {
         fontFamily: fonts.VISBY_CF_REGULAR,

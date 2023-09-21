@@ -246,7 +246,7 @@ const Category = () => {
 
 
     return (
-        <AppBackground>
+        <AppBackground safeAreaColor={'red'}>
             <AppHeader placeholderText={translate('common.whatLookingFor')} />
             {isCatgListLoading && categoryPageNum === 1 ?
                 <Loader /> :
@@ -296,15 +296,19 @@ const styles = StyleSheet.create({
         height: hp(8),
         width: '100%',
         borderWidth: 1,
-        borderColor: Colors.GRAY,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: selectedFeedIndex === index ? Colors.LightGray : Colors.WHITE,
         borderLeftColor: selectedFeedIndex === index ? Colors.themeColor : Colors.GRAY,
-        borderLeftWidth: selectedFeedIndex === index ? 3 : 1
+        borderLeftWidth: selectedFeedIndex === index ? 3 : 1,
+        borderTopColor: Colors.GRAY,
+        borderRightColor: Colors.GRAY,
+        borderBottomColor: Colors.GRAY
+
+
     }),
     categoryText: (selectedFeedIndex, index) => ({
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: fonts.VisbyCF_Demibold,
         fontSize: 12,
         fontWeight: 600,
         letterSpacing: 0.5,

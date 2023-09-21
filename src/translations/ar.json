@@ -1,5 +1,9 @@
 {
   "common": {
+    "selectcity": "اختر مدينة",
+    "itemsSoldSeller": "يتم إرسال هذه العناصر وبيعها من قبل بائعين مختلفين",
+    "morefrom": "اكثر من",
+    "description": "وصف",
     "checkout": "الدفع",
     "gotoshopping": "الذهاب للتسوق",
     "thankForRegister": "شكرا لتسجيلك!",

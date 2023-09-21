@@ -1,5 +1,5 @@
 export default {
-    themeColor: '#3777BC',
+    themeColor: '#0080FF',
     WHITE: '#FEFEFE',
     WHITE1: '#FFFFFF',
     BLACK5: '#484848',
@@ -20,10 +20,10 @@ export default {
     RED1: '#FF0000',
     GRAYRGBA: 'rgba(231, 229, 229, 0.5)',
     LightBlue: '#CBE1F0',
-    YELLOW1: '#FEC350',
+    YELLOW1: '#FFC10E',
     BLUE: '#216DFF',
     LIGHTBLUE1: '#52C6DB',
     GRAY2: '#6C6C6C',
     GRAY3: '#78828A'
-    
+
 }

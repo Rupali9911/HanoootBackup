@@ -288,8 +288,8 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 16,
-        fontFamily: fonts.VisbyCF_Demibold,
-        fontWeight: 700,
+        fontFamily: fonts.VisbyCF_Bold,
+        // fontWeight: 700,
         letterSpacing: 0.5
     },
     orderDetail: {

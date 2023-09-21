@@ -9,7 +9,7 @@ import fonts from '../../../constant/fonts'
 
 
 const ProductCategory = () => {
-    
+
     const _renderListView = () => {
         return (
             <View style={styles.listContainer}>
@@ -20,14 +20,14 @@ const ProductCategory = () => {
                 <Text style={styles.itemPrice}>$ 249.00</Text>
                 <TouchableOpacity style={styles.cartBtn}>
                     <Text style={styles.cartBtnTxt}>Add to Cart</Text>
-                </TouchableOpacity> 
+                </TouchableOpacity>
             </View>
         );
     }
 
     const renderCarouselView = () => {
         return (
-            <View style={{marginHorizontal: 20}}>
+            <View style={{ marginHorizontal: 20 }}>
                 <Text style={styles.title}>Perfect Gaming Setup</Text>
                 <Image
                     source={Images.shoping}
@@ -35,7 +35,7 @@ const ProductCategory = () => {
                 />
                 <View style={styles.container}>
                     <View style={styles.headingContainer}>
-                        <View style={{ width: '65%'  }}>
+                        <View style={{ width: '65%' }}>
                             <Text style={styles.productTitle} numberOfLines={2}>PC Gaming Top Picks</Text>
                             <Text style={styles.productDesc} numberOfLines={2}>Score everything you need get in the zone</Text>
                         </View>
@@ -45,10 +45,10 @@ const ProductCategory = () => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{flexDirection: 'row'}}>
-                    { _renderListView() }
-                    { _renderListView() }
-                    { _renderListView() }
+                    <View style={{ flexDirection: 'row' }}>
+                        {_renderListView()}
+                        {_renderListView()}
+                        {_renderListView()}
                     </View>
                 </View>
             </View>
@@ -56,11 +56,11 @@ const ProductCategory = () => {
     }
 
     return (
-            <Carousels 
-                 Data={[1,2]}
-                 renderItem={renderCarouselView}
-                 dotsLength={2}
-            />
+        <Carousels
+            Data={[1, 2]}
+            renderItem={renderCarouselView}
+            dotsLength={2}
+        />
     )
 }
 
@@ -69,10 +69,10 @@ export default ProductCategory;
 const styles = StyleSheet.create({
     title: {
         fontFamily: fonts.VisbyCF_Bold,
-        fontSize: 20, 
-        fontWeight: 700, 
+        fontSize: 20,
+        // fontWeight: 700, 
         lineHeight: 42,
-        letterSpacing: 0.5        
+        letterSpacing: 0.5
     },
     bannerImg: {
         height: hp(17),
@@ -82,12 +82,12 @@ const styles = StyleSheet.create({
     },
     container: {
         backgroundColor: Colors.WHITE,
-        borderBottomLeftRadius: 10, 
+        borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10
     },
     productTitle: {
-        fontSize: 16, 
-        fontWeight: 700,
+        fontSize: 16,
+        // fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold,
         letterSpacing: 0.5,
         lineHeight: 42
@@ -95,28 +95,28 @@ const styles = StyleSheet.create({
     productDesc: {
         fontFamily: fonts.VisbyCF_Medium,
         fontWeight: 500,
-        lineHeight: 19, 
-        letterSpacing: 0.5, 
+        lineHeight: 19,
+        letterSpacing: 0.5,
         color: Colors.PRICEGRAY
     },
     shopBtnView: {
-        borderWidth: 1, 
+        borderWidth: 1,
         paddingVertical: 8,
-        paddingHorizontal: 4, 
-        borderColor: Colors.themeColor, 
+        paddingHorizontal: 4,
+        borderColor: Colors.themeColor,
         borderRadius: 24
     },
     shopBtnTxt: {
-        fontSize: 16, 
-        fontWeight: 600, 
+        fontSize: 16,
+        fontWeight: 600,
         color: Colors.themeColor,
         fontFamily: fonts.VisbyCF_Demibold,
         lineHeight: 17,
         letterSpacing: 0.5
     },
     headingContainer: {
-        flexDirection: 'row', 
-        justifyContent: 'center', 
+        flexDirection: 'row',
+        justifyContent: 'center',
         alignItems: 'center',
         top: 10,
     },
@@ -127,43 +127,43 @@ const styles = StyleSheet.create({
         top: 10
     },
     itemImgContainer: {
-        height: hp(12), 
-        width: wp(25), 
-        backgroundColor: Colors.WHITE, 
-        borderColor: Colors.GRAYRGBA, 
-        borderWidth: 1, 
-        justifyContent: 'center', 
-        alignItems: 'center', 
+        height: hp(12),
+        width: wp(25),
+        backgroundColor: Colors.WHITE,
+        borderColor: Colors.GRAYRGBA,
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: 10
     },
     itemImg: {
-        height: 60, 
-        width: 60, 
+        height: 60,
+        width: 60,
         resizeMode: 'contain'
     },
     itemName: {
-        fontSize: 12, 
+        fontSize: 12,
         lineHeight: 17,
         letterSpacing: 0.5,
         fontFamily: fonts.VisbyCF_Medium,
         fontWeight: 500
     },
     itemPrice: {
-        fontWeight: 700, 
+        // fontWeight: 700,
         lineHeight: 23,
         fontFamily: fonts.VisbyCF_Bold,
         letterSpacing: 0.5
     },
     cartBtn: {
-        backgroundColor: Colors.themeColor, 
-        padding: 8, 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        borderRadius: 24, 
+        backgroundColor: Colors.themeColor,
+        padding: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 24,
         marginVertical: 5
     },
     cartBtnTxt: {
-        color: Colors.WHITE, 
+        color: Colors.WHITE,
         fontWeight: 600,
         fontFamily: fonts.VisbyCF_Medium,
         lineHeight: 17,

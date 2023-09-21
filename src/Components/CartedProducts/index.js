@@ -50,15 +50,15 @@ const CartProductCards = (props) => {
     const getDeliveryInfo = () => {
         return (
             <>
-                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.estimateddeliveryon')} <Text style={{ color: Colors.BLACK }}>{estimatedDelivery(cartData?.deliveryDays?.delivery)}</Text></Text>
-                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.orderwithin')}  <Text style={{ color: Colors.BLACK }}>{getTime(cartData?.deliveryDays?.time)}</Text></Text>
+                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.estimateddeliveryon')} <Text style={{ color: Colors.BLACK, fontFamily: fonts.VisbyCF_Bold }}>{estimatedDelivery(cartData?.deliveryDays?.delivery)}</Text></Text>
+                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.orderwithin')}  <Text style={{ color: Colors.BLACK, fontFamily: fonts.VisbyCF_Bold }}>{getTime(cartData?.deliveryDays?.time)}</Text></Text>
             </>
         )
     }
 
     const getExpressView = () => {
         return (
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                 <Text style={styles.itemDetail}>{translate('common.fulfilledby')} <Text>{translate('common.hanooot')} </Text></Text>
                 <ExpressView />
             </View>
@@ -78,7 +78,7 @@ const CartProductCards = (props) => {
                     {getDeliveryInfo()}
                     {getExpressView()}
                     {/* <Text style={styles.itemDetail} >Sold by <Text style={{ color: Colors.themeColor }}>Ecom Nation</Text></Text> */}
-                    <Text style={styles.itemName} >{item?.price ? item?.price : 0}</Text>
+                    <Text style={styles.itemName} >$ {item?.price ? item?.price : 0}</Text>
                 </View>
             </View>
             <CartItemQuantity
@@ -105,14 +105,16 @@ const styles = StyleSheet.create({
         // flexDirection: 'row'
     },
     itemName: {
-        fontWeight: 700,
+        // fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold,
         fontSize: 16,
         lineHeight: 21,
         letterSpacing: 0.5
     },
     itemDetail: {
-        fontFamily: fonts.VISBY_CF_REGULAR, fontSize: 12, fontWeight: 600
+        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontSize: 12,
+        fontWeight: 600
     },
     deliveryLine: {
         fontWeight: 600,
@@ -153,7 +155,7 @@ const styles = StyleSheet.create({
 
     },
     Text: {
-        fontWeight: 700,
+        // fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold,
         letterSpacing: 0.5
     },

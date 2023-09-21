@@ -21,7 +21,7 @@ const DiscountProduct = (props) => {
                             <Text style={styles.discountArrowTxt}>Up to 50% off</Text>
                         </ImageBackground>
                         <Text style={styles.itemName}>{'Mouse'}</Text>
-                    <Text style={styles.itemDesc}>{'Electronic Device'}</Text>
+                        <Text style={styles.itemDesc}>{'Electronic Device'}</Text>
 
                         <View style={styles.buttonView}>
                             <Text style={styles.btnTxt}>{'EXPRESS'}</Text>
@@ -35,14 +35,14 @@ const DiscountProduct = (props) => {
             </View>
         );
     }
-    
+
     return (
         <View style={styles.mainContainer}>
             <Text style={styles.header}>{'HANOOOT DISCOUNTS'}</Text>
-            <Carousels 
-             Data={[1,2,3,4]}
-             renderItem={renderCards}
-             dotsLength={4}
+            <Carousels
+                Data={[1, 2, 3, 4]}
+                renderItem={renderCards}
+                dotsLength={4}
             />
         </View>
     )
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
         lineHeight: 42,
         color: Colors.WHITE,
-        fontWeight: 700
+        // fontWeight: 700
     },
     container: {
         justifyContent: 'center',
@@ -84,46 +84,46 @@ const styles = StyleSheet.create({
         elevation: 7,
     },
     discountArrowTxt: {
-        alignSelf: 'center', 
-        justifyContent: 'center', 
-        fontWeight: 700, 
-        fontSize: 18, 
-        color: Colors.WHITE, 
+        alignSelf: 'center',
+        justifyContent: 'center',
+        // fontWeight: 700,
+        fontSize: 18,
+        color: Colors.WHITE,
         fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 25,
         letterSpacing: 0.5
     },
     itemName: {
-        fontSize: 22, 
-        fontWeight: 700, 
+        fontSize: 22,
+        // fontWeight: 700,
         fontFamily: fonts.VisbyCF_Bold,
         lineHeight: 25,
         letterSpacing: 0.5,
         left: 10
     },
     itemDesc: {
-        color: Colors.GRAYDARK, 
+        color: Colors.GRAYDARK,
         fontFamily: fonts.VisbyCF_Medium,
-        fontSize: 16, 
+        fontSize: 16,
         fontWeight: 500,
         letterSpacing: 0.5,
         lineHeight: 25,
         left: 10
     },
     buttonView: {
-        width: 65, 
-        backgroundColor: Colors.YELLOW, 
+        width: 65,
+        backgroundColor: Colors.YELLOW,
         left: 10,
-        marginVertical: 10, 
-        justifyContent: 'center', 
-        alignItems: 'center', 
+        marginVertical: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: 8,
 
     },
     btnTxt: {
-        fontSize: 12, 
-        color: Colors.themeColor, 
-        fontWeight: '500', 
+        fontSize: 12,
+        color: Colors.themeColor,
+        fontWeight: '500',
         fontStyle: 'italic',
         fontFamily: fonts.VISBY_CF_REGULAR
     },
@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
         position: 'absolute', right: 0
     },
     discountArrowImg: {
-        height: 30, 
-        width: 150, 
+        height: 30,
+        width: 150,
         marginVertical: 10
     }
 })
