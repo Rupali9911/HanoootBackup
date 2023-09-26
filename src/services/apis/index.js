@@ -1,4 +1,4 @@
-import { CHECK_PHONE_NUMBER, USER_REGISTER, UPDATE_PROFILE, HELPNSUPPORT, UPDATE_PASSWORD } from '../../utility/apiUrls'
+import { CHECK_PHONE_NUMBER, USER_REGISTER, UPDATE_PROFILE, HELPNSUPPORT, UPDATE_PASSWORD, DELETE_ACCOUNT } from '../../utility/apiUrls'
 import sendRequest from '../../services/axios/AxiosApiRequest'
 import { showErrorToast, showSuccessToast } from '../../Components/universal/Toast'
 import { Store } from '../../screens/Store';
@@ -140,6 +140,31 @@ export const helpNSupport = (name, email, description) => {
             })
             .catch(error => {
                 console.log('Error from HELPNSUPPORT api', error)
+                _reject(error)
+            })
+    })
+
+};
+
+export const deleteUserFromDb = (numberOrEmail) => {
+    return new Promise((resolve, _reject) => {
+        sendRequest({
+            url: DELETE_ACCOUNT,
+            method: 'DELETE',
+            data: {
+                phone_number: numberOrEmail
+            }
+        })
+            .then(async (response) => {
+                console.log('Response from DELETE_ACCOUNT api', response, response?.success, response?.success === true)
+                if (response?.success === true) {
+                    resolve(response)
+                } else {
+                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
+                }
+            })
+            .catch(error => {
+                console.log('Error from DELETE_ACCOUNT api', error)
                 _reject(error)
             })
     })

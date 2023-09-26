@@ -7,6 +7,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { showErrorToast } from '../../Components/universal/Toast'
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { translate } from '../../utility';
+import { getAccessToken } from '../axios/AxiosApiRequest';
 
 auth().onAuthStateChanged((user) => {
     console.log('Auth State changed');
@@ -310,9 +311,34 @@ export const signOut = () => {
     })
 }
 
+export const deleteFirebaseAccount = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // let token = await getAccessToken('ACCESS_TOKEN')
+            // console.log('auth().currentUser.userCredentials', token)
+            // auth().currentUser.reauthenticateWithCredential(token)
+            //     .then(() => {
+            auth().currentUser.delete().then((response) => {
+                resolve(response)
+            }).catch(error => {
+                console.log('error from currentUser.updatePassword', error)
+                handleAuthError(error)
+            });
+            // })
+            // .catch(error => {
+            //     console.log('error from reauthenticateWithCredential', error)
+            //     handleAuthError(error)
+            // });
+        } catch (error) {
+            console.log(error)
+            handleAuthError(error)
+        }
+    })
+}
+
 export const handleAuthError = (error) => {
     var errorMessage = ''
-    console.log(error?.message)
+    console.log(error)
     switch (error.code) {
         case "auth/missing-phone-number":
             errorMessage = "Missing Phone Number";
@@ -381,7 +407,9 @@ export const handleAuthError = (error) => {
         case "auth/invalid-email":
             errorMessage = "Email address is invalid.";
             break;
-
+        case "auth/requires-recent-login":
+            errorMessage = "Please login again";
+            break;
         default:
             errorMessage = "Something went wrong";
             break;
