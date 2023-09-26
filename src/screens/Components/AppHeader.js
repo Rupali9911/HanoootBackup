@@ -46,7 +46,8 @@ export default function AppHeader(props) {
 
   return (
 
-    <View style={[styles.container(isSearch), props.mainContainerStyle]}>
+    // <View style={[styles.container(isSearch), props.mainContainerStyle]}>
+    <View style={[styles.container, props.mainContainerStyle]}>
       <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
         {props.showBackButton ? (
           <TouchableOpacity
@@ -69,7 +70,8 @@ export default function AppHeader(props) {
 
       <View style={[styles.mainTitleStyle, props.titleComponentStyle]}>
         {props.placeholderText ? (
-          <View style={{}}>
+          // <View style={{}}>
+          <View style={{ flex: 1, width: '100%', justifyContent: 'center', zIndex: 999 }}>
             <AppSearch placeholderText={props.placeholderText} onChangeText={(val) => setSearch(val)} />
           </View>
         ) :
@@ -202,22 +204,33 @@ export default function AppHeader(props) {
 
 const styles = StyleSheet.create({
 
-  container: isSearch => ({
-    // zIndex: 999,
-    height: isSearch ? hp('50%') : hp('8%'),
-    // height: hp('8%'),
-    width: wp(100),
+  // container: isSearch => ({
+  //   // zIndex: 999,
+  //   height: isSearch ? hp('50%') : hp('8%'),
+  //   // height: hp('8%'),
+  //   width: wp(100),
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   // backgroundColor: Colors.WHITE,
+  //   borderBottomColor: Colors.GRAY,
+  //   borderBottomWidth: 1,
+  //   justifyContent: 'center',
+  //   marginTop: isSearch ? '10%' : 0
+  //   // flex: 1,
+  //   // justifyContent: 'center'
+  //   // flex: 2
+  // }),
+  container: {
+    zIndex: 999,
+    height: hp('8%'),
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    // backgroundColor: Colors.WHITE,
+    backgroundColor: Colors.WHITE,
     borderBottomColor: Colors.GRAY,
     borderBottomWidth: 1,
-    justifyContent: 'center',
-    marginTop: isSearch ? '10%' : 0
-    // flex: 1,
-    // justifyContent: 'center'
-    // flex: 2
-  }),
+    justifyContent: 'center'
+  },
   // line1: type => ({
   //   width: 20,
   //   height: 1,

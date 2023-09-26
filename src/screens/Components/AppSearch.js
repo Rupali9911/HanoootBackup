@@ -42,11 +42,11 @@ const AppSearch = (props) => {
               console.log('if')
               setSearchData(response?.data?.product);
               // searchTxt ? props.onChangeText(true) : props.onChangeText(false)
-              props.onChangeText(true)
+              // props.onChangeText(true)
             } else {
               console.log('else')
               setSearchData([]);
-              props.onChangeText(false)
+              // props.onChangeText(false)
             }
           })
           .catch(err => {
@@ -58,15 +58,48 @@ const AppSearch = (props) => {
     } else {
       setloading(false);
       setSearchData([]);
-      props.onChangeText(false)
+      // props.onChangeText(false)
 
     }
   }, [searchTxt]);
 
 
-  console.log('here is an search Data : ', searchData)
 
+  // const handleFlatListRenderItem = ({ item, index }) => {
+  //   console.log('handleFlatListRenderItem : ', item?.id)
+  //   return (
+  //     <TouchableOpacity style={{
+  //       paddingVertical: '2%',
+  //       paddingHorizontal: '5%',
+  //       borderBottomColor: Colors.GRAY,
+  //       borderBottomWidth: 1,
+  //       flex: 1
+  //     }}
+  //       onPress={() => navigation.push('ProductDetail', { id: item?.id })}
+  //     >
+  //       <View
+  //         style={{
+  //           flexDirection: 'row',
+  //           alignItems: 'center',
+  //           justifyContent: 'space-between'
+  //         }}
+  //         onPress={() => { }}
+  //       >
+  //         <Text style={{
+  //           fontFamily: fonts.VisbyCF_Medium,
+  //           fontWeight: 600,
+  //           letterSpacing: 0.5,
+  //           lineHeight: 21,
+  //           maxWidth: wp(82.13)
+  //         }} numberOfLines={1}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}</Text>
+  //         <View style={{ alignSelf: 'flex-end' }}>
+  //           <SearchArrow />
+  //         </View>
+  //       </View>
 
+  //     </TouchableOpacity>
+  //   );
+  // };
 
 
   const handleFlatListRenderItem = ({ item, index }) => {
@@ -100,7 +133,6 @@ const AppSearch = (props) => {
             <SearchArrow />
           </View>
         </View>
-
       </TouchableOpacity>
     );
   };
@@ -132,27 +164,66 @@ const AppSearch = (props) => {
           }}
           value={searchTxt}
           placeholderTextColor={Colors.GRAYDARK}
+          // style={{
+          //   left: 10,
+          //   alignSelf: 'center',
+          //   // height: '100%',
+          //   color: Colors.RED,
+          //   width: wp(75),
+          //   height: hp(4.93),
+          //   // fontFamily: fonts.VisbyCF_Medium,
+          //   // fontWeight: 500,
+          //   // letterSpacing:
+          // }}
           style={{
-            left: 10,
-            alignSelf: 'center',
-            // height: '100%',
-            color: Colors.RED,
-            width: wp(75),
-            height: hp(4.93),
-            // fontFamily: fonts.VisbyCF_Medium,
-            // fontWeight: 500,
-            // letterSpacing:
+            fontFamily: fonts.VISBY_CF_REGULAR,
+            fontWeight: '500',
+            letterSpacing: 0.5,
+            width: '100%',
+            // height: heightTextInput,
+            alignSelf: "center",
+            color: Colors.BLACK,
+            left: 10, alignSelf: 'center',
+            height: '100%',
           }}
+        // style={{ left: 10, alignSelf: 'center', height: '100%', color: Colors.BLACK, width: wp(75) }}
         />
         {
           searchTxt &&
-          <TouchableOpacity style={{ justifyContent: 'flex-end', width: wp(5) }} onPress={() => { setSearchTxt(''), props.onChangeText(false) }}>
+          <TouchableOpacity style={{ justifyContent: 'flex-end', width: wp(5) }} onPress={() => setSearchTxt('')}>
             <CrossIcon />
           </TouchableOpacity>
         }
 
 
       </View>
+      {/* {loading || searchData?.length ? (
+        <View >
+          {loading ? (
+            <View style={styles.listContainer}>
+              <ActivityIndicator color={Colors.themeColor} size={25} />
+            </View>
+          ) : searchData.length > 0 && searchTxt ? (
+            <FlatList
+              data={searchData}
+              keyboardShouldPersistTaps={'handled'}
+              style={styles.listContainer}
+              renderItem={handleFlatListRenderItem}
+              keyExtractor={keyExtractor}
+              scrollEnabled={true}
+              nestedScrollEnabled={true}
+            />
+          ) : null}
+        </View>
+      ) : searchTxt ? (
+        <View >
+          <View style={styles.listContainer}>
+            <Text style={{ textAlign: 'center' }}>{translate('common.oopsNoProduct')}</Text>
+          </View>
+        </View>
+      ) : null
+      } */}
+
       {loading || searchData?.length ? (
         <View >
           {loading ? (
@@ -187,25 +258,40 @@ export default AppSearch;
 
 const styles = StyleSheet.create({
   listContainer: {
-    // flex: 1,
-    // zIndex: 1,
+    // // flex: 1,
+    // // zIndex: 1,
+    // width: Dimensions.get('window').width,
+    // // position: 'absolute',
+    // backgroundColor: Colors.WHITE,
+    // marginTop: hp('1%'),
+    // // borderRadius: wp('1%'),
+    // // shadowColor: '#000',
+    // // shadowOffset: {
+    // //   width: 0,
+    // //   height: 2,
+    // // },
+    // // shadowOpacity: 0.25,
+    // // shadowRadius: 3.84,
+    // // elevation: 5,
+    // // minHeight: hp(20),
+    // // minHeight: Dimensions.get('window').height / 2,
+
+    // // height: hp(50),
+    flex: 1,
     width: Dimensions.get('window').width,
     // position: 'absolute',
     backgroundColor: Colors.WHITE,
     marginTop: hp('1%'),
-    // borderRadius: wp('1%'),
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-    // elevation: 5,
-    // minHeight: hp(20),
-    // minHeight: Dimensions.get('window').height / 2,
-
-    // height: hp(50),
+    borderRadius: wp('1%'),
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    minHeight: Dimensions.get('window').height / 2,
+    height: hp(50),
   },
   searchContainer: {
     borderRadius: 12,
@@ -216,6 +302,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: wp('3%'),
     paddingHorizontal: wp('3%'),
+    height: hp(4.93),
     // position: 'absolute',
     // width: wp(100)
   },
