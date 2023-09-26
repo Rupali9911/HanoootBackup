@@ -1,5 +1,8 @@
 {
   "common": {
+    "pleaseloginfirst": "الرجاء تسجيل الدخول أولا",
+    "shoppingNeedsText": "لجميع احتياجات التسوق الخاصة بك",
+    "currency_iqd": "دينار عراقي",
     "selectcity": "اختر مدينة",
     "itemsSoldSeller": "يتم إرسال هذه العناصر وبيعها من قبل بائعين مختلفين",
     "morefrom": "اكثر من",

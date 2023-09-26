@@ -101,4 +101,5 @@ export default {
     DiscountTag: require(`../assets/images/discountTag.png`),
     BannerCollage: require(`../assets/images/BannerCollage.jpg`),
     work: require(`../assets/images/work.png`),
+    loadergif: require(`../assets/gifs/Loader.gif`),
 }

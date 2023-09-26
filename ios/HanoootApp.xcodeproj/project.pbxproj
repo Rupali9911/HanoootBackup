@@ -15,6 +15,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3500AC6BE8E94BDAA07CEC47 /* VisbyCF-DemiBoldOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07138721ECB84719A8785DD4 /* VisbyCF-DemiBoldOblique.otf */; };
 		40D2AD5D0FBE45C1AB1ECDB9 /* Kanit-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0B6FBCBDD042B385F2EA15 /* Kanit-Black.ttf */; };
+		5F211F472AC1A78D00E8FD7C /* logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5F211F462AC1A78D00E8FD7C /* logo.gif */; };
+		5F211F4A2AC1AC3500E8FD7C /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F211F492AC1AC3500E8FD7C /* Dynamic.swift */; };
 		5FAF3EDF2A67BD9D00906887 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FAF3EDE2A67BD9D00906887 /* GoogleService-Info.plist */; };
 		663558526345428A92C2C564 /* VisbyCF-DemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7193ACF8D6D7449AAE38F2D7 /* VisbyCF-DemiBold.otf */; };
 		7699B88040F8A987B510C191 /* libPods-HanoootApp-HanoootAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-HanoootApp-HanoootAppTests.a */; };
@@ -50,6 +52,9 @@
 		5709B34CF0A7D63546082F79 /* Pods-HanoootApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanoootApp.release.xcconfig"; path = "Target Support Files/Pods-HanoootApp/Pods-HanoootApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-HanoootApp-HanoootAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanoootApp-HanoootAppTests.debug.xcconfig"; path = "Target Support Files/Pods-HanoootApp-HanoootAppTests/Pods-HanoootApp-HanoootAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-HanoootApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HanoootApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F211F462AC1A78D00E8FD7C /* logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = logo.gif; path = HanoootApp/logo.gif; sourceTree = "<group>"; };
+		5F211F482AC1AC3500E8FD7C /* HanoootApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HanoootApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		5F211F492AC1AC3500E8FD7C /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		5F5F895F2A693F59008F6413 /* HanoootApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HanoootApp.entitlements; path = HanoootApp/HanoootApp.entitlements; sourceTree = "<group>"; };
 		5F8B7AF32A68258500621C79 /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
 		5FAF3EDE2A67BD9D00906887 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "HanoootApp/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -110,6 +115,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				5F211F462AC1A78D00E8FD7C /* logo.gif */,
+				5F211F492AC1AC3500E8FD7C /* Dynamic.swift */,
+				5F211F482AC1AC3500E8FD7C /* HanoootApp-Bridging-Header.h */,
 			);
 			name = HanoootApp;
 			sourceTree = "<group>";
@@ -241,7 +249,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1340;
 					};
 				};
 			};
@@ -283,6 +291,7 @@
 				B08F2D6F20F74288AEB2F9E1 /* VisbyCF-Regular.otf in Resources */,
 				0913B44210144A728D4C6AC0 /* VisbyCF-Bold.otf in Resources */,
 				663558526345428A92C2C564 /* VisbyCF-DemiBold.otf in Resources */,
+				5F211F472AC1A78D00E8FD7C /* logo.gif in Resources */,
 				3500AC6BE8E94BDAA07CEC47 /* VisbyCF-DemiBoldOblique.otf in Resources */,
 				F6F76BB5809245A9A53B2538 /* VisbyCF-Medium.otf in Resources */,
 			);
@@ -466,6 +475,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F211F4A2AC1AC3500E8FD7C /* Dynamic.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -486,6 +496,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-HanoootApp-HanoootAppTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 27X4TMF449;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -514,6 +525,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-HanoootApp-HanoootAppTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 27X4TMF449;
@@ -543,6 +555,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = HanoootApp/HanoootApp.entitlements;
 				CURRENT_PROJECT_VERSION = 2;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 27X4TMF449;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HanoootApp/Info.plist;
@@ -561,6 +574,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanooot.app;
 				PRODUCT_NAME = HanoootApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "HanoootApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -575,6 +589,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = HanoootApp/HanoootApp.entitlements;
 				CURRENT_PROJECT_VERSION = 2;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 27X4TMF449;
 				INFOPLIST_FILE = HanoootApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Hanooot;
@@ -592,6 +607,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanooot.app;
 				PRODUCT_NAME = HanoootApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "HanoootApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

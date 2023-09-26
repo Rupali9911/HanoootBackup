@@ -32,6 +32,7 @@ import SuccessIcon from '../assets/svgs/SuccessIcon.svg';
 import Facebook from '../assets/svgs/facebook.svg';
 import Instagram from '../assets/svgs/instagram.svg';
 import Tictok from '../assets/svgs/tickTok.svg';
+import CartBlackIcon from '../assets/svgs/CartBlackIcon.svg';
 
 export default {
   StarIcon,
@@ -67,5 +68,6 @@ export default {
   SuccessIcon,
   Facebook,
   Instagram,
-  Tictok
+  Tictok,
+  CartBlackIcon
 };

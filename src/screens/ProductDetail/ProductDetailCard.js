@@ -59,15 +59,16 @@ const ProductDetailCard = (props) => {
                 showErrorToast()
             }
         }
-        else {
-            showErrorToast(translate('common.loginFirstText'))
-        }
+        // else {
+        //     // showErrorToast(translate('common.shoppingNeedsText'), translate('common.pleaseloginfirst'))
+        //     props
+        // }
     }
 
     const onShare = async () => {
         let productName = title
         // let productUrl = productLink
-        let productUrl = `hanooot.com/product/${props.productId}`
+        let productUrl = `https://api.hanooot.com/api/v1/user/deeplink`
         console.log('this is product url : ', productUrl)
         try {
             const result = await Share.share({
@@ -103,11 +104,11 @@ const ProductDetailCard = (props) => {
         )
     }
 
-    const WishlistButton = (props) => {
+    const WishlistButton = () => {
         return (
             <View style={[styles.circleView, props.contStyle]}>
                 <TouchableOpacity
-                    onPress={addToWishlistProduct}
+                    onPress={userData ? addToWishlistProduct : props.onPressWishlist}
                 >
                     {productDetail?.isLike ? <HeartIconActive /> : <HeartIcon />}
                 </TouchableOpacity>
@@ -208,7 +209,7 @@ const ProductDetailCard = (props) => {
                 <View style={styles.firstLineView}>
 
                     <View style={styles.textView}>
-                        <Text style={styles.totalPrice}>$ {price}</Text>
+                        <Text style={styles.totalPrice}>{`${price} ${translate('common.currency_iqd')}`}</Text>
                         <Text style={styles.inclusiveTax}>{`(${translate('common.inclusiveofvat')})`}</Text>
                     </View>
                     <ExpressView />

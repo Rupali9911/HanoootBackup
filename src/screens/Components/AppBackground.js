@@ -25,6 +25,7 @@ const AppBackground = props => {
         <StatusBar
           hidden={false}
           barStyle={props.lightStatus ? 'light-content' : 'dark-content'}
+          translucent={false}
         />
         {/* {props.isBusy && <FetchingIndicator />} */}
         {props.children}

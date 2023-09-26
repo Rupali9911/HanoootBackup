@@ -108,10 +108,23 @@ const Category = () => {
         return (
             // <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters', { category_id: subCategoryList?.id, headerTitle: subCategoryList?.name })}>
             <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters', { category_id: props?.id, headerTitle: props?.name })}>
-                <Image
+                {
+                    props.extension === 'svg' ?
+                        <SvgUri
+                            width={wp(13)}
+                            height={hp(6)}
+                            uri={props.image}
+                        />
+                        :
+                        <Image
+                            source={{ uri: props.image }}
+                            style={styles.image}
+                        />
+                }
+                {/* <Image
                     source={{ uri: props.image }}
                     style={styles.image}
-                />
+                /> */}
                 {
                     props.name &&
                     <Text numberOfLines={2}
@@ -147,10 +160,14 @@ const Category = () => {
                         nestedScrollEnabled={false}
                         scrollEnabled={false}
                         renderItem={({ item, index }) => {
+                            const imageUrl = item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png';
+                            const extension = imageUrl.split('.').pop().toLowerCase();
+
                             return (
                                 index != 5 ?
                                     <SubCategoryListItems
-                                        image={item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png'}
+                                        image={imageUrl}
+                                        extension={extension}
                                         name={selectedLanguageItem?.language_id === 0 ? item?.name : item?.name_arabic}
                                         // id={subCategory?.parent_id}
                                         id={item?.id}
@@ -246,7 +263,7 @@ const Category = () => {
 
 
     return (
-        <AppBackground safeAreaColor={'red'}>
+        <AppBackground >
             <AppHeader placeholderText={translate('common.whatLookingFor')} />
             {isCatgListLoading && categoryPageNum === 1 ?
                 <Loader /> :

@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import AppHeader from '../Components/AppHeader';
 import AppBackground from '../Components/AppBackground';
 import MiniSlider from '../Components/Cards/MiniSlider';
@@ -20,10 +20,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../constant/Loader';
 import { useIsFocused } from '@react-navigation/native';
 import { translate } from '../../utility';
+import Images from '../../constant/Images';
+import AppModal from '../../Components/universal/Modal';
+import ModalContentWithoutLogin from '../../Components/universal/Modal/ModalContentWithoutLogin';
 
 export default function HomeScreen() {
    const isFocused = useIsFocused();
    const dispatch = useDispatch();
+   const [modalVisible, setModalVisible] = useState(false);
+
 
    const { isLoading, HomeCollection } = useSelector(state => state.HomeReducer);
    const userData = useSelector((state) => state.userReducer.userData);
@@ -48,21 +53,21 @@ export default function HomeScreen() {
          case 'miniSliderJson':
             return <MiniSlider Data={value} />
          case 'featuredCategoryByProductJson':
-            return <FeaturedCategory Data={value} />
+            return <FeaturedCategory Data={value} onFeatureCartPress={() => setModalVisible(true)} />
          case 'brandsListJson':
             return <BrandList Data={value} />
          case 'newArrivalProductListJson':
-            return <NewArrivals Data={value} />
+            return <NewArrivals Data={value} onWishlistPress={() => setModalVisible(true)} />
          case 'bannerCollageJson':
             return <BannerCollage Data={value} />
          case 'topPicksJson':
-            return <TopPicks Data={value} />
+            return <TopPicks Data={value} onTopPicksCartPress={() => setModalVisible(true)} />
          case 'largeBannerJson':
             return <LargeBanner Data={value} />
          case 'listOfRecentViewProductJson':
-            return <RecentlyViewProduct Data={value} />
+            return <RecentlyViewProduct Data={value} onWishlistPress={() => setModalVisible(true)} />
          case 'suggestedProductsJson':
-            return <SuggestedProducts Data={value} />
+            return <SuggestedProducts Data={value} onWishlistPress={() => setModalVisible(true)} />
          case 'categoryList':
             return <CategoryList Data={value} />
          default:
@@ -98,6 +103,20 @@ export default function HomeScreen() {
                   renderNoDataFound()
 
          }
+
+         <AppModal
+            visible={modalVisible}
+            onRequestClose={() => setModalVisible(false)}>
+            <ModalContentWithoutLogin
+               onCancelPress={() => {
+                  setModalVisible(false);
+               }}
+               onOkPress={() => {
+                  navigation.navigate('Login');
+                  setModalVisible(false);
+               }}
+            />
+         </AppModal>
       </AppBackground>
    )
 }
@@ -127,5 +146,16 @@ const styles = StyleSheet.create({
    sorryMessage: {
       fontSize: 15,
       fontFamily: fonts.VisbyCF_Demibold,
+   },
+   loaderImage: {
+      alignSelf: 'center',
+   },
+   indicatorContainer: {
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      backgroundColor: '#1a75bb',
+      alignItems: 'center',
+      justifyContent: 'center',
    },
 })

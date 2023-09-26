@@ -1,5 +1,8 @@
 {
   "common": {
+    "pleaseloginfirst": "Please Login First",
+    "shoppingNeedsText": "For all your shopping needs",
+    "currency_iqd": "IQD",
     "selectcity": "Select City",
     "itemsSoldSeller": "These items are dispatched from and sold by different sellers",
     "morefrom": "More from",

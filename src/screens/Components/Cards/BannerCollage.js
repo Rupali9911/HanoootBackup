@@ -10,14 +10,14 @@ const BannerCollage = (props) => {
 
     const renderItem = ({ item, index }) => {
         return (
-            <Image source={{ uri: item?.image_url }} style={{ width: wp(86.93), height: hp(56.99), alignSelf: 'center', borderRadius: 10 }} />
+            <Image source={{ uri: item?.image_url }} style={{ width: wp(86.93), height: hp(56.99), alignSelf: 'center', borderRadius: 10, resizeMode: 'contain' }} />
         );
     }
 
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: hp(3) }}>
-            <Image source={{ uri: Data?.largeBanner?.image_url }} style={{ width: wp(86.93), height: hp(24.94), resizeMode: 'cover', marginBottom: '2%', borderRadius: 10 }} />
+            <Image source={{ uri: Data?.largeBanner[0]?.image_url }} style={{ width: wp(86.93), height: hp(24.94), resizeMode: 'cover', marginBottom: '2%', borderRadius: 10 }} />
             <Carousels
                 Data={Data?.sliderBanner}
                 renderItem={renderItem}
@@ -27,6 +27,7 @@ const BannerCollage = (props) => {
                 sliderWidth={slideWidth}
                 itemWidth={slideWidth}
                 dotStyle={{ bottom: 30 }}
+                 
                 containerStyle={{ paddingVertical: '1%' }}
                 enablePagination
             />

@@ -20,6 +20,8 @@ import fonts from '../../constant/fonts';
 import Colors from '../../constant/Colors';
 import { translate } from '../../utility';
 import { useSelector } from 'react-redux';
+import BuildingDropdown from '../../constant/BuildingDropdown';
+
 
 
 
@@ -39,8 +41,8 @@ const NewAddress = (props) => {
     phone_number: '',
     address_type: '',
     city: '',
-    latitude: "189.98.89",
-    longitude: "31238.3213",
+    latitude: "33.312805",
+    longitude: "44.361488",
     locationDetail: {
       latitude: '',
       longitude: '',
@@ -51,12 +53,11 @@ const NewAddress = (props) => {
   });
   const [errorMsg, setErrorMsg] = useState('')
   const [cityValue, setCityName] = useState()
+  const [buildingType, setBuildingType] = useState()
 
   const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+  const { userData } = useSelector((state) => state.userReducer);
 
-
-
-  console.log('editDataDetail : ', editDataDetail)
 
   useEffect(() => {
     if (editDataDetail) {
@@ -78,7 +79,13 @@ const NewAddress = (props) => {
         }
       });
       setCityName(editDataDetail?.city)
+      setBuildingType(editDataDetail?.building)
     }
+    else if (userData) {
+
+      setInputFields({ ...inputFields, name: userData?.displayName, phone_number: userData?.phoneNumber ? userData?.phoneNumber : '' })
+    }
+
   }, []);
 
   const handleInputChange = (fieldName, value) => {
@@ -87,23 +94,26 @@ const NewAddress = (props) => {
   };
 
   const handleError = (label, value) => {
+    console.log('check labl & value', label, value)
     if (label === 'city') {
-      return Object.keys(value).length ? null : translate('commin.pleaseFillField', { label: `${label}` })
+      return Object.keys(value).length ? null : translate('common.pleaseFillField', { label: `${label}` })
     } else {
       if (!value.trim().length) {
-        return translate('commin.pleaseFillField', { label: `${label}` });
+        return translate('common.pleaseFillField', { label: `${label}` });
       }
     }
   }
 
   const handleSubmit = () => {
     const errorList = {};
+    console.log('input fields name : ', inputFields.name)
     const data = {
-      street: inputFields.street,
-      building: inputFields.building,
-      landmark: inputFields.landmark,
-      name: inputFields.name,
-      // city: inputFields.city
+      street: inputFields?.street,
+      building: inputFields?.building,
+      landmark: inputFields?.landmark,
+      name: inputFields?.name,
+      phoneNumber: inputFields?.phone_number,
+      city: inputFields?.city
     }
 
     for (const key in data) {
@@ -191,56 +201,6 @@ const NewAddress = (props) => {
         showBackButton
         title={editDataDetail ? translate('common.updateaddress') : translate('common.addAddress')} />
       <KeyboardAwareScrollView nestedScrollEnabled={true}>
-        <DropdownPicker
-          onSetCountry={(city) => {
-            console.log('country value : ', city);//{"code": "KA", "name": "Bangalore"}
-            handleInputChange('city', city)
-            setErrorMsg({ ...errorMsg, ['city']: null })
-          }}
-          SetValue={setCityName}
-          Value={cityValue}
-          error={errorMsg['city']}
-        // mainStyle={{ zIndex: 1 }}
-        />
-        <AppInput
-          label={translate('common.streetname')}
-          placeholder={translate('common.enterstreetname')}
-          required
-          value={inputFields.street}
-          onChangeText={text => {
-            handleInputChange('street', text)
-            setErrorMsg({ ...errorMsg, ['street']: null })
-          }}
-          error={errorMsg['street']}
-        />
-        <AppInput
-          label={translate('common.buildingtype')}
-          value={inputFields.building}
-          onChangeText={text => {
-            handleInputChange('building', text)
-            setErrorMsg({ ...errorMsg, ['building']: null })
-          }}
-          placeholder={translate('common.enterbuildingtype')}
-          required
-          error={errorMsg['building']}
-        />
-        <AppInput
-          label={translate('common.houseNo')}
-          value={inputFields.house}
-          onChangeText={text => handleInputChange('house', text)}
-          placeholder={translate('common.enterHouseNo')}
-        />
-        <AppInput
-          label={translate('common.nearbylandmark')}
-          value={inputFields.landmark}
-          onChangeText={text => {
-            handleInputChange('landmark', text)
-            setErrorMsg({ ...errorMsg, ['landmark']: null })
-          }}
-          placeholder={translate('common.enternearbylandmark')}
-          required
-          error={errorMsg['landmark']}
-        />
 
         {
           inputFields?.locationDetail?.address != ''
@@ -308,10 +268,86 @@ const NewAddress = (props) => {
                     }
                   });
                 }}
-
               />
             )
         }
+        <ProductHeader title={translate('common.addressdetail')} />
+        <DropdownPicker
+          onSetCountry={(city) => {
+            console.log('country value : ', city);//{"code": "KA", "name": "Bangalore"}
+            handleInputChange('city', city)
+            setErrorMsg({ ...errorMsg, ['city']: null })
+          }}
+          SetValue={setCityName}
+          Value={cityValue}
+          error={errorMsg['city']}
+        // mainStyle={{ zIndex: 1 }}
+        />
+        <AppInput
+          label={translate('common.streetname')}
+          placeholder={translate('common.enterstreetname')}
+          required
+          value={inputFields.street}
+          onChangeText={text => {
+            handleInputChange('street', text)
+            setErrorMsg({ ...errorMsg, ['street']: null })
+          }}
+          error={errorMsg['street']}
+        />
+        {/* <AppInput
+          label={translate('common.buildingtype')}
+          value={inputFields.building}
+          onChangeText={text => {
+            handleInputChange('building', text)
+            setErrorMsg({ ...errorMsg, ['building']: null })
+          }}
+          placeholder={translate('common.enterbuildingtype')}
+          required
+          error={errorMsg['building']}
+        /> */}
+
+
+        <BuildingDropdown
+          // onSetCountry={(city) => {
+          //   console.log('country value : ', city);//{"code": "KA", "name": "Bangalore"}
+          //   handleInputChange('city', city)
+          //   setErrorMsg({ ...errorMsg, ['city']: null })
+          // }}
+          // SetValue={setCityName}
+          // Value={cityValue}
+          // error={errorMsg['city']}
+          // mainStyle={{ zIndex: 1 }}
+          onSetBuilding={(building) => {
+            console.log(building)
+            handleInputChange('building', building)
+            setErrorMsg({ ...errorMsg, ['building']: null })
+          }}
+          error={errorMsg['building']}
+          setValue={setBuildingType}
+          value={buildingType}
+        />
+
+
+
+        <AppInput
+          label={translate('common.houseNo')}
+          value={inputFields.house}
+          onChangeText={text => handleInputChange('house', text)}
+          placeholder={translate('common.enterHouseNo')}
+        />
+        <AppInput
+          label={translate('common.nearbylandmark')}
+          value={inputFields.landmark}
+          onChangeText={text => {
+            handleInputChange('landmark', text)
+            setErrorMsg({ ...errorMsg, ['landmark']: null })
+          }}
+          placeholder={translate('common.enternearbylandmark')}
+          required
+          error={errorMsg['landmark']}
+        />
+
+
 
 
 
@@ -333,11 +369,16 @@ const NewAddress = (props) => {
         />
         <AppInput
           label={translate('common.phonenumber')}
-          value={inputFields.phone_number}
-          onChangeText={text => handleInputChange('phone_number', text)}
+          value={inputFields?.phone_number}
+          onChangeText={text => {
+            handleInputChange('phone_number', text)
+            setErrorMsg({ ...errorMsg, ['phoneNumber']: null })
+          }}
           placeholder={translate('common.enteryourphonenumber')}
           maxLength={10}
           keyboardType={'numeric'}
+          required
+          error={errorMsg['phoneNumber']}
         />
 
         <Separator separatorStyle={{ marginVertical: '8%' }} />

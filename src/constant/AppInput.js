@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: fonts.VISBY_CF_REGULAR,
         fontWeight: '500',
         letterSpacing: 0.5,
         width: '100%',

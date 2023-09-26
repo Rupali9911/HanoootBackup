@@ -203,11 +203,13 @@ const ProductDetail = (props) => {
                                         title={selectedLanguageItem?.language_id === 0 ? productDetail?.ManagementProductSeo?.product_name : productDetail?.ManagementProductSeo?.product_name_arabic}
                                         avgRating={productDetail?.ManagementProductReview?.average_rating}
                                         noOfReview={productDetail?.ManagementProductReview?.number_of_reviews}
-                                        price={productDetail?.ManagementProductPricing?.hanooot_price}
+                                        price={productDetail?.ManagementProductPricing?.price_iqd}
                                         discount={productDetail?.ManagementProductPricing?.hanooot_discount}
                                         productId={productDetail?.product_details_id}
                                         isItemLiked={productDetail?.isLike}
                                         productLink={productDetail?.link}
+                                        onPressWishlist={() => setModalVisible(true)}
+
                                     // hanootChoice={productDetail?.ManagementProductPricing?.hanooot_discount}
                                     />
                                     <ProductVariation variants={productDetail?.ManagementProductVariantStyle} />
@@ -249,7 +251,7 @@ const ProductDetail = (props) => {
                                                                 item={item}
                                                                 centerImage={item?.images[0]}
                                                                 productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
-                                                                price={item?.ManagementProductPricing?.hanooot_price}
+                                                                price={item?.ManagementProductPricing?.price_iqd}
                                                                 detailId={item?.product_details_id}
                                                                 isExpress
                                                                 isCheckBox
@@ -262,7 +264,7 @@ const ProductDetail = (props) => {
 
                                                                     productDetail?.children.forEach(item => {
                                                                         if (uniq.includes(item.product_details_id)) {
-                                                                            totalPrice += item?.ManagementProductPricing?.hanooot_price ? Number(item?.ManagementProductPricing?.hanooot_price) : Number(0);
+                                                                            totalPrice += item?.ManagementProductPricing?.price_iqd ? Number(item?.ManagementProductPricing?.price_iqd) : Number(0);
                                                                         }
                                                                     });
 
@@ -313,7 +315,7 @@ const ProductDetail = (props) => {
                                                                 // item={item}
                                                                 centerImage={item?.product_image}
                                                                 productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
-                                                                price={item?.ManagementProductPricing?.hanooot_price}
+                                                                price={item?.ManagementProductPricing?.price_iqd}
                                                                 detailId={item?.product_details_id}
                                                             // ViewContStyle={{ height: hp(17.86) }}
                                                             />
@@ -373,15 +375,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
-    modalContainer: {
-        // flex: 1,
-        // justifyContent: 'center',
-        // // backgroundColor: '#F5FCFF',
-        // backgroundColor: 'red',
-        width: wp(85.07),
-        height: hp(20.32),
-        backgroundColor: 'red'
-    },
+    // modalContainer: {
+    //     // flex: 1,
+    //     // justifyContent: 'center',
+    //     // // backgroundColor: '#F5FCFF',
+    //     // backgroundColor: 'red',
+    //     width: wp(85.07),
+    //     height: hp(20.32),
+    //     backgroundColor: 'red'
+    // },
     innerContainer: {
         alignItems: 'center',
     },

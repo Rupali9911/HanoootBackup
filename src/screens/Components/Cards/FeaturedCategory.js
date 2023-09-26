@@ -17,6 +17,8 @@ const FeaturedCategory = (props) => {
     const dispatch = useDispatch()
     const navigation = useNavigation();
     const [isAddToCart, setAddToCart] = useState('')
+    const [modalVisible, setModalVisible] = useState(false);
+
 
     const userData = useSelector((state) => state.userReducer.userData);
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
@@ -75,10 +77,10 @@ const FeaturedCategory = (props) => {
                 </View>
                 <View style={{ gap: 18 }}>
                     <Text numberOfLines={2} style={styles.itemName}>{item?.title}</Text>
-                    <Text style={styles.itemPrice}>$ {item?.ManagementProductPricing?.hanooot_price}</Text>
+                    <Text style={styles.itemPrice}>{`${item?.ManagementProductPricing?.price_iqd} ${translate('common.currency_iqd')}`}</Text>
                 </View>
                 <TouchableOpacity style={styles.cartBtn}
-                    onPress={() => userData ? onAddtoCartPress(item?.isCart, item?.id) : showErrorToast(translate('common.loginFirstText'))}
+                    onPress={userData ? onAddtoCartPress(item?.isCart, item?.id) : props.onFeatureCartPress}
                 >
                     <Text style={styles.cartBtnTxt}>{item?.isCart ? translate('common.viewcart') : translate('common.addtocart')}</Text>
                 </TouchableOpacity>
@@ -122,7 +124,7 @@ const FeaturedCategory = (props) => {
                     </TouchableOpacity>
                 </View>
                 {
-                    Data?.featuredCategoryByProduct?.ManagementProducts.length > 0 &&
+                    Data?.featuredCategoryByProduct?.ManagementProducts?.length > 0 &&
 
                     <Carousels
                         Data={sliceIntoChunks(Data?.featuredCategoryByProduct?.ManagementProducts, 3)}

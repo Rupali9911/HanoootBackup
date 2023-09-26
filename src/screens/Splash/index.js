@@ -1,4 +1,4 @@
-import { Image, View } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 import style from './style';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +6,7 @@ import { languageArray } from '../../utility/index';
 import { setAppLanguage, getAllLanguages } from '../Store/reducers/languageReducer';
 import { regionLanguage } from '../../utility/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Images from '../../constant/Images';
 
 const splashSource = require('../../assets/images/splash.png')
 
@@ -16,6 +17,7 @@ const Splash = () => {
   useEffect(() => {
     loadAllData();
   }, []);
+
 
   const loadAllData = async () => {
     dispatch(getAllLanguages());
@@ -82,7 +84,24 @@ const Splash = () => {
         style={style.img}
       />
     </View>
+    // <View style={styles.indicatorContainer}>
+    //   <Image source={Images.loadergif} style={styles.loaderImage} />
+    // </View>
   );
 
 }
 export default Splash
+
+const styles = StyleSheet.create({
+  loaderImage: {
+    alignSelf: 'center',
+  },
+  indicatorContainer: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

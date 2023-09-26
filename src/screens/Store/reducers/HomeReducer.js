@@ -43,56 +43,23 @@ const HomeReducer = (state = initialState, action) => {
                 }
             }
 
-
         case UPADTE_TOP_PICK_CART:
-            var id1 = action.payload
-            // var id2 = action.payload.productId
-            // console.log('UPADTE_TOP_PICK_CART : ', action.payload)
-
-            // var arrFinal = state.HomeCollection?.topPicksJson?.topPicks
-            // var indexOfARR1 = state.HomeCollection?.topPicksJson?.topPicks.findIndex((item) => {
-            //     item.id === id1
-            // })
-
-            var arrFinal = state.HomeCollection?.topPicksJson?.topPicks;
-            var indexOfArrFinal;
-            arrFinal.map((item, index) => {
-
-                var TopPicksArr = item?.TopPicksProducts
+            var arrFinal = state.HomeCollection?.topPicksJson?.topPicks.map((item, index) => {
                 if (item?.id == action.payload.TopPicks) {
-                    indexOfArrFinal = index;
-                    const subArrUpdated = item?.TopPicksProducts.map((subItem, subIndex) => {
-                        // console.log('Here is Sub Items : ', subItem?.ManagementProduct?.title, subItem.id, action.payload.ProductId)
-                        if (subItem.id !== action.payload.ProductId) {
-                            return subItem
-                        }
-                        return {
-                            ...subItem,
-                            isCart: true
+                    let topPicksProducts = item?.TopPicksProducts.map((subItem, subIndex) => {
+                        if (subItem?.product_id == action.payload.ProductId) {
+                            return { ...subItem, ManagementProduct: { ...subItem.ManagementProduct, isCart: true } };
+                        } else {
+                            return { ...subItem }
                         }
                     })
-
-
-                    // console.log('this is subArr : ', typeof (subArrUpdated), "item.TopPicksProducts", typeof (item.TopPicksProducts))
-                    // var abc = {
-                    //     subArrUpdated
-                    // }
-                    // item.TopPicksProducts.push(subArrUpdated)
-
-                    // return subArrUpdated
-
-                    // return {
-                    //     ...item,
-                    //     item.TopPicksProducts
-                    // }
+                    return { ...item, TopPicksProducts: topPicksProducts }
+                } else {
+                    return { ...item }
                 }
-                else {
-                    return i
-                }
+
             })
-
-            console.log('here is our final array :', JSON.stringify(arrFinal))
-
+            console.log('Here is our final array : ', JSON.stringify(arrFinal))
             return {
                 ...state,
                 HomeCollection: {
@@ -104,104 +71,6 @@ const HomeReducer = (state = initialState, action) => {
                 }
 
             };
-
-        // console.log('UPADTE_TOP_PICK_CART : ', id1);
-        // var arrFinal = state.HomeCollection?.topPicksJson?.topPicks;
-
-        // var arrUpdated = arrFinal.map((item, index) => {
-        //     var TopPicksArr = item?.TopPicksProducts
-        //     // console.log('here is ids : ', item?.id, action.payload)
-        //     if (item?.id == action.payload.TopPicks) {
-        //         // console.log('here is idsgjg(jhgjgjg : ')
-        //         const subArrUpdated = item?.TopPicksProducts.map((subItem, subIndex) => {
-        //             // console.log('Here is Sub Items : ', subItem?.ManagementProduct?.title, subItem.id, action.payload.ProductId)
-        //             if (subItem.id !== action.payload.ProductId) {
-        //                 return subItem
-        //             }
-        //             return {
-        //                 ...subItem,
-        //                 isCart: true
-        //             }
-        //         })
-
-        //         // console.log('Sub Array Updated : ', subArrUpdated);
-
-        //         TopPicksProducts = subArrUpdated
-
-        //         // return {
-        //         //     ...state,
-        //         //     HomeCollection: {
-        //         //         ...state.HomeCollection,
-        //         //         topPicksJson: {
-        //         //             ...state.HomeCollection.topPicksJson.topPicks,
-        //         //             // topPicks: [
-        //         //             //     ...state.HomeCollection.topPicksJson.topPicks,
-        //         //             //     TopPicksProducts[index] = subArrUpdated
-        //         //             // ]
-        //         //             topPicks[index]: 'dfsd'
-        //         //         }
-        //         //         // [
-        //         //         //     ...state.slice(0, index), // everything before current post
-        //         //         //     {
-        //         //         //        ...state[index],
-        //         //         //        status: action.type === 'PUBLISH_POST' ? 1 : 0,
-        //         //         //     },
-        //         //         //     ...state.slice(index + 1), // everything after current post
-        //         //         //  ]
-
-
-
-
-
-
-        //         //         topPicksJson: {
-        //         //             ...state.HomeCollection.topPicksJson,
-        //         //             topPicks: [
-        //         //                 ...state.HomeCollection.topPicksJson,
-        //         //                 TopPicksProducts: subArrUpdated
-        //         //             ]
-        //         //         }
-        //         //     }
-        //         // }
-
-        //         // TopPicksArr = subArrUpdated;
-        //     }
-        // })
-
-        // console.log('here is an updated array : ', JSON.stringify(arrUpdated))
-
-
-        // var arrUpdated = state.HomeCollection?.topPicksJson?.topPicks[indexOfARR1]?.TopPicksProducts.map((item, index) => {
-        //     if (item.id !== id2) {
-        //         return item
-        //     }
-        //     return {
-        //         ...item,
-        //         isCart: true
-        //     }
-        // })
-        // console.log('arrUpdated : ', arrUpdated)
-
-        // arrFinal = arrFinal.map((item, index) => {
-        //     if (index === indexOfARR1) {
-        //         return arrUpdated
-        //     }
-        //     return {
-        //         item
-        //     }
-        // })
-
-        // return {
-        //     ...state,
-        //     HomeCollection: {
-        //         ...state.HomeCollection,
-        //         topPicksJson: {
-        //             ...state.HomeCollection.topPicksJson,
-        //             topPicks: arrFinal
-        //         }
-        //     }
-        // }
-
 
         case HOME_DATA_FAIL:
             return { ...state, homeDataFail: action.payload, isLoading: false };

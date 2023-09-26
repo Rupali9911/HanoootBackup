@@ -10,7 +10,7 @@ const CartTotal = (props) => {
         <View style={styles.mainCont}>
             <View style={styles.container}>
                 <Text style={styles.Text}>{translate('common.subtotal')}(1 {translate('common.itemCap')})</Text>
-                <Text style={[styles.Text, { fontWeight: 'bold' }]}>{`$ ${props.totalCost ? props.totalCost : 0}`}</Text>
+                <Text style={[styles.Text, { fontWeight: 'bold' }]}>{`${props.totalCost ? props.totalCost : 0} ${translate('common.currency_iqd')}`}</Text>
             </View>
             <View style={styles.container}>
                 <Text style={styles.Text}>{translate('common.coupondiscount')}</Text>
@@ -19,7 +19,7 @@ const CartTotal = (props) => {
             <Separator />
             <View style={styles.container}>
                 <Text style={[styles.Text, { fontWeight: 'bold', fontSize: 16 }]}>{translate('common.total')} <Text style={{ fontSize: 12, color: Colors.PRICEGRAY }}> ({translate('common.inclusiveofvat')})</Text></Text>
-                <Text style={[styles.Text, { fontWeight: 'bold', fontSize: 18 }]}>{`$ ${Number(props.totalCost) - Number(props.couponAmt)}`}</Text>
+                <Text style={[styles.Text, { fontWeight: 'bold', fontSize: 18 }]}>{`${Number(props.totalCost) - Number(props.couponAmt)} ${translate('common.currency_iqd')}`}</Text>
             </View>
         </View>
     )

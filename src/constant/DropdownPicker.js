@@ -66,24 +66,125 @@ const DropdownPicker = (props) => {
   const [value, setValue] = useState();
   const [items, setItems] = useState();
 
+  const IqaqCities = [
 
+    {
+      "countryCode": "IQ",
+      "latitude": "33.340582",
+      "longitude": "44.400878",
+      "name": "Baghdad",
+      "stateCode": "BG"
+    },
+    {
+      "countryCode": "IQ",
+      "latitude": "30.495649",
+      "longitude": "47.817352",
+      "name": "Basra",
+      "stateCode": "BS"
+    },
+    {
+      "countryCode": "IQ",
+      "latitude": "35.564069",
+      "longitude": "45.432029",
+      "name": "Erbil",
+      "stateCode": "EB"
+    },
+    {
+      "countryCode": "IQ",
+      "latitude": "32.082167",
+      "longitude": "46.223617",
+      "name": "Najaf",
+      "stateCode": "NJ"
+    },
+    {
+      "countryCode": "IQ",
+      "latitude": "32.477392",
+      "longitude": "44.420829",
+      "name": "Karbala",
+      "stateCode": "KA"
+    },
+    {
+      "countryCode": "IQ",
+      "latitude": "33.308584",
+      "longitude": "44.346979",
+      "name": "Kirkuk",
+      "stateCode": "KI"
+    },
+    {
+      "countryCode": "IQ",
+      "latitude": "36.340000",
+      "longitude": "43.130001",
+      "name": "Duhok",
+      "stateCode": "DU"
+    },
+    {
+      "countryCode": "IQ",
+      "name": "AI-Anbar",
+      "stateCode": "AN"
+    },
+    {
+      "countryCode": "IQ",
+      "name": "Babil",
+      "stateCode": "BB"
+    },
+    {
+      "countryCode": "IQ",
+      "name": "Dhi Qar",
+      "stateCode": "DQ"
+    },
+    {
+      "countryCode": "IQ",
+      "name": "Diyala",
+      "stateCode": "DI"
+    },
+    {
+      "countryCode": "IQ",
+      "name": "Maysan",
+      "stateCode": "MA"
+    },
+    {
+      "countryCode": "IQ",
+      "name": "Muthanna",
+      "stateCode": "MU"
+    },
+    {
+      "countryCode": "IQ",
+      "name": "Ninawa",
+      "stateCode": "NI"
+    },
+    {
+      "countryCode": "IQ",
+      "name": "Salah Al-Din",
+      "stateCode": "SD"
+    },
+    {
+      "countryCode": "IQ",
+      "name": "Sulaymaniyah",
+      "stateCode": "SU"
+    },
+    {
+      "countryCode": "IQ",
+      "name": "Wasit",
+      "stateCode": "WA"
+    },
+    {
+      "countryCode": "IQ",
+      "name": "Al-Qādisiyyah",
+      "stateCode": "QA"
+    },
+  ]
 
   useEffect(() => {
     const array = [];
-    // // if ('France') {
-    // getStates('in').map((item) => {
-    //   array.push(
-    //     {
-    //       label: item,
-    //       value: item
-    //     }
-    //   );
-    // });
-    // // setStates(array);
-    // setItems(array)
+    //============================================================
 
+    const sortedArr = [...IqaqCities].sort((a, b) =>
+      a.name > b.name ? 1 : -1,
+    );
 
-    City.getCitiesOfCountry('IQ').map((item) => {
+    // City.getCitiesOfCountry('IQ').map((item) => {
+    sortedArr.map((item) => {
+      console.log('getCitiesOfCountry : ', item)
       array.push(
         {
           label: item?.name,
@@ -93,12 +194,6 @@ const DropdownPicker = (props) => {
     });
     setItems(array);
 
-    // console.log('cities : ', getCity)
-
-    // console.log('cgecxh state arry : ', array)
-    // console.log('cgecxh state arry : ',Country.getCountryByCode())
-    // console.log('state  : ',State.getStatesOfCountry('IN'))
-    // }
   }, []);
 
   // console.log('this is value to show : ', value, setValue)
@@ -123,7 +218,7 @@ const DropdownPicker = (props) => {
                 onChangeItem={item => setSelectedValue(item.value)}
             /> */}
 
-        <Text style={[styles.label, props.labelStyle]}>{translate('common.townCity')}<Text style={{ color: 'red' }}>*</Text></Text>
+        <Text style={[styles.label, props.labelStyle]}>{translate('common.townCity')}<Text style={{ color: Colors.RED }}>*</Text></Text>
 
 
         <DropDownPicker
@@ -138,7 +233,7 @@ const DropdownPicker = (props) => {
           // listMode={'MODAL'}
           // defaultValue={props.Value}
 
-          placeholder={translate('common.selectcountry')}
+          placeholder={translate('common.selectcity')}
           placeholderStyle={{
             fontFamily: fonts.VisbyCF_Medium,
             fontWeight: '500',
@@ -200,7 +295,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     marginHorizontal: '5%',
     maxHeight: hp(33.62),
-    marginTop: '5%',
+    // marginTop: '5%',
     zIndex: 1,
     marginBottom: 50,
     // backgroundColor: 'green'
@@ -260,10 +355,13 @@ const styles = StyleSheet.create({
     color: 'red'
   },
   label: {
-    // ...CommonStyles.text(Fonts.ARIAL_BOLD, Colors.titleColor, RF(1.6)),
-    fontWeight: "700",
-    // marginHorizontal: wp('2%'),
-    //  textAlign: 'center',
+    fontFamily: fonts.VISBY_CF_REGULAR,
+    lineHeight: 19,
+    letterSpacing: 0.5,
+    marginBottom: 5,
+    fontWeight: '500',
+    color: Colors.PRICEGRAY,
+    fontSize: 14
   },
   arrow: {
     height: wp("2%"),
@@ -283,14 +381,14 @@ const styles = StyleSheet.create({
     color: Colors.BLACK,
     fontWeight: 'normal'
   },
-  label: {
-    fontFamily: fonts.VisbyCF_Medium,
-    lineHeight: 19,
-    letterSpacing: 0.5,
-    marginBottom: 5,
-    fontWeight: '500',
-    color: Colors.BLACK
-  },
+  // label: {
+  //   fontFamily: fonts.VisbyCF_Medium,
+  //   lineHeight: 19,
+  //   letterSpacing: 0.5,
+  //   marginBottom: 5,
+  //   fontWeight: '500',
+  //   color: Colors.BLACK
+  // },
   errorMessage: {
     fontSize: 14,
     color: Colors.RED1,

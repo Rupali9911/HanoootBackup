@@ -40,7 +40,7 @@ const ListView = (props) => {
     // console.log('averageRating : ', averageRating,noOfReview)
 
 
-    console.log('CHECK Product Detail ID : ', detailId)
+    // console.log('CHECK Product Detail ID : ', detailId)
 
 
 
@@ -51,6 +51,7 @@ const ListView = (props) => {
     const [totalCost, setTotalCost] = useState(0)
     const [checkboxCount, setCheckboxCount] = useState(0);
     const [checked, setChecked] = useState([]);
+
 
     const dispatch = useDispatch();
 
@@ -94,9 +95,11 @@ const ListView = (props) => {
                 // setLiked(false);
             }
         }
-        else {
-            showErrorToast(translate('common.loginFirstText'))
-        }
+        // else {
+        //     // showErrorToast(translate('common.shoppingNeedsText'), translate('common.pleaseloginfirst'))
+        //     // setModalVisible(true)
+        //     props.onWishlistPress
+        // }
 
     }
 
@@ -159,7 +162,7 @@ const ListView = (props) => {
                         showLike
                             ?
                             <TouchableOpacity
-                                onPress={addToWishlistProduct}
+                                onPress={userData ? addToWishlistProduct : props.onWishlistPress}
                             >
                                 {/* {
                                     isItemLiked ? <HeartIconActive /> : isLiked ? <HeartIconActive /> : <HeartIcon />
@@ -241,7 +244,7 @@ const ListView = (props) => {
 
                     {
                         price &&
-                        <Text style={[styles.price, props.TotalPriceStyle]}>$ {price}</Text>
+                        <Text style={[styles.price, props.TotalPriceStyle]}>{`${price} ${translate('common.currency_iqd')}`}</Text>
                     }
 
 

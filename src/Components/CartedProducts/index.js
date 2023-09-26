@@ -15,6 +15,8 @@ import { translate } from '../../utility'
 const CartProductCards = (props) => {
     const { item } = props;
 
+    // console.log('here is carted items : ', ite)
+
     const { cartData } = useSelector(state => state.cartReducer);
     const { ProductData } = useSelector(state => state.orderReducer);
     const { isBuyNowButton } = useSelector(state => state.productListReducer);
@@ -78,7 +80,7 @@ const CartProductCards = (props) => {
                     {getDeliveryInfo()}
                     {getExpressView()}
                     {/* <Text style={styles.itemDetail} >Sold by <Text style={{ color: Colors.themeColor }}>Ecom Nation</Text></Text> */}
-                    <Text style={styles.itemName} >$ {item?.price ? item?.price : 0}</Text>
+                    <Text style={styles.itemName} >{`${item?.price ? item?.price : 0} ${translate('common.currency_iqd')}`}</Text>
                 </View>
             </View>
             <CartItemQuantity

@@ -20,16 +20,12 @@ const TopPicks = (props) => {
   const userData = useSelector((state) => state.userReducer.userData);
   const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
-  const [isAddToCart, setAddToCart] = useState('');
-
   const onAddtoCartPress = async (isCartedItem, productId, topPicksId) => {
     try {
       if (!isCartedItem) {
-
         const response = await AddtoCartAPICall(productId, 1)
         if (response?.success) {
           setTimeout(() => {
-            // setAddToCart(true)
             dispatch(updateTopPicksCart({ TopPicks: topPicksId, ProductId: productId }))
             showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
           }, 1000);
@@ -39,7 +35,7 @@ const TopPicks = (props) => {
         }
       }
       else if (isCartedItem) {
-        // navigation.navigate('CartScreen', { screen: true })
+        navigation.navigate('CartScreen', { screen: true })
       }
 
 
@@ -62,11 +58,11 @@ const TopPicks = (props) => {
         </View>
         <View style={{}}>
           <Text numberOfLines={2} style={styles.itemName}>{item?.ManagementProduct?.title}</Text>
-          <Text style={styles.itemPrice}>$ {item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
+          <Text style={styles.itemPrice}>{`${item?.ManagementProduct?.ManagementProductPricing?.price_iqd} ${translate('common.currency_iqd')}`}</Text>
         </View>
         <TouchableOpacity style={styles.cartBtn}
-          onPress={() =>
-            userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.id, topPicksId) : showErrorToast(translate('common.loginFirstText'))}
+          onPress={
+            userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.product_id, topPicksId) : props.onTopPicksCartPress}
         >
           <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? translate('common.viewcart') : translate('common.addtocart')}</Text>
         </TouchableOpacity>
@@ -181,8 +177,10 @@ const styles = StyleSheet.create({
     marginVertical: '2%',
     alignContent: 'center',
     height: hp(25.95),
+    maxHeight: hp(25.95),
     // backgroundColor: 'red',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    // backgroundColor: 'red'
   },
   itemImgContainer: {
     height: hp(11.70),

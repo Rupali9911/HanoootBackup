@@ -15,11 +15,12 @@ const RecentlyViewProduct = (props) => {
             <ListView
                 centerImage={item?.ManagementProduct?.product_image}
                 productName={item?.ManagementProduct?.title}
-                price={item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}
+                price={item?.ManagementProduct?.ManagementProductPricing?.price_iqd}
                 isLeftImage={item?.ManagementBrand?.name}
                 showLike
                 isItemLiked={item?.isLike}
                 detailId={item?.product_id}
+                onWishlistPress={props.onWishlistPress}
             />
         );
     }

@@ -43,8 +43,6 @@ const ReviewOrder = (props) => {
   const listItems = isBuyNowButton ? Product : cartItems;
 
 
-  console.log('data , listItems, data', listItems, data)
-
 
   useEffect(() => {
     if (isBuyNowButton) {
@@ -77,20 +75,20 @@ const ReviewOrder = (props) => {
         <View style={styles.priceViewCont}>
           <View style={styles.rowCont}>
             <Text style={styles.priceLeftText}>{translate('common.subtotal')} (1 {translate('common.item')})</Text>
-            <Text style={styles.price}>$ {data?.total_cost}</Text>
+            <Text style={styles.price}>{`${data?.total_cost} ${translate('common.currency_iqd')}`}</Text>
           </View>
           <View style={styles.rowCont}>
             <Text style={styles.priceLeftText}>{translate('common.coupondiscount')}</Text>
-            <Text style={[styles.price, { color: Colors.GREEN }]}>$ 0</Text>
+            <Text style={[styles.price, { color: Colors.GREEN }]}>{`0 ${translate('common.currency_iqd')}`}</Text>
           </View>
           <View style={styles.rowCont}>
             <Text style={styles.priceLeftText}>{translate('common.shippingcost')}</Text>
-            <Text style={styles.price}>$ 0</Text>
+            <Text style={styles.price}>{`0 ${translate('common.currency_iqd')}`}</Text>
           </View>
           <Separator separatorStyle={{ width: wp(90) }} />
           <View style={styles.rowCont}>
             <Text style={styles.TotalPrice}>{translate('common.total')} <Text style={{ color: Colors.PRICEGRAY, fontWeight: 500 }}>({translate('common.inclusiveofvat')})</Text></Text>
-            <Text style={styles.TotalPrice}>$ {data?.total_cost}</Text>
+            <Text style={styles.TotalPrice}>{`${data?.total_cost} ${translate('common.currency_iqd')}`}</Text>
           </View>
         </View>
       </>

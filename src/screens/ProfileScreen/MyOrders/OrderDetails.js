@@ -56,7 +56,7 @@ const OrderDetails = (props) => {
                 <View style={styles.textContainer}>
                     <Text style={styles.productName}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>
                     <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>{translate('common.quantity')}<Text style={{ color: Colors.BLACK }}>{item?.quantity}</Text></Text>
-                    <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]}>$ {item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}</Text>
+                    <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]}>{`${item?.ManagementProduct?.ManagementProductPricing?.price_iqd} ${translate('common.currency_iqd')}`}</Text>
                 </View>
             </View>
         );
@@ -152,22 +152,22 @@ const OrderDetails = (props) => {
 
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={styles.orderDetail}>{`${translate('common.subtotal')} (${orderDetail?.OrderProducts?.length} ${translate('common.itemCap')})`}</Text>
-                                <Text style={[styles.orderDetail, styles.fontIncrease]}>$ {orderDetail?.total_amount}</Text>
+                                <Text style={[styles.orderDetail, styles.fontIncrease]}>{`${orderDetail?.total_amount} ${translate('common.currency_iqd')}`}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={styles.orderDetail}>{translate('common.coupondiscount')}</Text>
-                                <Text style={[styles.orderDetail, styles.fontIncrease, { color: Colors.GREEN }]}>$ {orderDetail?.coupon_percentage}</Text>
+                                <Text style={[styles.orderDetail, styles.fontIncrease, { color: Colors.GREEN }]}>{`0 ${translate('common.currency_iqd')}`}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={styles.orderDetail}>{translate('common.shippingcost')}</Text>
-                                <Text style={[styles.orderDetail, styles.fontIncrease]}>$ {orderDetail?.shipping_cost}</Text>
+                                <Text style={[styles.orderDetail, styles.fontIncrease]}>{`0 ${translate('common.currency_iqd')}`}</Text>
                             </View>
                             <View style={styles.separator} />
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
                                 <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>{translate('common.total')}<Text style={{ color: Colors.PRICEGRAY, fontWeight: 500 }}>{`(${translate('common.inclusiveofvat')})`}</Text></Text>
 
-                                <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>$ {orderDetail?.total_payable_amount}</Text>
+                                <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>{`${orderDetail?.total_payable_amount} ${translate('common.currency_iqd')}`}</Text>
                             </View>
                         </View>
 

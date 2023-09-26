@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { translate } from '../../utility'
 import { capitalizeFirstLetter } from '../utils'
+import { SvgUri } from 'react-native-svg';
 
 
 const ViewMoreCategories = (props) => {
@@ -27,16 +28,26 @@ const ViewMoreCategories = (props) => {
 
     const renderItem = ({ item, index }) => {
         console.log('this are items from view more categories : ', item)
+        const imageUrl = item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png';
+        const extension = imageUrl.split('.').pop().toLowerCase();
+
         return (
             <TouchableOpacity style={styles.itemContainer}
                 onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: selectedLanguageItem?.language_id === 0 ? item?.name : item?.name_arabic })}
-            // onPress={() => { }}
-
             >
-                <Image
-                    source={{ uri: item?.thumbnail_image }}
-                    style={styles.image}
-                />
+                {
+                    extension === 'svg' ?
+                        <SvgUri
+                            width={wp(13)}
+                            height={hp(6)}
+                            uri={imageUrl}
+                        />
+                        :
+                        <Image
+                            source={{ uri: imageUrl }}
+                            style={styles.image}
+                        />
+                }
                 {
                     item?.name &&
                     <Text numberOfLines={2}
@@ -103,5 +114,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    subCategoryText: {
+        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontWeight: 500,
+        lineHeight: 15,
+        letterSpacing: 0.5,
+        textAlign: 'center'
+    },
 })

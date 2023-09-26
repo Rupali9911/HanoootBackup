@@ -17,13 +17,14 @@ const NewArrivals = (props) => {
                 item={item}
                 centerImage={item?.product_image}
                 productName={item?.title}
-                price={item?.ManagementProductPricing?.hanooot_price}
+                price={item?.ManagementProductPricing?.price_iqd}
                 isLeftImage={item?.ManagementBrand?.name}
                 showLike
                 isItemLiked={item?.isLike}
                 isDiscountTag
                 TotalPriceStyle={{ color: Colors.PRICEGREEN }}
                 detailId={item?.id}
+                onWishlistPress={props.onWishlistPress}
             />
         );
     }

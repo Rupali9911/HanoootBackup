@@ -10,12 +10,15 @@ import SVGS from '../../constant/Svgs';
 import { useSelector } from 'react-redux';
 import { showErrorToast } from '../../Components/universal/Toast';
 import { translate } from '../../utility';
+import AppModal from '../../Components/universal/Modal';
+import ModalContentWithoutLogin from '../../Components/universal/Modal/ModalContentWithoutLogin';
 
-const { HeartIconBlack, CartIcon, SearchIcon, HanoootLogo } = SVGS;
+const { HeartIconBlack, CartBlackIcon, SearchIcon, HanoootLogo } = SVGS;
 
 
 export default function AppHeader(props) {
   const [isSearch, setSearch] = useState(false)
+
   const navigation = useNavigation();
 
   const userData = useSelector((state) => state.userReducer.userData);
@@ -38,7 +41,7 @@ export default function AppHeader(props) {
   }
 
   const renderToastMsg = () => {
-    showErrorToast(translate('common.loginFirstText'))
+    // showErrorToast(translate('common.shoppingNeedsText'), translate('common.pleaseloginfirst'))
   }
 
   return (
@@ -105,7 +108,7 @@ export default function AppHeader(props) {
             props.showLikeIcon &&
             <RightSideIcon
               // onPress={props.onLikePress}
-              onPress={() => userData ? navigation.navigate('WishlistScreen') : renderToastMsg()}
+              onPress={props.onWishlistPress}
             // image={Images.Wishlist}
 
             >
@@ -127,10 +130,10 @@ export default function AppHeader(props) {
           {
             props.showCartIcon &&
             <RightSideIcon
-              onPress={() => userData ? navigation.navigate('CartScreen', { screen: true }) : renderToastMsg()}
+              onPress={props.onCartPress}
             // image={Images.cart}
             >
-              <CartIcon width={SIZE(20)} height={SIZE(20)} color={'red'} />
+              <CartBlackIcon width={SIZE(20)} height={SIZE(20)} />
             </RightSideIcon>
           }
         </View>

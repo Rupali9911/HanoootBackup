@@ -12,16 +12,16 @@ const SuggestedProducts = (props) => {
     const navigation = useNavigation();
 
     const renderItem = ({ item, index }) => {
-        console.log('suggestedProducts item id : ', item?.id)
         return (
             <ListView
                 centerImage={item?.product_image}
                 productName={item?.title}
-                price={item?.ManagementProductPricing?.hanooot_price}
+                price={item?.ManagementProductPricing?.price_iqd}
                 isLeftImage={item?.ManagementBrand?.name}
                 showLike
                 isItemLiked={item?.isLike}
                 detailId={item?.id}
+                onWishlistPress={props.onWishlistPress}
             />
         );
     }

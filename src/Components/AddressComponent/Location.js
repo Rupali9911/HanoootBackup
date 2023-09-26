@@ -27,8 +27,8 @@ const Location = (props) => {
   const [address, setAddress] = useState(updateRegion ? updateRegion?.address : '')
   const [getInitialState, setGetInitialState] = useState({
     region: {
-      latitude: updateRegion ? Number(updateRegion?.latitude) : 22.7196,
-      longitude: updateRegion ? Number(updateRegion?.longitude) : 75.1577,
+      latitude: updateRegion ? Number(updateRegion?.latitude) : 33.312805,
+      longitude: updateRegion ? Number(updateRegion?.longitude) : 44.361488,
       latitudeDelta: 0.0022,
       longitudeDelta: 0.0022,
     },

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity, Platform, ActivityIndicator } from 'react-native'
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import AppBackground from './AppBackground'
 import AppHeader from './AppHeader'
 import Images from '../../constant/Images'
@@ -15,8 +15,12 @@ import { capitalizeFirstLetter } from '../utils'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { showErrorToast } from '../../Components/universal/Toast'
 import { translate } from '../../utility'
+import AppModal from '../../Components/universal/Modal'
+import ModalContentWithoutLogin from '../../Components/universal/Modal/ModalContentWithoutLogin'
 
 const ProductListWithFilters = (props) => {
+    const [modalVisible, setModalVisible] = useState(false);
+
     const DATA = props?.route?.params;
 
     const dispatch = useDispatch();
@@ -54,7 +58,7 @@ const ProductListWithFilters = (props) => {
                     item={item}
                     centerImage={item?.product_image}
                     productName={item?.title}
-                    price={item?.ManagementProductPricing?.hanooot_price}
+                    price={item?.ManagementProductPricing?.price_iqd}
                     isLeftImage={item?.ManagementBrand?.name}
                     showLike
                     isItemLiked={item?.isLike}
@@ -62,6 +66,7 @@ const ProductListWithFilters = (props) => {
                     TotalPriceStyle={{ color: Colors.PRICEGREEN }}
                     detailId={item?.id}
                     ViewContStyle={{ width: wp('100%') / 2 - wp('5%') }}
+                    onWishlistPress={() => setModalVisible(true)}
                 />
                 :
                 DATA?.isNavigationSection === 'SuggestedProducts'
@@ -69,12 +74,13 @@ const ProductListWithFilters = (props) => {
                     <ListView
                         centerImage={item?.product_image}
                         productName={item?.title}
-                        price={item?.ManagementProductPricing?.hanooot_price}
+                        price={item?.ManagementProductPricing?.price_iqd}
                         isLeftImage={item?.ManagementBrand?.name}
                         showLike
                         isItemLiked={item?.isLike}
                         detailId={item?.id}
                         ViewContStyle={{ width: wp('100%') / 2 - wp('5%') }}
+                        onWishlistPress={() => setModalVisible(true)}
                     />
                     :
                     DATA?.isNavigationSection === 'RecentlyViewProduct'
@@ -82,19 +88,20 @@ const ProductListWithFilters = (props) => {
                         <ListView
                             centerImage={item?.ManagementProduct?.product_image}
                             productName={item?.ManagementProduct?.title}
-                            price={item?.ManagementProduct?.ManagementProductPricing?.hanooot_price}
+                            price={item?.ManagementProduct?.ManagementProductPricing?.price_iqd}
                             isLeftImage={item?.ManagementBrand?.name}
                             showLike
                             isItemLiked={item?.isLike}
                             detailId={item?.product_id}
                             ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), }}
+                            onWishlistPress={() => setModalVisible(true)}
                         />
                         :
                         <ListView
                             item={item}
                             centerImage={item?.product_image}
                             productName={selectedLanguageItem?.language_id === 0 ? capitalizeFirstLetter(item?.ManagementProductSeo?.product_name) : item?.ManagementProductSeo?.product_name_arabic}
-                            price={item?.ManagementProductPricing?.hanooot_price}
+                            price={item?.ManagementProductPricing?.price_iqd}
                             // discount={item?.ManagementProductPricing.hanooot_discount}
                             averageRating={item?.ManagementProductReview?.average_rating}
                             noOfReview={item?.ManagementProductReview?.number_of_reviews}
@@ -106,6 +113,7 @@ const ProductListWithFilters = (props) => {
                             ViewContStyle={{
                                 width: wp('100%') / 2 - wp('5%'), height: hp(33.62)
                             }}
+                            onWishlistPress={() => setModalVisible(true)}
                         />
         );
     }
@@ -147,7 +155,7 @@ const ProductListWithFilters = (props) => {
     }
 
     const renderToastMsg = () => {
-        showErrorToast(translate('common.loginFirstText'))
+        showErrorToast(translate('common.shoppingNeedsText'), translate('common.pleaseloginfirst'))
     }
 
 
@@ -180,9 +188,6 @@ const ProductListWithFilters = (props) => {
         );
     }
 
-
-    // console.log('PRODUCT LIST DATA : ', productList)
-
     return (
 
         <AppBackground>
@@ -193,6 +198,8 @@ const ProductListWithFilters = (props) => {
                 showLikeIcon
                 showSearchIcon
                 showCartIcon
+                onCartPress={() => userData ? navigation.navigate('CartScreen', { screen: true }) : setModalVisible(true)}
+                onWishlistPress={() => userData ? navigation.navigate('WishlistScreen') : setModalVisible(true)}
             />
             {
                 isListLoading && productListPage === 1 ?
@@ -203,6 +210,19 @@ const ProductListWithFilters = (props) => {
                         renderNoDataFound()
             }
 
+            <AppModal
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)}>
+                <ModalContentWithoutLogin
+                    onCancelPress={() => {
+                        setModalVisible(false);
+                    }}
+                    onOkPress={() => {
+                        navigation.navigate('Login');
+                        setModalVisible(false);
+                    }}
+                />
+            </AppModal>
         </AppBackground>
 
     )
