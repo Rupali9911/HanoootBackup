@@ -32,7 +32,6 @@ export const signInWithPhoneNumber = (phoneNumber) => {
                 resolve(response)
             })
             .catch(error => {
-
                 handleAuthError(error)
                 _reject(error)
             })

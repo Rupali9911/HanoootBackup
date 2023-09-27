@@ -31,6 +31,7 @@ const Signup = () => {
     const [showPassword, setShowPassword] = useState(true);
     const [mobileSwitch, setMobileSwitch] = useState(true)
     const [error, setError] = useState({})
+    const [loadingButton, setLoadingButton] = useState(false)
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -90,9 +91,11 @@ const Signup = () => {
         //     })
 
         try {
+            setLoadingButton(true)
             await checkPhoneNumberOrEmailExists(formattedNum)
             const authResults = await signInWithPhoneNumber(formattedNum)
             console.log('Name from Signup screen', name)
+            setLoadingButton(false)
 
             navigation.navigate('OtpVerification', {
                 authResult: authResults,
@@ -103,6 +106,8 @@ const Signup = () => {
         }
         catch (error) {
             console.log('Error from Check phone number api', error)
+            setLoadingButton(false)
+
         }
     }
 
@@ -256,6 +261,7 @@ const Signup = () => {
                     label={translate('common.continue')}
                     containerStyle={{ marginVertical: '5%' }}
                     onPress={signupTapped}
+                    isIndicatorLoading={loadingButton}
                 />
 
                 <AuthBottomContainer
