@@ -57,12 +57,12 @@ const TopPicks = (props) => {
           <Image source={{ uri: item?.ManagementProduct?.product_image ? item?.ManagementProduct?.product_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }} style={styles.itemImg} />
         </View>
         <View style={{}}>
-          <Text numberOfLines={2} style={styles.itemName}>{item?.ManagementProduct?.title}</Text>
+          <Text numberOfLines={2} style={styles.itemName}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>
           <Text style={styles.itemPrice}>{`${item?.ManagementProduct?.ManagementProductPricing?.price_iqd} ${translate('common.currency_iqd')}`}</Text>
         </View>
         <TouchableOpacity style={styles.cartBtn}
           onPress={
-            userData ? onAddtoCartPress(item?.ManagementProduct?.isCart, item?.product_id, topPicksId) : props.onTopPicksCartPress}
+            userData ? () => onAddtoCartPress(item?.ManagementProduct?.isCart, item?.product_id, topPicksId) : props.onTopPicksCartPress}
         >
           <Text style={styles.cartBtnTxt}>{item?.ManagementProduct?.isCart ? translate('common.viewcart') : translate('common.addtocart')}</Text>
         </TouchableOpacity>

@@ -76,11 +76,11 @@ const FeaturedCategory = (props) => {
                     <Image source={{ uri: item?.product_image }} style={styles.itemImg} />
                 </View>
                 <View style={{ gap: 18 }}>
-                    <Text numberOfLines={2} style={styles.itemName}>{item?.title}</Text>
+                    <Text numberOfLines={2} style={styles.itemName}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}</Text>
                     <Text style={styles.itemPrice}>{`${item?.ManagementProductPricing?.price_iqd} ${translate('common.currency_iqd')}`}</Text>
                 </View>
                 <TouchableOpacity style={styles.cartBtn}
-                    onPress={userData ? onAddtoCartPress(item?.isCart, item?.id) : props.onFeatureCartPress}
+                    onPress={userData ? () => onAddtoCartPress(item?.isCart, item?.id) : props.onFeatureCartPress}
                 >
                     <Text style={styles.cartBtnTxt}>{item?.isCart ? translate('common.viewcart') : translate('common.addtocart')}</Text>
                 </TouchableOpacity>
@@ -115,21 +115,21 @@ const FeaturedCategory = (props) => {
             />
             <View style={styles.container}>
                 <View style={styles.headingContainer}>
-                    <Text style={styles.title} numberOfLines={2}>{Data?.tittle}</Text>
+                    <Text style={styles.title} numberOfLines={2}>{selectedLanguageItem?.language_id === 0 ? Data?.tittle : translate('common.foundontiktok')}</Text>
                     <TouchableOpacity
                         style={styles.seeAllBtn}
-                        onPress={() => navigation.navigate('ProductListWithFilters', { category_id: Data?.featuredCategoryByProduct?.id, headerTitle: Data?.featuredCategoryByProduct?.name })}
+                        onPress={() => navigation.navigate('ProductListWithFilters', { category_id: Data?.featuredCategoryByProduct?.category_id, headerTitle: selectedLanguageItem?.language_id === 0 ? Data?.tittle : translate('common.foundontiktok') })}
                     >
                         <Text style={styles.seeAllBtnText}>{translate('common.seeall')}</Text>
                     </TouchableOpacity>
                 </View>
                 {
-                    Data?.featuredCategoryByProduct?.ManagementProducts?.length > 0 &&
+                    Data?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts?.length > 0 &&
 
                     <Carousels
-                        Data={sliceIntoChunks(Data?.featuredCategoryByProduct?.ManagementProducts, 3)}
+                        Data={sliceIntoChunks((Data?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts).slice(0, 9), 3)}
                         renderItem={renderCarousal}
-                        dotsLength={sliceIntoChunks(Data?.featuredCategoryByProduct?.ManagementProducts, 3).length}
+                        dotsLength={sliceIntoChunks((Data?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts).slice(0, 9), 3).length}
                         loop={true}
                         autoplay={true}
                         sliderWidth={wp(86.93)}

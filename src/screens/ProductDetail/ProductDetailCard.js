@@ -190,7 +190,7 @@ const ProductDetailCard = (props) => {
                         />
                         <Text style={styles.choiceTextStyle}>{translate('common.choice')}</Text>
                     </View>
-                    <Text style={styles.forTextStyle}>{renderText(props?.title)}</Text>
+                    <Text style={styles.forTextStyle} numberOfLines={2}>{renderText(props?.title)}</Text>
                 </View>
             </View>
             <Separator />
@@ -209,7 +209,7 @@ const ProductDetailCard = (props) => {
                 <View style={styles.firstLineView}>
 
                     <View style={styles.textView}>
-                        <Text style={styles.totalPrice}>{`${price} ${translate('common.currency_iqd')}`}</Text>
+                        <Text style={styles.totalPrice}>{`${price ? price : 0} ${translate('common.currency_iqd')}`}</Text>
                         <Text style={styles.inclusiveTax}>{`(${translate('common.inclusiveofvat')})`}</Text>
                     </View>
                     <ExpressView />

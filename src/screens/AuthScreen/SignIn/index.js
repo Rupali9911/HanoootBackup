@@ -92,12 +92,12 @@ const Login = (props) => {
                 console.log('Response from signInWithEmailAndPwd is user object exists', response?.user)
                 // dispatch(setUserData(response?.user))
                 saveUserDetails(response?.user, dispatch)
-                if (props?.route?.params?.cameFrom) {
-                    navigation.navigate(props?.route?.params?.cameFrom);
-                }
-                else {
-                    navigation.navigate('HomeTab');
-                }
+                // if (props?.route?.params?.cameFrom) {
+                //     navigation.navigate(props?.route?.params?.cameFrom);
+                // }
+                // else {
+                navigation.navigate('HomeTab');
+                // }
 
             })
     }

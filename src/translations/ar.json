@@ -1,5 +1,6 @@
 {
   "common": {
+    "ordertotal": "الطلب الكلي",
     "pleaseloginfirst": "الرجاء تسجيل الدخول أولا",
     "shoppingNeedsText": "لجميع احتياجات التسوق الخاصة بك",
     "currency_iqd": "دينار عراقي",

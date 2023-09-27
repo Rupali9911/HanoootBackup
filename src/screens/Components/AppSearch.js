@@ -160,21 +160,9 @@ const AppSearch = (props) => {
           placeholder={props.placeholderText}
           onChangeText={(text) => {
             setSearchTxt(text);
-            // text ? props.onChangeText(true) : props.onChangeText(false)
           }}
           value={searchTxt}
           placeholderTextColor={Colors.GRAYDARK}
-          // style={{
-          //   left: 10,
-          //   alignSelf: 'center',
-          //   // height: '100%',
-          //   color: Colors.RED,
-          //   width: wp(75),
-          //   height: hp(4.93),
-          //   // fontFamily: fonts.VisbyCF_Medium,
-          //   // fontWeight: 500,
-          //   // letterSpacing:
-          // }}
           style={{
             fontFamily: fonts.VISBY_CF_REGULAR,
             fontWeight: '500',
@@ -186,7 +174,8 @@ const AppSearch = (props) => {
             left: 10, alignSelf: 'center',
             height: '100%',
           }}
-        // style={{ left: 10, alignSelf: 'center', height: '100%', color: Colors.BLACK, width: wp(75) }}
+        // onSubmitEditing={() => { navigation.navigate('ProductListWithFilters', { headerTitle: `Products with name ${searchTxt}`, isNavigationSection: 'NewArrivals' }) }}
+        // returnKeyType='done'
         />
         {
           searchTxt &&
@@ -197,33 +186,6 @@ const AppSearch = (props) => {
 
 
       </View>
-      {/* {loading || searchData?.length ? (
-        <View >
-          {loading ? (
-            <View style={styles.listContainer}>
-              <ActivityIndicator color={Colors.themeColor} size={25} />
-            </View>
-          ) : searchData.length > 0 && searchTxt ? (
-            <FlatList
-              data={searchData}
-              keyboardShouldPersistTaps={'handled'}
-              style={styles.listContainer}
-              renderItem={handleFlatListRenderItem}
-              keyExtractor={keyExtractor}
-              scrollEnabled={true}
-              nestedScrollEnabled={true}
-            />
-          ) : null}
-        </View>
-      ) : searchTxt ? (
-        <View >
-          <View style={styles.listContainer}>
-            <Text style={{ textAlign: 'center' }}>{translate('common.oopsNoProduct')}</Text>
-          </View>
-        </View>
-      ) : null
-      } */}
-
       {loading || searchData?.length ? (
         <View >
           {loading ? (

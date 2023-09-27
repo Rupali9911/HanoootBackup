@@ -149,9 +149,9 @@ const OrderDetails = (props) => {
 
 
                         <View style={[styles.row, { flexDirection: 'column', gap: 8 }]}>
-
+                            <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>{translate('common.orderdetails')}</Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.orderDetail}>{`${translate('common.subtotal')} (${orderDetail?.OrderProducts?.length} ${translate('common.itemCap')})`}</Text>
+                                <Text style={styles.orderDetail}>{`${translate('common.total')}`}</Text>
                                 <Text style={[styles.orderDetail, styles.fontIncrease]}>{`${orderDetail?.total_amount} ${translate('common.currency_iqd')}`}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -165,7 +165,7 @@ const OrderDetails = (props) => {
                             <View style={styles.separator} />
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
-                                <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>{translate('common.total')}<Text style={{ color: Colors.PRICEGRAY, fontWeight: 500 }}>{`(${translate('common.inclusiveofvat')})`}</Text></Text>
+                                <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>{translate('common.ordertotal')}</Text>
 
                                 <Text style={[styles.orderDetail, styles.otherStyle, styles.fontIncrease]}>{`${orderDetail?.total_payable_amount} ${translate('common.currency_iqd')}`}</Text>
                             </View>
