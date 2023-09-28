@@ -4,6 +4,7 @@ import AppBackground from '../../Components/AppBackground'
 import AppHeader from '../../Components/AppHeader'
 import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
+import { getFonts } from '../../utils'
 
 const PrivacyPolicies = () => {
 
@@ -64,7 +65,7 @@ const PrivacyPolicies = () => {
                 <SectionList
                     sections={sections}
                     renderItem={({ item }) => <Text style={styles.paragraph}>{item}</Text>}
-                    renderSectionHeader={({ section }) => {section?.title ? <Text style={styles.title}>{section.title}</Text> : null}}
+                    renderSectionHeader={({ section }) => { section?.title ? <Text style={styles.title}>{section.title}</Text> : null }}
                     keyExtractor={(item, index) => index}
                     showsVerticalScrollIndicator={false}
                     nestedScrollEnabled={true}
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
         margin: '5%',
     },
     paragraph: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         fontSize: 12,
         letterSpacing: 0.5,
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     },
     title: {
         // position: 'relative',
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 16,
         fontWeight: 600,
         letterSpacing: 0.5,

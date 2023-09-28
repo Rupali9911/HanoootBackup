@@ -8,6 +8,7 @@ import PhoneInput from "react-native-phone-number-input";
 import { COLORS, SVGS } from '../constant'
 import { translate } from '../utility';
 import { regionCountry } from '../utility';
+import { getFonts } from '../screens/utils';
 console.log('regionCountry', regionCountry)
 const { DropDownIcon, EyeOff, Eye } = SVGS
 
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
         // zIndex: -1
     },
     label: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         lineHeight: 19,
         letterSpacing: 0.5,
         marginBottom: 5,
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: '500',
         letterSpacing: 0.5,
         width: '100%',
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: Colors.RED1,
         marginTop: 5,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500
     },
     successMessage: {
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     passwordError: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 12,
         fontWeight: 500,
         letterSpacing: 0.5,
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
         right: 5
     },
     codeText: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: '500',
         letterSpacing: 0.5,
         height: heightTextInput,

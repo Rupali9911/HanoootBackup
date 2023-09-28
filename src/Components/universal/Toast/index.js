@@ -4,6 +4,7 @@ import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import Images from '../../../constant/Images'
 import Colors from '../../../constant/Colors'
 import fonts from '../../../constant/fonts'
+import { getFonts } from '../../../screens/utils';
 
 const toastConfig = {
     success: (props) => (
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
         zIndex: 1
     },
     msgText: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 16,
         letterSpacing: 0.5
     },

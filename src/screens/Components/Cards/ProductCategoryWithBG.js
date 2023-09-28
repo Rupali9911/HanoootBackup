@@ -4,6 +4,7 @@ import Images from '../../../constant/Images';
 import { hp, wp } from '../../../constant/responsiveFunc';
 import Colors from '../../../constant/Colors';
 import fonts from '../../../constant/fonts';
+import { getFonts } from '../../utils';
 
 const ProductCategoryWithBG = (props) => {
 
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5,
         lineHeight: 27,
         marginVertical: 10
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
         top: 5,
         letterSpacing: 0.5,
         fontWeight: 600,
-        fontFamily: fonts.VisbyCF_Demibold
+        fontFamily: getFonts.SEMI_BOLD
     },
     itemImg: {
         height: 75,

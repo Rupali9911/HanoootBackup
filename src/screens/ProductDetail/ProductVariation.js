@@ -88,7 +88,6 @@
 //     },
 //     heading: {
 //         fontSize: 700,
-//         fontFamily: fonts.VisbyCF_Bold,
 //         fontSize: 16,
 //         lineHeight: 21,
 //         letterSpacing: 0.5
@@ -99,7 +98,6 @@
 //     },
 //     item: {
 //         fontWeight: 500,
-//         fontFamily: fonts.VisbyCF_Medium,
 //         lineHeight: 19,
 //         letterSpacing: 0.5,
 //         paddingVertical: 10,
@@ -118,7 +116,7 @@ import Colors from '../../constant/Colors';
 import { hp } from '../../constant/responsiveFunc';
 import { useSelector } from 'react-redux';
 import { getEnglishTitle, getArabicTitle } from '../../constant/SwitchRenders';
-import { getVariantsData } from '../utils';
+import { getFonts, getVariantsData } from '../utils';
 
 const ProductVariation = (props) => {
     const { variants } = props;
@@ -188,14 +186,14 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontSize: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         fontSize: 16,
         lineHeight: 21,
         letterSpacing: 0.5
     },
     item: {
         fontWeight: 500,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         // lineHeight: 19,
         letterSpacing: 0.5,
         padding: '1%',

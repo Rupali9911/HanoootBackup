@@ -11,7 +11,7 @@ import { productListLoadingStart, productListPageChange, getProductList, product
 import { useSelector, useDispatch } from 'react-redux'
 import Loader from '../../constant/Loader'
 import fonts from '../../constant/fonts'
-import { capitalizeFirstLetter } from '../utils'
+import { capitalizeFirstLetter, getFonts } from '../utils'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { showErrorToast } from '../../Components/universal/Toast'
 import { translate } from '../../utility'
@@ -244,6 +244,6 @@ const styles = StyleSheet.create({
     },
     sorryMessage: {
         fontSize: 15,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
     },
 })

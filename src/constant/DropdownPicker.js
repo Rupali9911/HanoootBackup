@@ -57,6 +57,7 @@ import { wp, hp } from './responsiveFunc';
 import { getStates } from 'country-state-picker';
 import { Country, State, City } from 'country-state-city';
 import { translate } from '../utility';
+import { getFonts } from '../screens/utils';
 
 
 
@@ -235,7 +236,7 @@ const DropdownPicker = (props) => {
 
           placeholder={translate('common.selectcity')}
           placeholderStyle={{
-            fontFamily: fonts.VisbyCF_Medium,
+            fontFamily: getFonts.MEDIUM,
             fontWeight: '500',
             letterSpacing: 0.5,
             color: Colors.GRAYDARK
@@ -311,7 +312,7 @@ const styles = StyleSheet.create({
     // fontSize: 16,
     borderRadius: 100,
     backgroundColor: Colors.WHITE,
-    fontFamily: fonts.VisbyCF_Medium,
+    fontFamily: getFonts.MEDIUM,
     fontWeight: '500',
     letterSpacing: 0.5
   },
@@ -332,7 +333,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE,
     minHeight: hp('6%')
     // height: hp('6%')
-    // fontFamily: fonts.VisbyCF_Medium,
     // fontWeight: '500',
     // letterSpacing: 0.5,
     // color: Colors.GRAY
@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
     color: 'red'
   },
   label: {
-    fontFamily: fonts.VISBY_CF_REGULAR,
+    fontFamily: getFonts.REGULAR,
     lineHeight: 19,
     letterSpacing: 0.5,
     marginBottom: 5,
@@ -382,7 +382,6 @@ const styles = StyleSheet.create({
     fontWeight: 'normal'
   },
   // label: {
-  //   fontFamily: fonts.VisbyCF_Medium,
   //   lineHeight: 19,
   //   letterSpacing: 0.5,
   //   marginBottom: 5,
@@ -393,7 +392,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.RED1,
     marginTop: 5,
-    fontFamily: fonts.VisbyCF_Medium,
+    fontFamily: getFonts.MEDIUM,
     fontWeight: 500,
     // marginBottom: '2%'
     // paddingBottom: '2%'

@@ -23,6 +23,7 @@ import { getBuyNowData } from '../../Store/actions/orderAction'
 import Loader from '../../../constant/Loader'
 import CartItemCard from '../../CartScreen/CartItemCard'
 import { translate } from '../../../utility'
+import { getFonts } from '../../utils'
 
 
 const ReviewOrder = (props) => {
@@ -275,13 +276,13 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   priceLeftText: {
-    fontFamily: fonts.VisbyCF_Medium,
+    fontFamily: getFonts.MEDIUM,
     fontWeight: 500,
     letterSpacing: 0.5,
     lineHeight: 21
   },
   price: {
-    fontFamily: fonts.VisbyCF_Bold,
+    fontFamily: getFonts.BOLD,
     letterSpacing: 0.5,
     // fontWeight: 700,
     lineHeight: 21
@@ -292,7 +293,7 @@ const styles = StyleSheet.create({
     // fontWeight: 700,
     lineHeight: 23,
     letterSpacing: 0.5,
-    fontFamily: fonts.VisbyCF_Bold
+    fontFamily: getFonts.BOLD
   },
   payCard: {
     backgroundColor: Colors.WHITE,
@@ -302,14 +303,14 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   payMode: {
-    fontFamily: fonts.VisbyCF_Demibold,
+    fontFamily: getFonts.SEMI_BOLD,
     fontWeight: 600,
     letterSpacing: 0.5,
     lineHeight: 21,
     fontSize: 16
   },
   payModeDesc: {
-    fontFamily: fonts.VisbyCF_Medium,
+    fontFamily: getFonts.MEDIUM,
     fontWeight: 500,
     letterSpacing: 0.5,
     color: Colors.PRICEGRAY
@@ -320,18 +321,18 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   buttonText: {
-    fontFamily: fonts.VisbyCF_Demibold,
+    fontFamily: getFonts.SEMI_BOLD,
     fontWeight: 600,
     color: Colors.themeColor
   },
   deliverUserName: {
-    fontFamily: fonts.VisbyCF_Demibold,
+    fontFamily: getFonts.SEMI_BOLD,
     fontWeight: 600,
     fontSize: 16,
     letterSpacing: 0.5
   },
   deliverUserAdd: {
-    fontFamily: fonts.VisbyCF_Medium,
+    fontFamily: getFonts.MEDIUM,
     fontWeight: 500,
     color: Colors.PRICEGRAY,
     letterSpacing: 0.5,
@@ -345,7 +346,7 @@ const styles = StyleSheet.create({
   },
   deliveryType: {
     color: Colors.WHITE,
-    fontFamily: fonts.VisbyCF_Bold
+    fontFamily: getFonts.BOLD
   },
 
   itemReviewCard: {
@@ -362,14 +363,14 @@ const styles = StyleSheet.create({
   },
   itemName: {
     // fontWeight: 700,
-    fontFamily: fonts.VisbyCF_Bold,
+    fontFamily: getFonts.BOLD,
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.5,
     maxWidth: '90%'
   },
   itemDetail: {
-    fontFamily: fonts.VISBY_CF_REGULAR,
+    fontFamily: getFonts.REGULAR,
     fontSize: 12,
     fontWeight: 600,
     letterSpacing: 0.5,
@@ -400,7 +401,7 @@ const styles = StyleSheet.create({
   },
   quantityText: {
     // fontWeight: 700,
-    fontFamily: fonts.VisbyCF_Bold,
+    fontFamily: getFonts.BOLD,
     letterSpacing: 0.5
   },
   bottomButtonCont: {

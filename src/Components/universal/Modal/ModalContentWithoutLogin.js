@@ -4,6 +4,7 @@ import { hp, wp } from '../../../constant/responsiveFunc'
 import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import { translate } from '../../../utility'
+import { getFonts } from '../../../screens/utils'
 
 const ModalContentWithoutLogin = (props) => {
     return (
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     removeHeading: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 600,
         fontSize: 16,
         lineHeight: 21,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
 
     },
     removeDesc: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 500,
         letterSpacing: 0.5,
         lineHeight: 19,
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
         width: wp(35.73)
     },
     modalBtnText: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 500,
         fontSize: 12,
         letterSpacing: 0.5,

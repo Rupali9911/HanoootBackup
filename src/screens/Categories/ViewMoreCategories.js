@@ -8,7 +8,7 @@ import Colors from '../../constant/Colors'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { translate } from '../../utility'
-import { capitalizeFirstLetter } from '../utils'
+import { capitalizeFirstLetter, getFonts } from '../utils'
 import { SvgUri } from 'react-native-svg';
 
 
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     title: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         letterSpacing: 0.5,
         textAlign: 'left',
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     subCategoryText: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 500,
         lineHeight: 15,
         letterSpacing: 0.5,

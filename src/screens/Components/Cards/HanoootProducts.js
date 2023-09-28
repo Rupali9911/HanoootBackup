@@ -4,6 +4,7 @@ import Colors from '../../../constant/Colors';
 import { productCollection, ProductListData } from '../../../constant/DemoArray';
 import fonts from '../../../constant/fonts';
 import ProductList from './ProductList';
+import { getFonts } from '../../utils';
 
 const HanoootProducts = (props) => {
 
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
         lineHeight: 22,
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold
+        fontFamily: getFonts.BOLD
     },
 
 })

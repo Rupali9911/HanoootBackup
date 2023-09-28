@@ -6,6 +6,7 @@ import { DataTable } from 'react-native-paper';
 import ProductCounter from '../../constant/ProductCounter';
 import fonts from '../../constant/fonts';
 import { translate } from '../../utility';
+import { getFonts } from '../../screens/utils';
 
 
 const CartItemQuantity = (props) => {
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     },
     Text: {
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5
     }
 })

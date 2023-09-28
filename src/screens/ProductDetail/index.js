@@ -27,7 +27,7 @@ import { getProductDetail, productDetailReset, productDetailLoading, productInfo
 import Loader from '../../constant/Loader';
 import ListView from '../../Components/ListView';
 import ProductDescription from './ProductDescription';
-import { capitalizeFirstLetter } from '../utils';
+import { capitalizeFirstLetter, getFonts } from '../utils';
 import { AddtoCartAPICall } from '../../services/apis/CartAPI';
 import { showErrorToast, showInfoToast } from '../../Components/universal/Toast';
 import { useIsFocused } from '@react-navigation/native';
@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     toastMsgText: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 16,
         letterSpacing: 0.5
     },
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
         elevation: 7,
     },
     infoMsg: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         lineHeight: 15,
         letterSpacing: 0.5,
@@ -428,7 +428,7 @@ const styles = StyleSheet.create({
         // backgroundColor: Colors.YELLOW1,
         // adding: 10, borderRadius: 24, 
         color: Colors.WHITE,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         letterSpacing: 0.5
     },
     sorryMessageCont: {
@@ -438,7 +438,7 @@ const styles = StyleSheet.create({
     },
     sorryMessage: {
         fontSize: 15,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
     },
     // modalMainCont: {
     //     flex: 1, justifyContent: "center", alignItems: "center"
@@ -452,7 +452,6 @@ const styles = StyleSheet.create({
     //     gap: 10
     // },
     // removeHeading: {
-    //     fontFamily: fonts.VISBY_CF_REGULAR,
     //     fontWeight: 600,
     //     fontSize: 16,
     //     lineHeight: 21,
@@ -463,7 +462,6 @@ const styles = StyleSheet.create({
 
     // },
     // removeDesc: {
-    //     fontFamily: fonts.VISBY_CF_REGULAR,
     //     fontWeight: 500,
     //     letterSpacing: 0.5,
     //     lineHeight: 19,
@@ -486,7 +484,6 @@ const styles = StyleSheet.create({
     //     borderColor: Colors.themeColor
     // },
     // modalBtnText: {
-    //     fontFamily: fonts.VISBY_CF_REGULAR,
     //     fontWeight: 500,
     //     fontSize: 12,
     //     letterSpacing: 0.5,
@@ -506,7 +503,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     removeHeading: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 600,
         fontSize: 16,
         lineHeight: 21,
@@ -516,7 +513,7 @@ const styles = StyleSheet.create({
 
     },
     removeDesc: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 500,
         letterSpacing: 0.5,
         lineHeight: 19,
@@ -536,7 +533,7 @@ const styles = StyleSheet.create({
         width: wp(35.73)
     },
     modalBtnText: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 500,
         fontSize: 12,
         letterSpacing: 0.5,

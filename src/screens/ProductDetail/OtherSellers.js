@@ -8,6 +8,7 @@ import { ExpressView } from '../../constant/ListConstant'
 import { hp, wp } from '../../constant/responsiveFunc'
 import Images from '../../constant/Images'
 import { translate } from '../../utility'
+import { getFonts } from '../utils'
 
 
 const OtherSellers = (props) => {
@@ -134,7 +135,7 @@ export default OtherSellers;
 const styles = StyleSheet.create({
     offerAvail: {
         fontWeight: 600,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         letterSpacing: 0.5,
         backgroundColor: Colors.YELLOWLIGHT,
         paddingHorizontal: 20,
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'green'
     },
     productName: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         letterSpacing: 0.5,
     },
@@ -168,16 +169,16 @@ const styles = StyleSheet.create({
     },
     pricePercentDiscount: {
         color: Colors.GREEN,
-        fontFamily: fonts.VisbyCF_Demibold
+        fontFamily: getFonts.SEMI_BOLD
     },
     price: {
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         fontSize: 18
     },
     discountPrice: {
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         fontSize: 18,
         color: Colors.PRICEGRAY,
         textDecorationLine: 'line-through',
@@ -190,14 +191,14 @@ const styles = StyleSheet.create({
         borderWidth: 1, borderColor: Colors.GRAY, width: '100%', borderRadius: 8, marginVertical: hp('1%'), alignSelf: 'center', padding: 10
     },
     deliveryDetal: {
-        color: Colors.PRICEGRAY, fontFamily: fonts.VISBY_CF_REGULAR, fontSize: 12, fontWeight: 600
+        color: Colors.PRICEGRAY, fontFamily: getFonts.REGULAR, fontSize: 12, fontWeight: 600
     },
     soldDetail: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         // fontWeight: 700
     },
     buttonText: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         color: Colors.themeColor
     },

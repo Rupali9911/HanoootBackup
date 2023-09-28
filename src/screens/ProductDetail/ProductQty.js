@@ -5,6 +5,7 @@ import { hp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
 import ProductCounter from '../../constant/ProductCounter';
 import { translate } from '../../utility';
+import { getFonts } from '../utils';
 const ProductQuantity = (props) => {
     return (
         <View style={styles.container}>
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     },
     qtyText: {
         fontWeight: 500,
-        fontFamily: fonts.VisbyCF_Medium
+        fontFamily: getFonts.MEDIUM
     },
     buttonWithCounter: {
         flexDirection: 'row',

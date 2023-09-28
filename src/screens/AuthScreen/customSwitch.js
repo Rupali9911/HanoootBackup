@@ -6,6 +6,7 @@ import Colors from '../../constant/Colors';
 import fonts from '../../constant/fonts';
 import { hp, wp } from '../../constant/responsiveFunc';
 import { translate } from '../../utility';
+import { getFonts } from '../utils';
 
 const CustomSwitch = ({
     navigation,
@@ -79,7 +80,7 @@ export default CustomSwitch;
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 16,
         letterSpacing: 0.5,
         textAlign: 'center',

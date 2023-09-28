@@ -4,6 +4,7 @@ import { hp, wp } from '../constant/responsiveFunc'
 import fonts from '../constant/fonts'
 import Colors from '../constant/Colors'
 import AppButton from '../screens/Components/AppButton'
+import { getFonts } from '../screens/utils'
 
 const EmptyDetailScreen = (props) => {
     return (
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     title: {
         // fontWeight: 700,
         fontSize: 20,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 25,
         letterSpacing: 0.5,
         color: Colors.BLACK,
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     description: {
         fontWeight: 500,
         fontSize: 16,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         lineHeight: 21,
         letterSpacing: 0.5,
         // maxWidth: '70%',

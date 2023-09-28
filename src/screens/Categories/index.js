@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import { categoryLoadingStart, getCategoryList, categoryPageChange, getSubCategoryList, categoryListReset } from '../Store/actions/categoryAction'
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../../constant/Loader'
-import { capitalizeFirstLetter } from '../utils'
+import { capitalizeFirstLetter, getFonts } from '../utils'
 import { translate } from '../../utility'
 const Category = () => {
     const navigation = useNavigation();
@@ -97,7 +97,7 @@ const Category = () => {
                     {expanded && subCategoryIndex === props.index ? (
                         <Image source={Images.ForwardIcon} style={[styles.arrowImgStyle, { transform: [{ rotate: '90deg' }] }]} />
                     ) : (
-                        <Image source={Images.ForwardIcon} style={styles.arrowImgStyle} />
+                        <Image source={Images.ForwardIcon} style={[styles.arrowImgStyle, { transform: [{ rotate: selectedLanguageItem?.language_id === 0 ? '0deg' : '180deg' }] }]} />
                     )}
                 </View>
             </TouchableOpacity>
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     subCategoryText: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 500,
         lineHeight: 15,
         letterSpacing: 0.5,
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
 
     }),
     categoryText: (selectedFeedIndex, index) => ({
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 12,
         fontWeight: 600,
         letterSpacing: 0.5,
@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
         marginBottom: hp('1%')
     },
     subCategoryTitle: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         letterSpacing: 0.5,
         textAlign: 'left',
@@ -378,7 +378,7 @@ const styles = StyleSheet.create({
     },
     sorryMessage: {
         fontSize: 15,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
     },
 
 })

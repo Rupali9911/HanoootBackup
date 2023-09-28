@@ -11,12 +11,12 @@ import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
 import { showInfoToast, showErrorToast } from '../../../Components/universal/Toast'
 import { updateFeaturedCart } from '../../Store/actions/HomeAction'
 import { translate } from '../../../utility'
+import { getFonts } from '../../utils'
 
 const FeaturedCategory = (props) => {
     const Data = props.Data;
     const dispatch = useDispatch()
     const navigation = useNavigation();
-    const [isAddToCart, setAddToCart] = useState('')
     const [modalVisible, setModalVisible] = useState(false);
 
 
@@ -31,9 +31,8 @@ const FeaturedCategory = (props) => {
                 const response = await AddtoCartAPICall(productId, 1)
                 if (response?.success) {
                     setTimeout(() => {
-                        setAddToCart(true)
+                        // dispatch(updateFeaturedCart(productId))
                         showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
-                        dispatch(updateFeaturedCart(productId))
                     }, 1000);
                 }
                 else {
@@ -168,7 +167,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
         fontWeight: 600,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5,
         textAlign: 'left'
     },
@@ -186,7 +185,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 600,
         color: Colors.themeColor,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         lineHeight: 17,
         letterSpacing: 0.5
     },
@@ -214,12 +213,12 @@ const styles = StyleSheet.create({
     itemName: {
         fontSize: 12,
         letterSpacing: 0.5,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500
     },
     itemPrice: {
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5
     },
     cartBtn: {
@@ -234,7 +233,7 @@ const styles = StyleSheet.create({
     cartBtnTxt: {
         color: Colors.WHITE,
         fontWeight: 600,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         lineHeight: 17,
         letterSpacing: 0.5,
         fontSize: 12

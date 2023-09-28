@@ -4,7 +4,7 @@ import ProductHeader from './ProductHeader'
 import { hp, wp } from '../../../constant/responsiveFunc'
 import Colors from '../../../constant/Colors'
 import fonts from '../../../constant/fonts'
-import { capitalizeFirstLetter } from '../../utils'
+import { capitalizeFirstLetter, getFonts } from '../../utils'
 import { useNavigation } from '@react-navigation/native'
 import { translate } from '../../../utility'
 
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         fontSize: 11,
         letterSpacing: 0.5,
         fontWeight: 500,
-        fontFamily: fonts.VISBY_CF_REGULAR
+        fontFamily: getFonts.REGULAR
     },
     image: {
         height: hp(9.11),

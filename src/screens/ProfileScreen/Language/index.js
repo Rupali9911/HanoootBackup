@@ -17,6 +17,7 @@ import { setAppLanguage } from '../../Store/reducers/languageReducer';
 import { languageArray, translate } from '../../../utility';
 import { useNavigation } from '@react-navigation/native';
 import RNRestart from 'react-native-restart';
+import { getFonts } from '../../utils';
 
 const countries = [
     {
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
         // color: '#000',
         // fontSize: 14,
         marginLeft: 10,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         letterSpacing: 0.5,
         textAlign: 'left'

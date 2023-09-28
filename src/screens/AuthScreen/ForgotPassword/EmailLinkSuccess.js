@@ -7,6 +7,7 @@ import { hp, wp } from '../../../constant/responsiveFunc'
 import Images from '../../../constant/Images'
 import fonts from '../../../constant/fonts'
 import { useNavigation } from '@react-navigation/native'
+import { getFonts } from '../../utils'
 
 const EmailLinkSuccess = () => {
 
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: 600,
         fontSize: 24,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 30,
         letterSpacing: 0.5,
         color: Colors.BLACK,
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     description: {
         fontWeight: 500,
         fontSize: 16,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         lineHeight: 21,
         letterSpacing: 0.5,
         // maxWidth: '70%',

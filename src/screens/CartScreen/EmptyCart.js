@@ -7,6 +7,7 @@ import fonts from '../../constant/fonts'
 import AppButton from '../Components/AppButton'
 import { useNavigation } from '@react-navigation/native';
 import { translate } from '../../utility'
+import { getFonts } from '../utils'
 
 
 const EmptyCart = () => {
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     emptyText: {
         // fontWeight: 700,
         fontSize: 20,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 25,
         letterSpacing: 0.5,
         color: Colors.BLACK
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     addItemText: {
         fontWeight: 500,
         fontSize: 16,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         lineHeight: 21,
         letterSpacing: 0.5,
         // maxWidth: '70%',

@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import ListReview from './ReviewList'
 import UserRating from '../rating'
 import { translate } from '../../../utility'
+import { getFonts } from '../../utils'
 
 
 const UserReview = (props) => {
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     },
     Heading: {
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         fontSize: 16,
         lineHeight: 21,
         letterSpacing: 0.5,
@@ -88,11 +89,11 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     userName: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         lineHeight: 21, letterSpacing: 0.5, fontWeight: 600
     },
     timeStamp: {
-        textAlign: 'right', fontFamily: fonts.VisbyCF_Medium,
+        textAlign: 'right', fontFamily: getFonts.MEDIUM,
         fontSize: 12,
         fontWeight: 500,
         color: Colors.GRAY1
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
         fontWeight: 500
     },
     userComment: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         lineHeight: 19,
         letterSpacing: 0.5,
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
     },
     ButtonText: {
         fontWeight: 600,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         lineHeight: 21,
         letterSpacing: 0.5,
         color: Colors.themeColor,

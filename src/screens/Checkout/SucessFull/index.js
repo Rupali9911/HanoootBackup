@@ -9,6 +9,7 @@ import Colors from '../../../constant/Colors'
 import { wp } from '../../../constant/responsiveFunc'
 import { useNavigation } from '@react-navigation/native';
 import { translate } from '../../../utility'
+import { getFonts } from '../../utils'
 
 
 const OrderSuccessScreen = () => {
@@ -51,14 +52,14 @@ const styles = StyleSheet.create({
         height: 150, width: 150, resizeMode: 'contain'
     },
     orderSuccessHeading: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         fontSize: 22,
         lineHeight: 27,
         letterSpacing: 0.5
     },
     orderSuccessDesc: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 16,
         lineHeight: 21,
         fontWeight: 500,

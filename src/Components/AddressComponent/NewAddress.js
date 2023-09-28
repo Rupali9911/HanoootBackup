@@ -21,6 +21,7 @@ import Colors from '../../constant/Colors';
 import { translate } from '../../utility';
 import { useSelector } from 'react-redux';
 import BuildingDropdown from '../../constant/BuildingDropdown';
+import { getFonts } from '../../screens/utils';
 
 
 
@@ -214,7 +215,7 @@ const NewAddress = (props) => {
                 />
                 <View style={{ flex: 1, margin: 10, justifyContent: 'space-between' }}>
                   <Text style={{
-                    fontFamily: fonts.VISBY_CF_REGULAR,
+                    fontFamily: getFonts.REGULAR,
                     fontWeight: 500,
                     letterSpacing: 0.5,
                     textAlign: 'left'
@@ -236,7 +237,7 @@ const NewAddress = (props) => {
                     }}
                   >
                     <Text style={{
-                      fontFamily: fonts.VISBY_CF_REGULAR,
+                      fontFamily: getFonts.REGULAR,
                       fontWeight: 500,
                       letterSpacing: 0.5,
                       textAlign: 'left',
@@ -615,7 +616,6 @@ const NewAddress = (props) => {
     //             />
     //             <View style={{ flex: 1, margin: 10, justifyContent: 'space-between' }}>
     //               <Text style={{
-    //                 fontFamily: fonts.VISBY_CF_REGULAR,
     //                 fontWeight: 500,
     //                 letterSpacing: 0.5,
     //                 textAlign: 'left'
@@ -637,7 +637,6 @@ const NewAddress = (props) => {
     //                 }}
     //               >
     //                 <Text style={{
-    //                   fontFamily: fonts.VISBY_CF_REGULAR,
     //                   fontWeight: 500,
     //                   letterSpacing: 0.5,
     //                   textAlign: 'left',

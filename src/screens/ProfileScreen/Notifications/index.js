@@ -6,6 +6,7 @@ import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { translate } from '../../../utility'
+import { getFonts } from '../../utils'
 
 const Notification = () => {
 
@@ -84,7 +85,7 @@ export default Notification
 
 const styles = StyleSheet.create({
     topLine: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         letterSpacing: 0.5,
         margin: '5%'
@@ -99,13 +100,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.3
     },
     notify: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         letterSpacing: 0.5,
         fontSize: 16
     },
     notifyDesc: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         letterSpacing: 0.5,
         fontSize: 12,

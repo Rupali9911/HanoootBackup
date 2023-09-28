@@ -7,6 +7,7 @@ import fonts from '../../../constant/fonts';
 import { LikeImage, ExpressView } from '../../../constant/ListConstant'
 import { useNavigation } from '@react-navigation/native';
 import CheckBox from 'react-native-check-box'
+import { getFonts } from '../../utils';
 
 
 
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
         top: 10
     },
     price: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 19,
         letterSpacing: 0.5,
         // fontWeight: 700,
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
         padding: 20
     },
     discountPrice: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 19,
         letterSpacing: 0.5,
         // fontWeight: 700,
@@ -241,14 +242,14 @@ const styles = StyleSheet.create({
         height: 70, width: 70, resizeMode: 'contain'
     },
     productName: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 11,
         lineHeight: 15,
         letterSpacing: 0.5,
         fontWeight: 500,
     },
     productDiscountPrice: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 19,
         letterSpacing: 0.5,
         // fontWeight: 700,
@@ -257,14 +258,14 @@ const styles = StyleSheet.create({
         textDecorationStyle: 'solid',
     },
     ProductDiscPercent: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 19,
         letterSpacing: 0.5,
         // fontWeight: 700,
         color: Colors.PRICEGREEN
     },
     rating: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         fontSize: 11,
         letterSpacing: 0.5,
         lineHeight: 21,
@@ -274,7 +275,7 @@ const styles = StyleSheet.create({
         fontSize: 11,
         lineHeight: 21,
         letterSpacing: 0.5,
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 600
     },
     ratingImg: {
@@ -287,7 +288,7 @@ const styles = StyleSheet.create({
         paddingVertical: 2, paddingHorizontal: 10, backgroundColor: Colors.RED, width: 60, borderRadius: 10, marginVertical: 5
     },
     priceBtnText: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 10,
         fontWeight: '600',
         color: Colors.WHITE

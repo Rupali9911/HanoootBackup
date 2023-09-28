@@ -4,6 +4,7 @@ import Colors from '../../constant/Colors'
 import Separator from '../../constant/Separator'
 import fonts from '../../constant/fonts'
 import { translate } from '../../utility'
+import { getFonts } from '../utils'
 
 const CartTotal = (props) => {
     return (
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
         padding: '2%'
     },
     Text: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         letterSpacing: 0.5,
 

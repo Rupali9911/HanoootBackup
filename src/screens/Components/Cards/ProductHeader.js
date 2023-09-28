@@ -3,6 +3,7 @@ import React from 'react'
 import Colors from '../../../constant/Colors'
 import fonts from '../../../constant/fonts'
 import { hp, wp } from '../../../constant/responsiveFunc'
+import { getFonts } from '../../utils'
 
 const ProductHeader = (props) => {
     return (
@@ -30,12 +31,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 600,
         letterSpacing: 0.5,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         textAlign: 'left'
     },
     isSale: {
         color: Colors.RED,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 12,
         lineHeight: 17,
         letterSpacing: 0.5,

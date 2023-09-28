@@ -5,6 +5,7 @@ import fonts from './fonts'
 import Images from './Images'
 import { hp, wp } from './responsiveFunc'
 import { translate } from '../utility'
+import { getFonts } from '../screens/utils'
 
 
 
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
         color: Colors.themeColor,
         fontWeight: '500',
         fontStyle: 'italic',
-        fontFamily: fonts.VISBY_CF_REGULAR
+        fontFamily: getFonts.REGULAR
     },
     like: {
         height: 16, width: 16, resizeMode: 'contain',

@@ -23,6 +23,7 @@ import { translate } from '../../utility';
 import Images from '../../constant/Images';
 import AppModal from '../../Components/universal/Modal';
 import ModalContentWithoutLogin from '../../Components/universal/Modal/ModalContentWithoutLogin';
+import { getFonts } from '../utils';
 
 export default function HomeScreen() {
    const isFocused = useIsFocused();
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
    },
    offerAvail: {
       fontWeight: 600,
-      fontFamily: fonts.VisbyCF_Demibold,
+      fontFamily: getFonts.SEMI_BOLD,
       letterSpacing: 0.5,
 
       color: Colors.themeColor,
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
    },
    sorryMessage: {
       fontSize: 15,
-      fontFamily: fonts.VisbyCF_Demibold,
+      fontFamily: getFonts.SEMI_BOLD,
    },
    loaderImage: {
       alignSelf: 'center',

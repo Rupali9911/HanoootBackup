@@ -16,6 +16,7 @@ import { googleLogout, deleteFirebaseAccount } from '../../services/socialAuth'
 import AppModal from '../../Components/universal/Modal'
 import { hp, wp } from '../../constant/responsiveFunc'
 import { deleteUserFromDb } from '../../services/apis'
+import { getFonts } from '../utils'
 
 const { Facebook, Instagram, Tictok } = SVGS
 const ProfileScreen = (props) => {
@@ -23,6 +24,8 @@ const ProfileScreen = (props) => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.userReducer.userData);
     const [modalVisible, setModalVisible] = useState(false);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
 
     useEffect(() => {
@@ -81,7 +84,7 @@ const ProfileScreen = (props) => {
                 <View>
                     <Image
                         source={Images.ForwardIcon}
-                        style={styles.arrowIcon}
+                        style={[styles.arrowIcon, { transform: [{ rotate: selectedLanguageItem?.language_id === 0 ? '0deg' : '180deg' }] }]}
                     />
                 </View>
             </TouchableOpacity>
@@ -289,8 +292,7 @@ const styles = StyleSheet.create({
     userName: {
         fontSize: 20,
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
-        // fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5,
         lineHeight: 25
         // color: Colors.BLACK
@@ -305,7 +307,7 @@ const styles = StyleSheet.create({
 
     },
     userEmail: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         letterSpacing: 0.5,
         color: Colors.GRAY2
@@ -314,7 +316,7 @@ const styles = StyleSheet.create({
         height: 24, width: 24, resizeMode: 'contain'
     },
     heading: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontSize: 12,
         fontWeight: 600,
         letterSpacing: 0.5,
@@ -340,7 +342,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     listTitle: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         fontSize: 16,
         letterSpacing: 0.5,
@@ -366,7 +368,7 @@ const styles = StyleSheet.create({
         marginBottom: '10%'
     },
     logout: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 600,
         fontSize: 16,
         letterSpacing: 0.5,
@@ -382,7 +384,7 @@ const styles = StyleSheet.create({
     register: {
         color: Colors.WHITE,
         fontSize: 16,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 600,
         letterSpacing: 0.5
     },
@@ -398,14 +400,14 @@ const styles = StyleSheet.create({
         gap: 10
     },
     removeHeading: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 600,
         fontSize: 16,
         lineHeight: 21,
         letterSpacing: 0.5
     },
     removeDesc: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 500,
         letterSpacing: 0.5,
         lineHeight: 19,
@@ -424,7 +426,7 @@ const styles = StyleSheet.create({
         width: wp(35.73)
     },
     modalBtnText: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 500,
         fontSize: 12,
         letterSpacing: 0.5,

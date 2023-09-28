@@ -8,7 +8,7 @@ import Images from '../../../constant/Images';
 import { useIsFocused } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { orderDetailLoadingStart, orderDetailReset, getOrderDetail } from '../../Store/actions/orderAction';
-import { capitalizeFirstLetter } from '../../utils';
+import { capitalizeFirstLetter, getFonts } from '../../utils';
 import Loader from '../../../constant/Loader';
 import { translate } from '../../../utility';
 import { getMonths } from '../../../constant/SwitchRenders';
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
         paddingVertical: '3%'
     },
     orderDetail: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         letterSpacing: 0.5,
         // color: Colors.PRICEGRAY
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     },
     productName: {
         fontSize: 16,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         // fontWeight: 700,
         letterSpacing: 0.5,
         lineHeight: 21

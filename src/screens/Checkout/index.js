@@ -10,6 +10,7 @@ import AppHeader from '../Components/AppHeader'
 import { useIsFocused } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { translate } from '../../utility'
+import { getFonts } from '../utils'
 
 const Checkout = (props) => {
   const { route } = props;
@@ -145,12 +146,12 @@ const styles = StyleSheet.create({
   }),
   btnText: {
     color: Colors.WHITE,
-    fontFamily: fonts.VisbyCF_Demibold,
+    fontFamily: getFonts.SEMI_BOLD,
     // fontWeight: 700
   },
   text: {
     fontSize: 12,
-    fontFamily: fonts.VisbyCF_Demibold,
+    fontFamily: getFonts.SEMI_BOLD,
     letterSpacing: 0.5,
     fontWeight: 600
   },

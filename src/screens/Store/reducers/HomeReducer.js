@@ -20,7 +20,7 @@ const HomeReducer = (state = initialState, action) => {
                 homeDataFail: '',
             };
         case UPADTE_FEATURED_CART:
-            var arrUpdated = state.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementProducts.map((item, index) => {
+            var arrUpdated = state.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts.map((item, index) => {
                 if (item.id !== action.payload) {
                     return item
                 }
@@ -36,7 +36,7 @@ const HomeReducer = (state = initialState, action) => {
                     featuredCategoryByProductJson: {
                         ...state.HomeCollection.featuredCategoryByProductJson,
                         featuredCategoryByProduct: {
-                            ...state.HomeCollection.featuredCategoryByProductJson.featuredCategoryByProduct,
+                            ...state.HomeCollection.featuredCategoryByProductJson.featuredCategoryByProduct.ManagementCategory,
                             ManagementProducts: arrUpdated
                         }
                     }

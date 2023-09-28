@@ -12,7 +12,7 @@ import AppInput from '../../../constant/AppInput'
 import fonts from '../../../constant/fonts'
 import AppButton from '../../Components/AppButton'
 import CustomSwitch from '../customSwitch'
-import { maxLength10, maxLength8, maxLength50, validatePhoneNo, validateEmail, validatePassword, maxLength32, validateBlankPassword } from '../../utils'
+import { maxLength10, maxLength8, maxLength50, validatePhoneNo, validateEmail, validatePassword, maxLength32, validateBlankPassword, getFonts } from '../../utils'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { isValidNumber } from 'react-native-phone-number-input';
 import { signInWithPhoneNumber, signInWithEmailAndPwd } from '../../../services/socialAuth'
@@ -30,6 +30,7 @@ const Login = (props) => {
     const [formattedNum, setFormattedNum] = useState('')
     const [error, setError] = useState('')
     const [mobileSwitch, setMobileSwitch] = useState(true)
+    const [Loader, setLoader] = useState(false)
 
     const navigation = useNavigation();
     const dispatch = useDispatch()
@@ -71,15 +72,18 @@ const Login = (props) => {
     }
 
     const signInWithNumber = async () => {
+        setLoader(true)
         try {
             const result = await signInWithPhoneNumber(formattedNum)
             console.log('Response from signInWithNumber', result)
+            setLoader(false)
             navigation.navigate('OtpVerification', {
                 authResult: result,
                 phoneNumber: formattedNum,
                 isFromSignUp: false
             });
         } catch (error) {
+            setLoader(false)
             console.log('Error from signInWithNumber', error)
         }
     }
@@ -180,7 +184,8 @@ const Login = (props) => {
                         )
                 }
 
-                <AppButton label={translate('common.signin')} containerStyle={{ marginVertical: '5%' }} onPress={Login} />
+                <AppButton label={translate('common.signin')} containerStyle={{ marginVertical: '5%' }} onPress={Login}
+                />
 
                 {/* <View style={styles.rowContainer}>
                     <ToggleSwitch
@@ -211,7 +216,7 @@ export default Login
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 16,
         fontWeight: 500,
         letterSpacing: 0.5,
