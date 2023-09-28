@@ -79,7 +79,7 @@ export default function HomeScreen() {
 
    return (
       <AppBackground >
-         <AppHeader placeholderText={'Search'} />
+         <AppHeader placeholderText={translate('common.search')} />
          {
             isLoading && Object.keys(HomeCollection).length === 0 ?
                <Loader />

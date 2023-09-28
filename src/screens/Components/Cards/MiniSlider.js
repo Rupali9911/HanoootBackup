@@ -3,12 +3,16 @@ import React, { useRef } from 'react'
 import { hp, wp } from '../../../constant/responsiveFunc';
 import Images from '../../../constant/Images';
 import Carousel from 'react-native-snap-carousel';
+import { useSelector } from 'react-redux';
 
 
 
 
 const MiniSlider = (props) => {
     var isCarousel = useRef(null);
+
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
     const renderItem = ({ item, index }) => {
         return (
@@ -36,8 +40,8 @@ const MiniSlider = (props) => {
         <View>
             <ArrowButton
                 arrowViewStyle={{ left: 10 }}
-                arrowImgStyle={{ transform: [{ rotate: '180deg' }] }}
-                onPress={() => { isCarousel.snapToPrev() }}
+                arrowImgStyle={{ transform: [{ rotate: selectedLanguageItem?.language_id === 0 ? '180deg' : '0deg' }] }}
+                onPress={() => { selectedLanguageItem?.language_id === 0 ? isCarousel.snapToPrev() : isCarousel.snapToNext() }}
             />
             <Carousel
                 layout="default"
@@ -58,7 +62,9 @@ const MiniSlider = (props) => {
 
             <ArrowButton
                 arrowViewStyle={{ right: 10 }}
-                onPress={() => { isCarousel.snapToNext() }}
+                onPress={() => { selectedLanguageItem?.language_id === 0 ? isCarousel.snapToNext() : isCarousel.snapToPrev() }}
+                arrowImgStyle={{ transform: [{ rotate: selectedLanguageItem?.language_id === 0 ? '0deg' : '180deg' }] }}
+
             />
         </View>
     )

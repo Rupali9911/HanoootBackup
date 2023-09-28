@@ -129,10 +129,12 @@ const AppSearch = (props) => {
             letterSpacing: 0.5,
             width: '100%',
             // height: heightTextInput,
-            alignSelf: "center",
+            // alignSelf: "flex-start",
+            // justifyContent: "flex-start",
             color: Colors.BLACK,
             left: 10, alignSelf: 'center',
             height: '100%',
+
           }}
           onSubmitEditing={() => { navigation.navigate('ProductListWithFilters', { headerTitle: `Search "${searchTxt}"`, isNavigationSection: 'Search' }) }}
           returnKeyType='done'
