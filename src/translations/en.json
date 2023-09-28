@@ -1,6 +1,7 @@
 {
   "common": {
     "ordertotal": "Order Total",
+    "search": "Search",
     "pleaseloginfirst": "Please Login First",
     "shoppingNeedsText": "For all your shopping needs",
     "currency_iqd": "IQD",
