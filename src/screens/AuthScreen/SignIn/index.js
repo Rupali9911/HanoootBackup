@@ -72,7 +72,6 @@ const Login = (props) => {
     }
 
     const signInWithNumber = async () => {
-        setLoader(true)
         try {
             setLoadingButton(true)
             const result = await signInWithPhoneNumber(formattedNum)

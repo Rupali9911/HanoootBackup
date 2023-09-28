@@ -38,6 +38,8 @@ const OtpVerification = ({ route }) => {
     const [otpField, setOtpField] = useState(otpObj)
     const [isFocus, setIsFocus] = useState(false)
     const [seconds, setSeconds] = useState(60)
+    const [loadingButton, setLoadingButton] = useState(false)
+
     const { otp1, otp2, otp3, otp4, otp5, otp6 } = otpField;
 
     useEffect(() => {
@@ -167,6 +169,7 @@ const OtpVerification = ({ route }) => {
         //     })
 
         try {
+            setLoadingButton(true)
             const userCredentials = await confirmOtp(authResult, otp)
             console.log('Verify OTp response', userCredentials?.user)
             if (isFromSignUp) {
@@ -183,9 +186,11 @@ const OtpVerification = ({ route }) => {
                 saveUserDetails(userCredentials?.user, dispatch)
             }
             // dispatch(setUserData(userCredentials?.user))
+            setLoadingButton(false)
             navigation.navigate('OtpVerifySuccess')
         }
         catch (error) {
+            setLoadingButton(false)
             console.log('error from either  confirmOtp or userRegister', error)
         }
     }
@@ -229,8 +234,8 @@ const OtpVerification = ({ route }) => {
                 <AppButton
                     label={translate('common.submit')}
                     disabled={(otp1 && otp2 && otp3 && otp4 && otp5 && otp6) ? false : true}
-                    onPress={() => verifyOTP()
-                    }
+                    onPress={() => verifyOTP()}
+                    isIndicatorLoading={loadingButton}
                 />
                 <Text suppressHighlighting={true} onPress={() => changeNumber()} style={[styles.text, styles.themeColor]}>{translate('common.goback')}</Text>
             </View>

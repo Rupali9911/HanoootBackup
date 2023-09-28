@@ -31,7 +31,8 @@ const FeaturedCategory = (props) => {
                 const response = await AddtoCartAPICall(productId, 1)
                 if (response?.success) {
                     setTimeout(() => {
-                        // dispatch(updateFeaturedCart(productId))
+                        console.log('Before dispatch')
+                        dispatch(updateFeaturedCart(productId))
                         showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
                     }, 1000);
                 }

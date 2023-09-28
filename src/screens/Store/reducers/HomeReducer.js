@@ -20,6 +20,7 @@ const HomeReducer = (state = initialState, action) => {
                 homeDataFail: '',
             };
         case UPADTE_FEATURED_CART:
+            console.log('state.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts', state.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts)
             var arrUpdated = state.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts.map((item, index) => {
                 if (item.id !== action.payload) {
                     return item
@@ -29,6 +30,7 @@ const HomeReducer = (state = initialState, action) => {
                     isCart: true
                 }
             })
+            console.log('arrUpdated', arrUpdated)
             return {
                 ...state,
                 HomeCollection: {
@@ -36,8 +38,15 @@ const HomeReducer = (state = initialState, action) => {
                     featuredCategoryByProductJson: {
                         ...state.HomeCollection.featuredCategoryByProductJson,
                         featuredCategoryByProduct: {
-                            ...state.HomeCollection.featuredCategoryByProductJson.featuredCategoryByProduct.ManagementCategory,
-                            ManagementProducts: arrUpdated
+                            ...state.HomeCollection.featuredCategoryByProduct,
+                            ManagementCategory: {
+                                ...state.HomeCollection.ManagementCategory,
+                                ManagementProducts: arrUpdated
+                                // featuredCategoryByProduct: {
+                                //     ...state.HomeCollection.featuredCategoryByProductJson.featuredCategoryByProduct.ManagementCategory,
+                                //     ManagementProducts: arrUpdated
+                                // }
+                            }
                         }
                     }
                 }
