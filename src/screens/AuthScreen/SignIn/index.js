@@ -30,6 +30,7 @@ const Login = (props) => {
     const [formattedNum, setFormattedNum] = useState('')
     const [error, setError] = useState('')
     const [mobileSwitch, setMobileSwitch] = useState(true)
+    const [loadingButton, setLoadingButton] = useState(false)
 
     const navigation = useNavigation();
     const dispatch = useDispatch()
@@ -72,14 +73,19 @@ const Login = (props) => {
 
     const signInWithNumber = async () => {
         try {
+            setLoadingButton(true)
             const result = await signInWithPhoneNumber(formattedNum)
             console.log('Response from signInWithNumber', result)
+            setLoadingButton(false)
+
             navigation.navigate('OtpVerification', {
                 authResult: result,
                 phoneNumber: formattedNum,
                 isFromSignUp: false
             });
         } catch (error) {
+            setLoadingButton(false)
+
             console.log('Error from signInWithNumber', error)
         }
     }
@@ -180,7 +186,12 @@ const Login = (props) => {
                         )
                 }
 
-                <AppButton label={translate('common.signin')} containerStyle={{ marginVertical: '5%' }} onPress={Login} />
+                <AppButton
+                    label={translate('common.signin')}
+                    containerStyle={{ marginVertical: '5%' }}
+                    onPress={Login}
+                    isIndicatorLoading={loadingButton}
+                />
 
                 {/* <View style={styles.rowContainer}>
                     <ToggleSwitch
