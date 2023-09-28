@@ -6,6 +6,7 @@ import fonts from '../../../constant/fonts';
 import Images from '../../../constant/Images';
 import Rating from '../rating';
 import Separator from '../../../constant/Separator';
+import { getFonts } from '../../utils';
 
 const ListReview = (props) => {
 
@@ -41,14 +42,14 @@ const ListReview = (props) => {
         return (
             <View>
                 <Separator />
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '5%',  }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '5%', }}>
                     {renderProfileWithName(item)}
                     {renderTimeStamp(item)}
                 </View>
-                <View style={{ marginVertical: hp('1%'),  paddingHorizontal: '5%' }}>
+                <View style={{ marginVertical: hp('1%'), paddingHorizontal: '5%' }}>
                     <Text style={styles.userComment}>{item.comment}</Text>
                 </View>
-                
+
             </View>
         );
     }
@@ -74,11 +75,11 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     userName: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         lineHeight: 21, letterSpacing: 0.5, fontWeight: 600
     },
     timeStamp: {
-        textAlign: 'right', fontFamily: fonts.VisbyCF_Medium,
+        textAlign: 'right', fontFamily: getFonts.MEDIUM,
         fontSize: 12,
         fontWeight: 500,
         color: Colors.GRAY1
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
         fontWeight: 500
     },
     userComment: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         lineHeight: 19,
         letterSpacing: 0.5,

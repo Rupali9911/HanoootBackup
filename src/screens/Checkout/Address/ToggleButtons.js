@@ -103,7 +103,6 @@
 //         resizeMode: 'contain'
 //     },
 //     text: {
-//         fontFamily: fonts.VisbyCF_Medium,
 //         fontWeight: 500,
 //         fontSize: 12,
 //         letterSpacing: 0.5
@@ -116,6 +115,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Colors from "../../../constant/Colors";
 import Images from "../../../constant/Images";
 import fonts from "../../../constant/fonts";
+import { getFonts } from "../../utils";
 
 export default ToggleButtons = (props) => {
     const [toggle1, settoggle1] = useState(false);
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     text: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         fontSize: 12,
         letterSpacing: 0.5

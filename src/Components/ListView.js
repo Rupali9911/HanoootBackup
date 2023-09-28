@@ -13,6 +13,7 @@ import { addToWishlistAPICall } from '../services/apis/WishlistAPI'
 import SVGS from '../constant/Svgs'
 import { showErrorToast, showInfoToast } from './universal/Toast'
 import { translate } from '../utility'
+import { getFonts } from '../screens/utils'
 
 
 const { HeartIconActive, HeartIcon, DiscountTag } = SVGS
@@ -324,7 +325,7 @@ const styles = StyleSheet.create({
         // maxWidth: wp(35)
     },
     price: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 19,
         letterSpacing: 0.5,
         // fontWeight: 700,
@@ -338,7 +339,7 @@ const styles = StyleSheet.create({
         // padding: 10
     },
     discountPrice: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 19,
         letterSpacing: 0.5,
         // fontWeight: 700,
@@ -358,7 +359,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     productName: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 11,
         lineHeight: 15,
         letterSpacing: 0.5,
@@ -367,7 +368,7 @@ const styles = StyleSheet.create({
         // maxWidth: wp(35)
     },
     productDiscountPrice: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 19,
         letterSpacing: 0.5,
         // fontWeight: 700,
@@ -376,14 +377,14 @@ const styles = StyleSheet.create({
         textDecorationStyle: 'solid',
     },
     ProductDiscPercent: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 19,
         letterSpacing: 0.5,
         // fontWeight: 700,
         color: Colors.PRICEGREEN
     },
     rating: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         fontSize: 11,
         letterSpacing: 0.5,
         lineHeight: 21,
@@ -393,7 +394,7 @@ const styles = StyleSheet.create({
         fontSize: 11,
         lineHeight: 21,
         letterSpacing: 0.5,
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 500
     },
     ratingImg: {
@@ -415,7 +416,7 @@ const styles = StyleSheet.create({
         marginVertical: SIZE(1)
     },
     priceBtnText: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 10,
         fontWeight: '600',
         color: Colors.WHITE

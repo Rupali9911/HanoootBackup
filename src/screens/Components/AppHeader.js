@@ -12,6 +12,7 @@ import { showErrorToast } from '../../Components/universal/Toast';
 import { translate } from '../../utility';
 import AppModal from '../../Components/universal/Modal';
 import ModalContentWithoutLogin from '../../Components/universal/Modal/ModalContentWithoutLogin';
+import { getFonts } from '../utils';
 
 const { HeartIconBlack, CartBlackIcon, SearchIcon, HanoootLogo } = SVGS;
 
@@ -22,6 +23,8 @@ export default function AppHeader(props) {
   const navigation = useNavigation();
 
   const userData = useSelector((state) => state.userReducer.userData);
+  const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
 
   const RightSideIcon = (props) => {
@@ -60,7 +63,7 @@ export default function AppHeader(props) {
               <Image
                 style={[
                   styles.backIcon,
-                ]}
+                  { transform: [{ rotate: selectedLanguageItem?.language_id === 0 ? '0deg' : '180deg' }] }]}
                 source={Images.backIcon}
               />
             }
@@ -262,7 +265,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   title: {
-    fontFamily: fonts.VisbyCF_Bold,
+    fontFamily: getFonts.BOLD,
     fontSize: 16,
     letterSpacing: 0.5,
     lineHeight: 21,

@@ -7,6 +7,7 @@ import AppButton from '../../screens/Components/AppButton'
 import { useNavigation, StackActions } from '@react-navigation/native'
 import { translate } from '../../utility'
 import SVGS from '../../constant/Svgs'
+import { getFonts } from '../../screens/utils'
 
 const { SuccessIcon } = SVGS
 
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     title: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         // fontWeight: 700,
         fontSize: 24,
         letterSpacing: 0.5,

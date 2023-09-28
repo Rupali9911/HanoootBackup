@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux'
 import { saveUserDetails } from '../../helpers/user'
 import { translate } from '../../utility'
 import SVGS from '../../constant/Svgs'
+import { getFonts } from '../utils'
 
 const { Google, Apple } = SVGS
 
@@ -129,7 +130,7 @@ export default AuthBottomContainer;
 
 const styles = StyleSheet.create({
     title: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 22,
         fontWeight: 600,
         letterSpacing: 0.5,
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1
     },
     termsPrivacy: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         letterSpacing: 0.5,
         textAlign: 'left',
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     text: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 12,
         fontWeight: 600,
         letterSpacing: 0.5,
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
 
     },
     titleText: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         fontSize: 13,
         letterSpacing: 0.5,

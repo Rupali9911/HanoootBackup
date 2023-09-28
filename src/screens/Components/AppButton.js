@@ -5,6 +5,7 @@ import ButtonInputContainer from './ButtonInputContainer'
 import fonts from '../../constant/fonts'
 import Colors from '../../constant/Colors'
 import Images from '../../constant/Images'
+import { getFonts } from '../utils'
 // impo
 
 const AppButton = (props) => {
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     label: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         color: Colors.WHITE,
         fontSize: RF(1.8),

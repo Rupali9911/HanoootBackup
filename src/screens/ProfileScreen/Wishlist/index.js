@@ -17,6 +17,7 @@ import { translate } from '../../../utility';
 import { productCollection } from '../../../constant/DemoArray';
 import { useIsFocused } from '@react-navigation/native';
 import { wishlistLoading, wishlistReset, wishlistPageChange } from '../../Store/actions/wishlistActions';
+import { getFonts } from '../../utils';
 
 
 const Wishlist = () => {
@@ -120,7 +121,7 @@ const Wishlist = () => {
                     >
                         <Text
                             style={{
-                                fontFamily: fonts.VisbyCF_Demibold,
+                                fontFamily: getFonts.SEMI_BOLD,
                                 fontWeight: 600,
                                 fontSize: 12,
                                 letterSpacing: 0.5,
@@ -215,13 +216,13 @@ const styles = StyleSheet.create({
     //     width: wp(40)
     // },
     name: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         fontSize: 12,
         letterSpacing: 0.5
     },
     price: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         // fontWeight: 700,
         letterSpacing: 0.5
     },
@@ -272,7 +273,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     toastMsgText: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 16,
         letterSpacing: 0.5
     },

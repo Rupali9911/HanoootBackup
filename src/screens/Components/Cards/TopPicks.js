@@ -11,6 +11,7 @@ import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
 import { showInfoToast } from '../../../Components/universal/Toast'
 import { translate } from '../../../utility'
 import { updateTopPicksCart } from '../../Store/actions/HomeAction'
+import { getFonts } from '../../utils'
 
 const TopPicks = (props) => {
   const Data = props.Data;
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 600,
-    fontFamily: fonts.VisbyCF_Demibold,
+    fontFamily: getFonts.SEMI_BOLD,
     letterSpacing: 0.5,
     textAlign: 'left'
   },
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 600,
     color: Colors.themeColor,
-    fontFamily: fonts.VisbyCF_Demibold,
+    fontFamily: getFonts.SEMI_BOLD,
     lineHeight: 17,
     letterSpacing: 0.5
   },
@@ -199,12 +200,12 @@ const styles = StyleSheet.create({
   itemName: {
     fontSize: 12,
     letterSpacing: 0.5,
-    fontFamily: fonts.VisbyCF_Medium,
+    fontFamily: getFonts.MEDIUM,
     fontWeight: 500
   },
   itemPrice: {
     // fontWeight: 700,
-    fontFamily: fonts.VisbyCF_Bold,
+    fontFamily: getFonts.BOLD,
     letterSpacing: 0.5
   },
   cartBtn: {
@@ -219,7 +220,7 @@ const styles = StyleSheet.create({
   cartBtnTxt: {
     color: Colors.WHITE,
     fontWeight: 600,
-    fontFamily: fonts.VisbyCF_Medium,
+    fontFamily: getFonts.MEDIUM,
     lineHeight: 17,
     letterSpacing: 0.5,
     fontSize: 12
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover'
   },
   description: {
-    fontFamily: fonts.VISBY_CF_REGULAR,
+    fontFamily: getFonts.REGULAR,
     fontWeight: 500,
     letterSpacing: 0.5,
     textAlign: 'left',

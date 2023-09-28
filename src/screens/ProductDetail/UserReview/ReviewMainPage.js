@@ -12,6 +12,7 @@ import Separator from '../../../constant/Separator'
 import ListReview from './ReviewList'
 import { ProgressView } from "@react-native-community/progress-view";
 import { translate } from '../../../utility'
+import { getFonts } from '../../utils'
 
 
 
@@ -174,7 +175,7 @@ const ReviewMainPage = (props) => {
                         borderBottomWidth: 1,
                         justifyContent: 'center'}}> */}
           <Text style={{
-            fontFamily: fonts.VisbyCF_Bold,
+            fontFamily: getFonts.BOLD,
             lineHeight: 19,
             // fontWeight: 700,
             letterSpacing: 0.5,
@@ -214,7 +215,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1
   },
   productName: {
-    fontFamily: fonts.VisbyCF_Demibold,
+    fontFamily: getFonts.SEMI_BOLD,
     fontWeight: 600,
     letterSpacing: 0.5,
   },
@@ -227,7 +228,7 @@ const styles = StyleSheet.create({
   },
   Heading: {
     // fontWeight: 700,
-    fontFamily: fonts.VisbyCF_Bold,
+    fontFamily: getFonts.BOLD,
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.5,
@@ -243,11 +244,11 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   userName: {
-    fontFamily: fonts.VisbyCF_Demibold,
+    fontFamily: getFonts.SEMI_BOLD,
     lineHeight: 21, letterSpacing: 0.5, fontWeight: 600
   },
   timeStamp: {
-    textAlign: 'right', fontFamily: fonts.VisbyCF_Medium,
+    textAlign: 'right', fontFamily: getFonts.MEDIUM,
     fontSize: 12,
     fontWeight: 500,
     color: Colors.GRAY1
@@ -266,7 +267,7 @@ const styles = StyleSheet.create({
     fontWeight: 500
   },
   userComment: {
-    fontFamily: fonts.VisbyCF_Medium,
+    fontFamily: getFonts.MEDIUM,
     fontWeight: 500,
     lineHeight: 19,
     letterSpacing: 0.5,

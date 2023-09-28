@@ -11,6 +11,7 @@ import { hp, wp } from '../../constant/responsiveFunc';
 import { removeAddressDetails } from '../../screens/Store/actions/checkoutAction';
 import AppModal from '../universal/Modal';
 import { translate } from '../../utility';
+import { getFonts } from '../../screens/utils';
 
 const AddressDetail = (props) => {
     const [id, setId] = useState();
@@ -194,17 +195,17 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.WHITE, paddingTop: 20, paddingHorizontal: 20
     },
     buttonText: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         color: Colors.themeColor
     },
     userName: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         fontSize: 16
     },
     userAdd: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         color: Colors.PRICEGRAY
     },
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.LIGHTBLUE1, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 30
     },
     userLocationText: {
-        color: Colors.WHITE, fontFamily: fonts.VisbyCF_Bold
+        color: Colors.WHITE, fontFamily: getFonts.BOLD
     },
     bottomButtonContainer: {
         position: 'absolute',
@@ -244,13 +245,13 @@ const styles = StyleSheet.create({
         zIndex: 1
     },
     infoMsg: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         lineHeight: 15,
         letterSpacing: 0.5,
     },
     toastMsgText: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 16,
         letterSpacing: 0.5
     },
@@ -267,7 +268,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     removeHeading: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 600,
         fontSize: 16,
         lineHeight: 21,
@@ -277,7 +278,7 @@ const styles = StyleSheet.create({
 
     },
     removeDesc: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 500,
         letterSpacing: 0.5,
         lineHeight: 19,
@@ -297,7 +298,7 @@ const styles = StyleSheet.create({
         width: wp(35.73)
     },
     modalBtnText: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontWeight: 500,
         fontSize: 12,
         letterSpacing: 0.5,
@@ -315,7 +316,7 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     deliverUserName: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         fontSize: 16,
         letterSpacing: 0.5,
@@ -329,10 +330,10 @@ const styles = StyleSheet.create({
     },
     deliveryType: {
         color: Colors.WHITE,
-        fontFamily: fonts.VisbyCF_Bold
+        fontFamily: getFonts.BOLD
     },
     deliverUserAdd: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         color: Colors.PRICEGRAY,
         letterSpacing: 0.5,

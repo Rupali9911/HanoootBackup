@@ -5,6 +5,7 @@ import Colors from './Colors';
 import fonts from './fonts';
 import { wp, hp } from './responsiveFunc';
 import { translate } from '../utility';
+import { getFonts } from '../screens/utils';
 
 const BuildingDropdown = (props) => {
     const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ const BuildingDropdown = (props) => {
                     setItems={setItems}
                     placeholder={'Choose Building Type.'}
                     placeholderStyle={{
-                        fontFamily: fonts.VisbyCF_Medium,
+                        fontFamily: getFonts.MEDIUM,
                         fontWeight: '500',
                         letterSpacing: 0.5,
                         color: Colors.GRAYDARK
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
         minHeight: hp('6%')
     },
     label: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         lineHeight: 19,
         letterSpacing: 0.5,
         marginBottom: 5,
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: Colors.RED1,
         marginTop: 5,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
     },
 })

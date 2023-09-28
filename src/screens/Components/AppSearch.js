@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { globalSearchAPICall } from '../Store/actions/productListAction';
 import { useNavigation } from '@react-navigation/native';
 import { translate } from '../../utility';
+import { getFonts } from '../utils';
 const { SearchGrayIcon, SearchArrow, CrossIcon } = SVGS;
 
 
@@ -85,7 +86,7 @@ const AppSearch = (props) => {
           onPress={() => { }}
         >
           <Text style={{
-            fontFamily: fonts.VisbyCF_Medium,
+            fontFamily: getFonts.MEDIUM,
             fontWeight: 600,
             letterSpacing: 0.5,
             lineHeight: 21,
@@ -123,7 +124,7 @@ const AppSearch = (props) => {
           value={searchTxt}
           placeholderTextColor={Colors.GRAYDARK}
           style={{
-            fontFamily: fonts.VISBY_CF_REGULAR,
+            fontFamily: getFonts.REGULAR,
             fontWeight: '500',
             letterSpacing: 0.5,
             width: '100%',

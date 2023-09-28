@@ -9,7 +9,7 @@ import AuthHeader from '../AuthHeader'
 import fonts from '../../../constant/fonts'
 import AppInput from '../../../constant/AppInput'
 import AppButton from '../../Components/AppButton'
-import { maxLength32, validateEmail, maxLength50 } from '../../utils'
+import { maxLength32, validateEmail, maxLength50, getFonts } from '../../utils'
 import { useNavigation } from '@react-navigation/native'
 import { sendPasswordResetEmail } from '../../../services/socialAuth'
 import { translate } from '../../../utility'
@@ -85,7 +85,7 @@ export default ForgotPassword;
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 16,
         letterSpacing: 0.5,
         textAlign: 'center',

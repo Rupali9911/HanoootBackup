@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { translate } from '../../../utility';
 import { hp } from '../../../constant/responsiveFunc';
+import { getFonts } from '../../utils';
 
 
 const Payment = (props) => {
@@ -107,20 +108,20 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     payMode: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         letterSpacing: 0.5,
         lineHeight: 21,
         fontSize: 16
     },
     payModeDesc: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         letterSpacing: 0.5,
         color: Colors.PRICEGRAY
     },
     privacyText: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         padding: 20,
         fontWeight: 500,
         letterSpacing: 0.5,

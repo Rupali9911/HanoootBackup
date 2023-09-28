@@ -13,6 +13,7 @@ import { orderListLoadingStart, orderListReset, orderListPageChange, getOrderLis
 import Loader from '../../../constant/Loader'
 import { translate } from '../../../utility'
 import { getMonths } from '../../../constant/SwitchRenders'
+import { getFonts } from '../../utils'
 
 const MyOrderList = () => {
     const { orderList, isOrderDataLoading, orderPageChange, orderTotal } = useSelector(state => state.orderReducer);
@@ -288,12 +289,12 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 16,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         // fontWeight: 700,
         letterSpacing: 0.5
     },
     orderDetail: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         letterSpacing: 0.5,
         color: Colors.PRICEGRAY
@@ -317,7 +318,7 @@ const styles = StyleSheet.create({
     buttonText: {
         // fontSize: 20,
         color: Colors.themeColor,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         fontWeight: 600,
         letterSpacing: 0.5
 

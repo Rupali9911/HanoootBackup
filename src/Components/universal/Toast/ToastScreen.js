@@ -7,6 +7,7 @@ import Colors from '../../../constant/Colors'
 import { hp, wp } from '../../../constant/responsiveFunc'
 import Images from '../../../constant/Images'
 import { translate } from '../../../utility'
+import { getFonts } from '../../../screens/utils'
 const ToastScreen = (props) => {
     const navigation = useNavigation();
     const popAction = StackActions.pop(2);
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     title: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         // fontWeight: 700,
         fontSize: 24,
         letterSpacing: 0.5,

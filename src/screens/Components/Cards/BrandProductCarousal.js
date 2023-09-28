@@ -6,6 +6,7 @@ import Colors from '../../../constant/Colors'
 import { electronicsArr } from '../../../constant/DemoArray';
 import Banner from './Banner'
 import fonts from '../../../constant/fonts'
+import { getFonts } from '../../utils'
 
 const BrandProductCarousal = () => {
 
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 16,
         fontWeight: 600,
         color: Colors.themeColor,
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
         color: Colors.themeColor,
         lineHeight: 21,
         letterSpacing: 0.5,
-        fontFamily: fonts.VisbyCF_Demibold
+        fontFamily: getFonts.SEMI_BOLD
     },
     centerItemImg: {
         height: 70,
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
     },
     priceArrowText: {
 
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         // fontWeight: 700,
         lineHeight: 21,
         letterSpacing: 0.5,
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10
     },
     bottomViewText: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         // fontWeight: 700,
         lineHeight: 21,
         letterSpacing: 0.5,

@@ -12,7 +12,7 @@ import AppInput from '../../../constant/AppInput'
 import fonts from '../../../constant/fonts'
 import AppButton from '../../Components/AppButton'
 import CustomSwitch from '../customSwitch'
-import { maxLength10, maxLength8, maxLength50, validatePhoneNo, validateEmail, validatePassword, maxLength32, validateBlankPassword } from '../../utils'
+import { maxLength10, maxLength8, maxLength50, validatePhoneNo, validateEmail, validatePassword, maxLength32, validateBlankPassword, getFonts } from '../../utils'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { isValidNumber } from 'react-native-phone-number-input';
 import { signInWithPhoneNumber, signInWithEmailAndPwd } from '../../../services/socialAuth'
@@ -72,6 +72,7 @@ const Login = (props) => {
     }
 
     const signInWithNumber = async () => {
+        setLoader(true)
         try {
             setLoadingButton(true)
             const result = await signInWithPhoneNumber(formattedNum)
@@ -222,7 +223,7 @@ export default Login
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 16,
         fontWeight: 500,
         letterSpacing: 0.5,

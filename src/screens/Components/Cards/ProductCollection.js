@@ -4,6 +4,7 @@ import { hp, wp } from '../../../constant/responsiveFunc'
 import Images from '../../../constant/Images'
 import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
+import { getFonts } from '../../utils'
 
 const ProductCollection = () => {
 
@@ -74,13 +75,13 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     name: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 25,
         letterSpacing: 0.5,
         // fontWeight: 700
     },
     price: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontSize: 12,
         lineHeight: 18,
         letterSpacing: 0.5,

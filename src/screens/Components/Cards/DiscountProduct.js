@@ -6,6 +6,7 @@ import Images from '../../../constant/Images';
 import Carousels from '../Carousel';
 import { hp, wp } from '../../../constant/responsiveFunc';
 import fonts from '../../../constant/fonts';
+import { getFonts } from '../../utils';
 
 const DiscountProduct = (props) => {
 
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 20,
         fontWeight: 'bold',
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5,
         lineHeight: 42,
         color: Colors.WHITE,
@@ -89,21 +90,21 @@ const styles = StyleSheet.create({
         // fontWeight: 700,
         fontSize: 18,
         color: Colors.WHITE,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 25,
         letterSpacing: 0.5
     },
     itemName: {
         fontSize: 22,
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         lineHeight: 25,
         letterSpacing: 0.5,
         left: 10
     },
     itemDesc: {
         color: Colors.GRAYDARK,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 16,
         fontWeight: 500,
         letterSpacing: 0.5,
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
         color: Colors.themeColor,
         fontWeight: '500',
         fontStyle: 'italic',
-        fontFamily: fonts.VISBY_CF_REGULAR
+        fontFamily: getFonts.REGULAR
     },
     rightSideImg: {
         width: 130, height: 140

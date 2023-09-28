@@ -14,6 +14,7 @@ import Loader from '../../../constant/Loader';
 import fonts from '../../../constant/fonts';
 import { translate } from '../../../utility';
 import { hp } from '../../../constant/responsiveFunc';
+import { getFonts } from '../../utils';
 
 const Address = (props) => {
     const { addressRecordList, isAddresDetailLoading } = useSelector(state => state.checkoutReducer);
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     text: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         letterSpacing: 0.5,
         fontSize: 16

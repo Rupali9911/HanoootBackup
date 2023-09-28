@@ -9,6 +9,7 @@ import Images from '../../constant/Images';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { translate } from '../../utility';
+import { getFonts } from '../utils';
 
 const ProductSpecCard = (props) => {
     const { data } = props;
@@ -122,10 +123,10 @@ const styles = StyleSheet.create({
         marginVertical: '2%'
     },
     tableRowData: {
-        justifyContent: 'flex-start', fontFamily: fonts.VisbyCF_Medium, fontSize: 12, fontWeight: 500
+        justifyContent: 'flex-start', fontFamily: getFonts.MEDIUM, fontSize: 12, fontWeight: 500
     },
     tableItemName: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         fontSize: 16,
         lineHeight: 21,
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
         borderWidth: 1, borderColor: Colors.GRAY, width: '90%', borderRadius: 8, marginVertical: hp('1%')
     },
     offerContent: {
-        fontFamily: fonts.VisbyCF_Demibold, fontSize: 12, lineHeight: 17, letterSpacing: 0.5, marginVertical: 1
+        fontFamily: getFonts.SEMI_BOLD, fontSize: 12, lineHeight: 17, letterSpacing: 0.5, marginVertical: 1
     },
     offerViewContainer: {
         flexDirection: 'row', alignItems: 'center', gap: 10, padding: 20
@@ -156,6 +157,6 @@ const styles = StyleSheet.create({
     },
     cardDetails: {
         fontWeight: 500,
-        fontFamily: fonts.VisbyCF_Medium, letterSpacing: 0.5
+        fontFamily: getFonts.MEDIUM, letterSpacing: 0.5
     }
 })

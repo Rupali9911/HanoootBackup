@@ -9,6 +9,7 @@ import fonts from '../../../constant/fonts'
 import AppButton from '../../Components/AppButton'
 import { useNavigation } from '@react-navigation/native';
 import { translate } from '../../../utility'
+import { getFonts } from '../../utils'
 
 
 const EmptyAddress = () => {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
         // marginVertical: '2%'
     },
     productName: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: 600,
         letterSpacing: 0.5,
         fontSize: 16

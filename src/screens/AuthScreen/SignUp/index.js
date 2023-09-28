@@ -10,7 +10,7 @@ import AppInput from '../../../constant/AppInput';
 import AppButton from '../../Components/AppButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import AuthBottomContainer from '../AuthBottomContainer';
-import { maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName, maxLength50, validateEmail } from '../../utils';
+import { maxLength10, validatePhoneNo, validateUserName, validatePassword, maxLength8, validateFullName, maxLength50, validateEmail, getFonts } from '../../utils';
 import { isValidNumber } from 'react-native-phone-number-input';
 import AuthHeader from '../AuthHeader';
 import { useNavigation } from '@react-navigation/native';
@@ -281,7 +281,7 @@ export default Signup;
 
 const styles = StyleSheet.create({
     title: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 22,
         fontWeight: 600,
         letterSpacing: 0.5,
@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1
     },
     termsPrivacy: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         letterSpacing: 0.5,
         textAlign: 'left',
@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     text: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontSize: 12,
         fontWeight: 600,
         letterSpacing: 0.5,

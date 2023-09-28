@@ -11,6 +11,7 @@ import Images from "../../constant/Images";
 import fonts from "../../constant/fonts";
 import { translate } from "../../utility";
 import SVGS from "../../constant/Svgs";
+import { getFonts } from "../../screens/utils";
 
 const { WorkIcon } = SVGS;
 
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     text: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         fontSize: 12,
         letterSpacing: 0.5

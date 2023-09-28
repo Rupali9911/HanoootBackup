@@ -8,7 +8,7 @@ import Colors from '../../../constant/Colors';
 import AppButton from '../../Components/AppButton';
 import { useNavigation } from '@react-navigation/native';
 import { updatePasswordOnFirebase } from '../../../services/socialAuth';
-import { validateOnlyPassword } from '../../utils';
+import { getFonts, validateOnlyPassword } from '../../utils';
 import { updatePassword } from '../../../services/apis';
 import { translate } from '../../../utility';
 
@@ -144,7 +144,7 @@ export default ChangePassword;
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: fonts.VisbyCF_Medium,
+    fontFamily: getFonts.MEDIUM,
     // lineHeight: 19,
     letterSpacing: 0.5,
     // marginBottom: 5,

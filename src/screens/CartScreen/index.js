@@ -16,6 +16,7 @@ import EmptyDetailScreen from '../../Components/EmptyDetailScreen'
 import { hp, wp } from '../../constant/responsiveFunc'
 import { translate } from '../../utility'
 import SVGS from '../../constant/Svgs'
+import { getFonts } from '../utils'
 
 const { EmptyCart } = SVGS;
 
@@ -115,6 +116,6 @@ const styles = StyleSheet.create({
   },
   sorryMessage: {
     fontSize: 15,
-    fontFamily: fonts.VisbyCF_Demibold,
+    fontFamily: getFonts.SEMI_BOLD,
   },
 })

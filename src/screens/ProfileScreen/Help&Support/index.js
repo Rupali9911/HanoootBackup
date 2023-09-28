@@ -6,7 +6,7 @@ import AppInput from '../../../constant/AppInput'
 import fonts from '../../../constant/fonts'
 import Colors from '../../../constant/Colors'
 import AppButton from '../../Components/AppButton'
-import { validateUserName, validateEmail, validateDescription } from '../../utils'
+import { validateUserName, validateEmail, validateDescription, getFonts } from '../../utils'
 import { helpNSupport } from '../../../services/apis'
 import { useNavigation } from '@react-navigation/native'
 import { translate } from '../../../utility'
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'red'
     },
     label: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         lineHeight: 19,
         letterSpacing: 0.5,
         marginBottom: 5,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: Colors.RED1,
         marginTop: 5,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
     },
 })

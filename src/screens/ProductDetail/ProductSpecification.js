@@ -5,6 +5,7 @@ import Colors from '../../constant/Colors'
 import ProductHeader from '../Components/Cards/ProductHeader'
 import { wp } from '../../constant/responsiveFunc'
 import { translate } from '../../utility'
+import { getFonts } from '../utils'
 
 const ProductSpecification = (props) => {
   const [specifications, setSpecifications] = useState([])
@@ -94,6 +95,6 @@ export default ProductSpecification
 
 const styles = StyleSheet.create({
   items: {
-    fontFamily: fonts.VisbyCF_Medium, lineHeight: 19, letterSpacing: 0.5, fontWeight: 500, color: Colors.PRICEGRAY,
+    fontFamily: getFonts.MEDIUM, lineHeight: 19, letterSpacing: 0.5, fontWeight: 500, color: Colors.PRICEGRAY,
   }
 })

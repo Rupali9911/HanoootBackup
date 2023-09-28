@@ -8,6 +8,7 @@ import Colors from '../../../constant/Colors';
 import { useNavigation } from '@react-navigation/native';
 import PolicyView from './PolicyView';
 import { translate } from '../../../utility';
+import { getFonts } from '../../utils';
 
 const LegalPolicies = () => {
 
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     termsText: {
         fontSize: 16,
         fontWeight: 600,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         letterSpacing: 0.5
     },
     arrowContainer: {

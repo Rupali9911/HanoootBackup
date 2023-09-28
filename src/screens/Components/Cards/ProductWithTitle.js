@@ -5,6 +5,7 @@ import ProductHeader from './ProductHeader'
 import { hp } from '../../../constant/responsiveFunc'
 import fonts from '../../../constant/fonts'
 import { electronicsArr } from '../../../constant/DemoArray'
+import { getFonts } from '../../utils'
 
 const ProductwithTitle = (props) => {
 
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     letterSpacing: 0.5,
     fontWeight: 500,
-    fontFamily: fonts.VisbyCF_Medium
+    fontFamily: getFonts.MEDIUM
   },
   image: {
     height: 75,

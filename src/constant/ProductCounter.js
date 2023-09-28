@@ -7,6 +7,7 @@ import Images from './Images';
 import { AddtoCartAPICall } from '../services/apis/CartAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItemsFromCart } from '../screens/Store/actions/cartAction';
+import { getFonts } from '../screens/utils';
 
 const ProductCounter = (props) => {
     console.log('propscalled : ', props)
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     },
     qtyText: {
         fontWeight: 500,
-        fontFamily: fonts.VisbyCF_Medium
+        fontFamily: getFonts.MEDIUM
     },
     buttonWithCounter: {
         flexDirection: 'row',

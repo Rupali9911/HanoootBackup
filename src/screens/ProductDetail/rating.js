@@ -5,6 +5,7 @@ import fonts from '../../constant/fonts'
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import Colors from '../../constant/Colors';
 import { translate } from '../../utility';
+import { getFonts } from '../utils';
 
 
 const UserRating = (props) => {
@@ -70,11 +71,11 @@ const styles = StyleSheet.create({
         gap: 10
     },
     rating: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         fontSize: 28
     },
     review: {
-        fontFamily: fonts.VisbyCF_Medium, fontSize: 12
+        fontFamily: getFonts.MEDIUM, fontSize: 12
     }
 
 })

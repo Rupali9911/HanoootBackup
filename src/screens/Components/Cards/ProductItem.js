@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import Colors from '../../../constant/Colors'
 import fonts from '../../../constant/fonts'
+import { getFonts } from '../../utils'
 
 const ProductItem = (props) => {
     return (
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
         lineHeight: 19,
         letterSpacing: 0.5,
         lineHeight: 20,
-        fontFamily: fonts.VisbyCF_Bold
+        fontFamily: getFonts.BOLD
     },
     discountPrice: {
         color: Colors.GRAYDARK, textDecorationLine: 'line-through', textDecorationStyle: 'solid', lineHeight: 20

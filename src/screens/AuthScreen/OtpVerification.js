@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux'
 import { userRegister } from '../../services/apis'
 import { saveUserDetails, updateNameWithSaveDetails } from '../../helpers/user'
 import { translate } from '../../utility'
+import { getFonts } from '../utils'
 const otpObj = {
     otp1: "",
     otp2: "",
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 22,
         fontWeight: 600,
         letterSpacing: 0.5,
@@ -256,7 +257,7 @@ const styles = StyleSheet.create({
         marginVertical: '2%'
     },
     text: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         letterSpacing: 0.5,
         textAlign: 'left',

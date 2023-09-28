@@ -1,5 +1,9 @@
 import { translate } from "../../utility";
 import { getWeekDays, getMonths } from "../../constant/SwitchRenders";
+import fonts from "../../constant/fonts";
+import { Store } from "../Store";
+const isLanguage = Store.getState().languageReducer.selectedLanguageItem?.language_id;
+
 
 export const maxLength = max => value =>
     value && value.length > max
@@ -164,3 +168,14 @@ export const getVariantsData = (str, key, isLanguage) => {
     }
 
 };
+
+
+export const getFonts = {
+    BOLD: isLanguage === 0 ? fonts.VisbyCF_Bold : fonts.Bahij_Bold,
+    MEDIUM: isLanguage === 0 ? fonts.VisbyCF_Medium : fonts.Bahij_SemiBold,
+    REGULAR: isLanguage === 0 ? fonts.VISBY_CF_REGULAR : fonts.Bahij_Regular,
+    SEMI_BOLD: isLanguage === 0 ? fonts.VisbyCF_Demibold : fonts.Bahij_SemiBold,
+
+
+};
+

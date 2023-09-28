@@ -8,7 +8,7 @@ import ProductImageCarousel from './ProductImageCarousel';
 import { ExpressView } from '../../constant/ListConstant';
 import Separator from '../../constant/Separator';
 import { addToWishlistAPICall } from '../../services/apis/WishlistAPI';
-import { capitalizeFirstLetter } from '../utils';
+import { capitalizeFirstLetter, getFonts } from '../utils';
 import { Rating } from 'react-native-ratings';
 import SVGS from '../../constant/Svgs';
 import { showErrorToast } from '../../Components/universal/Toast';
@@ -155,7 +155,7 @@ const ProductDetailCard = (props) => {
                     fontSize: 11,
                     lineHeight: 21,
                     letterSpacing: 0.5,
-                    fontFamily: fonts.VISBY_CF_REGULAR,
+                    fontFamily: getFonts.REGULAR,
                     fontWeight: 500
                 }}>{`(${noOfReview})`}</Text>
             </View >
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     },
     brandName: {
         fontWeight: 600,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 12,
         lineHeight: 21,
         letterSpacing: 0.5,
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     productName: {
         // fontWeight: 700,
         lineHeight: 21,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5,
         lineHeight: 21,
         fontSize: 16
@@ -279,13 +279,13 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     choiceTextStyle: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         color: Colors.YELLOW
     },
     forTextStyle: {
         alignSelf: 'center',
         left: 10,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 10,
         fontWeight: 500,
         maxWidth: '70%'
@@ -310,15 +310,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row', alignItems: 'center', gap: 5
     },
     totalPrice: {
-        fontFamily: fonts.VisbyCF_Bold, lineHeight: 23, letterSpacing: 0.5,
+        fontFamily: getFonts.BOLD, lineHeight: 23, letterSpacing: 0.5,
         // fontWeight: 700,
         fontSize: 18
     },
     inclusiveTax: {
-        fontFamily: fonts.VisbyCF_Medium, lineHeight: 23, letterSpacing: 0.5, fontWeight: 400, fontSize: 10, color: Colors.PRICEGRAY
+        fontFamily: getFonts.MEDIUM, lineHeight: 23, letterSpacing: 0.5, fontWeight: 400, fontSize: 10, color: Colors.PRICEGRAY
     },
     discountPrice: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         lineHeight: 21,
         letterSpacing: 0.5,
         fontWeight: 600,
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     discountPercent: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         lineHeight: 21,
         letterSpacing: 0.5,
         fontWeight: 600,

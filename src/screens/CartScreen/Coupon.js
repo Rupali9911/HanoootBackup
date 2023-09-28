@@ -6,6 +6,7 @@ import { hp } from '../../constant/responsiveFunc'
 import RadioButton from 'react-native-radio-button'
 import { useSelector } from 'react-redux'
 import { translate } from '../../utility'
+import { getFonts } from '../utils'
 
 
 const Coupon = () => {
@@ -158,12 +159,11 @@ const styles = StyleSheet.create({
     },
     btnText: {
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5,
         color: Colors.themeColor
     },
     Text: {
-        // fontFamily: fonts.VisbyCF_Demibold,
         // letterSpacing: 0.5,
         // color: Colors.PRICEGRAY,
         // left: 10,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
         // fontSize: 16,
         borderRadius: 100,
         // backgroundColor: Colors.WHITE,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontWeight: '500',
         letterSpacing: 0.5,
         height: hp('5%')

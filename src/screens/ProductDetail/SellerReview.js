@@ -12,6 +12,7 @@ import { ProductListData } from '../../constant/DemoArray'
 import ListView from '../../Components/ListView'
 import { wp } from '../../constant/responsiveFunc'
 import { translate } from '../../utility'
+import { getFonts } from '../utils'
 
 const SellerReview = () => {
 
@@ -41,14 +42,14 @@ const SellerReview = () => {
       <AppHeader placeholderText={translate('common.whatLookingFor')} showBackButton Search />
       <View style={{ padding: 20, backgroundColor: Colors.WHITE, borderBottomColor: Colors.GRAY, borderBottomWidth: 1 }}>
         <Text style={{
-          fontFamily: fonts.VisbyCF_Demibold,
+          fontFamily: getFonts.SEMI_BOLD,
           fontWeight: 600,
           fontSize: 18
         }}>Ecom Nation</Text>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
           <Image source={Images.LocationIcon} style={{ height: 12, width: 9 }} />
-          <Text style={{ fontFamily: fonts.VisbyCF_Medium, fontWeight: 500 }}>Dhi Qar Governorate, Al-Rifa'i District , baghdad</Text>
+          <Text style={{ fontFamily: getFonts.MEDIUM, fontWeight: 500 }}>Dhi Qar Governorate, Al-Rifa'i District , baghdad</Text>
         </View>
         <Rating
           RatingReview

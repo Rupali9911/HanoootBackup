@@ -5,6 +5,7 @@ import Carousels from '../Carousel';
 import fonts from '../../../constant/fonts';
 import { wp, hp } from '../../../constant/responsiveFunc';
 import { FourImgData } from '../../../constant/DemoArray';
+import { getFonts } from '../../utils';
 
 const FourImageCarousel = (props) => {
 
@@ -47,7 +48,7 @@ const FourImageCarousel = (props) => {
                     numColumns={2}
                     scrollEnabled={false}
                 />
-             </View>
+            </View>
         )
     }
 
@@ -57,12 +58,12 @@ const FourImageCarousel = (props) => {
             {
                 props.priceOff && <Text style={styles.priceOff}>{props.priceOff}</Text>
             }
-            
+
             <Carousels
                 Data={sliceIntoChunks(FourImgData, 4)}
                 renderItem={renderCarousalView}
                 dotsLength={4}
-                
+
             />
         </View>
     )
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: '700',
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         letterSpacing: 0.5,
         lineHeight: 22,
         alignSelf: 'flex-start'
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     priceOff: {
         fontSize: 14,
         fontWeight: '700',
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         letterSpacing: 0.5,
         lineHeight: 22,
         alignSelf: 'flex-start',
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
         fontWeight: 500,
         lineHeight: 19,
         letterSpacing: 0.5,
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         top: 5
     },
     rowContainer: {

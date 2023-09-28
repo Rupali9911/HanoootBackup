@@ -5,6 +5,7 @@ import Colors from '../../../constant/Colors'
 import { wp } from '../../../constant/responsiveFunc'
 import ProductList from './ProductList'
 import { productCollection, ProductListData } from '../../../constant/DemoArray';
+import { getFonts } from '../../utils'
 
 const MultiProductList = (props) => {
 
@@ -16,14 +17,14 @@ const MultiProductList = (props) => {
                 imgContStyle={styles.productImgCont}
                 DisCountPrice
                 PriceInGreen
-                ViewContStyle={{margin: 0}}
+                ViewContStyle={{ margin: 0 }}
             />
             <ProductList
                 Data={ProductListData}
                 imgContStyle={styles.productImgCont}
                 DisCountPrice
                 PriceInGreen
-                ViewContStyle={{margin: 0}}
+                ViewContStyle={{ margin: 0 }}
             />
         </View>
     )
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: '700',
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5,
         lineHeight: 22,
         alignSelf: 'flex-start'

@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import fonts from '../../constant/fonts'
 import Colors from '../../constant/Colors'
+import { getFonts } from '../utils'
 
 const AuthHeader = (props) => {
     return (
@@ -15,7 +16,7 @@ export default AuthHeader
 
 const styles = StyleSheet.create({
     title: {
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         fontSize: 22,
         fontWeight: 600,
         letterSpacing: 0.5,

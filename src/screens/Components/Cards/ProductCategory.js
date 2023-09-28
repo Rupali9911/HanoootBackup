@@ -6,6 +6,7 @@ import Colors from '../../../constant/Colors'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Carousels from '../Carousel'
 import fonts from '../../../constant/fonts'
+import { getFonts } from '../../utils'
 
 
 const ProductCategory = () => {
@@ -68,7 +69,7 @@ export default ProductCategory;
 
 const styles = StyleSheet.create({
     title: {
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         fontSize: 20,
         // fontWeight: 700, 
         lineHeight: 42,
@@ -88,12 +89,12 @@ const styles = StyleSheet.create({
     productTitle: {
         fontSize: 16,
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5,
         lineHeight: 42
     },
     productDesc: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500,
         lineHeight: 19,
         letterSpacing: 0.5,
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 600,
         color: Colors.themeColor,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         lineHeight: 17,
         letterSpacing: 0.5
     },
@@ -145,13 +146,13 @@ const styles = StyleSheet.create({
         fontSize: 12,
         lineHeight: 17,
         letterSpacing: 0.5,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontWeight: 500
     },
     itemPrice: {
         // fontWeight: 700,
         lineHeight: 23,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5
     },
     cartBtn: {
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
     cartBtnTxt: {
         color: Colors.WHITE,
         fontWeight: 600,
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         lineHeight: 17,
         letterSpacing: 0.5,
         fontSize: 12

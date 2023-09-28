@@ -6,7 +6,7 @@ import { ExpressView } from '../../constant/ListConstant'
 import { wp, hp } from '../../constant/responsiveFunc'
 import { useSelector } from 'react-redux'
 import { getEnglishTitle, getArabicTitle } from '../../constant/SwitchRenders'
-import { getVariantsData } from '../../screens/utils'
+import { getFonts, getVariantsData } from '../../screens/utils'
 import { estimatedDelivery } from '../../screens/utils'
 import CartItemQuantity from './CartItemQty'
 import { translate } from '../../utility'
@@ -52,8 +52,8 @@ const CartProductCards = (props) => {
     const getDeliveryInfo = () => {
         return (
             <>
-                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.estimateddeliveryon')} <Text style={{ color: Colors.BLACK, fontFamily: fonts.VisbyCF_Bold }}>{estimatedDelivery(cartData?.deliveryDays?.delivery)}</Text></Text>
-                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.orderwithin')}  <Text style={{ color: Colors.BLACK, fontFamily: fonts.VisbyCF_Bold }}>{getTime(cartData?.deliveryDays?.time)}</Text></Text>
+                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.estimateddeliveryon')} <Text style={{ color: Colors.BLACK, fontFamily: getFonts.BOLD }}>{estimatedDelivery(cartData?.deliveryDays?.delivery)}</Text></Text>
+                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.orderwithin')}  <Text style={{ color: Colors.BLACK, fontFamily: getFonts.BOLD }}>{getTime(cartData?.deliveryDays?.time)}</Text></Text>
             </>
         )
     }
@@ -108,19 +108,19 @@ const styles = StyleSheet.create({
     },
     itemName: {
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         fontSize: 16,
         lineHeight: 21,
         letterSpacing: 0.5
     },
     itemDetail: {
-        fontFamily: fonts.VISBY_CF_REGULAR,
+        fontFamily: getFonts.REGULAR,
         fontSize: 12,
         fontWeight: 600
     },
     deliveryLine: {
         fontWeight: 600,
-        fontFamily: fonts.VisbyCF_Demibold,
+        fontFamily: getFonts.SEMI_BOLD,
         letterSpacing: 0.5,
         color: Colors.BLACK
     },
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         zIndex: 1
     },
     toastMsgText: {
-        fontFamily: fonts.VisbyCF_Medium,
+        fontFamily: getFonts.MEDIUM,
         fontSize: 16,
         letterSpacing: 0.5
     },
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     },
     Text: {
         // fontWeight: 700,
-        fontFamily: fonts.VisbyCF_Bold,
+        fontFamily: getFonts.BOLD,
         letterSpacing: 0.5
     },
     container: {
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     },
     qtyText: {
         fontWeight: 500,
-        fontFamily: fonts.VisbyCF_Medium
+        fontFamily: getFonts.MEDIUM
     },
     buttonWithCounter: {
         flexDirection: 'row',
