@@ -91,7 +91,7 @@ const ProductDetail = (props) => {
         return (
             <View style={{ marginVertical: '2%' }}>
                 {
-                    images.slice(0, 3).map((key, index) => {
+                    images?.slice(0, 3).map((key, index) => {
                         return (<Banner Image={{ uri: key }} imgStyle={{ height: hp(65) }} key={index} />)
                     })
                 }

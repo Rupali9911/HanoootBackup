@@ -64,44 +64,6 @@ const AppSearch = (props) => {
   }, [searchTxt]);
 
 
-
-  // const handleFlatListRenderItem = ({ item, index }) => {
-  //   console.log('handleFlatListRenderItem : ', item?.id)
-  //   return (
-  //     <TouchableOpacity style={{
-  //       paddingVertical: '2%',
-  //       paddingHorizontal: '5%',
-  //       borderBottomColor: Colors.GRAY,
-  //       borderBottomWidth: 1,
-  //       flex: 1
-  //     }}
-  //       onPress={() => navigation.push('ProductDetail', { id: item?.id })}
-  //     >
-  //       <View
-  //         style={{
-  //           flexDirection: 'row',
-  //           alignItems: 'center',
-  //           justifyContent: 'space-between'
-  //         }}
-  //         onPress={() => { }}
-  //       >
-  //         <Text style={{
-  //           fontFamily: fonts.VisbyCF_Medium,
-  //           fontWeight: 600,
-  //           letterSpacing: 0.5,
-  //           lineHeight: 21,
-  //           maxWidth: wp(82.13)
-  //         }} numberOfLines={1}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}</Text>
-  //         <View style={{ alignSelf: 'flex-end' }}>
-  //           <SearchArrow />
-  //         </View>
-  //       </View>
-
-  //     </TouchableOpacity>
-  //   );
-  // };
-
-
   const handleFlatListRenderItem = ({ item, index }) => {
     console.log('handleFlatListRenderItem : ', item?.id)
     return (
@@ -143,13 +105,10 @@ const AppSearch = (props) => {
   const keyExtractor = (item, index) => {
     return index;
   };
+
   return (
 
     <View style={{
-      // flexGrow: 1,
-      // alignItems: 'center',
-      // justifyContent: 'center',
-      // top: 50
     }}>
       <View
         style={styles.searchContainer}>
@@ -164,17 +123,6 @@ const AppSearch = (props) => {
           }}
           value={searchTxt}
           placeholderTextColor={Colors.GRAYDARK}
-          // style={{
-          //   left: 10,
-          //   alignSelf: 'center',
-          //   // height: '100%',
-          //   color: Colors.RED,
-          //   width: wp(75),
-          //   height: hp(4.93),
-          //   // fontFamily: fonts.VisbyCF_Medium,
-          //   // fontWeight: 500,
-          //   // letterSpacing:
-          // }}
           style={{
             fontFamily: fonts.VISBY_CF_REGULAR,
             fontWeight: '500',
@@ -186,43 +134,19 @@ const AppSearch = (props) => {
             left: 10, alignSelf: 'center',
             height: '100%',
           }}
-        // style={{ left: 10, alignSelf: 'center', height: '100%', color: Colors.BLACK, width: wp(75) }}
+          onSubmitEditing={() => { navigation.navigate('ProductListWithFilters', { headerTitle: `Search "${searchTxt}"`, isNavigationSection: 'Search' }) }}
+          returnKeyType='done'
         />
         {
           searchTxt &&
-          <TouchableOpacity style={{ justifyContent: 'flex-end', width: wp(5) }} onPress={() => setSearchTxt('')}>
+          <TouchableOpacity style={{ justifyContent: 'flex-end', width: wp(5), position: 'absolute', right: 10 }} onPress={() => setSearchTxt('')}>
             <CrossIcon />
           </TouchableOpacity>
         }
 
 
       </View>
-      {/* {loading || searchData?.length ? (
-        <View >
-          {loading ? (
-            <View style={styles.listContainer}>
-              <ActivityIndicator color={Colors.themeColor} size={25} />
-            </View>
-          ) : searchData.length > 0 && searchTxt ? (
-            <FlatList
-              data={searchData}
-              keyboardShouldPersistTaps={'handled'}
-              style={styles.listContainer}
-              renderItem={handleFlatListRenderItem}
-              keyExtractor={keyExtractor}
-              scrollEnabled={true}
-              nestedScrollEnabled={true}
-            />
-          ) : null}
-        </View>
-      ) : searchTxt ? (
-        <View >
-          <View style={styles.listContainer}>
-            <Text style={{ textAlign: 'center' }}>{translate('common.oopsNoProduct')}</Text>
-          </View>
-        </View>
-      ) : null
-      } */}
+
 
       {loading || searchData?.length ? (
         <View >
@@ -303,6 +227,7 @@ const styles = StyleSheet.create({
     marginHorizontal: wp('3%'),
     paddingHorizontal: wp('3%'),
     height: hp(4.93),
+    // justifyContent: 'space-between'
     // position: 'absolute',
     // width: wp(100)
   },

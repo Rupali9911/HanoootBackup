@@ -21,7 +21,7 @@ const NewArrivals = (props) => {
                 isLeftImage={item?.ManagementBrand?.name}
                 showLike
                 isItemLiked={item?.isLike}
-                isDiscountTag
+                // isDiscountTag
                 TotalPriceStyle={{ color: Colors.PRICEGREEN }}
                 detailId={item?.id}
                 onWishlistPress={props.onWishlistPress}
