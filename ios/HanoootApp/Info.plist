@@ -62,6 +62,12 @@
 		<string>VisbyCF-DemiBold.otf</string>
 		<string>VisbyCF-DemiBoldOblique.otf</string>
 		<string>VisbyCF-Medium.otf</string>
+    <string>Bahij_Bold.ttf</string>
+    <string>Bahij_ExtraBold.ttf</string>
+    <string>Bahij_ExtraLight.ttf</string>
+    <string>Bahij_SemiBold.ttf</string>
+    <string>Bahij_SemiLight.ttf</string>
+    <string>Bahij-Regular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
