@@ -10,6 +10,7 @@ import { getFonts, getVariantsData } from '../../screens/utils'
 import { estimatedDelivery } from '../../screens/utils'
 import CartItemQuantity from './CartItemQty'
 import { translate } from '../../utility'
+import ImageRenderer from '../universal/ImageRender'
 
 
 const CartProductCards = (props) => {
@@ -72,7 +73,9 @@ const CartProductCards = (props) => {
         <View style={styles.mainContainer}>
             <View style={styles.cardCont}>
                 <View style={styles.imgCont}>
-                    <Image source={{ uri: item?.ManagementProduct?.images[0] }} style={styles.image} />
+                    {/* <Image source={{ uri: item?.ManagementProduct?.images[0] }} style={styles.image} /> */}
+                    <ImageRenderer height={hp(8)} width={wp(16)} style={styles.image} uri={item?.ManagementProduct?.images[0]} />
+
                 </View>
                 <View style={styles.rightViewCont}>
                     <Text style={styles.itemName} >{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>

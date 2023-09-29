@@ -3,6 +3,7 @@ import React from 'react'
 import { hp, wp } from '../../../constant/responsiveFunc';
 import Colors from '../../../constant/Colors';
 import { useNavigation } from '@react-navigation/native'
+import ImageRenderer from '../../../Components/universal/ImageRender';
 
 
 const BrandList = (props) => {
@@ -16,10 +17,11 @@ const BrandList = (props) => {
                 style={styles.brandContainer} key={item?.id}
                 onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: item?.name })}
             >
-                <Image
+                {/* <Image
                     source={{ uri: item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }}
                     style={styles.brandImage}
-                />
+                /> */}
+                <ImageRenderer height={hp(9.85)} width={wp(21.33)} style={styles.brandImage} uri={item?.thumbnail_image} />
             </TouchableOpacity>
         );
     }

@@ -14,6 +14,7 @@ import SVGS from '../constant/Svgs'
 import { showErrorToast, showInfoToast } from './universal/Toast'
 import { translate } from '../utility'
 import { getFonts } from '../screens/utils'
+import ImageRenderer from './universal/ImageRender'
 
 
 const { HeartIconActive, HeartIcon, DiscountTag } = SVGS
@@ -226,10 +227,11 @@ const ListView = (props) => {
                 </View>
 
                 <View style={[styles.imageContainer, props.imgContStyle]}>
-                    <Image
+                    {/* <Image
                         source={{ uri: centerImage ? centerImage : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }}
                         style={[styles.productImg, props.imgStyle]}
-                    />
+                    /> */}
+                    <ImageRenderer height={SIZE(70)} width={SIZE(70)} style={[styles.productImg, props.imgStyle]} uri={centerImage} />
                 </View>
 
                 <View style={[styles.textView, props.TextViewStyle]}>

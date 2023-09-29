@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../../constant/Loader'
 import { capitalizeFirstLetter, getFonts } from '../utils'
 import { translate } from '../../utility'
+import ImageRenderer from '../../Components/universal/ImageRender'
 const Category = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -108,7 +109,7 @@ const Category = () => {
         return (
             // <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters', { category_id: subCategoryList?.id, headerTitle: subCategoryList?.name })}>
             <TouchableOpacity style={styles.SubCategoryItemsContainer} onPress={() => navigation.navigate('ProductListWithFilters', { category_id: props?.id, headerTitle: props?.name })}>
-                {
+                {/* {
                     props.extension === 'svg' ?
                         <SvgUri
                             width={wp(13)}
@@ -120,13 +121,14 @@ const Category = () => {
                             source={{ uri: props.image }}
                             style={styles.image}
                         />
-                }
+                } */}
                 {/* <Image
                     source={{ uri: props.image }}
                     style={styles.image}
                 /> */}
+                <ImageRenderer height={hp(6)} width={wp(13)} style={styles.image} uri={props.image} />
                 {
-                    props.name &&
+                    props?.name &&
                     <Text numberOfLines={2}
                         style={styles.subCategoryText}
                     >{props.name}</Text>
@@ -160,14 +162,14 @@ const Category = () => {
                         nestedScrollEnabled={false}
                         scrollEnabled={false}
                         renderItem={({ item, index }) => {
-                            const imageUrl = item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png';
-                            const extension = imageUrl.split('.').pop().toLowerCase();
+                            // const imageUrl = item?.thumbnail_image ? item?.thumbnail_image : Images.skeleton;
+                            // const extension = imageUrl.split('.').pop().toLowerCase();
 
                             return (
                                 index != 5 ?
                                     <SubCategoryListItems
-                                        image={imageUrl}
-                                        extension={extension}
+                                        image={item?.thumbnail_image}
+                                        // extension={extension}
                                         name={selectedLanguageItem?.language_id === 0 ? item?.name : item?.name_arabic}
                                         // id={subCategory?.parent_id}
                                         id={item?.id}

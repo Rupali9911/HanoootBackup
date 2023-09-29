@@ -2,13 +2,15 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Carousels from '../Carousel'
 import { hp, wp } from '../../../constant/responsiveFunc'
+import ImageRenderer from '../../../Components/universal/ImageRender'
 
 const LargeBanner = (props) => {
     const Data = props.Data;
 
     const renderItem = ({ item, index }) => {
         return (
-            <Image source={{ uri: item?.image_url }} style={{ width: wp(86.93), height: hp(11.26), alignSelf: 'center', borderRadius: 10 }} key={item?.id} />
+            // <Image source={{ uri: item?.image_url }} style={{ width: wp(86.93), height: hp(11.26), alignSelf: 'center', borderRadius: 10 }} key={item?.id} />
+            <ImageRenderer height={hp(11.26)} width={wp(86.93)} style={{ alignSelf: 'center', borderRadius: 10 }} uri={item?.image_url} resizeMode={'cover'} key={item?.id} />
         );
     }
 

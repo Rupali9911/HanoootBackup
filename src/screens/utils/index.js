@@ -2,6 +2,7 @@ import { translate } from "../../utility";
 import { getWeekDays, getMonths } from "../../constant/SwitchRenders";
 import fonts from "../../constant/fonts";
 import { Store } from "../Store";
+import Images from "../../constant/Images";
 const isLanguage = Store.getState().languageReducer.selectedLanguageItem?.language_id;
 
 
@@ -179,3 +180,25 @@ export const getFonts = {
 
 };
 
+
+export const isExtension = (image) => {
+    const imageUrl = image ? image : Images.skeleton;
+    const extension = imageUrl.split('.').pop().toLowerCase();
+
+    return extension;
+
+};
+
+// export const ImageRenderer = ({ uri }) => {
+//     const isSvg = uri.endsWith('.svg');
+//     const isPng = uri.endsWith('.png');
+//     const isJpeg = uri.endsWith('.jpg') || uri.endsWith('.jpeg');
+
+//     if (isSvg) {
+//         return <SvgUri source={{ uri }} />;
+//     } else if (isPng || isJpeg) {
+//         return <FastImage source={{ uri }} style={{ width: 100, height: 100 }} />;
+//     } else {
+//         return <View />;
+//     }
+// };

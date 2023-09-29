@@ -5,18 +5,20 @@ import { ProductImages } from '../../constant/DemoArray'
 import Images from '../../constant/Images'
 import { hp, wp } from '../../constant/responsiveFunc'
 import Colors from '../../constant/Colors'
+import ImageRenderer from '../../Components/universal/ImageRender'
 
 const ProductImageCarousel = (props) => {
     // console.log('props?.data.length : ', props?.data.length, props?.data)
 
-    const renderItem = ({item, index}) => {
+    const renderItem = ({ item, index }) => {
         return (
-                <View style={{ padding: 10 }} key={index}>
-                    <Image
+            <View style={{ padding: 10 }} key={index}>
+                {/* <Image
                         source={{uri: item}}
                         style={styles.image}
-                    />
-                </View>
+                    /> */}
+                <ImageRenderer height={hp(25)} width={wp(55)} style={styles.image} uri={item} />
+            </View> 
         );
     }
 
@@ -39,9 +41,9 @@ export default ProductImageCarousel;
 
 const styles = StyleSheet.create({
     image: {
-        height: hp(25), 
-        width: wp(55), 
-        resizeMode: 'contain', 
+        height: hp(25),
+        width: wp(55),
+        resizeMode: 'contain',
         alignSelf: 'center'
     }
 })

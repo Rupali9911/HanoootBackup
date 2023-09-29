@@ -4,6 +4,7 @@ import { hp, wp } from '../../../constant/responsiveFunc';
 import Images from '../../../constant/Images';
 import Carousel from 'react-native-snap-carousel';
 import { useSelector } from 'react-redux';
+import ImageRenderer from '../../../Components/universal/ImageRender';
 
 
 
@@ -16,7 +17,12 @@ const MiniSlider = (props) => {
 
     const renderItem = ({ item, index }) => {
         return (
-            <Image source={{ uri: item?.image_url }} style={styles.image} key={item?.id} />
+            // <Image source={{ uri: item?.image_url }} style={styles.image} key={item?.id} />
+            // <ImageRenderer height={20} width={20} />
+            // width: wp(71.79),
+            //     height: hp(24.63),
+            <ImageRenderer height={hp(24.63)} width={wp(71.79)} style={styles.image} uri={item?.image_url} />
+
         );
     }
 

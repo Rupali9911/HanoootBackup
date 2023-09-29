@@ -12,6 +12,7 @@ import { showInfoToast, showErrorToast } from '../../../Components/universal/Toa
 import { updateFeaturedCart } from '../../Store/actions/HomeAction'
 import { translate } from '../../../utility'
 import { getFonts } from '../../utils'
+import ImageRenderer from '../../../Components/universal/ImageRender'
 
 const FeaturedCategory = (props) => {
     const Data = props.Data;
@@ -73,7 +74,9 @@ const FeaturedCategory = (props) => {
                 onPress={() => navigation.push('ProductDetail', { id: item?.id })}
             >
                 <View style={styles.itemImgContainer}>
-                    <Image source={{ uri: item?.product_image }} style={styles.itemImg} />
+                    {/* <Image source={{ uri: item?.product_image }} style={styles.itemImg} /> */}
+                    <ImageRenderer height={60} width={60} style={styles.itemImg} uri={item?.product_image} />
+
                 </View>
                 <View style={{ gap: 18 }}>
                     <Text numberOfLines={2} style={styles.itemName}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}</Text>
@@ -109,10 +112,11 @@ const FeaturedCategory = (props) => {
 
     return (
         <View style={styles.mainContainer}>
-            <Image
+            {/* <Image
                 source={{ uri: Data?.featuredCategoryByProduct?.thumbnail_image }}
                 style={styles.bannerImg}
-            />
+            /> */}
+            <ImageRenderer height={hp(37.56)} width={wp(86.67)} style={styles.bannerImg} uri={Data?.featuredCategoryByProduct?.thumbnail_image} />
             <View style={styles.container}>
                 <View style={styles.headingContainer}>
                     <Text style={styles.title} numberOfLines={2}>{selectedLanguageItem?.language_id === 0 ? Data?.tittle : translate('common.foundontiktok')}</Text>

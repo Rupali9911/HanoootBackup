@@ -102,4 +102,5 @@ export default {
     BannerCollage: require(`../assets/images/BannerCollage.jpg`),
     work: require(`../assets/images/work.png`),
     loadergif: require(`../assets/gifs/Loader.gif`),
+    skeleton: "https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png"
 }

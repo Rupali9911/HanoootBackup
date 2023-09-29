@@ -7,6 +7,7 @@ import fonts from '../../../constant/fonts'
 import { capitalizeFirstLetter, getFonts } from '../../utils'
 import { useNavigation } from '@react-navigation/native'
 import { translate } from '../../../utility'
+import ImageRenderer from '../../../Components/universal/ImageRender'
 
 const CategoryList = (props) => {
     const Data = props.Data;
@@ -18,7 +19,8 @@ const CategoryList = (props) => {
                 style={styles.Container}
                 onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: item?.name })}
             >
-                <Image source={{ uri: item?.thumbnail_image }} style={styles.image} />
+                {/* <Image source={{ uri: item?.thumbnail_image }} style={styles.image} /> */}
+                <ImageRenderer height={hp(9.11)} width={wp(17.60)} style={styles.image} uri={item?.thumbnail_image} />
                 <Text style={styles.name} numberOfLines={2}>{item?.name}</Text>
             </TouchableOpacity>
         );

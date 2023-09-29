@@ -12,6 +12,7 @@ import { showInfoToast } from '../../../Components/universal/Toast'
 import { translate } from '../../../utility'
 import { updateTopPicksCart } from '../../Store/actions/HomeAction'
 import { getFonts } from '../../utils'
+import ImageRenderer from '../../../Components/universal/ImageRender'
 
 const TopPicks = (props) => {
   const Data = props.Data;
@@ -55,7 +56,9 @@ const TopPicks = (props) => {
         onPress={() => navigation.push('ProductDetail', { id: item?.id })}
       >
         <View style={styles.itemImgContainer}>
-          <Image source={{ uri: item?.ManagementProduct?.product_image ? item?.ManagementProduct?.product_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }} style={styles.itemImg} />
+          {/* <Image source={{ uri: item?.ManagementProduct?.product_image ? item?.ManagementProduct?.product_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }} style={styles.itemImg} /> */}
+          <ImageRenderer height={60} width={60} style={styles.itemImg} uri={item?.ManagementProduct?.product_image} />
+
         </View>
         <View style={{}}>
           <Text numberOfLines={2} style={styles.itemName}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>
@@ -83,10 +86,11 @@ const TopPicks = (props) => {
       <>
         <ProductHeader title={item?.heading} />
         <View style={styles.mainContainer}>
-          <Image
+          {/* <Image
             source={{ uri: item?.image_url }}
             style={styles.bannerImg}
-          />
+          /> */}
+          <ImageRenderer height={hp(17.36)} width={wp(86.93)} style={styles.bannerImg} uri={item?.image_url} />
           <View style={styles.container}>
             <View style={styles.headingContainer}>
               <View style={{ width: '60%' }}>

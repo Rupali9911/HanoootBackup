@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { translate } from '../../utility'
 import { capitalizeFirstLetter, getFonts } from '../utils'
 import { SvgUri } from 'react-native-svg';
+import ImageRenderer from '../../Components/universal/ImageRender'
 
 
 const ViewMoreCategories = (props) => {
@@ -27,7 +28,6 @@ const ViewMoreCategories = (props) => {
     // console.log('ViewMoreCategories : ', ITEMS);
 
     const renderItem = ({ item, index }) => {
-        console.log('this are items from view more categories : ', item)
         const imageUrl = item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png';
         const extension = imageUrl.split('.').pop().toLowerCase();
 
@@ -35,7 +35,7 @@ const ViewMoreCategories = (props) => {
             <TouchableOpacity style={styles.itemContainer}
                 onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: selectedLanguageItem?.language_id === 0 ? item?.name : item?.name_arabic })}
             >
-                {
+                {/* {
                     extension === 'svg' ?
                         <SvgUri
                             width={wp(13)}
@@ -47,7 +47,8 @@ const ViewMoreCategories = (props) => {
                             source={{ uri: imageUrl }}
                             style={styles.image}
                         />
-                }
+                } */}
+                <ImageRenderer height={hp(6)} width={wp(13)} style={styles.image} uri={item?.thumbnail_image} />
                 {
                     item?.name &&
                     <Text numberOfLines={2}
