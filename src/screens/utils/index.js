@@ -202,3 +202,23 @@ export const isExtension = (image) => {
 //         return <View />;
 //     }
 // };
+
+export const formattedPrice = (price) => {
+    price = 2500000
+    const options = {
+        // style: 'currency',
+        // currency: 'IQD',  // Iraqi Dinar
+        minimumFractionDigits: 0,  // Minimum decimal places
+        maximumFractionDigits: 2,  // Maximum decimal places
+    };
+
+    // const iraqCurrency = new Intl.NumberFormat('en-IQ', options).format(price);
+    const iraqCurrency = new Intl.NumberFormat('en-IQD', options).format(price);
+
+    return iraqCurrency;
+
+}
+
+
+
+// export const formattedPrice = new Intl.NumberFormat('ar-IQ', options).format(price);

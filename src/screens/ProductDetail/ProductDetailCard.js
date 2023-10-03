@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProductDetail } from '../Store/actions/productListAction';
 import { showInfoToast } from '../../Components/universal/Toast';
 import { translate } from '../../utility';
+import { formattedPrice } from '../utils';
 
 const { HeartIconActive, HeartIcon, ShareIcon } = SVGS
 
@@ -180,7 +181,7 @@ const ProductDetailCard = (props) => {
                     <RatingAndReview />
                 </View>
 
-                <Text style={styles.productName} numberOfLines={2}>{title}</Text>
+                <Text style={styles.productName} >{title}</Text>
 
                 <View style={styles.yellowLineView}>
                     <View style={styles.logoView}>
@@ -209,7 +210,8 @@ const ProductDetailCard = (props) => {
                 <View style={styles.firstLineView}>
 
                     <View style={styles.textView}>
-                        <Text style={styles.totalPrice}>{`${price ? price : 0} ${translate('common.currency_iqd')}`}</Text>
+                        {/* <Text style={styles.totalPrice}>{`${price ? formattedPrice(price) : 0} ${translate('common.currency_iqd')}`}</Text> */}
+                        <Text style={styles.totalPrice}>{`${price ? price : 0}`}</Text>
                         <Text style={styles.inclusiveTax}>{`(${translate('common.inclusiveofvat')})`}</Text>
                     </View>
                     <ExpressView />
@@ -218,7 +220,7 @@ const ProductDetailCard = (props) => {
                     <Text style={styles.discountPrice}>{price}</Text>
                     <Text style={styles.discountPercent}>{props.PricePercentOff}</Text>
                 </View> */}
-                <Text style={styles.discountPercent}>{translate('common.freeshipping')}</Text>
+                {/* <Text style={styles.discountPercent}>{translate('common.freeshipping')}</Text> */}
             </View>
 
         </View>

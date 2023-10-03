@@ -1,13 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import Colors from '../../constant/Colors';
 import { hp } from '../../constant/responsiveFunc';
 import fonts from '../../constant/fonts';
 import { estimatedDelivery, getFonts } from '../utils';
 import { translate } from '../../utility';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const ProductDelivery = (props) => {
     const { data } = props;
+
+    const navigation = useNavigation();
+
+    const userData = useSelector((state) => state.userReducer.userData);
+
 
     const getTime = (val) => {
         let newStr = val.replace(/-/g, "").trim();
@@ -22,7 +29,7 @@ const ProductDelivery = (props) => {
             <Text style={styles.text}>{translate('common.orderwithin')}  <Text style={{
                 color: Colors.BLACK, fontFamily: getFonts.BOLD
             }}>{data?.time ? getTime(data?.time) : null}</Text></Text>
-            <Text style={[styles.text, { color: Colors.themeColor }]}>{`${data?.city} - ${translate('common.signinforbetterdeliveryestimate')}`}</Text>
+            <TouchableOpacity onPress={() => { !userData ? navigation.navigate('Signup') : null }}><Text style={[styles.text, { color: Colors.themeColor }]}>{`${data?.city} - ${translate('common.signinforbetterdeliveryestimate')}`}</Text></TouchableOpacity>
         </View >
     )
 }
