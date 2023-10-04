@@ -219,6 +219,7 @@ const ProductDetail = (props) => {
                                             setProductQty(val)
                                         }}
                                         productId={productDetail?.product_details_id}
+                                        disabled={productDetail?.isCart ? true : false}
                                     />
                                     <AppButton
                                         label={productDetail?.isCart ? translate('common.viewcart') : translate('common.addtocart')}
@@ -308,7 +309,7 @@ const ProductDetail = (props) => {
                                             <>
                                                 <ProductHeader title={`${translate('common.morefrom')} ${capitalizeFirstLetter(productDetail?.ManagementCategory?.name)}`} />
                                                 <FlatList
-                                                    data={productFilterByCategory}
+                                                    data={productFilterByCategory?.splice(0, 8)}
                                                     renderItem={({ item, index }) => {
                                                         return (
                                                             <ListView
