@@ -59,7 +59,8 @@ const ProductListWithFilters = (props) => {
                     centerImage={item?.product_image}
                     productName={item?.title}
                     price={item?.ManagementProductPricing?.price_iqd}
-                    isLeftImage={item?.ManagementBrand?.name}
+                    // isLeftImage={item?.ManagementBrand?.name}
+                    isExpress={item?.ManagementBrand?.name}
                     showLike
                     isItemLiked={item?.isLike}
                     isDiscountTag
@@ -75,7 +76,8 @@ const ProductListWithFilters = (props) => {
                         centerImage={item?.product_image}
                         productName={item?.title}
                         price={item?.ManagementProductPricing?.price_iqd}
-                        isLeftImage={item?.ManagementBrand?.name}
+                        // isLeftImage={item?.ManagementBrand?.name}
+                        isExpress={item?.ManagementBrand?.name}
                         showLike
                         isItemLiked={item?.isLike}
                         detailId={item?.id}
@@ -89,7 +91,7 @@ const ProductListWithFilters = (props) => {
                             centerImage={item?.ManagementProduct?.product_image}
                             productName={item?.ManagementProduct?.title}
                             price={item?.ManagementProduct?.ManagementProductPricing?.price_iqd}
-                            isLeftImage={item?.ManagementBrand?.name}
+                            isExpress={item?.ManagementProduct?.ManagementBrand?.name}
                             showLike
                             isItemLiked={item?.isLike}
                             detailId={item?.product_id}
@@ -107,7 +109,7 @@ const ProductListWithFilters = (props) => {
                             noOfReview={item?.ManagementProductReview?.number_of_reviews}
                             detailId={item?.id}
                             // categoryId={item?.category_id}
-                            isExpress
+                            isExpress={item?.ManagementBrand?.name}
                             showLike
                             isItemLiked={item?.isLike}
                             ViewContStyle={{

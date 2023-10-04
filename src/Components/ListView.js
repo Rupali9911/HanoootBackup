@@ -13,7 +13,7 @@ import { addToWishlistAPICall } from '../services/apis/WishlistAPI'
 import SVGS from '../constant/Svgs'
 import { showErrorToast, showInfoToast } from './universal/Toast'
 import { translate } from '../utility'
-import { getFonts } from '../screens/utils'
+import { formattedPrice, getFonts } from '../screens/utils'
 import ImageRenderer from './universal/ImageRender'
 
 
@@ -133,7 +133,7 @@ const ListView = (props) => {
 
                 <View style={styles.topLine}>
                     {
-                        isExpress && <ExpressView />
+                        isExpress && <ExpressView title={isExpress} />
                     }
                     {
                         isLeftImage
@@ -247,7 +247,7 @@ const ListView = (props) => {
 
                     {
                         price &&
-                        <Text style={[styles.price, props.TotalPriceStyle]}>{`${price} ${translate('common.currency_iqd')}`}</Text>
+                        <Text style={[styles.price, props.TotalPriceStyle]}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text>
                     }
 
 

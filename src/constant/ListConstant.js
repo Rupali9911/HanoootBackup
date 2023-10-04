@@ -12,7 +12,8 @@ import { getFonts } from '../screens/utils'
 export const ExpressView = (props) => {
     return (
         <View style={[styles.container, props.containerStyle]}>
-            <Text style={styles.name}>{translate('common.express')}</Text>
+            {/* <Text style={styles.name}>{translate('common.express')}</Text> */}
+            <Text style={styles.name}>{props.title}</Text>
         </View>
     )
 }

@@ -8,7 +8,7 @@ import Images from '../../../constant/Images';
 import { useIsFocused } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { orderDetailLoadingStart, orderDetailReset, getOrderDetail } from '../../Store/actions/orderAction';
-import { capitalizeFirstLetter, getFonts } from '../../utils';
+import { capitalizeFirstLetter, formattedPrice, getFonts } from '../../utils';
 import Loader from '../../../constant/Loader';
 import { translate } from '../../../utility';
 import { getMonths } from '../../../constant/SwitchRenders';
@@ -56,7 +56,7 @@ const OrderDetails = (props) => {
                 <View style={styles.textContainer}>
                     <Text style={styles.productName}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>
                     <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>{translate('common.quantity')}<Text style={{ color: Colors.BLACK }}>{item?.quantity}</Text></Text>
-                    <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]}>{`${item?.ManagementProduct?.ManagementProductPricing?.price_iqd} ${translate('common.currency_iqd')}`}</Text>
+                    <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]}>{`${formattedPrice(item?.ManagementProduct?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text>
                 </View>
             </View>
         );

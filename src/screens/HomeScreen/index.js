@@ -23,7 +23,7 @@ import { translate } from '../../utility';
 import Images from '../../constant/Images';
 import AppModal from '../../Components/universal/Modal';
 import ModalContentWithoutLogin from '../../Components/universal/Modal/ModalContentWithoutLogin';
-import { getFonts } from '../utils';
+import { formattedPrice, getFonts } from '../utils';
 
 export default function HomeScreen() {
    const isFocused = useIsFocused();
@@ -90,12 +90,15 @@ export default function HomeScreen() {
                      nestedScrollEnabled={false}
                      scrollEnabled={true}
                   >
+
                      {
                         Object.keys(HomeCollection).map((key, value) => {
                            return (
-                              <View key={key}>
-                                 {renderHomeData(key, HomeCollection[key])}
-                              </View>
+                              <>
+                                 <View key={key}>
+                                    {renderHomeData(key, HomeCollection[key])}
+                                 </View>
+                              </>
                            )
 
                         })}

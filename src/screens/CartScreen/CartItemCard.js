@@ -38,6 +38,7 @@ const CartItemCard = () => {
                         dispatch(removeItemsFromCart(item?.product_id))
                     }}
                     isRemoveShow />
+
             </>
         );
     }

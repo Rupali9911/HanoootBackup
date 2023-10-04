@@ -20,7 +20,8 @@ const RecentlyViewProduct = (props) => {
                 centerImage={item?.ManagementProduct?.product_image}
                 productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
                 price={item?.ManagementProduct?.ManagementProductPricing?.price_iqd}
-                isLeftImage={item?.ManagementBrand?.name}
+                // isLeftImage={item?.ManagementBrand?.name}
+                isExpress={item?.ManagementBrand?.name}
                 showLike
                 isItemLiked={item?.isLike}
                 detailId={item?.product_id}

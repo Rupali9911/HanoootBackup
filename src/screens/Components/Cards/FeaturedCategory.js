@@ -11,7 +11,7 @@ import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
 import { showInfoToast, showErrorToast } from '../../../Components/universal/Toast'
 import { updateFeaturedCart } from '../../Store/actions/HomeAction'
 import { translate } from '../../../utility'
-import { getFonts } from '../../utils'
+import { formattedPrice, getFonts } from '../../utils'
 import ImageRenderer from '../../../Components/universal/ImageRender'
 
 const FeaturedCategory = (props) => {
@@ -80,7 +80,7 @@ const FeaturedCategory = (props) => {
                 </View>
                 <View style={{ gap: 18 }}>
                     <Text numberOfLines={2} style={styles.itemName}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}</Text>
-                    <Text style={styles.itemPrice}>{`${item?.ManagementProductPricing?.price_iqd} ${translate('common.currency_iqd')}`}</Text>
+                    <Text style={styles.itemPrice}>{`${formattedPrice(item?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text>
                 </View>
                 <TouchableOpacity style={styles.cartBtn}
                     onPress={userData ? () => onAddtoCartPress(item?.isCart, item?.id) : props.onFeatureCartPress}

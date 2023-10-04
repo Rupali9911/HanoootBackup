@@ -62,7 +62,7 @@ const ProductDetail = (props) => {
         dispatch(productDetailLoading())
         dispatch(getProductDetail(product_detail_Id, userData))
 
-        // return () => dispatch(setTappedButtonName(''));
+        return () => dispatch(productDetailReset());
     }, [isFocused])
 
 
@@ -209,6 +209,7 @@ const ProductDetail = (props) => {
                                         isItemLiked={productDetail?.isLike}
                                         productLink={productDetail?.link}
                                         onPressWishlist={() => setModalVisible(true)}
+                                        isExpress={productDetail?.ManagementBrand?.name}
 
                                     // hanootChoice={productDetail?.ManagementProductPricing?.hanooot_discount}
                                     />
@@ -253,7 +254,7 @@ const ProductDetail = (props) => {
                                                                 productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
                                                                 price={item?.ManagementProductPricing?.price_iqd}
                                                                 detailId={item?.product_details_id}
-                                                                isExpress
+                                                                isExpress={productDetail?.ManagementBrand?.name}
                                                                 isCheckBox
                                                                 productPriceTotal={(val) => {
                                                                     console.log('CheckedItems : ', val),
@@ -308,7 +309,7 @@ const ProductDetail = (props) => {
                                             <>
                                                 <ProductHeader title={`${translate('common.morefrom')} ${capitalizeFirstLetter(productDetail?.ManagementCategory?.name)}`} />
                                                 <FlatList
-                                                    data={productFilterByCategory}
+                                                    data={productFilterByCategory?.splice(0, 8)}
                                                     renderItem={({ item, index }) => {
                                                         return (
                                                             <ListView
@@ -316,7 +317,7 @@ const ProductDetail = (props) => {
                                                                 centerImage={item?.product_image}
                                                                 productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
                                                                 price={item?.ManagementProductPricing?.price_iqd}
-                                                                detailId={item?.product_details_id}
+                                                                detailId={item?.id}
                                                             // ViewContStyle={{ height: hp(17.86) }}
                                                             />
                                                         );

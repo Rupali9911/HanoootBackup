@@ -9,7 +9,7 @@ import Images from '../../constant/Images';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { translate } from '../../utility';
-import { getFonts } from '../utils';
+import { formattedPrice, getFonts } from '../utils';
 
 const ProductSpecCard = (props) => {
     const { data } = props;
@@ -42,7 +42,7 @@ const ProductSpecCard = (props) => {
                 <View style={styles.BorderView}>
                     <View style={styles.tableHeaderCont}>
                         <Text style={styles.tableItemName}>{selectedLanguageItem?.language_id === 0 ? data?.ManagementProductSeo?.product_name : data?.ManagementProductSeo?.product_name_arabic}</Text>
-                        <Text style={styles.tableItemName}>{`${data?.ManagementProductPricing?.price_iqd ? data?.ManagementProductPricing?.price_iqd : 0} ${translate('common.currency_iqd')}`}</Text>
+                        <Text style={styles.tableItemName}>{`${formattedPrice(data?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text>
                         <Text style={[styles.tableItemName, { color: Colors.GRAYDARK, fontSize: 12 }]}>{translate('common.essentialinformation')}</Text>
                     </View>
                     <View style={styles.Separator} />

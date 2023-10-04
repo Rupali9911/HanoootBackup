@@ -203,22 +203,14 @@ export const isExtension = (image) => {
 //     }
 // };
 
+const addCommasToNumber = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+
 export const formattedPrice = (price) => {
-    price = 2500000
-    const options = {
-        // style: 'currency',
-        // currency: 'IQD',  // Iraqi Dinar
-        minimumFractionDigits: 0,  // Minimum decimal places
-        maximumFractionDigits: 2,  // Maximum decimal places
-    };
+    const priceInIQD = price ? Number(price) : 0; // Example price in IQD
 
-    // const iraqCurrency = new Intl.NumberFormat('en-IQ', options).format(price);
-    const iraqCurrency = new Intl.NumberFormat('en-IQD', options).format(price);
-
-    return iraqCurrency;
+    return priceInIQD.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 }
-
-
-
-// export const formattedPrice = new Intl.NumberFormat('ar-IQ', options).format(price);

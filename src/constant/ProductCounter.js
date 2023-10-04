@@ -18,11 +18,11 @@ const ProductCounter = (props) => {
 
     const incrementCounter = async () => {
         try {
-            const incVal = props.noOfQty ? (Number(props.noOfQty) + 1) : (Number(counter + 1) || Number(1));
+            const incVal = props.noOfQty ? (Number(props.noOfQty) + 1) : setCounter(counter + 1);
             const response = await AddtoCartAPICall(props.productId, incVal)
             // console.log(response)
             if (response?.success) {
-                setCounter(counter + 1);
+                // setCounter(counter + 1);
                 props.getCountValue(incVal)
                 props.onIncPressed(response)
                 // dispatch(getItemsFromCart())
@@ -46,10 +46,10 @@ const ProductCounter = (props) => {
 
             if (isCheck !== 1) {
 
-                const decVal = props.noOfQty ? (Number(props.noOfQty) - 1) : (Number(counter - 1) || Number(1));
+                const decVal = props.noOfQty ? (Number(props.noOfQty) - 1) : setCounter(counter - 1);
                 const response = await AddtoCartAPICall(props.productId, decVal)
                 if (response?.success) {
-                    setCounter(counter - 1);
+                    // setCounter(counter - 1);
                     props.getCountValue(decVal)
                     // props.getCountClickData(response?.data)
                     props.onIncPressed(response)

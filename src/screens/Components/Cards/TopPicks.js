@@ -11,7 +11,7 @@ import { AddtoCartAPICall } from '../../../services/apis/CartAPI'
 import { showInfoToast } from '../../../Components/universal/Toast'
 import { translate } from '../../../utility'
 import { updateTopPicksCart } from '../../Store/actions/HomeAction'
-import { getFonts } from '../../utils'
+import { formattedPrice, getFonts } from '../../utils'
 import ImageRenderer from '../../../Components/universal/ImageRender'
 
 const TopPicks = (props) => {
@@ -62,7 +62,7 @@ const TopPicks = (props) => {
         </View>
         <View style={{}}>
           <Text numberOfLines={2} style={styles.itemName}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>
-          <Text style={styles.itemPrice}>{`${item?.ManagementProduct?.ManagementProductPricing?.price_iqd} ${translate('common.currency_iqd')}`}</Text>
+          <Text style={styles.itemPrice}>{`${formattedPrice(item?.ManagementProduct?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text>
         </View>
         <TouchableOpacity style={styles.cartBtn}
           onPress={
