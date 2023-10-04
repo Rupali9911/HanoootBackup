@@ -14,6 +14,8 @@ const ProductQuantity = (props) => {
                 <ProductCounter
                     getCountValue={(val) => { props.getNoOfQty(val) }}
                     productId={props.productId}
+                    disabled={props.disabled}
+
                 />
             </View>
         </View>

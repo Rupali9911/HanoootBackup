@@ -220,6 +220,7 @@ const ProductDetail = (props) => {
                                             setProductQty(val)
                                         }}
                                         productId={productDetail?.product_details_id}
+                                        disabled={productDetail?.isCart ? true : false}
                                     />
                                     <AppButton
                                         label={productDetail?.isCart ? translate('common.viewcart') : translate('common.addtocart')}

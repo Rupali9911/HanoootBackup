@@ -29,7 +29,7 @@ const ProductDelivery = (props) => {
             <Text style={styles.text}>{translate('common.orderwithin')}  <Text style={{
                 color: Colors.BLACK, fontFamily: getFonts.BOLD
             }}>{data?.time ? getTime(data?.time) : null}</Text></Text>
-            <TouchableOpacity onPress={() => { !userData ? navigation.navigate('Signup') : null }}><Text style={[styles.text, { color: Colors.themeColor }]}>{`${data?.city} - ${translate('common.signinforbetterdeliveryestimate')}`}</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => { !userData ? navigation.navigate('Login') : null }}><Text style={[styles.text, { color: Colors.themeColor }]}>{`${data?.city} - ${translate('common.signinforbetterdeliveryestimate')}`}</Text></TouchableOpacity>
         </View >
     )
 }
