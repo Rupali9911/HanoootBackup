@@ -107,7 +107,6 @@ const Signup = () => {
         catch (error) {
             console.log('Error from Check phone number api', error)
             setLoadingButton(false)
-
         }
     }
 

@@ -53,7 +53,7 @@ const TopPicks = (props) => {
     return (
       <TouchableOpacity
         style={styles.listContainer}
-        onPress={() => navigation.push('ProductDetail', { id: item?.id })}
+        onPress={() => navigation.push('ProductDetail', { id: item?.product_id })}
       >
         <View style={styles.itemImgContainer}>
           {/* <Image source={{ uri: item?.ManagementProduct?.product_image ? item?.ManagementProduct?.product_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }} style={styles.itemImg} /> */}
