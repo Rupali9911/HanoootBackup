@@ -75,7 +75,7 @@ export default function AppHeader(props) {
         {props.placeholderText ? (
           // <View style={{}}>
           <View style={{ flex: 1, width: '100%', justifyContent: 'center', zIndex: 999 }}>
-            <AppSearch placeholderText={props.placeholderText} onChangeText={(val) => setSearch(val)} />
+            <AppSearch placeholderText={props.placeholderText} onChangeText={(val) => setSearch(val)} onCrossPress={props.onCrossPress} />
           </View>
         ) :
           props.Logo ?

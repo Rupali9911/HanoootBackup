@@ -6,7 +6,7 @@ import { ExpressView } from '../../constant/ListConstant'
 import { wp, hp } from '../../constant/responsiveFunc'
 import { useSelector } from 'react-redux'
 import { getEnglishTitle, getArabicTitle } from '../../constant/SwitchRenders'
-import { getFonts, getVariantsData } from '../../screens/utils'
+import { formattedPrice, getFonts, getVariantsData } from '../../screens/utils'
 import { estimatedDelivery } from '../../screens/utils'
 import CartItemQuantity from './CartItemQty'
 import { translate } from '../../utility'
@@ -63,7 +63,7 @@ const CartProductCards = (props) => {
         return (
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                 <Text style={styles.itemDetail}>{translate('common.fulfilledby')} <Text>{translate('common.hanooot')} </Text></Text>
-                <ExpressView />
+                <ExpressView title={item?.ManagementProduct?.ManagementBrand?.name} />
             </View>
         )
     }
@@ -83,7 +83,7 @@ const CartProductCards = (props) => {
                     {getDeliveryInfo()}
                     {getExpressView()}
                     {/* <Text style={styles.itemDetail} >Sold by <Text style={{ color: Colors.themeColor }}>Ecom Nation</Text></Text> */}
-                    <Text style={styles.itemName} >{`${item?.price ? item?.price : 0} ${translate('common.currency_iqd')}`}</Text>
+                    <Text style={styles.itemName} >{`${formattedPrice(item?.price)} ${translate('common.currency_iqd')}`}</Text>
                 </View>
             </View>
             <CartItemQuantity

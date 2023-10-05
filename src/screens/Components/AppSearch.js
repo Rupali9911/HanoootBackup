@@ -38,10 +38,10 @@ const AppSearch = (props) => {
             console.log('search result  :', response)
             setloading(false);
             if (
-              response?.data?.product.length > 0
+              response?.data?.rows.length > 0
             ) {
               console.log('if')
-              setSearchData(response?.data?.product);
+              setSearchData(response?.data?.rows);
               // searchTxt ? props.onChangeText(true) : props.onChangeText(false)
               // props.onChangeText(true)
             } else {
@@ -130,18 +130,18 @@ const AppSearch = (props) => {
             width: '100%',
             // height: heightTextInput,
             // alignSelf: "flex-start",
-            // justifyContent: "flex-start",
+            // justifyContent: "flex-start", 
             color: Colors.BLACK,
             left: 10, alignSelf: 'center',
             height: '100%',
 
           }}
-          onSubmitEditing={() => { navigation.navigate('ProductListWithFilters', { headerTitle: `Search "${searchTxt}"`, isNavigationSection: 'Search' }) }}
+          onSubmitEditing={() => { navigation.push('ProductListWithFilters', { headerTitle: `Search "${searchTxt}"`, isNavigationSection: 'Search', searchText: searchTxt }) }}
           returnKeyType='done'
         />
         {
           searchTxt &&
-          <TouchableOpacity style={{ justifyContent: 'flex-end', width: wp(5), position: 'absolute', right: 10 }} onPress={() => setSearchTxt('')}>
+          <TouchableOpacity style={{ justifyContent: 'flex-end', width: wp(5), position: 'absolute', right: 10 }} onPress={() => { setSearchTxt(''), props.onCrossPress(false) }}>
             <CrossIcon />
           </TouchableOpacity>
         }

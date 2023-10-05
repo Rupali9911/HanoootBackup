@@ -2,9 +2,9 @@ import { PRODUCT_API, BASE_API, SEARCH_API } from "../../../utility/apiUrls";
 import sendRequest from "../../axios/AxiosApiRequest";
 
 
-export const ProductListAPICall = (pageNumber, category_id, limit, isNavigationSection) => {
+export const ProductListAPICall = (pageNumber, category_id, limit, isNavigationSection, searchText) => {
 
-    const URL = isNavigationSection === 'NewArrivals' ? `${PRODUCT_API}/new-arrival` : isNavigationSection === 'SuggestedProducts' ? `${PRODUCT_API}/best-for-user` : isNavigationSection === 'RecentlyViewProduct' ? `${BASE_API}/user-recent-product` : isNavigationSection === 'Search' ? `${PRODUCT_API}?search=puma` : PRODUCT_API
+    const URL = isNavigationSection === 'NewArrivals' ? `${PRODUCT_API}/new-arrival` : isNavigationSection === 'SuggestedProducts' ? `${PRODUCT_API}/best-for-user` : isNavigationSection === 'RecentlyViewProduct' ? `${BASE_API}/user-recent-product` : isNavigationSection === 'Search' ? SEARCH_API : PRODUCT_API
 
     let commonParam = {
         pageNumber,
@@ -14,9 +14,13 @@ export const ProductListAPICall = (pageNumber, category_id, limit, isNavigationS
     let requestParams =
         !isNavigationSection
             ? { ...commonParam, category_id }
-            : commonParam
+            :
+            isNavigationSection === 'Search' && searchText
+                ?
+                { ...commonParam, search: searchText }
+                : commonParam
 
-    console.log('check urlr lrsl s : ', URL, category_id, isNavigationSection, requestParams)
+    console.log('check urlr lrsl s : ', URL, searchText, isNavigationSection)
     return new Promise((resolve, _reject) => {
         sendRequest({
             url: URL,

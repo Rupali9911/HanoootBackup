@@ -4,14 +4,14 @@ import Colors from '../../constant/Colors'
 import Separator from '../../constant/Separator'
 import fonts from '../../constant/fonts'
 import { translate } from '../../utility'
-import { getFonts } from '../utils'
+import { formattedPrice, getFonts } from '../utils'
 
 const CartTotal = (props) => {
     return (
         <View style={styles.mainCont}>
             <View style={styles.container}>
                 <Text style={styles.Text}>{translate('common.subtotal')}(1 {translate('common.itemCap')})</Text>
-                <Text style={[styles.Text, { fontWeight: 'bold' }]}>{`${props.totalCost ? props.totalCost : 0} ${translate('common.currency_iqd')}`}</Text>
+                <Text style={[styles.Text, { fontWeight: 'bold' }]}>{`${formattedPrice(props?.totalCost)} ${translate('common.currency_iqd')}`}</Text>
             </View>
             <View style={styles.container}>
                 <Text style={styles.Text}>{translate('common.coupondiscount')}</Text>
@@ -19,8 +19,8 @@ const CartTotal = (props) => {
             </View>
             <Separator />
             <View style={styles.container}>
-                <Text style={[styles.Text, { fontWeight: 'bold', fontSize: 16 }]}>{translate('common.total')} <Text style={{ fontSize: 12, color: Colors.PRICEGRAY }}> ({translate('common.inclusiveofvat')})</Text></Text>
-                <Text style={[styles.Text, { fontWeight: 'bold', fontSize: 18 }]}>{`${Number(props.totalCost) - Number(props.couponAmt)} ${translate('common.currency_iqd')}`}</Text>
+                <Text style={[styles.Text, { fontWeight: 'bold', fontSize: 16 }]}>{translate('common.total')} </Text>
+                <Text style={[styles.Text, { fontWeight: 'bold', fontSize: 18 }]}>{`${formattedPrice(props?.totalCost)} ${translate('common.currency_iqd')}`}</Text>
             </View>
         </View>
     )

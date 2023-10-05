@@ -1,5 +1,7 @@
 {
   "common": {
+    "couponAppliedSuccess": "تم تطبيق رمز القسيمة بنجاح!!",
+    "entercouponcode": "أدخل رمز القسيمة",
     "ordertotal": "الطلب الكلي",
     "search": "يبحث",
     "pleaseloginfirst": "الرجاء تسجيل الدخول أولا",

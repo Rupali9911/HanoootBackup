@@ -212,7 +212,7 @@ const ProductDetailCard = (props) => {
                     <View style={styles.textView}>
                         {/* <Text style={styles.totalPrice}>{`${price ? formattedPrice(price) : 0} ${translate('common.currency_iqd')}`}</Text> */}
                         <Text style={styles.totalPrice}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text>
-                        <Text style={styles.inclusiveTax}>{`(${translate('common.inclusiveofvat')})`}</Text>
+                        {/* <Text style={styles.inclusiveTax}>{`(${translate('common.inclusiveofvat')})`}</Text> */}
                     </View>
                     <ExpressView title={props.isExpress} />
                 </View>

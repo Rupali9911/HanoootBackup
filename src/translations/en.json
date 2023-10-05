@@ -1,5 +1,7 @@
 {
   "common": {
+    "couponAppliedSuccess": "coupon code applied successfully!!",
+    "entercouponcode": "Enter Coupon Code",
     "ordertotal": "Order Total",
     "search": "Search",
     "pleaseloginfirst": "Please Login First",

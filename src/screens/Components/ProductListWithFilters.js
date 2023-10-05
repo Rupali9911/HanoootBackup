@@ -20,6 +20,7 @@ import ModalContentWithoutLogin from '../../Components/universal/Modal/ModalCont
 
 const ProductListWithFilters = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [search, setSearch] = useState(false);
 
     const DATA = props?.route?.params;
 
@@ -32,7 +33,7 @@ const ProductListWithFilters = (props) => {
     const userData = useSelector((state) => state.userReducer.userData);
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
-
+    console.log('searchsearchsearch : ', DATA.searchText)
 
     useEffect(() => {
         dispatch(productListReset())
@@ -42,12 +43,8 @@ const ProductListWithFilters = (props) => {
     }, [isFocused]);
 
     const getProductListData = useCallback(page => {
-        dispatch(getProductList(page, DATA?.category_id, DATA?.isNavigationSection));
+        dispatch(getProductList(page, DATA?.category_id, DATA?.isNavigationSection, DATA?.searchText));
     }, []);
-
-
-
-
 
     const renderItem = ({ item, index }) => {
         return (
@@ -99,24 +96,35 @@ const ProductListWithFilters = (props) => {
                             onWishlistPress={() => setModalVisible(true)}
                         />
                         :
-                        <ListView
-                            item={item}
-                            centerImage={item?.product_image}
-                            productName={selectedLanguageItem?.language_id === 0 ? capitalizeFirstLetter(item?.ManagementProductSeo?.product_name) : item?.ManagementProductSeo?.product_name_arabic}
-                            price={item?.ManagementProductPricing?.price_iqd}
-                            // discount={item?.ManagementProductPricing.hanooot_discount}
-                            averageRating={item?.ManagementProductReview?.average_rating}
-                            noOfReview={item?.ManagementProductReview?.number_of_reviews}
-                            detailId={item?.id}
-                            // categoryId={item?.category_id}
-                            isExpress={item?.ManagementBrand?.name}
-                            showLike
-                            isItemLiked={item?.isLike}
-                            ViewContStyle={{
-                                width: wp('100%') / 2 - wp('5%'), height: hp(33.62)
-                            }}
-                            onWishlistPress={() => setModalVisible(true)}
-                        />
+                        DATA?.isNavigationSection === 'Search'
+                            ?
+                            <ListView
+                                centerImage={item?.product_image}
+                                productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
+                                price={item?.ManagementProductPricing?.price_iqd}
+                                isExpress={item?.ManagementBrand?.name}
+                                detailId={item?.id}
+                                ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), }}
+                            />
+                            :
+                            <ListView
+                                item={item}
+                                centerImage={item?.product_image}
+                                productName={selectedLanguageItem?.language_id === 0 ? capitalizeFirstLetter(item?.ManagementProductSeo?.product_name) : item?.ManagementProductSeo?.product_name_arabic}
+                                price={item?.ManagementProductPricing?.price_iqd}
+                                // discount={item?.ManagementProductPricing.hanooot_discount}
+                                averageRating={item?.ManagementProductReview?.average_rating}
+                                noOfReview={item?.ManagementProductReview?.number_of_reviews}
+                                detailId={item?.id}
+                                // categoryId={item?.category_id}
+                                isExpress={item?.ManagementBrand?.name}
+                                showLike
+                                isItemLiked={item?.isLike}
+                                ViewContStyle={{
+                                    width: wp('100%') / 2 - wp('5%'), height: hp(33.62)
+                                }}
+                                onWishlistPress={() => setModalVisible(true)}
+                            />
         );
     }
 
@@ -200,6 +208,9 @@ const ProductListWithFilters = (props) => {
                 showLikeIcon
                 showSearchIcon
                 showCartIcon
+                placeholderText={search ? 'Search' : ''}
+                onSearchPress={() => setSearch(true)}
+                onCrossPress={setSearch}
                 onCartPress={() => userData ? navigation.navigate('CartScreen', { screen: true }) : setModalVisible(true)}
                 onWishlistPress={() => userData ? navigation.navigate('WishlistScreen') : setModalVisible(true)}
             />

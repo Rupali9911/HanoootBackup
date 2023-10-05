@@ -74,7 +74,7 @@ export const setTappedButtonName = bool => ({
 
 
 
-export const getProductList = (page, categoryId, isNavigationSection) => {
+export const getProductList = (page, categoryId, isNavigationSection, searchText) => {
     // console.log('sdhjfs')
     // const a = getCategoryListAPI(1, 10)
 
@@ -101,7 +101,7 @@ export const getProductList = (page, categoryId, isNavigationSection) => {
 
     let limit = 10;
     return async dispatch => {
-        await ProductListAPICall(page, categoryId, limit, isNavigationSection).
+        await ProductListAPICall(page, categoryId, limit, isNavigationSection, searchText).
             then((response) => {
                 console.log('response from product list api call : ', response)
                 if (response?.data) {

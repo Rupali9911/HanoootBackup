@@ -23,7 +23,8 @@ import { getBuyNowData } from '../../Store/actions/orderAction'
 import Loader from '../../../constant/Loader'
 import CartItemCard from '../../CartScreen/CartItemCard'
 import { translate } from '../../../utility'
-import { getFonts } from '../../utils'
+import { formattedPrice, getFonts } from '../../utils'
+import CouponDetail from '../../../Components/universal/coupon'
 
 
 const ReviewOrder = (props) => {
@@ -35,16 +36,24 @@ const ReviewOrder = (props) => {
   const { isCartDataLoading, cartItems, cartData } = useSelector(state => state.cartReducer);
   const { productQtyIdInfo, isBuyNowButton } = useSelector(state => state.productListReducer);
   const { isProductLoading, Product, ProductData } = useSelector(state => state.orderReducer);
+  const { couponSucess } = useSelector(state => state.cartReducer);
+
 
 
   const [quantity, setQuantity] = useState(productQtyIdInfo?.productQty)
+  const [shippingAmount, setShippingAmount] = useState()
+  const [couponApplied, setCouponApplied] = useState(false)
 
   const isLoading = isBuyNowButton ? isProductLoading : isCartDataLoading;
   const data = isBuyNowButton ? ProductData : cartData;
   const listItems = isBuyNowButton ? Product : cartItems;
 
+  let shippingCost = signleAddressDetail?.city === 'Baghdad' ? Number(5000) : Number(8000);
+  let couponCost = couponApplied ? Number(shippingCost) : Number(0)
+  let costAfterApplyCpn = shippingCost - couponCost;
+  // let costAfterApplyCpn = 0;
 
-
+  console.log('shippingAmountshippingAmount', shippingAmount)
   useEffect(() => {
     if (isBuyNowButton) {
       dispatch(getBuyNowData(productQtyIdInfo?.productId, productQtyIdInfo?.productQty))
@@ -69,6 +78,15 @@ const ReviewOrder = (props) => {
 
 
   const OrderSummary = () => {
+    // let shippingCost = signleAddressDetail?.city === 'Baghdad' ? Number(5000) : Number(8000);
+    // let couponCost = couponApplied ? Number(shippingCost) : Number(0)
+    // let costAfterApplyCpn = shippingCost - couponCost;
+    // console.log('costAfterApplyCpn: ', costAfterApplyCpn)
+    // setShippingAmount(costAfterApplyCpn)
+    // useEffect(() => {
+    //   setShippingAmount(costAfterApplyCpn)
+    // }, [couponApplied, costAfterApplyCpn])
+
     return (
       <>
         <ProductHeader title={translate('common.ordersummary')} />
@@ -76,20 +94,21 @@ const ReviewOrder = (props) => {
         <View style={styles.priceViewCont}>
           <View style={styles.rowCont}>
             <Text style={styles.priceLeftText}>{translate('common.subtotal')} (1 {translate('common.item')})</Text>
-            <Text style={styles.price}>{`${data?.total_cost} ${translate('common.currency_iqd')}`}</Text>
-          </View>
-          <View style={styles.rowCont}>
-            <Text style={styles.priceLeftText}>{translate('common.coupondiscount')}</Text>
-            <Text style={[styles.price, { color: Colors.GREEN }]}>{`0 ${translate('common.currency_iqd')}`}</Text>
+            <Text style={styles.price}>{`${formattedPrice(data?.total_cost)} ${translate('common.currency_iqd')}`}</Text>
           </View>
           <View style={styles.rowCont}>
             <Text style={styles.priceLeftText}>{translate('common.shippingcost')}</Text>
-            <Text style={styles.price}>{`0 ${translate('common.currency_iqd')}`}</Text>
+            <Text style={styles.price}>{`${formattedPrice(shippingCost)} ${translate('common.currency_iqd')}`}</Text>
           </View>
+          <View style={styles.rowCont}>
+            <Text style={styles.priceLeftText}>{translate('common.coupondiscount')}</Text>
+            <Text style={[styles.price, { color: Colors.GREEN }]}>{`- ${formattedPrice(couponCost)} ${translate('common.currency_iqd')}`}</Text>
+          </View>
+
           <Separator separatorStyle={{ width: wp(90) }} />
           <View style={styles.rowCont}>
-            <Text style={styles.TotalPrice}>{translate('common.total')} <Text style={{ color: Colors.PRICEGRAY, fontWeight: 500 }}>({translate('common.inclusiveofvat')})</Text></Text>
-            <Text style={styles.TotalPrice}>{`${data?.total_cost} ${translate('common.currency_iqd')}`}</Text>
+            <Text style={styles.TotalPrice}>{translate('common.total')} </Text>
+            <Text style={styles.TotalPrice}>{`${formattedPrice(Number(data?.total_cost) + Number(costAfterApplyCpn))} ${translate('common.currency_iqd')}`}</Text>
           </View>
         </View>
       </>
@@ -178,13 +197,18 @@ const ReviewOrder = (props) => {
             address_id: props.AddressId,
             product_id: productQtyIdInfo?.productId,
             quantity: quantity,
-            payment_method: "COD"
+            payment_method: "COD",
+            shipping_cost: costAfterApplyCpn,
+            promocode: couponSucess[0]?.code
           }
           :
           {
             address_id: props.AddressId,
-            payment_method: "COD"
+            payment_method: "COD",
+            shipping_cost: costAfterApplyCpn,
+            promocode: couponSucess[0]?.code
           }
+      console.log('data from order : ', data)
       const orderPlaced = await PlaceOrderAPICall(data);
       console.log('orderPlaced', orderPlaced)
 
@@ -204,11 +228,13 @@ const ReviewOrder = (props) => {
     }
   }
 
-  const CouponDetail = () => {
+  const CouponInfo = () => {
     return (
       <>
         <ProductHeader title={translate('common.coupan')} />
-        <Coupon />
+        {/* <Coupon />
+         */}
+        <CouponDetail couponEnable={(coupon) => { setCouponApplied(coupon) }} />
       </>
     )
   }
@@ -225,7 +251,7 @@ const ReviewOrder = (props) => {
           <>
             <ScrollView style={{ marginBottom: hp(5) }}>
 
-              {CouponDetail()}
+              {CouponInfo()}
               {OrderSummary()}
               {PayDetail()}
               {DeliveryDetail()}
