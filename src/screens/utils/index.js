@@ -214,3 +214,14 @@ export const formattedPrice = (price) => {
     return priceInIQD.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 }
+
+
+const CountryCode = {
+    '+91': 'IN',  // India
+    '+1': 'US',   // United States
+    '+44': 'GB',  // United Kingdom
+};
+
+export const getCountryCode = code => {
+    return CountryCode[code] || 'IQ'; // Return 'Unknown' for unmapped MCCs
+};

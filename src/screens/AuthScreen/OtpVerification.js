@@ -15,6 +15,12 @@ import { userRegister } from '../../services/apis'
 import { saveUserDetails, updateNameWithSaveDetails } from '../../helpers/user'
 import { translate } from '../../utility'
 import { getFonts } from '../utils'
+import {
+    getHash, requestHint,
+    startOtpListener,
+    useOtpVerify,
+} from 'react-native-otp-verify';
+
 const otpObj = {
     otp1: "",
     otp2: "",
@@ -29,6 +35,7 @@ const OtpVerification = ({ route }) => {
     const isFromSignUp = route?.params?.isFromSignUp
     const phoneNumber = route?.params?.phoneNumber
     const name = route?.params?.name
+    const navigationFromAdd = route?.params?.navigationFromAdd
 
     // console.log('route?.params?.authResult', route?.params?.authResult)
     const navigation = useNavigation();
@@ -56,6 +63,25 @@ const OtpVerification = ({ route }) => {
         return () => clearInterval(interval);
 
     }, [seconds])
+
+
+    // using methods
+    // useEffect(() => {
+    //     getHash().then(hash => {
+    //         console.log('hash: ', hash)
+    //         // use this hash in the message.
+    //         // startOtpListener(hash)
+    //     }).catch('console.log');
+
+    //     startOtpListener(message => {
+    //         console.log('message: ', message)
+    //         // extract the otp using regex e.g. the below regex extracts 4 digit otp from message
+    //         const otp = /(\d{4})/g.exec(message)[1];
+    //         console.log('otp: ', otp)
+    //         // setOtp(otp);
+    //     });
+    //     // return () => removeListener();
+    // }, []);
 
     const renderOTPInput = () => {
         let inputs = [
@@ -187,7 +213,9 @@ const OtpVerification = ({ route }) => {
             }
             // dispatch(setUserData(userCredentials?.user))
             setLoadingButton(false)
-            navigation.navigate('OtpVerifySuccess')
+            navigationFromAdd ?
+                navigation.goBack() :
+                navigation.navigate('OtpVerifySuccess')
         }
         catch (error) {
             setLoadingButton(false)
@@ -309,3 +337,220 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 })
+
+
+
+
+// import React, { useEffect } from 'react'
+// import { StyleSheet, Button, Text, View } from 'react-native';
+// import SmsRetriever from 'react-native-sms-retriever';
+
+// const WELCOME_TEXT = 'React Native SMS Retriever';
+// const PHONE_NUMBER_TITLE = 'Request phone number';
+// const ADD_SMS_LISTENER_TITLE = 'Add SMS listener';
+
+// const OtpVerification = () => {
+
+//     useEffect(() => {
+//         SmsRetriever.startSmsRetriever();
+//         const subscription = SmsRetriever.onSmsRetrieved(event => {
+//             console.log('OTP received:', event.message);
+//             // Extract OTP and autofill in your app
+//             // Implement the logic to extract OTP and autofill it in your app
+//         });
+//         return () => {
+//             subscription.remove();
+//         };
+//     }, []);
+
+//     // Actions
+
+//     // const _onPhoneNumberPressed = async () => {
+//     //     try {
+//     //         const phoneNumber = await SmsRetriever.requestPhoneNumber();
+//     //         alert(`Phone Number: ${phoneNumber}`);
+//     //     } catch (error) {
+//     //         alert(`Phone Number Error: ${JSON.stringify(error)}`);
+//     //     }
+//     // };
+
+//     // const _onSmsListenerPressed = async () => {
+//     //     try {
+//     //         const registered = await SmsRetriever.startSmsRetriever();
+
+//     //         if (registered) {
+//     //             SmsRetriever.addSmsListener(this._onReceiveSms);
+//     //         }
+
+//     //         alert(`SMS Listener Registered: ${registered}`);
+//     //     } catch (error) {
+//     //         alert(`SMS Listener Error: ${JSON.stringify(error)}`);
+//     //     }
+//     // };
+
+//     // // Handlers
+
+//     // const _onReceiveSms = (event) => {
+//     //     alert(event.message);
+//     //     SmsRetriever.removeSmsListener();
+//     // };
+
+//     return (
+//         <View style={styles.container}>
+//             <Text style={styles.welcome}>{WELCOME_TEXT}</Text>
+
+//             <View style={styles.space} />
+
+//             <Button
+//                 style={styles.button}
+//                 title={PHONE_NUMBER_TITLE}
+//                 onPress={() => _onPhoneNumberPressed()}
+//             />
+
+//             <View style={styles.space} />
+
+//             <Button
+//                 style={styles.button}
+//                 title={ADD_SMS_LISTENER_TITLE}
+//                 onPress={() => _onSmsListenerPressed()}
+//             />
+//         </View>
+//     )
+// }
+
+// export default OtpVerification
+
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         backgroundColor: '#F5FCFF',
+//     },
+//     welcome: {
+//         fontSize: 20,
+//         textAlign: 'center'
+//     },
+//     space: {
+//         margin: 20
+//     }
+// })
+
+
+
+
+// import { StyleSheet, Text, View } from 'react-native'
+// import React, { useEffect } from 'react'
+// import {
+//     getHash, requestHint,
+//     startOtpListener,
+//     useOtpVerify,
+// } from 'react-native-otp-verify';
+
+// // const { hash, otp, message, timeoutError, stopListener, startListener } = useOtpVerify({ numberOfDigits: 4 });
+
+
+// const OtpVerification = () => {
+//     const [hashFromMethod, setHashFromMethod] = React.useState();
+//     const [otpFromMethod, setOtpFromMethod] = React.useState();
+//     const [hint, setHint] = React.useState();
+
+
+//     const { hash, otp, timeoutError, stopListener, startListener } = useOtpVerify();
+
+
+//     // using methods
+//     // useEffect(() => {
+//     //     getHash().then(hash => {
+//     //         console.log('hash: ', hash)
+//     //         // use this hash in the message.
+//     //         // startOtpListener(hash)
+//     //     }).catch('console.log');
+
+//     //     startOtpListener(message => {
+//     //         console.log('message: ', message)
+//     //         // extract the otp using regex e.g. the below regex extracts 4 digit otp from message
+//     //         // const otp = /(\d{4})/g.exec(message)[1];
+//     //         // console.log('otp: ', otp)
+//     //         // setOtp(otp);
+//     //     });
+//     //     // return () => removeListener();
+//     // }, []);
+
+//     // useEffect(() => {
+//     //     getHash().then(setHashFromMethod).catch(console.log);
+//     //     requestHint().then(setHint).catch(console.log);
+//     //     startOtpListener(setOtpFromMethod);
+//     // }, []);
+
+//     useEffect(() => {
+//         // Function to start OTP listener
+//         const startOTPListener = async () => {
+//             try {
+//                 await getHash().then(hash => {
+//                     console.log('Hash:', hash);
+//                     // Use this hash in your message
+//                 });
+//                 startOtpListener(message => {
+//                     message = ["xMx9lwYXQ04"];
+//                     // Extract OTP from message (e.g., using regex)
+//                     const otpMatch = /(\d{4})/g.exec(message);
+//                     if (otpMatch && otpMatch[1]) {
+//                         const otp = otpMatch[1];
+//                         console.log('Extracted OTP:', otp);
+//                         // Use this extracted OTP in your application
+//                     }
+//                 });
+//             } catch (error) {
+//                 console.error('Error starting OTP listener:', error);
+//             }
+//         };
+
+//         // Start OTP listener
+//         startOTPListener();
+
+//         // Cleanup: Remove the OTP listener when the component is unmounted
+//         // return () => removeListener();
+//     }, []);
+
+
+
+//     return (
+//         <View style={styles.container}>
+//             <View style={styles.resultView}>
+//                 <Text style={styles.resultHeader}>Using Methods</Text>
+//                 <Text>Your Hash is: {hashFromMethod}</Text>
+//                 <Text>Your message is: {otpFromMethod}</Text>
+//                 <Text>Selected Mobile Number is: {hint}</Text>
+//             </View>
+//             <View style={styles.resultView}>
+//                 <Text style={styles.resultHeader}>Using Hook</Text>
+//                 <Text>Your Hash is: {hash}</Text>
+//                 <Text>Your otp is: {otp}</Text>
+//                 <Text>Timeout Error: {String(timeoutError)}</Text>
+//             </View>
+//         </View>
+//     )
+// }
+
+// export default OtpVerification
+
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//     },
+//     resultView: {
+//         margin: 10,
+//     },
+//     resultHeader: {
+//         fontSize: 18,
+//         marginBottom: 5,
+//     },
+//     box: {
+//         width: 60,
+//         height: 60,
+//         marginVertical: 20,
+//     },
+// })

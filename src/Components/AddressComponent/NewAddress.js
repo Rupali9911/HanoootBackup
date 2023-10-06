@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView, Button, Image, Text, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, View, ScrollView, Button, Image, Text, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import ProductHeader from '../../screens/Components/Cards/ProductHeader';
 import AppHeader from '../../screens/Components/AppHeader';
@@ -22,6 +22,10 @@ import { translate } from '../../utility';
 import { useSelector } from 'react-redux';
 import BuildingDropdown from '../../constant/BuildingDropdown';
 import { getFonts } from '../../screens/utils';
+import { maxLength10, validatePhoneNo } from '../../screens/utils';
+import { SIZE } from '../../constant/responsiveFunc';
+import { signInWithPhoneNumber } from '../../services/socialAuth';
+import { getCountryCode } from '../../screens/utils';
 
 
 
@@ -49,15 +53,60 @@ const NewAddress = (props) => {
       longitude: '',
       address: ''
     }
-
-
   });
+  const [formattedNum, setFormattedNum] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [cityValue, setCityName] = useState()
   const [buildingType, setBuildingType] = useState()
+  const [loadingButton, setLoadingButton] = useState(false)
+
 
   const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
   const { userData } = useSelector((state) => state.userReducer);
+
+  const splitMobileNumber = (phoneNumber) => {
+    const lastTenDigits = phoneNumber?.slice(-10); // Extract the last 10 digits
+    const remainingDigits = phoneNumber?.slice(0, -10); // Extract the remaining digits
+
+    return {
+      lastTenDigits,
+      remainingDigits,
+    };
+  };
+
+
+  useEffect(() => {
+    if (Object.keys(userData).length) {
+      setInputFields({ ...inputFields, name: userData?.displayName })
+      setInputFields({ ...inputFields, phone_number: userData?.phoneNumber })
+      setFormattedNum(userData?.phoneNumber)
+    }
+  }, [isFocused])
+  // useEffect(async () => {
+  //   // // if (userData) {
+  //   // const last10Digits = userData?.phoneNumber?.slice(-10);
+
+  //   // console.log('last10Digits: ',)
+  //   if (Object.keys(userData).length) {
+  //     setInputFields({ ...inputFields, name: userData?.displayName })
+  //     const { lastTenDigits, remainingDigits } = splitMobileNumber(userData?.phoneNumber)
+  //     setInputFields({ ...inputFields, phone_number: lastTenDigits })
+  //     getCountryCode(remainingDigits)
+
+  //     // setFormattedNum(userData?.phoneNumber ? last10Digits : null)
+  //   }
+
+  //   // console.log('getCountryCode: ', typeof (getCountryCode('+91')))
+  //   // setInputFields({ ...inputFields, name: userData?.displayName, phone_number: last10Digits ? last10Digits : '' })
+  //   // }
+  // }, [isFocused])
+
+  const { lastTenDigits, remainingDigits } = splitMobileNumber(userData?.phoneNumber)
+
+  console.log('lastTenDigits, remainingDigits: ', lastTenDigits, remainingDigits)
+
+
+  console.log('input fileds: ', inputFields?.phone_number)
 
 
   useEffect(() => {
@@ -82,12 +131,20 @@ const NewAddress = (props) => {
       setCityName(editDataDetail?.city)
       setBuildingType(editDataDetail?.building)
     }
-    else if (userData) {
+    // else if (userData) {
+    //   const last10Digits = userData?.phoneNumber?.slice(-10);
 
-      setInputFields({ ...inputFields, name: userData?.displayName, phone_number: userData?.phoneNumber ? userData?.phoneNumber : '' })
-    }
+    //   console.log('last10Digits: ', last10Digits)
+
+    //   setInputFields({ ...inputFields, name: userData?.displayName, phone_number: last10Digits ? last10Digits : '' })
+    // }
 
   }, []);
+
+
+
+
+  console.log('userData', userData)
 
   const handleInputChange = (fieldName, value) => {
     const newInputFields = { ...inputFields, [fieldName]: value };
@@ -98,10 +155,39 @@ const NewAddress = (props) => {
     console.log('check labl & value', label, value)
     if (label === 'city') {
       return Object.keys(value).length ? null : translate('common.pleaseFillField', { label: `${label}` })
-    } else {
+    }
+    else if (label === 'phone_number') {
+      if (maxLength10(inputFields?.phone_number)) {
+        return maxLength10(phoneNo)
+
+      } else if (!isValidNumber(formattedNum)) {
+        return validatePhoneNo(phoneNo)
+      }
+    }
+    else {
       if (!value.trim().length) {
         return translate('common.pleaseFillField', { label: `${label}` });
       }
+    }
+  }
+
+  const verifyWithNumber = async () => {
+    try {
+      setLoadingButton(true)
+      const result = await signInWithPhoneNumber(formattedNum)
+      console.log('Response from verifyWithNumber', result)
+      setLoadingButton(false)
+
+      navigation.navigate('OtpVerification', {
+        authResult: result,
+        phoneNumber: formattedNum,
+        isFromSignUp: false,
+        navigationFromAdd: true
+      });
+    } catch (error) {
+      setLoadingButton(false)
+      setInputFields({ ...inputFields, phone_number: '' })
+      console.log('Error from verifyWithNumber', error)
     }
   }
 
@@ -137,7 +223,7 @@ const NewAddress = (props) => {
         latitude: inputFields?.locationDetail?.latitude.toString(),
         longitude: inputFields?.locationDetail?.longitude.toString(),
         name: inputFields?.name,
-        phone_number: inputFields?.phone_number,
+        phone_number: userData?.phoneNumber ? userData?.phoneNumber : inputFields?.phone_number,
         address_type: inputFields?.address_type,
         location_address: inputFields?.locationDetail?.address,
       }
@@ -368,7 +454,7 @@ const NewAddress = (props) => {
           required
           error={errorMsg['name']}
         />
-        <AppInput
+        {/* <AppInput
           label={translate('common.phonenumber')}
           value={inputFields?.phone_number}
           onChangeText={text => {
@@ -380,7 +466,37 @@ const NewAddress = (props) => {
           keyboardType={'numeric'}
           required
           error={errorMsg['phoneNumber']}
+        /> */}
+
+
+        <AppInput
+          label={translate('common.mobilephonenumber')}
+          placeholder={translate('common.enteryourphonenumber')}
+          required
+          isNumberField
+          value={lastTenDigits ? lastTenDigits : inputFields?.phone_number}
+          onChangeText={text => {
+            handleInputChange('phone_number', text)
+            setErrorMsg({ ...errorMsg, ['phoneNumber']: null })
+          }}
+          validate={[maxLength10, validatePhoneNo]}
+          error={errorMsg['phoneNumber']}
+          onChangeCountry={(val) => console.log(val)}
+          onChangeFormattedText={(val) => setFormattedNum(val)}
+          defaultCode={getCountryCode(remainingDigits)}
         />
+
+        <View style={styles.btnContainer}>
+          {
+            loadingButton ?
+              <ActivityIndicator size="large" color={Colors.themeColor} style={{ marginRight: '5%' }} />
+              :
+              <TouchableOpacity style={[styles.button, inputFields?.phone_number.length || lastTenDigits?.length === 10 ? null : styles.inActive]} onPress={() => verifyWithNumber()} disabled={inputFields?.phone_number?.length || lastTenDigits?.length === 10 ? false : true}>
+                <Text style={styles.buttonText}>Verify Mobile No</Text>
+              </TouchableOpacity>
+          }
+
+        </View>
 
         <Separator separatorStyle={{ marginVertical: '8%' }} />
 
@@ -725,5 +841,31 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10
+  },
+  button: {
+    backgroundColor: Colors.themeColor,
+    width: SIZE(150),  // Set the desired width
+    padding: 10,
+    borderRadius: 100,
+    marginHorizontal: '5%',
+    marginTop: '2%',
+    // right: 0,
+    // alignItems: 'flex-end'
+  },
+  buttonText: {
+    color: Colors.WHITE,
+    textAlign: 'center',
+    fontFamily: getFonts.BOLD,
+
+    // fontWeight: 'bold',
+  },
+  inActive: {
+    opacity: 0.4,
+  },
+  btnContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',  // Align the button to the bottom
+    alignItems: 'flex-end',      // Align the button to the right
+    // padding: 20,
   }
 })

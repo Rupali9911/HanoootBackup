@@ -38,6 +38,8 @@ const AppInput = (props) => {
         );
     }
 
+
+
     return (
         <View style={styles.mainContainer}>
             <Text style={[styles.label, props.labelStyle]}>{props.label}{props.required && <Text style={{ color: 'red' }}>*</Text>}</Text>
@@ -49,7 +51,7 @@ const AppInput = (props) => {
                             <PhoneInput
                                 ref={phoneInput}
                                 defaultValue={props.value}
-                                defaultCode={regionCountry || "IN"}
+                                defaultCode={props.defaultCode || regionCountry || "IQ"}
                                 layout="first"
                                 onChangeText={props.onChangeText}
                                 value={props.value}
@@ -62,7 +64,8 @@ const AppInput = (props) => {
                                     keyboardType: "phone-pad",
                                     onFocus: () => handleFocus(),
                                     onBlur: () => handleBlur(),
-                                    selectionColor: Colors.themeColor
+                                    selectionColor: Colors.themeColor,
+                                    maxLength: 10
                                 }}
                                 textContainerStyle={styles.countryCodePickerStyle(isFocus)}
                                 placeholder={props.placeholder}
@@ -70,6 +73,9 @@ const AppInput = (props) => {
                                 renderDropdownImage={
                                     <DropDownIcon style={styles.imgDropDwn} />
                                 }
+                                countryPickerProps={{
+                                    countryCodes: ['IQ', 'GB', 'AE', 'AU', 'US', 'JO', 'SA', 'KW', 'OM', 'QA', 'EG', 'SY', 'SE', 'CA'],
+                                }}
                                 {...props}
                             />
                             :
