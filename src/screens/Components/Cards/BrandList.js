@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, FlatList, Image, TouchableOpacity, Linking } from 'react-native'
 import React from 'react'
 import { hp, wp } from '../../../constant/responsiveFunc';
 import Colors from '../../../constant/Colors';
@@ -15,13 +15,16 @@ const BrandList = (props) => {
         return (
             <TouchableOpacity
                 style={styles.brandContainer} key={item?.id}
-                onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: item?.name })}
+                // onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: item?.name })}
+                onPress={() => { Linking.openURL('https://www.hanooot.com') }}
+            // key={item?.id}
+
             >
                 {/* <Image
                     source={{ uri: item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }}
                     style={styles.brandImage}
                 /> */}
-                <ImageRenderer height={hp(9.85)} width={wp(21.33)} style={styles.brandImage} uri={item?.thumbnail_image} />
+                <ImageRenderer height={hp(9.85)} width={wp(21.33)} style={styles.brandImage} uri={item?.brand_image} />
             </TouchableOpacity>
         );
     }

@@ -10,7 +10,7 @@ const OtpVerifySuccess = () => {
 
   return (
     <EmptyDetailScreen
-      // image={Images.OTPVerify}
+      image={Images.OTPVerify}
       title={translate('common.numberVerified')}
       description={translate('common.thankForRegister')}
       buttonLabel={translate('common.gotoshopping')}
