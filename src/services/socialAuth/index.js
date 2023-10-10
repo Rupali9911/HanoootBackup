@@ -24,7 +24,31 @@ auth().onAuthStateChanged((user) => {
     }
 });
 
-export const signInWithPhoneNumber = (phoneNumber) => {
+// export const signInWithPhoneNumber = (phoneNumber) => {
+//     return new Promise((resolve, _reject) => {
+//         auth()
+//             .signInWithPhoneNumber(phoneNumber)
+//             .then(response => {
+//                 resolve(response)
+//             })
+//             .catch(error => {
+//                 console.log('error signInWithPhoneNumber: ', error)
+
+//                 handleAuthError(error)
+//                 _reject(error)
+//             })
+//     })
+// }
+
+export const signInWithPhoneNumber = async (phoneNumber) => {
+    // try {
+    //     console.log("ppppppppp", phoneNumber)
+    //     let result = await auth().signInWithPhoneNumber(phoneNumber);
+    //     console.log('rrrrrrrrrrrrrrrrrrrfffggg', result);
+    //     return result;
+    // } catch (error) {
+    //     console.log('error signInWithPhoneNumber: ', error)
+    // }
     return new Promise((resolve, _reject) => {
         auth()
             .signInWithPhoneNumber(phoneNumber)
@@ -32,12 +56,13 @@ export const signInWithPhoneNumber = (phoneNumber) => {
                 resolve(response)
             })
             .catch(error => {
+                console.log('error signInWithPhoneNumber: ', error)
+
                 handleAuthError(error)
                 _reject(error)
             })
     })
 }
-
 export const createUserWithEmail = (email, pwd) => {
     return new Promise((resolve, _reject) => {
         auth()

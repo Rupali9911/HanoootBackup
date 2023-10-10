@@ -15,11 +15,11 @@ import { userRegister } from '../../services/apis'
 import { saveUserDetails, updateNameWithSaveDetails } from '../../helpers/user'
 import { translate } from '../../utility'
 import { getFonts } from '../utils'
-import {
-    getHash, requestHint,
-    startOtpListener,
-    useOtpVerify,
-} from 'react-native-otp-verify';
+// import {
+//     getHash, requestHint,
+//     startOtpListener,
+//     useOtpVerify,
+// } from 'react-native-otp-verify';
 
 const otpObj = {
     otp1: "",

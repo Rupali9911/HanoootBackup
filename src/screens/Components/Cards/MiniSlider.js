@@ -21,7 +21,9 @@ const MiniSlider = (props) => {
             // <ImageRenderer height={20} width={20} />
             // width: wp(71.79),
             //     height: hp(24.63),
-            <ImageRenderer height={hp(24.63)} width={wp(71.79)} style={styles.image} uri={item?.image_url} />
+            <TouchableOpacity onPress={() => { }}>
+                <ImageRenderer height={hp(24.63)} width={wp(71.79)} style={styles.image} uri={item?.image_url} />
+            </TouchableOpacity>
 
         );
     }

@@ -74,6 +74,8 @@ const Login = (props) => {
     const signInWithNumber = async () => {
         try {
             setLoadingButton(true)
+            await checkPhoneNumberOrEmailExists(formattedNum)
+
             const result = await signInWithPhoneNumber(formattedNum)
             console.log('Response from signInWithNumber', result)
             setLoadingButton(false)
