@@ -33,9 +33,9 @@ const CategoryList = (props) => {
     const renderItem = ({ item, index }) => {
         return (
             <>
-                <ProductHeader title={capitalizeFirstLetter(item?.name)} rightButtonLabel={translate('common.seeall')} onPress={() => { navigation.navigate('Category') }} />
+                <ProductHeader title={capitalizeFirstLetter(item?.heading)} rightButtonLabel={translate('common.seeall')} onPress={() => { navigation.navigate('ProductListWithFilters', { category_id: item?.CategoryListCategories[0]?.category_id, headerTitle: item?.heading }) }} />
                 <FlatList
-                    data={item?.children}
+                    data={item?.CategoryListCategories[0]?.ManagementCategory?.children}
                     renderItem={renderChildren}
                     keyExtractor={keyExtractor}
                     horizontal
