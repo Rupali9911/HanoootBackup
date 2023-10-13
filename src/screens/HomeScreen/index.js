@@ -69,8 +69,8 @@ export default function HomeScreen() {
             return <RecentlyViewProduct Data={value} onWishlistPress={() => setModalVisible(true)} />
          case 'suggestedProductsJson':
             return <SuggestedProducts Data={value} onWishlistPress={() => setModalVisible(true)} />
-         case 'categoryList':
-            return <CategoryList Data={value} />
+         // case 'categoryList':
+         //    return <CategoryList Data={value} />
          default:
             return null;
       }
