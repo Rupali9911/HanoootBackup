@@ -12,18 +12,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		18A76C132AC58A7C009BF2BC /* Bahij_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C072AC58A7B009BF2BC /* Bahij_Bold.ttf */; };
-		18A76C142AC58A7C009BF2BC /* Bahij_ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C082AC58A7B009BF2BC /* Bahij_ExtraLight.ttf */; };
-		18A76C152AC58A7C009BF2BC /* VisbyCF-Demibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C092AC58A7B009BF2BC /* VisbyCF-Demibold.otf */; };
-		18A76C162AC58A7C009BF2BC /* Bahij-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C0A2AC58A7B009BF2BC /* Bahij-Regular.ttf */; };
-		18A76C172AC58A7C009BF2BC /* Visbycf-Demiboldoblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C0B2AC58A7B009BF2BC /* Visbycf-Demiboldoblique.otf */; };
-		18A76C182AC58A7C009BF2BC /* VisbyCF-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C0C2AC58A7B009BF2BC /* VisbyCF-Medium.otf */; };
-		18A76C192AC58A7C009BF2BC /* Kanit-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C0D2AC58A7B009BF2BC /* Kanit-Black.ttf */; };
-		18A76C1A2AC58A7C009BF2BC /* VisbyCF-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C0E2AC58A7B009BF2BC /* VisbyCF-Regular.otf */; };
-		18A76C1B2AC58A7C009BF2BC /* Bahij_SemiLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C0F2AC58A7B009BF2BC /* Bahij_SemiLight.ttf */; };
-		18A76C1C2AC58A7C009BF2BC /* Bahij_SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C102AC58A7B009BF2BC /* Bahij_SemiBold.ttf */; };
-		18A76C1D2AC58A7C009BF2BC /* VisbyCF-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C112AC58A7C009BF2BC /* VisbyCF-Bold.otf */; };
-		18A76C1E2AC58A7C009BF2BC /* Bahij_ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18A76C122AC58A7C009BF2BC /* Bahij_ExtraBold.ttf */; };
 		5FAF3EDF2A67BD9D00906887 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FAF3EDE2A67BD9D00906887 /* GoogleService-Info.plist */; };
 		7699B88040F8A987B510C191 /* libPods-HanoootApp-HanoootAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-HanoootApp-HanoootAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -49,18 +37,6 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HanoootApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HanoootApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = HanoootApp/main.m; sourceTree = "<group>"; };
-		18A76C072AC58A7B009BF2BC /* Bahij_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Bahij_Bold.ttf; path = ../src/assets/fonts/Bahij_Bold.ttf; sourceTree = "<group>"; };
-		18A76C082AC58A7B009BF2BC /* Bahij_ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Bahij_ExtraLight.ttf; path = ../src/assets/fonts/Bahij_ExtraLight.ttf; sourceTree = "<group>"; };
-		18A76C092AC58A7B009BF2BC /* VisbyCF-Demibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "VisbyCF-Demibold.otf"; path = "../src/assets/fonts/VisbyCF-Demibold.otf"; sourceTree = "<group>"; };
-		18A76C0A2AC58A7B009BF2BC /* Bahij-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bahij-Regular.ttf"; path = "../src/assets/fonts/Bahij-Regular.ttf"; sourceTree = "<group>"; };
-		18A76C0B2AC58A7B009BF2BC /* Visbycf-Demiboldoblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Visbycf-Demiboldoblique.otf"; path = "../src/assets/fonts/Visbycf-Demiboldoblique.otf"; sourceTree = "<group>"; };
-		18A76C0C2AC58A7B009BF2BC /* VisbyCF-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "VisbyCF-Medium.otf"; path = "../src/assets/fonts/VisbyCF-Medium.otf"; sourceTree = "<group>"; };
-		18A76C0D2AC58A7B009BF2BC /* Kanit-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Kanit-Black.ttf"; path = "../src/assets/fonts/Kanit-Black.ttf"; sourceTree = "<group>"; };
-		18A76C0E2AC58A7B009BF2BC /* VisbyCF-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "VisbyCF-Regular.otf"; path = "../src/assets/fonts/VisbyCF-Regular.otf"; sourceTree = "<group>"; };
-		18A76C0F2AC58A7B009BF2BC /* Bahij_SemiLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Bahij_SemiLight.ttf; path = ../src/assets/fonts/Bahij_SemiLight.ttf; sourceTree = "<group>"; };
-		18A76C102AC58A7B009BF2BC /* Bahij_SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Bahij_SemiBold.ttf; path = ../src/assets/fonts/Bahij_SemiBold.ttf; sourceTree = "<group>"; };
-		18A76C112AC58A7C009BF2BC /* VisbyCF-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "VisbyCF-Bold.otf"; path = "../src/assets/fonts/VisbyCF-Bold.otf"; sourceTree = "<group>"; };
-		18A76C122AC58A7C009BF2BC /* Bahij_ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Bahij_ExtraBold.ttf; path = ../src/assets/fonts/Bahij_ExtraBold.ttf; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-HanoootApp-HanoootAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HanoootApp-HanoootAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-HanoootApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanoootApp.debug.xcconfig"; path = "Target Support Files/Pods-HanoootApp/Pods-HanoootApp.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-HanoootApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HanoootApp.release.xcconfig"; path = "Target Support Files/Pods-HanoootApp/Pods-HanoootApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -140,18 +116,6 @@
 		52ADB0A8756E4FCEA040BC95 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				18A76C072AC58A7B009BF2BC /* Bahij_Bold.ttf */,
-				18A76C122AC58A7C009BF2BC /* Bahij_ExtraBold.ttf */,
-				18A76C082AC58A7B009BF2BC /* Bahij_ExtraLight.ttf */,
-				18A76C102AC58A7B009BF2BC /* Bahij_SemiBold.ttf */,
-				18A76C0F2AC58A7B009BF2BC /* Bahij_SemiLight.ttf */,
-				18A76C0A2AC58A7B009BF2BC /* Bahij-Regular.ttf */,
-				18A76C0D2AC58A7B009BF2BC /* Kanit-Black.ttf */,
-				18A76C112AC58A7C009BF2BC /* VisbyCF-Bold.otf */,
-				18A76C092AC58A7B009BF2BC /* VisbyCF-Demibold.otf */,
-				18A76C0B2AC58A7B009BF2BC /* Visbycf-Demiboldoblique.otf */,
-				18A76C0C2AC58A7B009BF2BC /* VisbyCF-Medium.otf */,
-				18A76C0E2AC58A7B009BF2BC /* VisbyCF-Regular.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -294,21 +258,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18A76C1E2AC58A7C009BF2BC /* Bahij_ExtraBold.ttf in Resources */,
-				18A76C132AC58A7C009BF2BC /* Bahij_Bold.ttf in Resources */,
-				18A76C162AC58A7C009BF2BC /* Bahij-Regular.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				18A76C142AC58A7C009BF2BC /* Bahij_ExtraLight.ttf in Resources */,
-				18A76C192AC58A7C009BF2BC /* Kanit-Black.ttf in Resources */,
-				18A76C182AC58A7C009BF2BC /* VisbyCF-Medium.otf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				18A76C1D2AC58A7C009BF2BC /* VisbyCF-Bold.otf in Resources */,
-				18A76C152AC58A7C009BF2BC /* VisbyCF-Demibold.otf in Resources */,
-				18A76C172AC58A7C009BF2BC /* Visbycf-Demiboldoblique.otf in Resources */,
 				5FAF3EDF2A67BD9D00906887 /* GoogleService-Info.plist in Resources */,
-				18A76C1B2AC58A7C009BF2BC /* Bahij_SemiLight.ttf in Resources */,
-				18A76C1C2AC58A7C009BF2BC /* Bahij_SemiBold.ttf in Resources */,
-				18A76C1A2AC58A7C009BF2BC /* VisbyCF-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

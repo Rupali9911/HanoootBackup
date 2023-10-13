@@ -15,6 +15,7 @@ import { showErrorToast, showInfoToast } from './universal/Toast'
 import { translate } from '../utility'
 import { formattedPrice, getFonts } from '../screens/utils'
 import ImageRenderer from './universal/ImageRender'
+import { removeWishlistProduct, updateWishlistProduct } from '../screens/Store/actions/productListAction'
 
 
 const { HeartIconActive, HeartIcon, DiscountTag } = SVGS
@@ -36,13 +37,14 @@ const ListView = (props) => {
         isItemLiked,
         categoryId,
         getIds,
-        isLeftImage
+        isLeftImage,
+        item
     } = props;
 
     // console.log('averageRating : ', averageRating,noOfReview)
 
 
-    // console.log('CHECK Product Detail ID : ', detailId)
+    console.log('CHECK Product items : ', item)
 
 
 
@@ -65,7 +67,8 @@ const ListView = (props) => {
 
 
     var total = 0
-    const addToWishlistProduct = async () => {
+    const addToWishlistProduct = async (id) => {
+        console.log('addToWishlistProduct', id)
         if (userData) {
             try {
                 // await addToWishlistAPICall(detailId);    
@@ -74,17 +77,24 @@ const ListView = (props) => {
                 if (response?.success) {
                     // console.log('response : ', reponse)
 
+                    const infoMsg = selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic;
                     if (response?.message == 'product added successfully in wishlist') {
-                        setTimeout(() => {
-                            setLiked(true)
-                            showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
-                        }, 500);
+                        dispatch(updateWishlistProduct(id))
+                        showInfoToast('SUCCESS', infoMsg)
+
+
+                        // setTimeout(() => {
+                        //     setLiked(true)
+                        //     showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
+                        // }, 500);
                     }
                     else {
-                        setTimeout(() => {
-                            setLiked(false)
-                            showInfoToast('REMOVE', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
-                        }, 500);
+                        dispatch(removeWishlistProduct(id))
+                        showInfoToast('REMOVE', infoMsg)
+                        // setTimeout(() => {
+                        //     setLiked(false)
+                        //     showInfoToast('REMOVE', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
+                        // }, 500);
                     }
                 }
                 else {
@@ -164,12 +174,12 @@ const ListView = (props) => {
                         showLike
                             ?
                             <TouchableOpacity
-                                onPress={userData ? addToWishlistProduct : props.onWishlistPress}
+                                onPress={userData ? () => addToWishlistProduct(item?.id) : props.onWishlistPress}
                             >
                                 {/* {
                                     isItemLiked ? <HeartIconActive /> : isLiked ? <HeartIconActive /> : <HeartIcon />
                                 } */}
-                                {isLiked ? <HeartIconActive /> : <HeartIcon />}
+                                {item?.isLike ? <HeartIconActive /> : <HeartIcon />}
 
                             </TouchableOpacity>
 

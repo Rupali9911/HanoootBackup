@@ -12,7 +12,6 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import { translate } from '../../utility'
 import SVGS from '../../constant/Svgs'
 import { googleLogout, deleteFirebaseAccount } from '../../services/socialAuth'
-// import { WebView } from 'react-native-webview';
 import AppModal from '../../Components/universal/Modal'
 import { hp, wp } from '../../constant/responsiveFunc'
 import { deleteUserFromDb } from '../../services/apis'

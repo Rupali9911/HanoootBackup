@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import AppBackground from '../../Components/AppBackground';
@@ -8,37 +8,52 @@ import Images from '../../../constant/Images';
 import Colors from '../../../constant/Colors';
 import fonts from '../../../constant/fonts';
 import Separator from '../../../constant/Separator';
-import { wp, hp } from '../../../constant/responsiveFunc';
+import { wp, hp, SIZE } from '../../../constant/responsiveFunc';
 import { useDispatch } from 'react-redux';
 import { removeWishlistItem } from '../../Store/actions/wishlistActions';
 import { addToCart } from '../../Store/actions/cartAction';
 import Toast from 'react-native-toast-message';
 import { translate } from '../../../utility';
 import { productCollection } from '../../../constant/DemoArray';
-import { useIsFocused } from '@react-navigation/native';
-import { wishlistLoading, wishlistReset, wishlistPageChange } from '../../Store/actions/wishlistActions';
-import { getFonts } from '../../utils';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { wishlistLoading, wishlistReset, wishlistPageChange, getWishlistCollection } from '../../Store/actions/wishlistActions';
+import { formattedPrice, getFonts } from '../../utils';
+import Loader from '../../../constant/Loader';
+import { SVGS } from '../../../constant';
+import ImageRenderer from '../../../Components/universal/ImageRender';
+import { showErrorToast, showInfoToast } from '../../../Components/universal/Toast';
+import { AddtoCartAPICall } from '../../../services/apis/CartAPI';
+import { addToWishlistAPICall } from '../../../services/apis/WishlistAPI';
+// import useNavigation from '@react-navigation/native';
+
+const { CrossIcon } = SVGS;
 
 
 const Wishlist = () => {
     const dispatch = useDispatch();
     const isFocused = useIsFocused();
+    const navigation = useNavigation();
 
-    // useEffect(() => {
-    //     dispatch(wishlistReset())
-    //     dispatch(wishlistLoading());
-    //     getWislistItem(1)
-    //     dispatch(wishlistPageChange(1));
-    // }, [isFocused]);
 
-    // const getWislistItem = useCallback(page => {
-    //     dispatch(getWishlistCollection(page))
-    // }, []);
+    useEffect(() => {
+        dispatch(wishlistReset())
+        dispatch(wishlistLoading(true));
+        getWislistItem(1)
+        dispatch(wishlistPageChange(1));
+    }, [isFocused]);
+
+    const getWislistItem = useCallback(page => {
+        dispatch(getWishlistCollection(page))
+    }, []);
 
     // const { cartItems } = useSelector(state => state.cartReducer);
-    const { wishlistItems } = useSelector(state => state.wishlistReducer);
+    const { wishlistItems, isWishlistLoading, wishlistPage } = useSelector(state => state.wishlistReducer);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
-    console.log('Check wishlist data : ', wishlistItems)
+
+    // console.log('Check wishlist data : ', wishlistItems)
+
+    console.log('isWishlistLoading: ', isWishlistLoading)
 
     const RemoveButton = (props) => {
         return (
@@ -46,36 +61,55 @@ const Wishlist = () => {
                 style={{ flex: 1, alignSelf: 'flex-end', backgroundColor: Colors.LightGray, padding: '5%', borderRadius: 100, right: 10 }}
                 onPress={props.onPress}
             >
-                <Image source={Images.CrossIcon} style={{ height: 10, width: 10, resizeMode: 'contain' }} />
+                <CrossIcon />
             </TouchableOpacity>
         );
     }
 
-    const toastConfig = {
-        info: ({ text1, props }) => (
-            <View style={styles.toastMsgContainer}>
-                <Image source={props.type === 'ADD' ? Images.ToastSuccess : Images.deleteIcon} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
-                <View>
-                    <Text
-                        style={[styles.toastMsgText, { fontWeight: 600 }]}
-                        numberOfLines={5}
-                    >
-                        {props.item}
-                        <Text style={{ fontWeight: 500 }}>{`${props.type === 'ADD' ? translate('common.movedToCart') : translate('common.removedFromWishlist')}`}</Text>
-                    </Text>
-                </View>
-            </View>
-        )
-    };
+    const onAddtoCartPress = async (id, qty) => {
+        console.log('onAddtoCartPress')
+        try {
 
-    const showToast = (type, item) => {
-        Toast.show({
-            type: 'info',
-            props: {
-                type: type,
-                item: item
+            const response = await AddtoCartAPICall(id, qty)
+            console.log('response from onAddtoCartPress: ', response)
+            if (response?.success) {
+
+                addToWishlistProduct(id)
+                showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
+
             }
-        });
+            else {
+                showErrorToast()
+            }
+
+        }
+        catch (error) {
+            console.log('Error from onAddtoCartPress api ', error)
+        }
+    }
+
+    const addToWishlistProduct = async (id) => {
+        console.log('addToWishlistProduct', id)
+        try {
+            const response = await addToWishlistAPICall(id);
+            console.log('response from addToWishlistProduct: ', response)
+
+
+            if (response?.success) {
+                // dispatch(wishlistReset())
+                // dispatch(wishlistLoading(true));
+
+                dispatch(getWishlistCollection(1))
+
+            }
+            else {
+            }
+        }
+        catch (error) {
+            console.log('Error from add to wishlist API api ', error)
+        }
+
+
     }
 
 
@@ -87,26 +121,28 @@ const Wishlist = () => {
                 <View style={styles.listItemContainer}>
                     <RemoveButton
                         onPress={() => {
-                            dispatch(removeWishlistItem(item));
-                            showToast('DELETE', item?.name);
+                            // dispatch(removeWishlistItem(item));
+                            // showToast('DELETE', item?.name);
+                            addToWishlistProduct(item?.product_id)
                         }}
                     />
                     <View style={{
                         alignItems: 'center'
                     }}>
-                        <Image source={Images.Android} style={{ height: 100, width: 100, resizeMode: 'contain' }} />
+                        <ImageRenderer height={SIZE(100)} width={SIZE(100)} style={{ height: 100, width: 100, resizeMode: 'contain' }} uri={item?.ManagementProduct?.product_image} />
                     </View>
 
                     <View style={{
                         paddingVertical: hp('2%'),
-                        paddingHorizontal: '5%'
+                        paddingHorizontal: '5%',
+                        gap: 10
                     }}>
-                        <Text style={styles.name}>{item.name}</Text>
-                        <Text style={styles.price}>{item.price}</Text>
+                        <Text style={styles.name} numberOfLines={2}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.ManagementProduct?.product_name_arabic}</Text>
+                        <Text style={styles.price}>{`${formattedPrice(item?.ManagementProduct?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text>
                         <View style={{ flexDirection: 'row', gap: 5, alignItems: 'center' }}>
                             <Image source={Images.star} style={{ height: 12, width: 12, resizeMode: 'contain' }} />
-                            <Text style={[styles.price, { fontSize: 10 }]}>4.5</Text>
-                            <Text style={[styles.name, { fontSize: 10, color: Colors.PRICEGRAY }]}>(1045 {translate('common.reviews')})</Text>
+                            <Text style={[styles.price, { fontSize: 10 }]}>{item?.ManagementProduct?.ManagementProductReview?.average_rating}</Text>
+                            <Text style={[styles.name, { fontSize: 10, color: Colors.PRICEGRAY }]}>{`${item?.ManagementProduct?.ManagementProductReview?.number_of_reviews} ${translate('common.reviews')}`}</Text>
                         </View>
                     </View>
 
@@ -114,11 +150,16 @@ const Wishlist = () => {
                     <TouchableOpacity
                         style={{ paddingTop: 10, borderTopColor: Colors.GRAY, borderTopWidth: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}
                         onPress={() => {
-                            dispatch(addToCart(item))
-                            dispatch(removeWishlistItem(item));
-                            showToast('ADD', item?.name)
+                            onAddtoCartPress(item?.product_id, 1)
+
+                            // dispatch(getWishlistCollection(1))
+
                         }}
                     >
+                        {/* {
+                            isWishlistLoading ?
+                                <ActivityIndicator SIZE={'small'} color={Colors.themeColor} />
+                                : */}
                         <Text
                             style={{
                                 fontFamily: getFonts.SEMI_BOLD,
@@ -128,6 +169,8 @@ const Wishlist = () => {
                                 color: Colors.themeColor
                             }}
                         >{translate('common.movetocart')}</Text>
+                        {/* } */}
+
                     </TouchableOpacity>
                 </View>
             </TouchableOpacity>
@@ -138,10 +181,44 @@ const Wishlist = () => {
         );
     }
 
+    const renderWishlistItems = () => {
+        return (
+            <FlatList
+                numColumns={2}
+                data={wishlistItems}
+                renderItem={renderItem}
+                keyExtractor={keyExtractor}
+                showsVerticalScrollIndicator={false}
+            // numColumns={2}
+            // data={productList}
+            // renderItem={renderItem}
+            // keyExtractor={keyExtractor}
+            // showsVerticalScrollIndicator={false}
+            // contentContainerStyle={{ alignSelf: productList?.length > 1 ? 'center' : 'flex-start' }}
+            // onEndReached={handleFlatListEndReached}
+            // onEndReachedThreshold={0.5}
+            // ListFooterComponent={renderFooter}
+            // onRefresh={handleFlatlistRefresh}
+            // refreshing={productListPage === 1 && isListLoading}
+            />
+        )
+    }
 
     const keyExtractor = (item, index) => {
         return `_${index}`;
     };
+
+    const renderNoDataFound = () => {
+        return (
+            <EmptyDetailScreen
+                image={Images.WishlistBanner}
+                title={translate('common.movetocart')}
+                description={translate('common.startAdding')}
+                buttonLabel={translate('common.findItem')}
+            // onpress={() => navigation.navigate('HomeTab')}
+            />
+        )
+    }
 
     return (
         <AppBackground>
@@ -151,42 +228,15 @@ const Wishlist = () => {
             />
 
             {
-                productCollection?.length > 0
-                    ?
-                    <FlatList
-                        numColumns={2}
-                        data={productCollection}
-                        renderItem={renderItem}
-                        keyExtractor={keyExtractor}
-                        showsVerticalScrollIndicator={false}
-
-                    />
+                isWishlistLoading && wishlistPage === 1 ?
+                    <Loader />
                     :
-                    <EmptyDetailScreen
-                        image={Images.WishlistBanner}
-                        title={translate('common.movetocart')}
-                        description={translate('common.startAdding')}
-                        buttonLabel={translate('common.findItem')}
-                    />
-
+                    wishlistItems?.length !== 0 ?
+                        renderWishlistItems()
+                        :
+                        renderNoDataFound()
             }
 
-            {/* :
-            <Text>jsdflk</Text> */}
-            {/* <EmptyDetailScreen
-                image={Images.WishlistBanner}
-                title={'Ready to make a Wish?'}
-                description={'Start adding items you love to your wishlist by tapping on the heart icon'}
-                buttonLabel={'Find Items to Save'}
-            />
-            {/* } */}
-
-            {/*<Toast
-                config={toastConfig}
-                position="bottom"
-                visibilityTime={2000}
-                autoHide={true}
-            /> */}
 
         </AppBackground>
     )
@@ -240,6 +290,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         backgroundColor: Colors.WHITE,
         borderRadius: 10,
+        padding: 2
 
     },
     listItemContainer: {
@@ -282,47 +333,3 @@ const styles = StyleSheet.create({
 
 
 
-
-
-
-
-// import { StyleSheet, Text, View, FlatList } from 'react-native'
-// import React from 'react'
-// import AppBackground from '../../Components/AppBackground';
-// import AppHeader from '../../Components/AppHeader';
-// import { wp } from '../../../constant/responsiveFunc';
-
-// const Wishlist = () => {
-//     return (
-//         // <View style={{flex: 1, backgroundColor: 'red'}}>
-
-//         // </View>
-//         <AppBackground>
-//             <AppHeader
-//                 showBackButton
-//                 title={'Wishlist'}
-//             />
-//             <View style={{ flex: 1, backgroundColor: 'red', width: wp(100) }}>
-
-//                 <FlatList
-//                     numColumns={2}
-//                     data={[1, 2, 3, 4, 5]}
-//                     renderItem={({ item }) => (
-//                         <View style={{ backgroundColor: 'green', width: wp(45.5), alignItems: 'center', margin: '2%' }}>
-//                             <Text style={{ padding: 20, fontSize: 18 }}>{"item.title"}</Text>
-//                         </View>
-//                     )}
-//                     keyExtractor={(item, i) => i}
-//                     contentContainerStyle={{
-//                         flexGrow: 1,
-//                     }}
-//                 />
-
-//             </View>
-//         </AppBackground>
-//     )
-// }
-
-// export default Wishlist;
-
-// const styles = StyleSheet.create({})

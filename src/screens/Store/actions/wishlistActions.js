@@ -1,5 +1,6 @@
+import { wishlistAPICall } from "../../../services/apis/WishlistAPI";
 import { ADD_TO_WISHLIST } from "../types";
-import { REMOVE_FROM_WISHLIST, WISHLIST_LOADING, WISHLIST_SUCCESS, WISHLIST_FAIL, WISHLIST_RESET, WISHLIST_PAGE_CHANGE } from "../types";
+import { REMOVE_FROM_WISHLIST, WISHLIST_LOADING, WISHLIST_SUCCESS, WISHLIST_FAIL, WISHLIST_RESET, WISHLIST_PAGE_CHANGE, UPDATE_WISHLIST_ITEM } from "../types";
 
 
 export const addToWishlist = item => {
@@ -41,14 +42,21 @@ export const wishlistPageChange = page => ({
 });
 
 
-export const getProductList = (page) => {
+// export const updateWishlistItem = id => ({
+//   type: UPDATE_WISHLIST_ITEM,
+//   payload: id,
+// });
+
+
+
+export const getWishlistCollection = (page) => {
   let limit = 10;
   return async dispatch => {
-    await ProductListAPICall(page).
+    await wishlistAPICall(page).
       then((response) => {
-        console.log('response from product list api call : ', response)
-        if (response?.data) {
-          dispatch(productListSuccess(response?.data));
+        console.log('response from getWishlistCollection: ', response)
+        if (response?.success) {
+          dispatch(wishlistSuccess(response?.data));
         }
       }).
       catch((err) => { dispatch(productListFail(err)) })

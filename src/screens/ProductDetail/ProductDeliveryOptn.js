@@ -25,9 +25,14 @@ const ProductDelivery = (props) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>{translate('common.estimateddeliveryon')} <Text style={{ color: Colors.BLACK, fontFamily: getFonts.BOLD }}>{estimatedDelivery(data?.delivery)}</Text></Text>
-            <Text style={styles.text}>{translate('common.orderwithin')}  <Text style={{
-                color: Colors.BLACK, fontFamily: getFonts.BOLD
+            <Text style={styles.text}>{translate('common.estimateddeliveryon')} <Text style={{
+                color: Colors.BLACK,
+                fontFamily: getFonts.BOLD
+            }}
+            >{estimatedDelivery(data?.delivery)}</Text></Text>
+            < Text style={styles.text}>{translate('common.orderwithin')}  <Text style={{
+                color: Colors.BLACK,
+                fontFamily: getFonts.BOLD
             }}>{data?.time ? getTime(data?.time) : null}</Text></Text>
             <TouchableOpacity onPress={() => { !userData ? navigation.navigate('Login') : null }}><Text style={[styles.text, { color: Colors.themeColor }]}>{`${data?.city} - ${translate('common.signinforbetterdeliveryestimate')}`}</Text></TouchableOpacity>
         </View >

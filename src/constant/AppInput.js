@@ -51,7 +51,7 @@ const AppInput = (props) => {
                             <PhoneInput
                                 ref={phoneInput}
                                 defaultValue={props.value}
-                                defaultCode={props.defaultCode || regionCountry || "IQ"}
+                                defaultCode={"IN"}
                                 layout="first"
                                 onChangeText={props.onChangeText}
                                 value={props.value}

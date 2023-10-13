@@ -1,27 +1,31 @@
-import { StyleSheet, View, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, Dimensions, TouchableOpacity, Linking } from 'react-native';
 import React, { useRef } from 'react'
 import { hp, wp } from '../../../constant/responsiveFunc';
 import Images from '../../../constant/Images';
 import Carousel from 'react-native-snap-carousel';
 import { useSelector } from 'react-redux';
 import ImageRenderer from '../../../Components/universal/ImageRender';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 
 const MiniSlider = (props) => {
     var isCarousel = useRef(null);
+    const navigation = useNavigation();
 
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
 
     const renderItem = ({ item, index }) => {
+        const externalUrl = item?.product_link
+        console.log('externalUrl: ', item?.product_link ? 'true' : 'false')
         return (
             // <Image source={{ uri: item?.image_url }} style={styles.image} key={item?.id} />
             // <ImageRenderer height={20} width={20} />
             // width: wp(71.79),
             //     height: hp(24.63),
-            <TouchableOpacity onPress={() => { }}>
+            <TouchableOpacity onPress={() => { item?.product_link ? (console.log('pressed'), Linking.openURL(item?.product_link)) : console.log('no url') }}>
                 <ImageRenderer height={hp(24.63)} width={wp(71.79)} style={styles.image} uri={item?.image_url} />
             </TouchableOpacity>
 

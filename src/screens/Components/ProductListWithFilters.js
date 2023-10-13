@@ -29,11 +29,11 @@ const ProductListWithFilters = (props) => {
     const isFocused = useIsFocused();
 
 
-    const { isListLoading, productList, productListPage, productTotalCount } = useSelector(state => state.productListReducer);
-    const userData = useSelector((state) => state.userReducer.userData);
-    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
-    console.log('searchsearchsearch : ', DATA.searchText)
+
+    // console.log('searchsearchsearch : ', DATA.searchText)
+
+
 
     useEffect(() => {
         dispatch(productListReset())
@@ -45,6 +45,13 @@ const ProductListWithFilters = (props) => {
     const getProductListData = useCallback(page => {
         dispatch(getProductList(page, DATA?.category_id, DATA?.isNavigationSection, DATA?.searchText));
     }, []);
+
+    const { isListLoading, productList, productListPage, productTotalCount } = useSelector(state => state.productListReducer);
+    const userData = useSelector((state) => state.userReducer.userData);
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
+
+    console.log('productList: ', productList)
 
     const renderItem = ({ item, index }) => {
         return (
@@ -70,6 +77,8 @@ const ProductListWithFilters = (props) => {
                 DATA?.isNavigationSection === 'SuggestedProducts'
                     ?
                     <ListView
+                        item={item}
+
                         centerImage={item?.product_image}
                         productName={item?.title}
                         price={item?.ManagementProductPricing?.price_iqd}
@@ -85,6 +94,8 @@ const ProductListWithFilters = (props) => {
                     DATA?.isNavigationSection === 'RecentlyViewProduct'
                         ?
                         <ListView
+                            item={item}
+
                             centerImage={item?.ManagementProduct?.product_image}
                             productName={item?.ManagementProduct?.title}
                             price={item?.ManagementProduct?.ManagementProductPricing?.price_iqd}
@@ -99,6 +110,8 @@ const ProductListWithFilters = (props) => {
                         DATA?.isNavigationSection === 'Search'
                             ?
                             <ListView
+                                item={item}
+
                                 centerImage={item?.product_image}
                                 productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
                                 price={item?.ManagementProductPricing?.price_iqd}

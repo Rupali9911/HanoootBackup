@@ -14,11 +14,6 @@ export const addToWishlistAPICall = (id) => {
         sendRequest({
             url: WISHLIST_API,
             method: 'POST',
-            // params: {
-            //     pageNumber: pageNumber,
-            //     limit: limit,
-            //     category_id: category_id
-            // }
             data: {
                 product_id: id
             }
@@ -42,6 +37,26 @@ export const addToWishlistAPICall = (id) => {
                     showErrorToast(translate('common.autherror'), '')
                 }
 
+                _reject(error)
+            })
+    })
+}
+
+
+export const wishlistAPICall = (pageNumber) => {
+
+    return new Promise((resolve, _reject) => {
+        sendRequest({
+            url: WISHLIST_API,
+            method: 'GET',
+            // params: requestParams
+        }).
+            then((response) => {
+                console.log('Response from Wishlist API Call : ', response);
+                resolve(response);
+            }).
+            catch((error) => {
+                console.log('Error from Wishlist API Call : ', error);
                 _reject(error)
             })
     })

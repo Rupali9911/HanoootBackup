@@ -1,11 +1,11 @@
-import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, WISHLIST_LOADING, WISHLIST_SUCCESS, WISHLIST_FAIL, WISHLIST_RESET, WISHLIST_PAGE_CHANGE } from "../types";
+import { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST, WISHLIST_LOADING, WISHLIST_SUCCESS, WISHLIST_FAIL, WISHLIST_RESET, WISHLIST_PAGE_CHANGE, UPDATE_WISHLIST_ITEM } from "../types";
 
 
 const initialState = {
     isWishlistLoading: false,
     wishlistItems: [],
     wishlistFailed: '',
-    wishlistPageChange: 1,
+    wishlistPage: 1,
     wishlistTotal: 0,
 }
 
@@ -33,7 +33,7 @@ const wishlistReducer = (state = initialState, action) => {
         case WISHLIST_SUCCESS:
             return {
                 ...state,
-                wishlistItems: [...state.wishlistItems, ...action.payload],
+                wishlistItems: action.payload.WishLists,
                 // productTotalCount: action.payload.count,
                 isWishlistLoading: false,
                 wishlistFailed: '',
@@ -44,10 +44,23 @@ const wishlistReducer = (state = initialState, action) => {
 
 
         case WISHLIST_PAGE_CHANGE:
-            return (state = { ...state, wishlistPageChange: action.payload });
+            return (state = { ...state, wishlistPage: action.payload });
 
         case WISHLIST_RESET:
             return state = { ...state, wishlistItems: [] };
+
+
+        // case UPDATE_WISHLIST_ITEM:
+        //     console.log('state.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts', state.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts)
+        //     var arrUpdated = state.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts.map((item, index) => {
+        //         if (item.id !== action.payload) {
+        //             return item
+        //         }
+        //         return {
+        //             ...item,
+        //             isCart: true
+        //         }
+        //     })
         default:
             return state;
     }
