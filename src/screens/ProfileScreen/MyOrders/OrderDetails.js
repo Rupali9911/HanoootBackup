@@ -160,7 +160,7 @@ const OrderDetails = (props) => {
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={styles.orderDetail}>{translate('common.coupondiscount')}</Text>
-                                <Text style={[styles.orderDetail, styles.fontIncrease, { color: Colors.GREEN }]}>{`- ${orderDetail?.promocode_id != null ? formattedPrice(orderDetail?.shipping_cost) : Number(0)} ${translate('common.currency_iqd')}`}</Text>
+                                <Text style={[styles.orderDetail, styles.fontIncrease, { color: Colors.GREEN }]}>{`- ${orderDetail?.promocode_id === null ? 0 : formattedPrice(orderDetail?.shipping_cost)} ${translate('common.currency_iqd')}`}</Text>
                             </View>
 
                             <View style={styles.separator} />

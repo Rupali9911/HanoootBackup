@@ -19,20 +19,34 @@ const ProductSpecCard = (props) => {
 
 
     const renderdata = () => {
-        const str = selectedLanguageItem?.language_id === 0 ? data?.ManagementOtherField?.others : data?.ManagementOtherField?.others_arabic;
-        let formatedString = str.replace(/"/g, "'").replace(/'/g, '"');
-        const tableData = JSON.parse(formatedString);
+        let tableData;
+
+        // console.log('sdfsdf: ', data?.ManagementOtherField?.others_arabic)
+
+        try {
+            const str = selectedLanguageItem?.language_id === 0 ? data?.ManagementOtherField?.others : data?.ManagementOtherField?.others_arabic;
+            let formatedString = str.replace(/"/g, "'").replace(/'/g, '"');
+            tableData = JSON.parse(formatedString);
+        } catch (error) {
+            // tableData = data?.ManagementOtherField?.others_arabic; 
+            console.log('error from renderData: ', error)
+        }
+
+
+
 
         return (
-            tableData &&
-            Object.keys(tableData).map((key) => {
-                return (
-                    <DataTable.Row key={key}>
-                        <DataTable.Cell style={{ justifyContent: 'flex-start', }}><Text style={[styles.tableRowData, { color: Colors.GRAYDARK }]}>{[key]}</Text></DataTable.Cell>
-                        <DataTable.Cell numeric style={{ justifyContent: 'flex-start' }}><Text style={styles.tableRowData} numberOfLines={2}>{tableData[key]}</Text></DataTable.Cell>
-                    </DataTable.Row>
-                );
-            })
+            tableData ?
+                Object.keys(tableData).map((key) => {
+                    return (
+                        <DataTable.Row key={key}>
+                            <DataTable.Cell style={{ justifyContent: 'flex-start', }}><Text style={[styles.tableRowData, { color: Colors.GRAYDARK }]}>{[key]}</Text></DataTable.Cell>
+                            <DataTable.Cell numeric style={{ justifyContent: 'flex-start' }}><Text style={styles.tableRowData} numberOfLines={2}>{tableData[key]}</Text></DataTable.Cell>
+                        </DataTable.Row>
+                    );
+                })
+                :
+                <Text>{data?.ManagementOtherField?.others_arabic}</Text>
         )
     }
 

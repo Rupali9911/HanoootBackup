@@ -19,6 +19,8 @@ import { checkPhoneNumberOrEmailExists, userRegister } from '../../../services/a
 import { createUserWithEmail, updateDisplayName, signInWithPhoneNumber } from '../../../services/socialAuth'
 import { saveUserDetails, updateNameWithSaveDetails } from '../../../helpers/user';
 import { translate } from '../../../utility';
+import { showErrorToast } from '../../../Components/universal/Toast';
+import { useSelector } from 'react-redux';
 
 
 const Signup = () => {
@@ -35,6 +37,8 @@ const Signup = () => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
+
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
     const signupTapped = () => {
         const errorList = {}
@@ -92,39 +96,62 @@ const Signup = () => {
 
         try {
             setLoadingButton(true)
-            await checkPhoneNumberOrEmailExists(formattedNum)
-            const authResults = await signInWithPhoneNumber(formattedNum)
-            console.log('Name from Signup screen', name)
-            setLoadingButton(false)
+            const res = await checkPhoneNumberOrEmailExists(formattedNum)
+            if (res?.success) {
+                const authResults = await signInWithPhoneNumber(formattedNum)
+                console.log('Name from Signup screen', name)
+                setLoadingButton(false)
 
-            navigation.navigate('OtpVerification', {
-                authResult: authResults,
-                phoneNumber: formattedNum,
-                isFromSignUp: true,
-                name: name
-            });
+                navigation.navigate('OtpVerification', {
+                    authResult: authResults,
+                    phoneNumber: formattedNum,
+                    isFromSignUp: true,
+                    name: name
+                });
+            }
+            else {
+                setLoadingButton(false)
+                showErrorToast(translate('common.autherror'), selectedLanguageItem?.language_id === 0 ? res?.message : res?.message_arabic)
+
+            }
+
         }
         catch (error) {
             console.log('Error from Check phone number api', error)
+            showErrorToast()
             setLoadingButton(false)
         }
     }
 
     const signUpWithEmail = async () => {
         try {
-            await checkPhoneNumberOrEmailExists(email)
-            const userCredentials = await createUserWithEmail(email, password)
-            await userRegister(userCredentials?.user?.uid, password)
-            await updateNameWithSaveDetails(userCredentials, name, dispatch)
-            // if (userCredentials?.user) {
-            //     await updateDisplayName(userCredentials, name)
-            //     userCredentials.user.displayName = name
-            //     saveUserDetails(userCredentials?.user)
-            // }
-            //dispatch(setUserData(userCredentials.user))
-            navigation.navigate('Home')
+            setLoadingButton(true)
+
+            const res = await checkPhoneNumberOrEmailExists(email)
+            if (res?.success) {
+                const userCredentials = await createUserWithEmail(email, password)
+                await userRegister(userCredentials?.user?.uid, password)
+                await updateNameWithSaveDetails(userCredentials, name, dispatch)
+                // if (userCredentials?.user) {
+                //     await updateDisplayName(userCredentials, name)
+                //     userCredentials.user.displayName = name
+                //     saveUserDetails(userCredentials?.user)
+                // }
+                //dispatch(setUserData(userCredentials.user))
+                setLoadingButton(false)
+
+                navigation.navigate('HomeTab')
+            }
+            else {
+                setLoadingButton(false)
+                showErrorToast(translate('common.autherror'), selectedLanguageItem?.language_id === 0 ? res?.message : res?.message_arabic)
+
+            }
         }
         catch (error) {
+            showErrorToast()
+            setLoadingButton(false)
+
             console.log('Error from createUserWithEmail or ', error)
         }
 

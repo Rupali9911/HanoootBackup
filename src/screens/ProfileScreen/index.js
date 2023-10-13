@@ -17,7 +17,8 @@ import { hp, wp } from '../../constant/responsiveFunc'
 import { deleteUserFromDb } from '../../services/apis'
 import { getFonts } from '../utils'
 
-const { Facebook, Instagram, Tictok } = SVGS
+const { Facebook, Instagram, Tictok } = SVGS;
+
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();

@@ -24,7 +24,9 @@ export const checkPhoneNumberOrEmailExists = (numberOrEmail) => {
                 if (response?.success === true) {
                     resolve(response)
                 } else {
-                    showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
+                    resolve(response)
+
+                    // showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             })
             .catch(error => {

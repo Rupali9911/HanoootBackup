@@ -16,10 +16,12 @@ import { maxLength10, maxLength8, maxLength50, validatePhoneNo, validateEmail, v
 import ToggleSwitch from 'toggle-switch-react-native'
 import { isValidNumber } from 'react-native-phone-number-input';
 import { signInWithPhoneNumber, signInWithEmailAndPwd } from '../../../services/socialAuth'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setUserData } from '../../Store/actions/userAction'
 import { saveUserDetails } from '../../../helpers/user'
 import { translate } from '../../../utility'
+import { checkPhoneNumberOrEmailExists } from '../../../services/apis'
+import { showErrorToast } from '../../../Components/universal/Toast'
 
 const Login = (props) => {
     const [phoneNo, setPhoneNo] = useState('')
@@ -34,6 +36,9 @@ const Login = (props) => {
 
     const navigation = useNavigation();
     const dispatch = useDispatch()
+
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
 
 
@@ -74,40 +79,61 @@ const Login = (props) => {
     const signInWithNumber = async () => {
         try {
             setLoadingButton(true)
-            // await checkPhoneNumberOrEmailExists(formattedNum)
+            const res = await checkPhoneNumberOrEmailExists(formattedNum)
+            if (!res.success) {
+                const result = await signInWithPhoneNumber(formattedNum)
+                console.log('Response from signInWithNumber', result)
+                setLoadingButton(false)
 
-            const result = await signInWithPhoneNumber(formattedNum)
-            console.log('Response from signInWithNumber', result)
-            setLoadingButton(false)
+                navigation.navigate('OtpVerification', {
+                    authResult: result,
+                    phoneNumber: formattedNum,
+                    isFromSignUp: false
+                });
+            }
+            else {
+                setLoadingButton(false)
+                showErrorToast(translate('common.autherror'), selectedLanguageItem?.language_id === 0 ? res?.message : res?.message)
 
-            navigation.navigate('OtpVerification', {
-                authResult: result,
-                phoneNumber: formattedNum,
-                isFromSignUp: false
-            });
+            }
         } catch (error) {
-            setLoadingButton(false)
-
-            console.log('Error from signInWithNumber', error)
+            setLoadingButton(false);
+            showErrorToast();
+            console.log('Error from signInWithNumber', error);
         }
     }
 
     const signInWithEmail = () => {
         console.log('signInWithEmail Email and Password', email, password)
-        signInWithEmailAndPwd(email, password)
-            .then((response) => {
-                console.log('Response from signInWithEmailAndPwd', response)
-                console.log('Response from signInWithEmailAndPwd is user object exists', response?.user)
-                // dispatch(setUserData(response?.user))
-                saveUserDetails(response?.user, dispatch)
-                // if (props?.route?.params?.cameFrom) {
-                //     navigation.navigate(props?.route?.params?.cameFrom);
-                // }
-                // else {
-                navigation.navigate('HomeTab');
-                // }
+        try {
+            setLoadingButton(true);
 
-            })
+            signInWithEmailAndPwd(email, password)
+                .then((response) => {
+                    console.log('Response from signInWithEmailAndPwd', response)
+                    console.log('Response from signInWithEmailAndPwd is user object exists', response?.user)
+                    // dispatch(setUserData(response?.user))
+                    saveUserDetails(response?.user, dispatch)
+                    // if (props?.route?.params?.cameFrom) {
+                    //     navigation.navigate(props?.route?.params?.cameFrom);
+                    // }
+                    // else {
+                    setLoadingButton(false);
+
+                    navigation.navigate('HomeTab');
+                    // }
+
+                }).catch((err) => {
+                    setLoadingButton(false);
+
+                    console.log('error signInWithEmail', err)
+                })
+        } catch (error) {
+            setLoadingButton(false);
+
+            console.log('Error from signInWithEmail', error);
+        }
+
     }
 
 

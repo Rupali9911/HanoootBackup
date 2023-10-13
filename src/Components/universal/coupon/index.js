@@ -44,12 +44,17 @@ const CouponDetail = (props) => {
         return <Text style={[styles.btnText, { color: color }]}>{props.children}</Text>
     }
 
+    function areCharactersSameIgnoreCase(str1, str2) {
+        // Convert both strings to lowercase and compare
+        return str1.toLowerCase() === str2.toLowerCase();
+    }
+
 
 
     const handleSubmit = () => {
         var color;
         if (couponCode != '') {
-            if (couponCode === couponSucess[0]?.discountType && btnText != translate('common.change')) {
+            if (areCharactersSameIgnoreCase(couponCode, couponSucess[0]?.discountType) && btnText != translate('common.change')) {
                 dispatch(getCoupon());
 
                 props.couponEnable(true)

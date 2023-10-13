@@ -28,9 +28,8 @@ const ProductDelivery = (props) => {
             <Text style={styles.text}>{translate('common.estimateddeliveryon')} <Text style={{
                 color: Colors.BLACK,
                 fontFamily: getFonts.BOLD
-            }}
-            >{estimatedDelivery(data?.delivery)}</Text></Text>
-            < Text style={styles.text}>{translate('common.orderwithin')}  <Text style={{
+            }}>{estimatedDelivery(data?.delivery)}</Text></Text>
+            <Text style={styles.text}>{translate('common.orderwithin')}  <Text style={{
                 color: Colors.BLACK,
                 fontFamily: getFonts.BOLD
             }}>{data?.time ? getTime(data?.time) : null}</Text></Text>

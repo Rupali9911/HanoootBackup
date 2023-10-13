@@ -4,7 +4,7 @@ import sendRequest from "../../axios/AxiosApiRequest";
 
 export const ProductListAPICall = (pageNumber, category_id, limit, isNavigationSection, searchText) => {
 
-    const URL = isNavigationSection === 'NewArrivals' ? `${PRODUCT_API}/new-arrival` : isNavigationSection === 'SuggestedProducts' ? `${PRODUCT_API}/best-for-user` : isNavigationSection === 'RecentlyViewProduct' ? `${BASE_API}/user-recent-product` : isNavigationSection === 'Search' ? SEARCH_API : PRODUCT_API
+    const URL = isNavigationSection === 'NewArrivals' ? `${PRODUCT_API}/newArrival` : isNavigationSection === 'SuggestedProducts' ? `${PRODUCT_API}/best-for-user` : isNavigationSection === 'RecentlyViewProduct' ? `${BASE_API}/user-recent-product` : isNavigationSection === 'Search' ? SEARCH_API : PRODUCT_API
 
     let commonParam = {
         pageNumber,

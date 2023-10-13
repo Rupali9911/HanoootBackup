@@ -15,7 +15,7 @@ const CartTotal = (props) => {
             </View>
             <View style={styles.container}>
                 <Text style={styles.Text}>{translate('common.coupondiscount')}</Text>
-                <Text style={[styles.Text, { fontWeight: 'bold', color: Colors.GREEN }]}>{`$ ${props.couponAmt}`}</Text>
+                <Text style={[styles.Text, { fontWeight: 'bold', color: Colors.GREEN }]}>{`0 ${translate('common.currency_iqd')}`}</Text>
             </View>
             <Separator />
             <View style={styles.container}>
