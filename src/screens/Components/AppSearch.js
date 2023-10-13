@@ -115,6 +115,7 @@ const AppSearch = (props) => {
         style={styles.searchContainer}>
         <View style={{ justifyContent: 'flex-start', width: wp(5) }}>
           <SearchGrayIcon />
+
         </View>
         <TextInput
           placeholder={props.placeholderText}
@@ -141,7 +142,7 @@ const AppSearch = (props) => {
         />
         {
           searchTxt &&
-          <TouchableOpacity style={{ justifyContent: 'flex-end', width: wp(5), position: 'absolute', right: 10 }} onPress={() => { setSearchTxt(''), props.onCrossPress(false) }}>
+          <TouchableOpacity style={{ justifyContent: 'flex-end', width: wp(5), position: 'absolute', right: 10 }} onPress={() => { setSearchTxt(''), props.onCrossPress ? props.onCrossPress(false) : null }}>
             <CrossIcon />
           </TouchableOpacity>
         }

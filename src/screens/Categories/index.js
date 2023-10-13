@@ -220,9 +220,9 @@ const Category = () => {
                         keyExtractor={(item, index) => index.toString()}
                         onEndReached={handleFlatListEndReached}
                         onEndReachedThreshold={0.5}
-                    // ListFooterComponent={renderFooter}
-                    // onRefresh={handleFlatlistRefresh}
-                    // refreshing={categoryPageNum === 1 && isCatgListLoading}
+                        // ListFooterComponent={renderFooter}
+                        onRefresh={handleFlatlistRefresh}
+                        refreshing={categoryPageNum === 1 && isCatgListLoading}
                     />
                 </View>
 

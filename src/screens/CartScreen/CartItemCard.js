@@ -18,7 +18,7 @@ const CartItemCard = () => {
     const { cartItems, cartData } = useSelector(state => state.cartReducer);
     const userData = useSelector((state) => state.userReducer.userData);
 
-    console.log('cartData : ', JSON.stringify(cartData))
+    // console.log('cartData : ', JSON.stringify(cartData))
 
     const keyExtractor = (item, index) => {
         return index;

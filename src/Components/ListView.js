@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, I18nManager } from 'react-native'
 import React, { useState } from 'react'
 import Colors from '../constant/Colors'
 import Images from '../constant/Images'
@@ -62,6 +62,7 @@ const ListView = (props) => {
     const userData = useSelector((state) => state.userReducer.userData);
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
+    const flippedIconStyle = I18nManager.isRTL ? { transform: [{ scaleX: -1 }] } : {};
 
 
     var total = 0
@@ -132,84 +133,19 @@ const ListView = (props) => {
             >
 
                 <View style={styles.topLine}>
+
                     {
-                        isExpress && <ExpressView title={isExpress} />
+                        isExpress ? <ExpressView title={isExpress} /> : null
                     }
-                    {
-                        isLeftImage
-                        &&
-                        <Text>{isLeftImage}</Text>
-                        // <Image source={{ uri: 'https://w7.pngwing.com/pngs/455/531/png-transparent-%E7%B4%A2%E5%B0%BC-logo-sony-television-business-sony-television-text-logo.png' }} style={{ height: hp(1.74), width: wp(11.48) }} />
-                    }
-                    {/* {
-                        props.isLike ?
-                            <LikeImage
-                                onPress={() => {
-                                    setLiked(!isLiked);
-                                    !isLiked ? dispatch(addToWishlist(item)) : dispatch(removeWishlistItem(item));
-                                }}
-                                imgStyle={{ tintColor: isLiked ? Colors.RED : Colors.BLACK }}
-                            /> :
-                            props.isCheckBox ?
-                                <CheckBox
-                                    onClick={() => {
-                                        toggleChecked(item.id);
-                                    }}
-                                    isChecked={isChecked(item.id)}
-                                    checkBoxColor={Colors.themeColor}
-                                    uncheckedCheckBoxColor={Colors.GRAY}
-                                /> : null
-                    } */}
                     {
                         showLike
                             ?
                             <TouchableOpacity
                                 onPress={userData ? addToWishlistProduct : props.onWishlistPress}
                             >
-                                {/* {
-                                    isItemLiked ? <HeartIconActive /> : isLiked ? <HeartIconActive /> : <HeartIcon />
-                                } */}
                                 {isLiked ? <HeartIconActive /> : <HeartIcon />}
-
                             </TouchableOpacity>
-
-
-
-
-                            // ?
-                            // isItemLiked ?
-                            //     <TouchableOpacity onPress={addToWishlistProduct}>
-                            //         <HeartIconActive />
-                            //     </TouchableOpacity>
-                            //     :
-                            //     isLiked ?
-                            //         <TouchableOpacity onPress={addToWishlistProduct}>
-                            //             <HeartIconActive />
-                            //         </TouchableOpacity>
-                            //         :
-                            //         <TouchableOpacity onPress={addToWishlistProduct}>
-                            //             <HeartIcon />
-                            //         </TouchableOpacity>
-                            :
-                            null
-
-
-                        // <LikeImage
-                        //     // onPress={() => {
-                        //     //     // setLiked(!isLiked);
-                        //     //     // !isLiked ? dispatch(addToWishlist(item)) : dispatch(removeWishlistItem(item));
-                        //     //     try {
-                        //     //         await addToWishlistAPICall(props.productId);
-                        //     //         setLike(!isLike);
-                        //     //     }
-                        //     //     catch (error) {
-                        //     //         console.log('Error from add to wishlist API api ', error)
-                        //     //     }
-                        //     // }}
-                        //     image={isLiked ? Images.CartImage : Images.Wishlist} 
-                        //     onPress={addToWishlistProduct}
-                        //     // imgStyle={{ tintColor: isLiked ? Colors.RED : Colors.BLACK }}
-                        // /> : null
+                            : null
                     }
                     {
                         isCheckBox ?
@@ -246,8 +182,9 @@ const ListView = (props) => {
                     <Text style={styles.productName} numberOfLines={2}>{productName}</Text>
 
                     {
-                        price &&
-                        <Text style={[styles.price, props.TotalPriceStyle]}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text>
+                        price ?
+                            <Text style={[styles.price, props.TotalPriceStyle]}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text>
+                            : null
                     }
 
 
@@ -353,7 +290,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: SIZE(20)
+        marginBottom: SIZE(20),
+        alignItems: 'center'
     },
     productImg: {
         height: SIZE(70),

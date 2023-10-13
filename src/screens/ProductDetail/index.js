@@ -23,11 +23,11 @@ import ProductDelivery from './ProductDeliveryOptn';
 import { useNavigation } from '@react-navigation/native';
 import fonts from '../../constant/fonts';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductDetail, productDetailReset, productDetailLoading, productInfoStore, setTappedButtonName } from '../Store/actions/productListAction';
+import { getProductDetail, productDetailReset, productDetailLoading, productInfoStore, setTappedButtonName, updateCartButton } from '../Store/actions/productListAction';
 import Loader from '../../constant/Loader';
 import ListView from '../../Components/ListView';
 import ProductDescription from './ProductDescription';
-import { capitalizeFirstLetter, getFonts } from '../utils';
+import { capitalizeFirstLetter, formattedPrice, getFonts } from '../utils';
 import { AddtoCartAPICall } from '../../services/apis/CartAPI';
 import { showErrorToast, showInfoToast } from '../../Components/universal/Toast';
 import { useIsFocused } from '@react-navigation/native';
@@ -43,6 +43,7 @@ const ProductDetail = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [productQty, setProductQty] = useState(Number(1));
     const [isProductChecked, setProductChecked] = useState([])
+    const [buttonLoading, setButtonLoading] = useState(false)
     const [totalCartItemDetail, setTotalCartItemDetail] = useState({
         totalPrice: 0,
         noOfProducts: []
@@ -101,29 +102,40 @@ const ProductDetail = (props) => {
 
     const onAddtoCartPress = async (isCartedItem) => {
         dispatch(setTappedButtonName(false))
+        setButtonLoading(true)
         try {
             if (!isCartedItem) {
 
-                const response = await AddtoCartAPICall(productDetail?.product_details_id, productQty)
+                const response = await AddtoCartAPICall(productDetail?.id, productQty)
                 if (response?.success) {
-                    dispatch(productDetailLoading())
-                    const resp1 = dispatch(getProductDetail(product_detail_Id, userData))
-                    if (resp1) {
-                        setTimeout(() => {
-                            showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
-                        }, 1000);
-                    }
+                    setButtonLoading(false)
+
+                    dispatch(updateCartButton(productDetail?.id))
+                    showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
+                    // dispatch(productDetailLoading())
+                    // const resp1 = dispatch(getProductDetail(productDetail?.id, userData))
+                    // if (resp1) {
+                    //     setTimeout(() => {
+                    //         showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
+                    //     }, 1000);
+                    // }
                 }
                 else {
                     showErrorToast()
+                    setButtonLoading(false)
+
                 }
             }
             else if (isCartedItem) {
+                setButtonLoading(false)
+
                 navigation.navigate('CartScreen', { screen: true })
             }
 
         }
         catch (error) {
+            setButtonLoading(false)
+
             console.log('Error from onAddtoCartPress api ', error)
         }
     }
@@ -225,7 +237,7 @@ const ProductDetail = (props) => {
                                     <AppButton
                                         label={productDetail?.isCart ? translate('common.viewcart') : translate('common.addtocart')}
                                         onPress={() => userData ? onAddtoCartPress(productDetail?.isCart) : setModalVisible(true)}
-                                        isIndicatorLoading={isDetailPageLoad}
+                                        isIndicatorLoading={buttonLoading}
                                     />
 
                                     <AppButton label={translate('common.buynow')} containerStyle={styles.outLineButton}
@@ -292,7 +304,7 @@ const ProductDetail = (props) => {
                                                         <Text style={[styles.infoMsg, { fontSize: 12 }]}>{translate('common.itemsSoldSeller')}</Text>
                                                     </View>
 
-                                                    <Text style={[styles.infoMsg, { margin: 10 }]}>{`${translate('common.totalprice')} : $ ${totalCartItemDetail?.totalPrice}`}</Text>
+                                                    <Text style={[styles.infoMsg, { margin: 10 }]}>{`${translate('common.totalprice')} : ${formattedPrice(totalCartItemDetail?.totalPrice)} ${translate('common.currency_iqd')}`}</Text>
                                                 </View>
                                                 <AppButton
                                                     containerStyle={{ backgroundColor: Colors.LightGray }}
@@ -308,7 +320,7 @@ const ProductDetail = (props) => {
                                     {
                                         productFilterByCategory?.length > 0 ?
                                             <>
-                                                <ProductHeader title={`${translate('common.morefrom')} ${capitalizeFirstLetter(productDetail?.ManagementCategory?.name)}`} />
+                                                <ProductHeader title={`${translate('common.morefrom')} ${selectedLanguageItem?.language_id === 0 ? productDetail?.ManagementCategory?.name : productDetail?.ManagementCategory?.name_arabic}`} />
                                                 <FlatList
                                                     data={productFilterByCategory?.splice(0, 8)}
                                                     renderItem={({ item, index }) => {

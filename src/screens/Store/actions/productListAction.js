@@ -1,7 +1,8 @@
-import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET, PRODUCT_DETAIL_DATA_FAILED, PRODUCT_DETAIL_INFO_STORE, PRODUCT_BUTTON_TAPPED } from "../types";
+import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, UPDATE_CART_BUTTON, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET, PRODUCT_DETAIL_DATA_FAILED, PRODUCT_DETAIL_INFO_STORE, PRODUCT_BUTTON_TAPPED } from "../types";
 import { ProductListAPICall, ProductDetailAPICall, ProductFilterAPICall } from "../../../services/apis/ProductAPI";
 import { SEARCH_API } from '../../../utility/apiUrls';
 import sendRequest from "../../../services/axios/AxiosApiRequest";
+
 
 export const productListLoadingStart = bool => ({
     type: PRODUCT_LIST_LOADING,
@@ -73,6 +74,10 @@ export const setTappedButtonName = bool => ({
 });
 
 
+export const updateCartButton = id => ({
+    type: UPDATE_CART_BUTTON,
+    payload: id,
+});
 
 export const getProductList = (page, categoryId, isNavigationSection, searchText) => {
     // console.log('sdhjfs')

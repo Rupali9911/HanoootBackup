@@ -87,6 +87,8 @@ export const signInWithEmailAndPwd = (email, pwd) => {
             .catch((error) => {
                 console.log('signInWithEmailAndPassword error', error)
                 handleAuthError(error)
+                _reject(error)
+
             })
     })
 }

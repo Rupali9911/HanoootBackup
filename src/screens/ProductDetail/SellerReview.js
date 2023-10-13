@@ -49,7 +49,10 @@ const SellerReview = () => {
 
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
           <Image source={Images.LocationIcon} style={{ height: 12, width: 9 }} />
-          <Text style={{ fontFamily: getFonts.MEDIUM, fontWeight: 500 }}>Dhi Qar Governorate, Al-Rifa'i District , baghdad</Text>
+          <Text style={{
+            fontFamily: getFonts.MEDIUM,
+            fontWeight: 500
+          }}>Dhi Qar Governorate, Al-Rifa'i District , baghdad</Text>
         </View>
         <Rating
           RatingReview
@@ -83,7 +86,7 @@ const SellerReview = () => {
 
         />
       </View>
-    </AppBackground>
+    </AppBackground >
 
   )
 }

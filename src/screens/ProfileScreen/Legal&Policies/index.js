@@ -9,10 +9,14 @@ import { useNavigation } from '@react-navigation/native';
 import PolicyView from './PolicyView';
 import { translate } from '../../../utility';
 import { getFonts } from '../../utils';
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const LegalPolicies = () => {
 
     const navigation = useNavigation();
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
 
     const ListItem = (props) => {
         return (
@@ -23,7 +27,7 @@ const LegalPolicies = () => {
                         <TouchableOpacity style={styles.arrowContainer} onPress={props.onPress}>
                             <Image
                                 source={Images.ForwardIcon}
-                                style={styles.arrowIcon}
+                                style={[styles.arrowIcon, { transform: [{ rotate: selectedLanguageItem?.language_id === 0 ? '0deg' : '180deg' }] }]}
                             />
                         </TouchableOpacity>
                     </View>

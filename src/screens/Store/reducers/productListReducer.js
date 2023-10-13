@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET, PRODUCT_DETAIL_DATA_FAILED, PRODUCT_DETAIL_INFO_STORE, PRODUCT_BUTTON_TAPPED } from "../types";
+import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, UPDATE_CART_BUTTON, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET, PRODUCT_DETAIL_DATA_FAILED, PRODUCT_DETAIL_INFO_STORE, PRODUCT_BUTTON_TAPPED } from "../types";
 
 const initialState = {
     isListLoading: false,
@@ -75,6 +75,27 @@ const productListReducer = (state = initialState, action) => {
 
         case PRODUCT_BUTTON_TAPPED:
             return state = { ...state, isBuyNowButton: action.payload };
+
+        case UPDATE_CART_BUTTON:
+            console.log('state.HomeCollection?.featuredCategoryByProductJson?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts', state.productDetail?.id === action.payload)
+            if (state.productDetail?.id === action.payload) {
+                console.log('state.productDetail', state.productDetail)
+                return {
+                    ...state,
+                    productDetail: {
+                        ...state.productDetail,
+                        isCart: true
+                    }
+                }
+            }
+
+
+        // if (state.productDetail?.id === action.payload) {
+        //     return {
+        //         ...state,
+        //         productDetail: action.payload,
+        //     }
+        // }
 
         default:
             return state;

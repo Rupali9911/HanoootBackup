@@ -60,7 +60,7 @@ const ProductListWithFilters = (props) => {
                     isExpress={item?.ManagementBrand?.name}
                     showLike
                     isItemLiked={item?.isLike}
-                    isDiscountTag
+                    // isDiscountTag
                     TotalPriceStyle={{ color: Colors.PRICEGREEN }}
                     detailId={item?.id}
                     ViewContStyle={{ width: wp('100%') / 2 - wp('5%') }}
@@ -208,7 +208,7 @@ const ProductListWithFilters = (props) => {
                 showLikeIcon
                 showSearchIcon
                 showCartIcon
-                placeholderText={search ? 'Search' : ''}
+                placeholderText={search ? translate('common.search') : null}
                 onSearchPress={() => setSearch(true)}
                 onCrossPress={setSearch}
                 onCartPress={() => userData ? navigation.navigate('CartScreen', { screen: true }) : setModalVisible(true)}

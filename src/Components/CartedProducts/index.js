@@ -53,8 +53,14 @@ const CartProductCards = (props) => {
     const getDeliveryInfo = () => {
         return (
             <>
-                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.estimateddeliveryon')} <Text style={{ color: Colors.BLACK, fontFamily: getFonts.BOLD }}>{estimatedDelivery(cartData?.deliveryDays?.delivery)}</Text></Text>
-                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.orderwithin')}  <Text style={{ color: Colors.BLACK, fontFamily: getFonts.BOLD }}>{getTime(cartData?.deliveryDays?.time)}</Text></Text>
+                <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.estimateddeliveryon')} <Text style={{
+                    color: Colors.BLACK,
+                    fontFamily: getFonts.BOLD
+                }}>{estimatedDelivery(cartData?.deliveryDays?.delivery)}</Text></Text>
+                < Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.orderwithin')}  <Text style={{
+                    color: Colors.BLACK,
+                    fontFamily: getFonts.BOLD
+                }}>{getTime(cartData?.deliveryDays?.time)}</Text></Text>
             </>
         )
     }
