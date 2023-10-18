@@ -63,6 +63,23 @@ export const signInWithPhoneNumber = async (phoneNumber) => {
             })
     })
 }
+
+
+export const verifyPhoneNumber = async (phoneNumber) => {
+    return new Promise((resolve, _reject) => {
+        auth().verifyPhoneNumber(phoneNumber).then(response => {
+            resolve(response)
+        })
+            .catch(error => {
+                console.log('error verifyPhoneNumber: ', error)
+
+                handleAuthError(error)
+                _reject(error)
+            })
+    })
+}
+
+
 export const createUserWithEmail = (email, pwd) => {
     return new Promise((resolve, _reject) => {
         auth()

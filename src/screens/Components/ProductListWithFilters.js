@@ -154,6 +154,7 @@ const ProductListWithFilters = (props) => {
 
 
     const handleFlatListEndReached = () => {
+        console.log('onendreachecdd called', isListLoading, productList.length, productTotalCount)
         if (
             !isListLoading &&
             productList.length !== productTotalCount

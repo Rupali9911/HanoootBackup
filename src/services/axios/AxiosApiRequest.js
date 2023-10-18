@@ -66,6 +66,8 @@ axiosInstance.interceptors.response.use(
     try {
       if (response?.status === 401 || response?.status === 403) {
         const freshToken = await APIRefreshToken();
+
+        console.log('freshToken: ', freshToken)
         // console.log('response from APIRefreshToken', rest)
 
         // if (!rest || !rest.newToken) {

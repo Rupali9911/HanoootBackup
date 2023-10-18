@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Keyboard } from 'react-native'
 import React, { useState, useEffect, useRef } from 'react'
 import AppBackground from '../Components/AppBackground'
 import AppHeader from '../Components/AppHeader'
@@ -10,11 +10,12 @@ import AppButton from '../Components/AppButton'
 import { useNavigation } from '@react-navigation/native'
 import { signInWithPhoneNumber, confirmOtp, updateDisplayName } from '../../services/socialAuth'
 import { setUserData } from '../Store/actions/userAction'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { userRegister } from '../../services/apis'
 import { saveUserDetails, updateNameWithSaveDetails } from '../../helpers/user'
 import { translate } from '../../utility'
 import { getFonts } from '../utils'
+import { showInfoToast } from '../../Components/universal/Toast'
 // import {
 //     getHash, requestHint,
 //     startOtpListener,
@@ -38,6 +39,8 @@ const OtpVerification = ({ route }) => {
     const navigationFromAdd = route?.params?.navigationFromAdd
 
     // console.log('route?.params?.authResult', route?.params?.authResult)
+    const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
+
     const navigation = useNavigation();
     const dispatch = useDispatch()
     const otpInput = useRef([])
@@ -136,6 +139,9 @@ const OtpVerification = ({ route }) => {
                         onChangeText={(text) => {
                             console.log('text', text)
                             setOtpField({ ...otpField, [input.stateName]: text })
+                            if (!input.nextField) {
+                                Keyboard.dismiss()
+                            }
                             // if (text.length === input.maxLength && input.nextField) {
                             //     otpInput.current[index + 1]?.focus()
                             // } else if (text.length === 0) {
@@ -208,13 +214,18 @@ const OtpVerification = ({ route }) => {
                 console.log('Name from OTP verification', name)
 
                 await updateNameWithSaveDetails(userCredentials, name, dispatch)
-            } else {
+            }
+            else if (!navigationFromAdd) {
+                // navigation.goBack()
                 saveUserDetails(userCredentials?.user, dispatch)
             }
+            // else {
+            //     saveUserDetails(userCredentials?.user, dispatch)
+            // }
             // dispatch(setUserData(userCredentials?.user))
             setLoadingButton(false)
             navigationFromAdd ?
-                navigation.goBack() :
+                (navigation.goBack(), showInfoToast('SUCCESS', translate('common.numberVerifyStr'))) :
                 navigation.navigate('OtpVerifySuccess')
         }
         catch (error) {

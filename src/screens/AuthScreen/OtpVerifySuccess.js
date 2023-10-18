@@ -14,7 +14,7 @@ const OtpVerifySuccess = () => {
       title={translate('common.numberVerified')}
       description={translate('common.thankForRegister')}
       buttonLabel={translate('common.gotoshopping')}
-      onpress={() => navigation.navigate('Home')}
+      onpress={() => navigation.navigate('HomeTab')}
     />
   )
 }

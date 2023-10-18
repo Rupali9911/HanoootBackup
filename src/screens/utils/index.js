@@ -218,10 +218,25 @@ export const formattedPrice = (price) => {
 
 const CountryCode = {
     '+91': 'IN',  // India
-    '+1': 'US',   // United States
-    '+44': 'GB',  // United Kingdom
+    // '+1': 'US',   // United States
+    // '+44': 'GB',  // United Kingdom
+
+    '+964': 'IQ',
+    '+44': 'GB',
+    '+971': 'AE',
+    '+61': 'AU',
+    '+1': 'US',
+    '+962': 'JO',
+    '+966': 'SA',
+    '+965': 'KW',
+    '+968': 'OM',
+    '+974': 'QA',
+    '+20': 'EG',
+    '+963': 'SY',
+    '+46': 'SE',
+    '+1': 'CA'
 };
 
 export const getCountryCode = code => {
-    return CountryCode[code] || 'IQ'; // Return 'Unknown' for unmapped MCCs
+    return CountryCode[code]; // Return 'Unknown' for unmapped MCCs
 };

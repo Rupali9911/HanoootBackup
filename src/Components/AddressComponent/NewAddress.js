@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import DropdownPicker from '../../constant/DropdownPicker';
 import DeliveryType from './DeliveryAddType';
 import { AddNewAddressAPICall, updateAddressAPICall } from '../../services/apis/AddressAPI';
-import { showInfoToast } from '../universal/Toast';
+import { showErrorToast, showInfoToast } from '../universal/Toast';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Location from './Location';
 import fonts from '../../constant/fonts';
@@ -24,7 +24,7 @@ import BuildingDropdown from '../../constant/BuildingDropdown';
 import { getFonts } from '../../screens/utils';
 import { maxLength10, validatePhoneNo } from '../../screens/utils';
 import { SIZE } from '../../constant/responsiveFunc';
-import { signInWithPhoneNumber } from '../../services/socialAuth';
+import { handleAuthError, signInWithPhoneNumber } from '../../services/socialAuth';
 import { getCountryCode } from '../../screens/utils';
 import { regionCountry } from '../../utility';
 import { checkPhoneNumberOrEmailExists } from '../../services/apis';
@@ -77,30 +77,35 @@ const NewAddress = (props) => {
   };
 
   console.log('userData: ', userData)
-  // useEffect(() => {
-  //   // if (Object.keys(userData).length) {
-  //   //   setInputFields({ ...inputFields, name: userData?.displayName })
-  //   //   setInputFields({ ...inputFields, phone_number: userData?.phoneNumber })
-  //   //   setFormattedNum(userData?.phoneNumber)
-  //   // }
-  //   // const { lastTenDigits, remainingDigits } = splitMobileNumber(userData?.phoneNumber)
-
-  //   // const newInputFields = { ...inputFields, phone_number: lastTenDigits };
-  //   // console.log('newInputFields', newInputFields)
-  //   // setInputFields(newInputFields);
-  //   // setFormattedNum(userData?.phoneNumber)
-  //   // // setInputFields({ ...inputFields, phone_number: '78889668678' })
-  // }, [userData])
-
   useEffect(() => {
-    // Assuming userData contains the user's data
-    if (userData && userData?.phoneNumber) {
-      const { lastTenDigits, remainingDigits } = splitMobileNumber(userData.phoneNumber);
-      // setInputFields({ ...inputFields, phone_number: lastTenDigits });
-      setInputFields({ ...inputFields, name: userData?.displayName });
-      // setFormattedNum(userData.phoneNumber);
+    // if (Object.keys(userData).length) {
+    //   setInputFields({ ...inputFields, name: userData?.displayName })
+    //   setInputFields({ ...inputFields, phone_number: userData?.phoneNumber })
+    //   setFormattedNum(userData?.phoneNumber)
+    // }
+    // const { lastTenDigits, remainingDigits } = splitMobileNumber(userData?.phoneNumber)
+
+    // const newInputFields = { ...inputFields, phone_number: lastTenDigits };
+    // console.log('newInputFields', newInputFields)
+    // setInputFields(newInputFields);
+    // setFormattedNum(userData?.phoneNumber)
+    if (Object.keys(userData).length) {
+      setInputFields({ ...inputFields, name: userData?.displayName })
+      setFormattedNum(userData?.phoneNumber)
     }
-  }, [userData]);
+  }, [userData])
+
+  // useEffect(() => {
+  //   // Assuming userData contains the user's data
+  //   // if (userData && userData?.phoneNumber) {
+  //   //   const { lastTenDigits, remainingDigits } = splitMobileNumber(userData.phoneNumber);
+  //   //   // setInputFields({ ...inputFields, phone_number: lastTenDigits });
+  //   //   setInputFields({ ...inputFields, name: userData?.displayName });
+  //   //   // setFormattedNum(userData.phoneNumber);
+  //   // }
+  //   setInputFields({ ...inputFields, phone_number: 'rupali chohan' })
+  //   setFormattedNum('+88999999999')
+  // }, []);
 
   // useEffect(() => {
   //   if (Object.keys(userData).length) {
@@ -141,7 +146,7 @@ const NewAddress = (props) => {
   // setInputFields({ ...inputFields, phone_number: lastTenDigits })
   // setFormattedNum(userData?.phoneNumber)
 
-
+  console.log('editDataDetail: ', editDataDetail)
   useEffect(() => {
     if (editDataDetail) {
       setInputFields({
@@ -165,10 +170,10 @@ const NewAddress = (props) => {
       setBuildingType(editDataDetail?.building)
       setFormattedNum(editDataDetail?.phone_number)
     }
-    else if (Object.keys(userData).length) {
-      // setInputFields({ ...inputFields, name: userData?.displayName, phone_number: '76575887' })
-      // setFormattedNum(userData?.phoneNumber)
-    }
+    // else if (Object.keys(userData).length) {
+    //   setInputFields({ ...inputFields, phone_number: 'rupali chohan' })
+    //   // setFormattedNum(userData?.phoneNumber)
+    // }
     // else if (userData) {
     //   const last10Digits = userData?.phoneNumber?.slice(-10);
 
@@ -197,14 +202,14 @@ const NewAddress = (props) => {
     if (label === 'city') {
       return Object.keys(value).length ? null : translate('common.pleaseFillField', { label: `${label}` })
     }
-    else if (label === 'phone_number') {
-      if (maxLength10(inputFields?.phone_number)) {
-        return maxLength10(phoneNo)
+    // else if (label === 'phone_number') {
+    //   if (maxLength10(inputFields?.phone_number)) {
+    //     return maxLength10(phoneNo)
 
-      } else if (!isValidNumber(formattedNum)) {
-        return validatePhoneNo(phoneNo)
-      }
-    }
+    //   } else if (!isValidNumber(formattedNum)) {
+    //     return validatePhoneNo(phoneNo)
+    //   }
+    // }
     else {
       if (!value.trim().length) {
         return translate('common.pleaseFillField', { label: `${label}` });
@@ -215,23 +220,76 @@ const NewAddress = (props) => {
   const verifyWithNumber = async () => {
     try {
       setLoadingButton(true)
-      // await checkPhoneNumberOrEmailExists(formattedNum)
 
-      console.log('before verify number: ')
-      const result = await signInWithPhoneNumber(formattedNum)
-      console.log('Response from signInWithNumber', result)
-      setLoadingButton(false)
+      const res = await checkPhoneNumberOrEmailExists(formattedNum)
+      if (res?.success) {
+        const authResults = await signInWithPhoneNumber(formattedNum)
+        setLoadingButton(false)
 
-      navigation.navigate('OtpVerification', {
-        authResult: result,
-        phoneNumber: formattedNum,
-        isFromSignUp: false
-      });
+        navigation.navigate('OtpVerification', {
+          authResult: authResults,
+          phoneNumber: formattedNum,
+          navigationFromAdd: true
+        });
+      }
+      else {
+        setLoadingButton(false)
+        showErrorToast(translate('common.autherror'), selectedLanguageItem?.language_id === 0 ? res?.message : res?.message_arabic)
+
+      }
+      // console.log('Response from signInWithNumber', result)
     } catch (error) {
       setLoadingButton(false)
 
-      console.log('Error from signInWithNumber', error)
+      console.log('Error from verifyWithNumber', error)
+      handleAuthError(error)
+      // showErrorToast()
     }
+    // try {
+    //   setLoadingButton(true)
+    //   // await checkPhoneNumberOrEmailExists(formattedNum)
+
+    //   console.log('before verify number: ', formattedNum)
+    //   const result = await signInWithPhoneNumber(formattedNum)
+    //   console.log('Response from signInWithNumber', result)
+    //   setLoadingButton(false)
+
+    //   // navigation.navigate('OtpVerification', {
+    //   //   authResult: result,
+    //   //   phoneNumber: formattedNum,
+    //   //   isFromSignUp: false
+    //   // });
+    // } catch (error) {
+    //   setLoadingButton(false)
+
+    //   console.log('Error from signInWithNumber', error)
+    // }
+    console.log('verify button pressed')
+    // try {
+    //   setLoadingButton(true)
+    //   const res = await checkPhoneNumberOrEmailExists(formattedNum)
+    //   // if (res?.success) {
+    //   //   const authResults = await signInWithPhoneNumber(formattedNum)
+    //   //   setLoadingButton(false)
+
+    //   //   navigation.navigate('OtpVerification', {
+    //   //     authResult: authResults,
+    //   //     phoneNumber: formattedNum,
+    //   //     isFromSignUp: false,
+    //   //   });
+    //   // }
+    //   // else {
+    //   //   setLoadingButton(false)
+    //   //   showErrorToast(translate('common.autherror'), selectedLanguageItem?.language_id === 0 ? res?.message : res?.message_arabic)
+
+    //   // }
+
+    // }
+    // catch (error) {
+    //   console.log('Error from Check phone number api', error)
+    //   // showErrorToast()
+    //   // setLoadingButton(false)
+    // }
   }
 
 
@@ -244,7 +302,7 @@ const NewAddress = (props) => {
       building: inputFields?.building,
       landmark: inputFields?.landmark,
       name: inputFields?.name,
-      phoneNumber: inputFields?.phone_number,
+      phoneNumber: inputFields?.phone_number ? inputFields?.phone_number : splitMobileNumber(editDataDetail ? editDataDetail?.phone_number : userData?.phoneNumber)?.lastTenDigits,
       city: inputFields?.city
     }
 
@@ -268,7 +326,8 @@ const NewAddress = (props) => {
         latitude: inputFields?.locationDetail?.latitude.toString(),
         longitude: inputFields?.locationDetail?.longitude.toString(),
         name: inputFields?.name,
-        phone_number: inputFields?.phone_number,
+        // phone_number: inputFields?.phone_number,
+        phone_number: inputFields?.phone_number ? formattedNum : editDataDetail?.phone_number ? editDataDetail?.phone_number : userData?.phoneNumber,
         address_type: inputFields?.address_type,
         location_address: inputFields?.locationDetail?.address,
       }
@@ -498,7 +557,7 @@ const NewAddress = (props) => {
           required
           isNumberField
           // value={lastTenDigits ? lastTenDigits : inputFields?.phone_number}
-          value={inputFields?.phone_number}
+          value={inputFields?.phone_number ? inputFields?.phone_number : splitMobileNumber(editDataDetail ? editDataDetail?.phone_number : userData?.phoneNumber)?.lastTenDigits}
           onChangeText={text => {
             handleInputChange('phone_number', text)
             setErrorMsg({ ...errorMsg, ['phoneNumber']: null })
@@ -506,18 +565,19 @@ const NewAddress = (props) => {
           validate={[maxLength10, validatePhoneNo]}
           error={errorMsg['phoneNumber']}
           onChangeCountry={(val) => console.log(val)}
-          onChangeFormattedText={(val) => setFormattedNum(val)}
-        // defaultCode={inputFields?.phone_number ? regionCountry : getCountryCode(remainingDigits)}
+          onChangeFormattedText={(val) => { console.log('onChangeFormattedText', val), setFormattedNum(val) }}
+          defaultCode={inputFields?.phone_number ? regionCountry : getCountryCode(splitMobileNumber(editDataDetail ? editDataDetail?.phone_number : userData?.phoneNumber)?.remainingDigits)}
         />
         {
-          userData?.phoneNumber ? null :
+          // formattedNum == userData?.phoneNumber && inputFields?.phone_number ? null :
+          formattedNum === userData?.phoneNumber ? null :
             < View style={styles.btnContainer}>
               {
                 loadingButton ?
-                  <ActivityIndicator size="smalll" color={Colors.themeColor} style={{ marginRight: '5%' }} />
+                  <ActivityIndicator size="large" color={Colors.themeColor} style={{ marginRight: '5%' }} />
                   :
-                  <TouchableOpacity style={[styles.button, inputFields?.phone_number?.length != 10 ? styles.inActive : null]} onPress={() => verifyWithNumber()} disabled={inputFields?.phone_number?.length != 10 ? true : false}>
-                    <Text style={styles.buttonText}>Verify Mobile No</Text>
+                  <TouchableOpacity style={[styles.button, inputFields?.phone_number?.length != 10 && userData?.phoneNumber ? styles.inActive : null]} onPress={() => verifyWithNumber()} disabled={inputFields?.phone_number?.length != 10 && userData?.phoneNumber ? true : false}>
+                    <Text style={styles.buttonText}>{translate('common.verifyphoneno')}</Text>
                   </TouchableOpacity>
               }
             </View>

@@ -46,7 +46,8 @@ const ProductSpecCard = (props) => {
                     );
                 })
                 :
-                <Text>{data?.ManagementOtherField?.others_arabic}</Text>
+                null
+            // <Text>{data?.ManagementOtherField?.others_arabic}</Text>
         )
     }
 

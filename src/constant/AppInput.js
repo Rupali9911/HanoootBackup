@@ -50,8 +50,8 @@ const AppInput = (props) => {
                         props.isNumberField ?
                             <PhoneInput
                                 ref={phoneInput}
-                                defaultValue={props.value}
-                                defaultCode={"IN"}
+                                // defaultValue={'+964'}
+                                defaultCode={props.defaultCode || 'IQ'}
                                 layout="first"
                                 onChangeText={props.onChangeText}
                                 value={props.value}
@@ -74,7 +74,7 @@ const AppInput = (props) => {
                                     <DropDownIcon style={styles.imgDropDwn} />
                                 }
                                 countryPickerProps={{
-                                    countryCodes: ['IQ', 'GB', 'AE', 'AU', 'US', 'JO', 'SA', 'KW', 'OM', 'QA', 'EG', 'SY', 'SE', 'CA'],
+                                    countryCodes: ['IQ', 'IN', 'GB', 'AE', 'AU', 'US', 'JO', 'SA', 'KW', 'OM', 'QA', 'EG', 'SY', 'SE', 'CA'],
                                 }}
                                 {...props}
                             />
