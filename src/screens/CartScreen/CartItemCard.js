@@ -56,7 +56,13 @@ const CartItemCard = () => {
                 scrollEnabled={false}
             />
             <Coupon />
-            <CartTotal totalCost={cartData?.total_cost} couponAmt={0.00} />
+            <CartTotal
+                total_cost={cartData?.total_cost}
+                couponAmt={0.00}
+                total_Item={cartItems?.length}
+                total_hanooot_discount={cartData?.total_hanooot_discount}
+                total_payable_cost={cartData?.total_payable_cost}
+            />
         </ScrollView>
 
     )

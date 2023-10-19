@@ -56,6 +56,8 @@ export const getCartItemAPICall = (page) => {
                     resolve(response)
                 }
                 else {
+                    // resolve(response)
+
                     showErrorToast(translate('common.autherror'), isLanguage === 0 ? response?.message : response?.message_arabic)
                 }
             }).

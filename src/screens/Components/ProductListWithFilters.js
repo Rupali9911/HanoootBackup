@@ -70,7 +70,7 @@ const ProductListWithFilters = (props) => {
                     // isDiscountTag
                     TotalPriceStyle={{ color: Colors.PRICEGREEN }}
                     detailId={item?.id}
-                    ViewContStyle={{ width: wp('100%') / 2 - wp('5%') }}
+                    ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), height: 273 }}
                     onWishlistPress={() => setModalVisible(true)}
                 />
                 :
@@ -89,6 +89,7 @@ const ProductListWithFilters = (props) => {
                         detailId={item?.id}
                         ViewContStyle={{ width: wp('100%') / 2 - wp('5%') }}
                         onWishlistPress={() => setModalVisible(true)}
+                        discount={item?.ManagementProductPricing?.discount_price_iqd}
                     />
                     :
                     DATA?.isNavigationSection === 'RecentlyViewProduct'
@@ -105,6 +106,7 @@ const ProductListWithFilters = (props) => {
                             detailId={item?.product_id}
                             ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), }}
                             onWishlistPress={() => setModalVisible(true)}
+                            discount={item?.ManagementProductPricing?.discount_price_iqd}
                         />
                         :
                         DATA?.isNavigationSection === 'Search'
@@ -134,9 +136,11 @@ const ProductListWithFilters = (props) => {
                                 showLike
                                 isItemLiked={item?.isLike}
                                 ViewContStyle={{
-                                    width: wp('100%') / 2 - wp('5%'), height: hp(33.62)
+                                    width: wp('100%') / 2 - wp('5%'),
+                                    height: 273
                                 }}
                                 onWishlistPress={() => setModalVisible(true)}
+                                discount={item?.ManagementProductPricing?.discount_price_iqd}
                             />
         );
     }

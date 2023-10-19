@@ -19,7 +19,7 @@ const MiniSlider = (props) => {
 
     const renderItem = ({ item, index }) => {
         const externalUrl = item?.product_link
-        console.log('externalUrl: ', item?.product_link ? 'true' : 'false')
+        // console.log('externalUrl: ', item?.product_link ? 'true' : 'false')
         return (
             // <Image source={{ uri: item?.image_url }} style={styles.image} key={item?.id} />
             // <ImageRenderer height={20} width={20} />

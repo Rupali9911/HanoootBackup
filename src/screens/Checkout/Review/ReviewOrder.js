@@ -51,9 +51,15 @@ const ReviewOrder = (props) => {
   let shippingCost = signleAddressDetail?.city === 'Baghdad' ? Number(5000) : Number(8000);
   let couponCost = couponApplied ? Number(shippingCost) : Number(0)
   let costAfterApplyCpn = shippingCost - couponCost;
+
+  useEffect(() => {
+    shippingCost = signleAddressDetail?.city === 'Baghdad' ? Number(5000) : Number(8000);
+    couponCost = couponApplied ? Number(shippingCost) : Number(0)
+    costAfterApplyCpn = shippingCost - couponCost;
+  }, [couponApplied])
   // let costAfterApplyCpn = 0;
 
-  console.log('shippingAmountshippingAmount', shippingAmount)
+  console.log('costAfterApplyCpn', costAfterApplyCpn)
   useEffect(() => {
     if (isBuyNowButton) {
       dispatch(getBuyNowData(productQtyIdInfo?.productId, productQtyIdInfo?.productQty))
@@ -93,8 +99,12 @@ const ReviewOrder = (props) => {
 
         <View style={styles.priceViewCont}>
           <View style={styles.rowCont}>
-            <Text style={styles.priceLeftText}>{translate('common.subtotal')} (1 {translate('common.item')})</Text>
+            <Text style={styles.priceLeftText}>{translate('common.subtotal')} ({listItems?.length} {translate('common.item')})</Text>
             <Text style={styles.price}>{`${formattedPrice(data?.total_cost)} ${translate('common.currency_iqd')}`}</Text>
+          </View>
+          <View style={styles.rowCont}>
+            <Text style={styles.priceLeftText}>{translate('common.hanoootdiscount')}</Text>
+            <Text style={styles.price}>{`${formattedPrice(data?.total_hanooot_discount)} ${translate('common.currency_iqd')}`}</Text>
           </View>
           <View style={styles.rowCont}>
             <Text style={styles.priceLeftText}>{translate('common.shippingcost')}</Text>
@@ -104,11 +114,10 @@ const ReviewOrder = (props) => {
             <Text style={styles.priceLeftText}>{translate('common.coupondiscount')}</Text>
             <Text style={[styles.price, { color: Colors.GREEN }]}>{`- ${formattedPrice(couponCost)} ${translate('common.currency_iqd')}`}</Text>
           </View>
-
           <Separator separatorStyle={{ width: wp(90) }} />
           <View style={styles.rowCont}>
             <Text style={styles.TotalPrice}>{translate('common.total')} </Text>
-            <Text style={styles.TotalPrice}>{`${formattedPrice(Number(data?.total_cost) + Number(costAfterApplyCpn))} ${translate('common.currency_iqd')}`}</Text>
+            <Text style={styles.TotalPrice}>{`${formattedPrice(Number(data?.total_payable_cost) + Number(costAfterApplyCpn))} ${translate('common.currency_iqd')}`}</Text>
           </View>
         </View>
       </>
@@ -198,14 +207,14 @@ const ReviewOrder = (props) => {
             product_id: productQtyIdInfo?.productId,
             quantity: quantity,
             payment_method: "COD",
-            shipping_cost: costAfterApplyCpn,
+            shipping_cost: Number(costAfterApplyCpn),
             promocode: couponSucess[0]?.code
           }
           :
           {
             address_id: props.AddressId,
             payment_method: "COD",
-            shipping_cost: costAfterApplyCpn,
+            shipping_cost: Number(costAfterApplyCpn),
             promocode: couponSucess[0]?.code
           }
       console.log('data from order : ', data)

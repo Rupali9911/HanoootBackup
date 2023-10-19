@@ -149,6 +149,9 @@ export const getProductDetail = (id, userData) => {
                             dispatch(productFilterByCategorySuccess(filterResp?.data));
                         }
                     }
+                    else {
+                        dispatch(productDetailDataSuccess(response?.data))
+                    }
                 }).
                 catch((err) => { console.log('sdfskhfshfkjsjkfhk'), dispatch(productDetailFailed(err)) })
         }

@@ -98,6 +98,9 @@ export const getItemsFromCart = (page) => {
           if (response?.success) {
             dispatch(addToCart(response?.data))
           }
+          else {
+            dispatch(addToCart(response?.data))
+          }
         }).
         catch((err) => { console.log('Error Checked : ', err), dispatch(cartLoadingFail(err)) })
     }

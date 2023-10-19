@@ -89,7 +89,30 @@ const CartProductCards = (props) => {
                     {getDeliveryInfo()}
                     {getExpressView()}
                     {/* <Text style={styles.itemDetail} >Sold by <Text style={{ color: Colors.themeColor }}>Ecom Nation</Text></Text> */}
-                    <Text style={styles.itemName} >{`${formattedPrice(item?.price)} ${translate('common.currency_iqd')}`}</Text>
+                    {/* <Text style={styles.itemName} >{item?.hanoootDiscount ? `${formattedPrice(item?.hanoootDiscount)} ${translate('common.currency_iqd')}` : null}</Text> */}
+
+                    {
+                        item?.hanoootDiscount ?
+                            <>
+                                <Text style={styles.itemName} >{`${formattedPrice(item?.hanoootDiscount)} ${translate('common.currency_iqd')}`}</Text>
+                                <Text style={styles.productDiscountPrice} >{`${formattedPrice(item?.price)} ${translate('common.currency_iqd')}`}</Text>
+                            </>
+                            :
+                            <Text style={styles.itemName} >{`${formattedPrice(item?.price)} ${translate('common.currency_iqd')}`}</Text>
+                    }
+
+                    {/* {
+                        discount ?
+                            <Text style={[styles.price, props.TotalPriceStyle]}>{`${formattedPrice(discount)} ${translate('common.currency_iqd')}`}</Text>
+                            : null
+                    }
+                    {
+                        item?.price && discount ?
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`} </Text>
+                            </View>
+                            : item?.price ? <Text style={[styles.price, props.TotalPriceStyle]}>{`${formattedPrice(item?.price)} ${translate('common.currency_iqd')}`}</Text> : null
+                    } */}
                 </View>
             </View>
             <CartItemQuantity
@@ -212,6 +235,15 @@ const styles = StyleSheet.create({
     },
     rightViewCont: {
         gap: 5, width: '80%'
-    }
+    },
+    productDiscountPrice: {
+        fontFamily: getFonts.BOLD,
+        lineHeight: 19,
+        letterSpacing: 0.5,
+        // fontWeight: 700,
+        color: Colors.PRICEGRAY,
+        textDecorationLine: 'line-through',
+        textDecorationStyle: 'solid',
+    },
 
 })

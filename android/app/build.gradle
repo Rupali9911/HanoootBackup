@@ -129,6 +129,11 @@ android {
             storePassword 'Hanooot@123'
             keyAlias 'Hanooot-App'
             keyPassword 'Hanooot@123'
+
+            // storeFile file('release.keystore')
+            // storePassword process.env.STORE_PASSWORD
+            // keyAlias process.env.KEY_ALIAS
+            // keyPassword process.env.KEY_PASSWORD
         }
     }
     buildTypes {

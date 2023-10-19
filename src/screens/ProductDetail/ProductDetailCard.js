@@ -26,7 +26,7 @@ const ProductDetailCard = (props) => {
 
     const [isLike, setLike] = useState(false)
 
-    const { carouselData, title, avgRating, noOfReview, price, categoryName, productLink } = props;
+    const { carouselData, title, avgRating, noOfReview, price, categoryName, productLink, discount } = props;
     const userData = useSelector((state) => state.userReducer.userData);
     const { productDetail } = useSelector(state => state.productListReducer);
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
@@ -211,20 +211,33 @@ const ProductDetailCard = (props) => {
 
                     <View style={styles.textView}>
                         {/* <Text style={styles.totalPrice}>{`${price ? formattedPrice(price) : 0} ${translate('common.currency_iqd')}`}</Text> */}
-                        <Text style={styles.totalPrice}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text>
+                        {
+                            discount ?
+                                <Text style={styles.discountPercent}>{`${formattedPrice(discount)} ${translate('common.currency_iqd')}`}</Text>
+                                : price ? <Text style={styles.totalPrice}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text> : null
+                        }
+                        {/* <Text style={styles.totalPrice}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text> */}
                         {/* <Text style={styles.inclusiveTax}>{`(${translate('common.inclusiveofvat')})`}</Text> */}
                     </View>
                     <ExpressView title={props.isExpress} />
                 </View>
-                {/* <View style={styles.textView}>
-                    <Text style={styles.discountPrice}>{price}</Text>
-                    <Text style={styles.discountPercent}>{props.PricePercentOff}</Text>
-                </View> */}
+                <View style={styles.textView}>
+                    {/* <Text style={styles.discountPrice}>{price}</Text>
+                    <Text style={styles.discountPercent}>{props.PricePercentOff}</Text> */}
+                    {
+                        price && discount ?
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`} </Text>
+                            </View>
+                            : null
+                    }
+                </View>
                 {/* <Text style={styles.discountPercent}>{translate('common.freeshipping')}</Text> */}
             </View>
 
         </View>
     )
+
 }
 
 export default ProductDetailCard;
@@ -353,7 +366,16 @@ const styles = StyleSheet.create({
         // shadowRadius: 3.84,
         elevation: 7,
         margin: '5%'
-    }
+    },
+    productDiscountPrice: {
+        fontFamily: getFonts.BOLD,
+        lineHeight: 19,
+        letterSpacing: 0.5,
+        // fontWeight: 700,
+        color: Colors.PRICEGRAY,
+        textDecorationLine: 'line-through',
+        textDecorationStyle: 'solid',
+    },
 
 
 

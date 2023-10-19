@@ -17,8 +17,8 @@ const ProductImageCarousel = (props) => {
                         source={{uri: item}}
                         style={styles.image}
                     /> */}
-                <ImageRenderer height={hp(25)} width={wp(55)} style={styles.image} uri={item} />
-            </View> 
+                <ImageRenderer height={208} width={208} style={styles.image} uri={item} />
+            </View>
         );
     }
 
@@ -30,8 +30,9 @@ const ProductImageCarousel = (props) => {
                 dotsLength={props?.data?.length}
                 loop={true}
                 autoplay={true}
-                sliderWidth={wp(55)}
-                itemWidth={wp(55)}
+                sliderWidth={208}
+                itemWidth={208}
+                enablePagination
             />
         </View>
     )
@@ -41,8 +42,8 @@ export default ProductImageCarousel;
 
 const styles = StyleSheet.create({
     image: {
-        height: hp(25),
-        width: wp(55),
+        height: 208,
+        width: 208,
         resizeMode: 'contain',
         alignSelf: 'center'
     }

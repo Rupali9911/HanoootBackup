@@ -3,6 +3,7 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
+    RefreshControl
 } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import AppBackground from '../Components/AppBackground';
@@ -193,6 +194,11 @@ const ProductDetail = (props) => {
         );
     }
 
+    const pullToRefreshFunction = () => {
+        dispatch(productDetailReset())
+        dispatch(productDetailLoading())
+        dispatch(getProductDetail(product_detail_Id, userData))
+    }
 
     return (
         <>
@@ -208,7 +214,14 @@ const ProductDetail = (props) => {
                         Object.keys(productDetail).length > 0
                             ?
                             <>
-                                <ScrollView>
+                                <ScrollView
+                                    nestedScrollEnabled={false}
+                                    scrollEnabled={true}
+                                    refreshControl={
+                                        <RefreshControl
+                                            refreshing={isDetailPageLoad}
+                                            onRefresh={pullToRefreshFunction}
+                                        />}>
                                     <ProductDetailCard
                                         carouselData={productDetail?.images}
                                         categoryName={selectedLanguageItem?.language_id === 0 ? productDetail?.ManagementCategory?.name : productDetail?.ManagementCategory?.name_arabic}
@@ -216,7 +229,7 @@ const ProductDetail = (props) => {
                                         avgRating={productDetail?.ManagementProductReview?.average_rating}
                                         noOfReview={productDetail?.ManagementProductReview?.number_of_reviews}
                                         price={productDetail?.ManagementProductPricing?.price_iqd}
-                                        discount={productDetail?.ManagementProductPricing?.hanooot_discount}
+                                        discount={productDetail?.ManagementProductPricing?.discount_price_iqd}
                                         productId={productDetail?.product_details_id}
                                         isItemLiked={productDetail?.isLike}
                                         productLink={productDetail?.link}

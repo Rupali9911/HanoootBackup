@@ -26,7 +26,10 @@ const RecentlyViewProduct = (props) => {
                 isItemLiked={item?.isLike}
                 detailId={item?.product_id}
                 onWishlistPress={props.onWishlistPress}
-                TextViewStyle={{ height: 80 }}
+                // TextViewStyle={{ height: 80 }}
+                ViewContStyle={{ height: 273 }}
+
+                discount={item?.ManagementProductPricing?.discount_price_iqd}
             />
         );
     }

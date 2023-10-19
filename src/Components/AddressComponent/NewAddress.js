@@ -91,7 +91,7 @@ const NewAddress = (props) => {
     // setFormattedNum(userData?.phoneNumber)
     if (Object.keys(userData).length) {
       setInputFields({ ...inputFields, name: userData?.displayName })
-      setFormattedNum(userData?.phoneNumber)
+      setFormattedNum(userData?.phoneNumber ? userData?.phoneNumber : '')
     }
   }, [userData])
 
@@ -211,7 +211,7 @@ const NewAddress = (props) => {
     //   }
     // }
     else {
-      if (!value.trim().length) {
+      if (!value?.trim()?.length) {
         return translate('common.pleaseFillField', { label: `${label}` });
       }
     }
@@ -294,7 +294,7 @@ const NewAddress = (props) => {
 
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const errorList = {};
     console.log('input fields name : ', inputFields.name)
     const data = {
@@ -308,7 +308,7 @@ const NewAddress = (props) => {
 
     for (const key in data) {
       if (handleError(key, data[key])) {
-        errorList[key] = handleError(key, data[key])
+        errorList[key] = await handleError(key, data[key])
       }
     }
     setErrorMsg(errorList);
@@ -576,7 +576,7 @@ const NewAddress = (props) => {
                 loadingButton ?
                   <ActivityIndicator size="large" color={Colors.themeColor} style={{ marginRight: '5%' }} />
                   :
-                  <TouchableOpacity style={[styles.button, inputFields?.phone_number?.length != 10 && userData?.phoneNumber ? styles.inActive : null]} onPress={() => verifyWithNumber()} disabled={inputFields?.phone_number?.length != 10 && userData?.phoneNumber ? true : false}>
+                  <TouchableOpacity style={[styles.button, inputFields?.phone_number?.length != 10 && formattedNum != userData?.phoneNumber ? styles.inActive : null]} onPress={() => verifyWithNumber()} disabled={inputFields?.phone_number?.length != 10 && formattedNum != userData?.phoneNumber ? true : false}>
                     <Text style={styles.buttonText}>{translate('common.verifyphoneno')}</Text>
                   </TouchableOpacity>
               }

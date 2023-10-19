@@ -177,34 +177,41 @@ const ListView = (props) => {
                         source={{ uri: centerImage ? centerImage : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }}
                         style={[styles.productImg, props.imgStyle]}
                     /> */}
-                    <ImageRenderer height={SIZE(70)} width={SIZE(70)} style={[styles.productImg, props.imgStyle]} uri={centerImage} />
+                    <ImageRenderer height={SIZE(100)} width={SIZE(100)} style={[styles.productImg, props.imgStyle]} uri={centerImage} />
                 </View>
 
                 <View style={[styles.textView, props.TextViewStyle]}>
-                    {
+                    {/* {
                         props.isPriceButton &&
 
                         <View style={styles.priceBtnView}>
                             <Text style={styles.priceBtnText}>{'50% Off'}</Text>
                         </View>
 
-                    }
+                    } */}
                     <Text style={styles.productName} numberOfLines={2}>{productName}</Text>
 
+
                     {
-                        price ?
-                            <Text style={[styles.price, props.TotalPriceStyle]}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text>
+                        discount ?
+                            <Text style={[styles.price, props.TotalPriceStyle]}>{`${formattedPrice(discount)} ${translate('common.currency_iqd')}`}</Text>
                             : null
                     }
-
-
                     {
+                        price && discount ?
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`} </Text>
+                            </View>
+                            : price ? <Text style={[styles.price, props.TotalPriceStyle]}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text> : null
+                    }
+
+                    {/* {
                         discount &&
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{discount} </Text>
                             {props.isDiscountPercent && <Text style={styles.ProductDiscPercent} numberOfLines={1}>{discount}</Text>}
                         </View>
-                    }
+                    } */}
 
                     {/* {
                         props.PriceInGreen && <Text style={[styles.price, { color: Colors.PRICEGREEN }]}>{item.price}</Text>
@@ -223,7 +230,7 @@ const ListView = (props) => {
                 </View>
 
             </TouchableOpacity>
-            {props.isDiscountTag &&
+            {/* {props.isDiscountTag &&
                 <>
                     <View style={{
                         position: 'absolute', bottom: 10, right: 0, marginVertical: wp('2'),
@@ -232,9 +239,9 @@ const ListView = (props) => {
                         <DiscountTag />
 
                     </View>
-                    {/* <View style={{}}> <Text>1</Text></View> */}
+                    View style={{}}> <Text>1</Text></View> 
                 </>
-            }
+            } */}
             {/* <ImageBackground source={Images.DiscountTag} style={{
                 // height: hp(4.43), width: wp(5.87), resizeMode: 'contain',
                 height: hp(7), width: wp(10)
@@ -251,27 +258,30 @@ const styles = StyleSheet.create({
     ProductListContainer: {
         marginVertical: wp('2'),
         marginHorizontal: wp('2'),
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
+        // shadowColor: '#000',
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 2,
+        // },
+        // shadowOpacity: 0.25,
         borderRadius: SIZE(10),
-        elevation: 5,
+        // elevation: 5,
         backgroundColor: Colors.WHITE1,
-        paddingVertical: SIZE(15),
+        paddingVertical: SIZE(10),
         paddingHorizontal: SIZE(10),
+        gap: SIZE(10),
         // verticalAlign: 'top',
-        overflow: 'hidden',
+        // overflow: 'hidden',
         // alignContent: 'flex-start',
-        width: wp(33),
+        width: wp(40),
+        height: 273
     },
     textView: {
-        marginTop: SIZE(20),
+        // marginTop: SIZE(20),
         // height: hp(12.32),
         // backgroundColor: 'red'
         // maxWidth: wp(35)
+        // flex: 1
     },
     price: {
         fontFamily: getFonts.BOLD,
@@ -282,7 +292,9 @@ const styles = StyleSheet.create({
     imageContainer: {
         alignSelf: 'center',
         // height: hp(12.32),
-        justifyContent: 'center'
+        justifyContent: 'center',
+        // backgroundColor: 'green',
+        flex: 1
 
 
         // padding: 10
@@ -297,16 +309,18 @@ const styles = StyleSheet.create({
         textDecorationStyle: 'solid',
     },
     topLine: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: SIZE(20),
-        alignItems: 'center'
+        // marginBottom: SIZE(20),
+        alignItems: 'stretch',
+        // backgroundColor: 'red'
     },
     productImg: {
-        height: SIZE(70),
-        width: SIZE(70),
-        resizeMode: 'contain'
+        height: SIZE(100),
+        width: SIZE(100),
+        resizeMode: 'contain',
+        // backgroundColor: 'red'
     },
     productName: {
         fontFamily: getFonts.MEDIUM,
@@ -349,7 +363,7 @@ const styles = StyleSheet.create({
     },
     ratingImg: {
         height: SIZE(12), width: SIZE(12), resizeMode: 'contain',
-        width: wp('3%')
+        // width: wp('3%')
     },
     rowContainer: {
         flexDirection: 'row', alignItems: 'center', gap: 3,

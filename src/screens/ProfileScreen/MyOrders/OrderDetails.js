@@ -155,6 +155,10 @@ const OrderDetails = (props) => {
                                 <Text style={[styles.orderDetail, styles.fontIncrease]}>{`${formattedPrice(orderDetail?.total_amount)} ${translate('common.currency_iqd')}`}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={styles.orderDetail}>{`${translate('common.hanoootdiscount')}`}</Text>
+                                <Text style={[styles.orderDetail, styles.fontIncrease]}>{`${formattedPrice(orderDetail?.hanooot_discount)} ${translate('common.currency_iqd')}`}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={styles.orderDetail}>{translate('common.shippingcost')}</Text>
                                 <Text style={[styles.orderDetail, styles.fontIncrease]}>{`${formattedPrice(orderDetail?.shipping_cost)} ${translate('common.currency_iqd')}`}</Text>
                             </View>

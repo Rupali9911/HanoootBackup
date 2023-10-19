@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, RefreshControl } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AppHeader from '../Components/AppHeader';
 import AppBackground from '../Components/AppBackground';
@@ -33,6 +33,10 @@ export default function HomeScreen() {
 
    const { isLoading, HomeCollection } = useSelector(state => state.HomeReducer);
    const userData = useSelector((state) => state.userReducer.userData);
+
+   useEffect(() => {
+      pullToRefreshFunction()
+   }, [])
 
    useEffect(() => {
       dispatch(homeDataReset())
@@ -76,6 +80,12 @@ export default function HomeScreen() {
       }
    }
 
+   const pullToRefreshFunction = () => {
+      dispatch(homeDataReset())
+      dispatch(homeDataLoadingStart(true))
+      dispatch(getHomeCollection(userData))
+   }
+
    return (
       <AppBackground >
          <AppHeader placeholderText={translate('common.search')} />
@@ -88,6 +98,11 @@ export default function HomeScreen() {
                   <ScrollView
                      nestedScrollEnabled={false}
                      scrollEnabled={true}
+                     refreshControl={
+                        <RefreshControl
+                           refreshing={isLoading}
+                           onRefresh={pullToRefreshFunction}
+                        />}
                   >
 
                      {
@@ -100,7 +115,8 @@ export default function HomeScreen() {
                               </>
                            )
 
-                        })}
+                        })
+                     }
                   </ScrollView>
                   :
                   renderNoDataFound()
@@ -120,7 +136,7 @@ export default function HomeScreen() {
                }}
             />
          </AppModal>
-      </AppBackground>
+      </AppBackground >
    )
 }
 

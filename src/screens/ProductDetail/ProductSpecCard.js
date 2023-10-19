@@ -57,7 +57,18 @@ const ProductSpecCard = (props) => {
                 <View style={styles.BorderView}>
                     <View style={styles.tableHeaderCont}>
                         <Text style={styles.tableItemName}>{selectedLanguageItem?.language_id === 0 ? data?.ManagementProductSeo?.product_name : data?.ManagementProductSeo?.product_name_arabic}</Text>
-                        <Text style={styles.tableItemName}>{`${formattedPrice(data?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text>
+                        {/* <Text style={styles.tableItemName}>{`${formattedPrice(data?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text>
+                        <Text style={styles.tableItemName}>{`${formattedPrice(data?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text> */}
+
+                        {
+                            data?.ManagementProductPricing?.discount_price_iqd ?
+                                <>
+                                    <Text style={styles.tableItemName} >{`${formattedPrice(data?.ManagementProductPricing?.discount_price_iqd)} ${translate('common.currency_iqd')}`}</Text>
+                                    <Text style={styles.productDiscountPrice} >{`${formattedPrice(data?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text>
+                                </>
+                                :
+                                <Text style={styles.tableItemName} >{`${formattedPrice(data?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text>
+                        }
                         <Text style={[styles.tableItemName, { color: Colors.GRAYDARK, fontSize: 12 }]}>{translate('common.essentialinformation')}</Text>
                     </View>
                     <View style={styles.Separator} />
@@ -173,5 +184,14 @@ const styles = StyleSheet.create({
     cardDetails: {
         fontWeight: 500,
         fontFamily: getFonts.MEDIUM, letterSpacing: 0.5
-    }
+    },
+    productDiscountPrice: {
+        fontFamily: getFonts.BOLD,
+        lineHeight: 19,
+        letterSpacing: 0.5,
+        // fontWeight: 700,
+        color: Colors.PRICEGRAY,
+        textDecorationLine: 'line-through',
+        textDecorationStyle: 'solid',
+    },
 })

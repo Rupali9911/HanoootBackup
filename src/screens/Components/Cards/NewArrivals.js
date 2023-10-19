@@ -29,7 +29,10 @@ const NewArrivals = (props) => {
                 TotalPriceStyle={{ color: Colors.PRICEGREEN }}
                 detailId={item?.id}
                 onWishlistPress={props.onWishlistPress}
-                TextViewStyle={{ height: 80 }}
+                // TextViewStyle={{ height: 80 }}
+                ViewContStyle={{ height: 273 }}
+
+                discount={item?.ManagementProductPricing?.discount_price_iqd}
             />
         );
     }

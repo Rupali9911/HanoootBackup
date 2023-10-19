@@ -14,6 +14,7 @@ import fonts from '../../constant/fonts';
 // import Signup from '../AuthScreen/SignUp';
 import Category from '../Categories';
 import SVGS from '../../constant/Svgs';
+import { useSelector } from 'react-redux';
 
 const { HomeIcon,
     HomeActive,
@@ -30,7 +31,10 @@ const Tab = createBottomTabNavigator();
 export default function TabComponent() {
     const navigation = useNavigation();
 
-    const CustomTabIcon = ({ count }) => {
+    const { cartItems } = useSelector(state => state.cartReducer);
+
+
+    const CustomTabIcon = ({ count, focused }) => {
 
         // <View style={styles.iconContainer}>
         //     <CartActive />
@@ -40,18 +44,43 @@ export default function TabComponent() {
         //     </View>
         // </View>
 
+        {/* <div className="col-span-2 hidden md:block xl:col-span-2 2xl:col-span-1">
+            <div
+              onClick={() => {
+                router.push('/cart'), dispatch(setLoader(true));
+              }}
+              className="ml-1 flex cursor-pointer justify-center rounded-full bg-white px-4 py-3"
+            >
+              <Image
+                src={cartimg}
+                alt="logo"
+                width={20}
+                height={20}
+                className="mr-2.5 flex items-center justify-center"
+              />
+              <p className="font-VisbyCFBold text-base font-bold text-[#3777BC]">
+                <span className="absolute right-4 top-16 h-6 w-6 rounded-full bg-red-600 text-center text-sm leading-6 text-white">
+                  {cartItem?.data?.CartProducts.length ? cartItem?.data?.CartProducts.length : 0}
+                </span>
+                Cart
+              </p>
+            </div>
+          </div> */}
+
+
+
         const shouldDisplayPlusIcon = count > 100;
 
         return (
             <View style={styles.iconContainer}>
-                <CartActive />
-                {shouldDisplayPlusIcon && (
-                    <View style={styles.plusIconContainer}>
-                        <HomeIcon />
-                    </View>
-                )}
+                {focused ? <CartActive /> : <CartIcon />}
+
                 {count > 0 && (
-                    <View style={styles.countContainer}>
+                    // <View style={styles.countContainer}>
+                    //     <Text style={styles.countText}>{count > 100 ? '99+' : count}</Text>
+                    // </View>
+                    <View style={styles.plusIconContainer}>
+                        {/* <HomeIcon /> */}
                         <Text style={styles.countText}>{count > 100 ? '99+' : count}</Text>
                     </View>
                 )}
@@ -83,7 +112,9 @@ export default function TabComponent() {
                         // iconName = focused ? Images.categorySelected : Images.categories;
                         return (focused ? <CategoryActive /> : <CategoryIcon />);
                     } else if (route.name === 'Cart') {
-                        return (focused ? <CartActive /> : <CartIcon />);
+                        // return (focused ? <CartActive /> : <CartIcon />);
+                        return <CustomTabIcon count={cartItems?.length ? cartItems?.length : 0} focused={focused} />
+
                     } else if (route.name === 'Profile') {
                         return (focused ? <ProfileActive /> : <ProfileIcon />);
                     }
@@ -137,20 +168,23 @@ const styles = StyleSheet.create({
     },
     plusIconContainer: {
         position: 'absolute',
-        top: -6,
-        right: -6,
-        backgroundColor: 'blue', // Adjust color as needed
-        borderRadius: 10,
-        width: 10,
-        height: 10,
+        top: -15,
+        right: -13,
+        backgroundColor: Colors.RED, // Adjust color as needed
+        borderRadius: 100,
+        padding: 4,
+        minWidth: 20,
+        minHeight: 20,
         alignItems: 'center',
         justifyContent: 'center',
     },
     countContainer: {
         position: 'absolute',
-        top: -8,
-        right: -8,
-        backgroundColor: 'red',
+        top: 20,
+        right: 0,
+        // left: 0,
+        // bottom: 0,
+        backgroundColor: 'green',
         borderRadius: 10,
         padding: 4,
     },

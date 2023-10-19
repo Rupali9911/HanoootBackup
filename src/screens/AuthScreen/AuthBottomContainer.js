@@ -83,7 +83,7 @@ const AuthBottomContainer = (props) => {
         }
         // dispatch(setUserData(userDetails.user))
         saveUserDetails(userDetails.user, dispatch)
-        navigation.navigate('Home')
+        navigation.navigate('HomeTab')
     }
 
 
