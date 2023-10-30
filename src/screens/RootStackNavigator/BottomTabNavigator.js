@@ -15,6 +15,7 @@ import fonts from '../../constant/fonts';
 import Category from '../Categories';
 import SVGS from '../../constant/Svgs';
 import { useSelector } from 'react-redux';
+import DeepLinkProducts from '../ProductDetail/DeepLinkProducts';
 
 const { HomeIcon,
     HomeActive,

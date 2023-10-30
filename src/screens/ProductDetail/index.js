@@ -24,7 +24,7 @@ import ProductDelivery from './ProductDeliveryOptn';
 import { useNavigation } from '@react-navigation/native';
 import fonts from '../../constant/fonts';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductDetail, productDetailReset, productDetailLoading, productInfoStore, setTappedButtonName, updateCartButton } from '../Store/actions/productListAction';
+import { getProductDetail, productDetailReset, productDetailLoading, productDetailFailed, productInfoStore, setTappedButtonName, updateCartButton } from '../Store/actions/productListAction';
 import Loader from '../../constant/Loader';
 import ListView from '../../Components/ListView';
 import ProductDescription from './ProductDescription';
@@ -60,12 +60,18 @@ const ProductDetail = (props) => {
     const navigation = useNavigation();
 
     useEffect(() => {
-        dispatch(productDetailReset())
-        dispatch(productDetailLoading())
-        dispatch(getProductDetail(product_detail_Id, userData))
+        try {
+            dispatch(productDetailReset())
+            dispatch(productDetailLoading())
+            dispatch(getProductDetail(product_detail_Id, userData))
 
-        return () => dispatch(productDetailReset());
-    }, [isFocused])
+        } catch (error) {
+            dispatch(productDetailFailed(error))
+        }
+
+
+        // return () => dispatch(productDetailReset());
+    }, [])
 
 
     // const onScroll = event => {
@@ -215,8 +221,8 @@ const ProductDetail = (props) => {
                             ?
                             <>
                                 <ScrollView
-                                    nestedScrollEnabled={false}
-                                    scrollEnabled={true}
+                                    // nestedScrollEnabled={false}
+                                    // scrollEnabled={true}
                                     refreshControl={
                                         <RefreshControl
                                             refreshing={isDetailPageLoad}
@@ -257,10 +263,13 @@ const ProductDetail = (props) => {
                                         onPress={() => userData ?
                                             (
                                                 dispatch(setTappedButtonName(true)),
-                                                dispatch(productInfoStore({ productQty: productQty, productId: productDetail?.product_details_id })),
+                                                dispatch(productInfoStore({ productQty: productQty, productId: product_detail_Id })),
                                                 navigation.navigate('CheckoutScreen')
                                             )
-                                            : setModalVisible(true)}
+                                            : setModalVisible(true)
+
+
+                                        }
                                     />
                                     <ProductSpecCard data={productDetail} />
                                     <ProductSpecification data={selectedLanguageItem?.language_id === 0 ? productDetail?.ManagementProductSeo?.short_description : productDetail?.ManagementProductSeo?.short_description_arabic} />

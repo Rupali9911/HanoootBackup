@@ -1,6 +1,6 @@
 import { PRODUCT_LIST_LOADING, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_RESET, PRODUCT_LIST_PAGE_CHANGE, PRODUCT_DETAIL_DATA_SUCCESS, PRODUCT_DETAIL_DATA_LOADING, PRODUCT_FILTER_BY_CATEGORY_SUCCESS, PRODUCT_DETAIL_DATA_RESET, PRODUCT_DETAIL_DATA_FAILED, PRODUCT_DETAIL_INFO_STORE, PRODUCT_BUTTON_TAPPED, UPDATE_WISHLIST_ITEM, REMOVE_WISHLIST_ITEM, UPDATE_CART_BUTTON } from "../types";
 import { ProductListAPICall, ProductDetailAPICall, ProductFilterAPICall } from "../../../services/apis/ProductAPI";
-import { SEARCH_API } from '../../../utility/apiUrls';
+import { SEARCH_API, CREATE_SHARE_LINK_API } from '../../../utility/apiUrls';
 import sendRequest from "../../../services/axios/AxiosApiRequest";
 
 
@@ -223,4 +223,46 @@ export const globalSearchAPICall = searchTxt => dispatch =>
             });
     });
 
+
+
+export const createShareLinkApiCall = product_id => dispatch =>
+    new Promise(async (resolve, reject) => {
+        sendRequest({
+            url: CREATE_SHARE_LINK_API,
+            method: 'GET',
+            params: {
+                product_id: product_id
+            },
+        })
+            .then(response => {
+                console.log('Response from CREATE_SHARE_LINK_API : ', response);
+                resolve(response);
+
+            })
+            .catch(err => {
+                console.log('Error from CREATE_SHARE_LINK_API: ', err);
+                reject(err);
+            });
+    });
+
+
+// export const createShareLinkApiCall = product_id => dispatch =>
+//     console.log('product id: ', product_id)
+// new Promise((resolve, _reject) => {
+//     sendRequest({
+//         url: CREATE_SHARE_LINK_API,
+//         method: 'GET',
+//         params: {
+//             product_id: product_id
+//         }
+//     }).
+//         then((response) => {
+//             console.log('Response from CREATE_SHARE_LINK_API : ', response);
+//             resolve(response);
+//         }).
+//         catch((error) => {
+//             console.log('Error from CREATE_SHARE_LINK_API: ', error);
+//             _reject(error)
+//         })
+// })
 

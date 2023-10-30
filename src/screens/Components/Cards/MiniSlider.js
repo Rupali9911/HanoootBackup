@@ -1,3 +1,5 @@
+
+
 import { StyleSheet, View, Image, Dimensions, TouchableOpacity, Linking } from 'react-native';
 import React, { useRef } from 'react'
 import { hp, wp } from '../../../constant/responsiveFunc';
@@ -11,20 +13,30 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const MiniSlider = (props) => {
-    var isCarousel = useRef(null);
-    const navigation = useNavigation();
+    const BannerData = props?.Data;
+
+    const carouselRefs = props.Data.map(() => useRef(null));
+
+    const miniSliderImages = [];
+
+    BannerData && BannerData.forEach((item) => {
+        const title = item?.bannerObj?.tittle;
+        const images = item?.bannerObj[title];
+
+        if (title.includes('mini_slider')) {
+            if (images?.length > 0) {
+                miniSliderImages.push(images);
+            }
+        }
+
+    });
 
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
 
     const renderItem = ({ item, index }) => {
         const externalUrl = item?.product_link
-        // console.log('externalUrl: ', item?.product_link ? 'true' : 'false')
         return (
-            // <Image source={{ uri: item?.image_url }} style={styles.image} key={item?.id} />
-            // <ImageRenderer height={20} width={20} />
-            // width: wp(71.79),
-            //     height: hp(24.63),
             <TouchableOpacity onPress={() => { item?.product_link ? (console.log('pressed'), Linking.openURL(item?.product_link)) : console.log('no url') }}>
                 <ImageRenderer height={hp(24.63)} width={wp(71.79)} style={styles.image} uri={item?.image_url} />
             </TouchableOpacity>
@@ -49,35 +61,51 @@ const MiniSlider = (props) => {
 
 
     return (
+
         <View>
-            <ArrowButton
-                arrowViewStyle={{ left: 10 }}
-                arrowImgStyle={{ transform: [{ rotate: selectedLanguageItem?.language_id === 0 ? '180deg' : '0deg' }] }}
-                onPress={() => { selectedLanguageItem?.language_id === 0 ? isCarousel.snapToPrev() : isCarousel.snapToNext() }}
-            />
-            <Carousel
-                layout="default"
-                data={props.Data?.miniSliderImgs}
-                ref={(carousel) => { isCarousel = carousel; }}
-                loop={true}
-                sliderWidth={Dimensions.get('window').width}
-                itemWidth={wp(71.79)}
-                renderItem={renderItem}
-                useScrollView={true}
-                inactiveSlideShift={0}
-                activeSlideAlignment={'center'}
-                enableMomentum={false}
-                hasParallaxImages={false}
-                lockScrollWhileSnapping={true}
-                scrollEnabled={false}
-            />
+            {
+                miniSliderImages?.map((data, index) => {
+                    return (
+                        <>
+                            <View key={index}>
 
-            <ArrowButton
-                arrowViewStyle={{ right: 10 }}
-                onPress={() => { selectedLanguageItem?.language_id === 0 ? isCarousel.snapToNext() : isCarousel.snapToPrev() }}
-                arrowImgStyle={{ transform: [{ rotate: selectedLanguageItem?.language_id === 0 ? '0deg' : '180deg' }] }}
+                                <ArrowButton
+                                    arrowViewStyle={{ left: 10 }}
+                                    arrowImgStyle={{ transform: [{ rotate: selectedLanguageItem?.language_id === 0 ? '180deg' : '0deg' }] }}
+                                    onPress={() => { selectedLanguageItem?.language_id === 0 ? carouselRefs[index]?.current.snapToPrev() : carouselRefs[index]?.current.snapToNext() }}
+                                    key={index}
+                                />
+                                <Carousel
+                                    layout="default"
+                                    data={data}
+                                    ref={carouselRefs[index]}
+                                    loop={true}
+                                    sliderWidth={Dimensions.get('window').width}
+                                    itemWidth={wp(71.79)}
+                                    renderItem={renderItem}
+                                    useScrollView={true}
+                                    inactiveSlideShift={0}
+                                    activeSlideAlignment={'center'}
+                                    enableMomentum={false}
+                                    hasParallaxImages={false}
+                                    lockScrollWhileSnapping={true}
+                                    scrollEnabled={false}
+                                    key={index}
+                                />
 
-            />
+                                <ArrowButton
+                                    arrowViewStyle={{ right: 10 }}
+                                    onPress={() => { selectedLanguageItem?.language_id === 0 ? carouselRefs[index]?.current.snapToNext() : carouselRefs[index]?.current.snapToPrev() }}
+                                    arrowImgStyle={{ transform: [{ rotate: selectedLanguageItem?.language_id === 0 ? '0deg' : '180deg' }] }}
+                                    key={index}
+                                />
+                            </View>
+                        </>
+                    )
+                })
+            }
+
+
         </View>
     )
 }

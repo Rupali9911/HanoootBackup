@@ -18,6 +18,9 @@ const BASE_API = `${API_BASE_URL}/api/v1`
 const CHECK_PHONE_NUMBER = `${API_BASE_URL}/api/v1/user/check-phone`
 const USER_REGISTER = `${API_BASE_URL}/api/v1/user/register`
 const CATEGORY_LIST = `${API_BASE_URL}/api/v1/category`
+const PARENT_CATEGORY_API = `${API_BASE_URL}/api/v1/category/get-all-parent`
+const SUB_CATEGORY_API = `${API_BASE_URL}/api/v1/category/get-all-sub-category-brand`
+
 
 const PRODUCT_API = `${API_BASE_URL}/api/v1/product`
 
@@ -47,6 +50,13 @@ const SEARCH_API = `${API_BASE_URL}/api/v1/product/search`
 const DELETE_ACCOUNT = `${API_BASE_URL}/api/v1/user/deleteUser`
 
 
+const CREATE_SHARE_LINK_API = `${API_BASE_URL}/api/v1/product/create-link-share-product`
+
+
+const DEEP_LINKING_PRODUCTS_API_CALL = `${API_BASE_URL}/api/v1/product/deep-linking-products`
+
+// https://api.hanooot.com/api/v1/product/deep-linking-products?key=81vRIo5k0M
+
 
 export {
     CHECK_PHONE_NUMBER,
@@ -70,5 +80,9 @@ export {
     SEARCH_API,
     BASE_API,
     COUPON_API,
-    DELETE_ACCOUNT
+    DELETE_ACCOUNT,
+    PARENT_CATEGORY_API,
+    SUB_CATEGORY_API,
+    CREATE_SHARE_LINK_API,
+    DEEP_LINKING_PRODUCTS_API_CALL
 };

@@ -53,7 +53,7 @@ const LegalPolicies = () => {
             <ListItem
                 Text={translate('common.privacypolicy')}
                 onPress={() => {
-                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: translate('common.termsNconditions'), url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
+                    navigation.navigate('PolicyWebViewScreen', { HeadingTitle: translate('common.privacypolicy'), url: 'https://www.sentrypc.com/privacy.htm?gad=1&gclid=EAIaIQobChMItcXAir6IgAMVEheDAx1zzw2jEAAYAiAAEgJFDPD_BwE' })
                 }}
             />
             <ListItem

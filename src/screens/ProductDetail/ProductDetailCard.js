@@ -13,7 +13,7 @@ import { Rating } from 'react-native-ratings';
 import SVGS from '../../constant/Svgs';
 import { showErrorToast } from '../../Components/universal/Toast';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductDetail } from '../Store/actions/productListAction';
+import { getProductDetail, createShareLinkApiCall } from '../Store/actions/productListAction';
 import { showInfoToast } from '../../Components/universal/Toast';
 import { translate } from '../../utility';
 import { formattedPrice } from '../utils';
@@ -24,9 +24,12 @@ const { HeartIconActive, HeartIcon, ShareIcon } = SVGS
 const ProductDetailCard = (props) => {
     const dispatch = useDispatch();
 
-    const [isLike, setLike] = useState(false)
+    // const [isLike, setLike] = useState(false)
 
     const { carouselData, title, avgRating, noOfReview, price, categoryName, productLink, discount } = props;
+
+
+    console.log('check props data : ', carouselData, title, avgRating, noOfReview, price, categoryName, productLink, discount)
     const userData = useSelector((state) => state.userReducer.userData);
     const { productDetail } = useSelector(state => state.productListReducer);
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
@@ -47,15 +50,15 @@ const ProductDetailCard = (props) => {
                             showInfoToast(typeCheck, selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
                         }, 1000);
                     }
-                    setLike(!isLike)
+                    // setLike(!isLike)
                 }
                 else {
-                    setLike(false)
+                    // setLike(false)
                 }
 
             }
             catch (error) {
-                setLike(false)
+                // setLike(false)
                 console.log('Error from add to wishlist API api ', error)
                 showErrorToast()
             }
@@ -67,29 +70,93 @@ const ProductDetailCard = (props) => {
     }
 
     const onShare = async () => {
-        let productName = title
-        // let productUrl = productLink
-        let productUrl = `https://api.hanooot.com/api/v1/user/deeplink`
-        console.log('this is product url : ', productUrl)
+
         try {
-            const result = await Share.share({
-                title: translate('common.productdetail'),
-                url: productUrl,
-                // message: productName + ' ' + productUrl,
-                message: productUrl,
-            });
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
-            }
+            await dispatch(createShareLinkApiCall(props.productId)).
+                then(async (response) => {
+                    if (response?.success) {
+                        const productUrl = response?.data;
+                        try {
+                            console.log('try block')
+                            const result = await Share.share({
+                                title: translate('common.productdetail'),
+                                url: productUrl,
+                                // message: productName + ' ' + productUrl,
+                                message: productUrl,
+                            });
+                            if (result.action === Share.sharedAction) {
+                                if (result.activityType) {
+                                    // shared with activity type of result.activityType
+                                } else {
+                                    // shared
+                                }
+                            } else if (result.action === Share.dismissedAction) {
+                                // dismissed
+                            }
+                        } catch (error) {
+                            console.log('Share error', error)
+                        }
+                    }
+                }).
+                catch((err) => {
+                    console.log(err)
+                })
         } catch (error) {
-            console.log('Share error', error)
+            console.log('createShareLinkApiCall err: ', error)
         }
+
+
+        // // dispatch(globalSearchAPICall(searchTxt))
+        // //     .then(response => {
+        // //         console.log('search result  :', response)
+        // //         setloading(false);
+        // //         if (
+        // //             response?.data?.rows.length > 0
+        // //         ) {
+        // //             console.log('if')
+        // //             setSearchData(response?.data?.rows);
+        // //             // searchTxt ? props.onChangeText(true) : props.onChangeText(false)
+        // //             // props.onChangeText(true)
+        // //         } else {
+        // //             console.log('else')
+        // //             setSearchData([]);
+        // //             // props.onChangeText(false)
+        // //         }
+        // //     })
+        // //     .catch(err => {
+        // //         setloading(false);
+        // //         setSearchData([]);
+        // //     });
+
+
+
+
+
+
+
+        // let productName = title
+        // // let productUrl = productLink
+        // let productUrl = `https://api.hanooot.com/api/v1/user/deeplink`
+        // console.log('this is product url : ', productUrl)
+        // try {
+        //     const result = await Share.share({
+        //         title: translate('common.productdetail'),
+        //         url: productUrl,
+        //         // message: productName + ' ' + productUrl,
+        //         message: productUrl,
+        //     });
+        //     if (result.action === Share.sharedAction) {
+        //         if (result.activityType) {
+        //             // shared with activity type of result.activityType
+        //         } else {
+        //             // shared
+        //         }
+        //     } else if (result.action === Share.dismissedAction) {
+        //         // dismissed
+        //     }
+        // } catch (error) {
+        //     console.log('Share error', error)
+        // }
     };
 
 
@@ -119,47 +186,49 @@ const ProductDetailCard = (props) => {
 
 
     const RatingAndReview = useCallback(() => {
-        const starRating = 2.5; // 3.5-star rating
-        const stars = [];
-        for (let i = 0; i < 5; i++) {
-            if (i < avgRating) {
-                stars.push(
-                    <Image
-                        key={i}
-                        style={{ width: 10, height: 10, resizeMode: 'contain' }}
-                        source={Images.star}
-                    />
-                );
-            } else {
-                stars.push(
-                    <Image
-                        key={i}
-                        style={{ width: 10, height: 10, resizeMode: 'contain', tintColor: Colors.GRAY }}
-                        source={Images.star}
-                    />
-                );
-            }
-        }
+        // const starRating = 2.5; // 3.5-star rating
+        // const stars = [];
+        // for (let i = 0; i < 5; i++) {
+        //     if (i < avgRating) {
+        //         stars.push(
+        //             <Image
+        //                 key={i}
+        //                 style={{ width: 10, height: 10, resizeMode: 'contain' }}
+        //                 source={Images.star}
+        //             />
+        //         );
+        //     } else {
+        //         stars.push(
+        //             <Image
+        //                 key={i}
+        //                 style={{ width: 10, height: 10, resizeMode: 'contain', tintColor: Colors.GRAY }}
+        //                 source={Images.star}
+        //             />
+        //         );
+        //     }
+        // }
 
         return (
-            <View style={{ flexDirection: 'row', gap: 2, alignItems: 'center' }}>
-                <Rating
-                    type='custom'
-                    readonly={true}
-                    startingValue={Number(avgRating)}
-                    ratingCount={5}
-                    imageSize={10}
-                    ratingColor={Colors.YELLOW}
-                    ratingBackgroundColor={Colors.GRAY}
-                />
-                <Text style={{
-                    fontSize: 11,
-                    lineHeight: 21,
-                    letterSpacing: 0.5,
-                    fontFamily: getFonts.REGULAR,
-                    fontWeight: 500
-                }}>{`(${noOfReview})`}</Text>
-            </View >
+            avgRating ?
+                <View style={{ flexDirection: 'row', gap: 2, alignItems: 'center' }}>
+                    <Rating
+                        type='custom'
+                        readonly={true}
+                        startingValue={Number(avgRating)}
+                        ratingCount={5}
+                        imageSize={10}
+                        ratingColor={Colors.YELLOW}
+                        ratingBackgroundColor={Colors.GRAY}
+                    />
+                    <Text style={{
+                        fontSize: 11,
+                        lineHeight: 21,
+                        letterSpacing: 0.5,
+                        fontFamily: getFonts.REGULAR,
+                        fontWeight: 500
+                    }}>{`(${noOfReview})`}</Text>
+                </View >
+                : null
         );
     }, [])
 
@@ -200,12 +269,12 @@ const ProductDetailCard = (props) => {
             />
             <Separator />
 
-
-            <View style={styles.iconCotainer}>
-                <WishlistButton />
-                <ShareButton />
-            </View>
-
+            {carouselData ?
+                <View style={styles.iconCotainer}>
+                    <WishlistButton />
+                    <ShareButton />
+                </View>
+                : null}
             <View style={{ paddingHorizontal: 20 }}>
                 <View style={styles.firstLineView}>
 

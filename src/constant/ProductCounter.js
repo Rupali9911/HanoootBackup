@@ -23,6 +23,7 @@ const ProductCounter = (props) => {
         setIncIndecatorLoading(true)
         try {
             const incVal = props.noOfQty ? (Number(props.noOfQty) + 1) : setCounter(counter + 1);
+            console.log('iincValincVal', incVal)
             const response = await AddtoCartAPICall(props.productId, incVal)
             // console.log(response)
             if (response?.success) {

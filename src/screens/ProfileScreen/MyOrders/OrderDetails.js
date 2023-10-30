@@ -21,7 +21,7 @@ const OrderDetails = (props) => {
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
 
-    console.log('check orderDetail : ', orderDetail)
+    console.log('check orderDetail : ', JSON.stringify(orderDetail))
 
     useEffect(() => {
         console.log('useeffect called')
@@ -56,7 +56,20 @@ const OrderDetails = (props) => {
                 <View style={styles.textContainer}>
                     <Text style={styles.productName}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProduct?.ManagementProductSeo?.product_name : item?.ManagementProduct?.ManagementProductSeo?.product_name_arabic}</Text>
                     <Text style={[styles.orderDetail, { color: Colors.PRICEGRAY }]}>{`${translate('common.quantity')} `}<Text style={{ color: Colors.BLACK }}>{item?.quantity}</Text></Text>
-                    <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]}>{`${formattedPrice(item?.ManagementProduct?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text>
+
+                    {/* <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]}>{`${formattedPrice(item?.ManagementProduct?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text> */}
+
+                    {
+                        item?.ManagementProduct?.ManagementProductPricing?.discount_price_iqd ?
+                            <>
+                                <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]} >{`${formattedPrice(Number(item?.ManagementProduct?.ManagementProductPricing?.discount_price_iqd) * Number(item?.quantity))} ${translate('common.currency_iqd')}`}</Text>
+                                <Text style={styles.productDiscountPrice} >{`${formattedPrice(Number(item?.ManagementProduct?.ManagementProductPricing?.price_iqd) * Number(item?.quantity))} ${translate('common.currency_iqd')}`}</Text>
+                            </>
+                            :
+                            <Text style={[styles.orderDetail, { fontWeight: 600, fontSize: 18 }]} >{`${formattedPrice(Number(item?.ManagementProduct?.ManagementProductPricing?.price_iqd) * Number(item?.quantity))} ${translate('common.currency_iqd')}`}</Text>
+                    }
+
+
                 </View>
             </View>
         );
@@ -154,10 +167,10 @@ const OrderDetails = (props) => {
                                 <Text style={styles.orderDetail}>{`${translate('common.total')}`}</Text>
                                 <Text style={[styles.orderDetail, styles.fontIncrease]}>{`${formattedPrice(orderDetail?.total_amount)} ${translate('common.currency_iqd')}`}</Text>
                             </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={styles.orderDetail}>{`${translate('common.hanoootdiscount')}`}</Text>
                                 <Text style={[styles.orderDetail, styles.fontIncrease]}>{`${formattedPrice(orderDetail?.hanooot_discount)} ${translate('common.currency_iqd')}`}</Text>
-                            </View>
+                            </View> */}
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={styles.orderDetail}>{translate('common.shippingcost')}</Text>
                                 <Text style={[styles.orderDetail, styles.fontIncrease]}>{`${formattedPrice(orderDetail?.shipping_cost)} ${translate('common.currency_iqd')}`}</Text>
@@ -270,5 +283,14 @@ const styles = StyleSheet.create({
         height: 1,
         marginVertical: '3%'
 
-    }
+    },
+    productDiscountPrice: {
+        fontFamily: getFonts.BOLD,
+        lineHeight: 19,
+        letterSpacing: 0.5,
+        // fontWeight: 700,
+        color: Colors.PRICEGRAY,
+        textDecorationLine: 'line-through',
+        textDecorationStyle: 'solid',
+    },
 })

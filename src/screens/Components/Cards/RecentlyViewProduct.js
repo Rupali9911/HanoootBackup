@@ -17,6 +17,7 @@ const RecentlyViewProduct = (props) => {
     const renderItem = ({ item, index }) => {
         return (
             <ListView
+                item={item}
                 centerImage={item?.ManagementProduct?.product_image}
                 productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
                 price={item?.ManagementProduct?.ManagementProductPricing?.price_iqd}
@@ -28,7 +29,8 @@ const RecentlyViewProduct = (props) => {
                 onWishlistPress={props.onWishlistPress}
                 // TextViewStyle={{ height: 80 }}
                 ViewContStyle={{ height: 273 }}
-
+                isHome={true}
+                isHomeType={'RecentView'}
                 discount={item?.ManagementProductPricing?.discount_price_iqd}
             />
         );

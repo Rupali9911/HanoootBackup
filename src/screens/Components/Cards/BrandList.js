@@ -8,22 +8,17 @@ import ImageRenderer from '../../../Components/universal/ImageRender';
 
 const BrandList = (props) => {
     const Data = props.Data;
-    const navigation = useNavigation();
 
 
     const renderBrandList = ({ item, index }) => {
         return (
             <TouchableOpacity
-                style={styles.brandContainer} key={item?.id}
+                style={styles.brandContainer} key={index}
                 // onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: item?.name })}
                 onPress={() => { Linking.openURL('https://www.hanooot.com') }}
-            // key={item?.id}
 
             >
-                {/* <Image
-                    source={{ uri: item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }}
-                    style={styles.brandImage}
-                /> */}
+
                 <ImageRenderer height={hp(9.85)} width={wp(21.33)} style={styles.brandImage} uri={item?.brand_image} />
             </TouchableOpacity>
         );
@@ -35,14 +30,20 @@ const BrandList = (props) => {
 
 
     return (
-        <FlatList
-            data={Data?.brandsList}
-            renderItem={renderBrandList}
-            keyExtractor={keyExtractor}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{ marginHorizontal: wp(6) }}
-        />
+        Data?.brandsList?.map((data, index) => {
+            return (
+                <FlatList
+                    data={data}
+                    renderItem={renderBrandList}
+                    keyExtractor={keyExtractor}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    style={{ marginHorizontal: wp(6) }}
+                    key={index}
+                />
+            )
+        })
+
     );
 }
 

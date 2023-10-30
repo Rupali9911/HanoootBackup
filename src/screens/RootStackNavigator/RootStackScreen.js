@@ -46,6 +46,7 @@ import ViewMoreCategories from '../Categories/ViewMoreCategories';
 import ProductListWithFilters from '../Components/ProductListWithFilters';
 import Splash from '../Splash'
 import ToastScreen from '../../Components/universal/Toast/ToastScreen';
+import DeepLinkProducts from '../ProductDetail/DeepLinkProducts';
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,7 @@ export default function RootStackScreen() {
         <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Home" component={TabComponent} />
             <Stack.Screen name="Splash" component={Splash} />
+            <Stack.Screen name="DeepLinkProducts" component={DeepLinkProducts} />
             <Stack.Screen name="ProductDetail" component={ProductDetail} />
             <Stack.Screen name="CartScreen" component={CartScreen} />
             <Stack.Screen name="UserReview" component={ReviewMainPage} />

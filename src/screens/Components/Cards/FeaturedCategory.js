@@ -25,7 +25,7 @@ const FeaturedCategory = (props) => {
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
 
-    const onAddtoCartPress = async (isCartedItem, productId) => {
+    const onAddtoCartPress = async (isCartedItem, productId, featureCatgId) => {
         try {
             if (!isCartedItem) {
 
@@ -33,7 +33,9 @@ const FeaturedCategory = (props) => {
                 if (response?.success) {
                     setTimeout(() => {
                         console.log('Before dispatch')
-                        dispatch(updateFeaturedCart(productId))
+                        // dispatch(updateFeaturedCart(productId))
+                        // dispatch(updateFeaturedCart({ FeaturedCategory: featureCatgId, ProductId: productId }))
+
                         showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
                     }, 1000);
                 }
@@ -44,8 +46,6 @@ const FeaturedCategory = (props) => {
             else if (isCartedItem) {
                 navigation.navigate('CartScreen', { screen: true })
             }
-
-
         }
         catch (error) {
             console.log('Error from onAddtoCartPress api ', error)
@@ -67,23 +67,23 @@ const FeaturedCategory = (props) => {
         }
     }
 
-    const renderItem = ({ item, index }) => {
+    const renderItem = (item, index, featureCatgId) => {
         return (
             <TouchableOpacity
                 style={styles.listContainer}
                 onPress={() => navigation.push('ProductDetail', { id: item?.id })}
             >
                 <View style={styles.itemImgContainer}>
-                    {/* <Image source={{ uri: item?.product_image }} style={styles.itemImg} /> */}
                     <ImageRenderer height={60} width={60} style={styles.itemImg} uri={item?.product_image} />
 
                 </View>
                 <View style={{ gap: 18 }}>
                     <Text numberOfLines={2} style={styles.itemName}>{selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}</Text>
                     <Text style={styles.itemPrice}>{`${formattedPrice(item?.ManagementProductPricing?.price_iqd)} ${translate('common.currency_iqd')}`}</Text>
+
                 </View>
                 <TouchableOpacity style={styles.cartBtn}
-                    onPress={userData ? () => onAddtoCartPress(item?.isCart, item?.id) : props.onFeatureCartPress}
+                    onPress={userData ? () => onAddtoCartPress(item?.isCart, item?.id, featureCatgId) : props.onFeatureCartPress}
                 >
                     <Text style={styles.cartBtnTxt}>{item?.isCart ? translate('common.viewcart') : translate('common.addtocart')}</Text>
                 </TouchableOpacity>
@@ -95,12 +95,14 @@ const FeaturedCategory = (props) => {
         return index;
     };
 
-    const renderCarousal = ({ item, index }) => {
+    const renderCarousal = (item, index, featureCatgId) => {
         return (
-            <View style={styles.productContainer}>
+            <View style={styles.productContainer} key={index}>
                 <FlatList
                     data={item}
-                    renderItem={renderItem}
+                    // renderItem={renderItem}
+                    renderItem={({ item, index }) => renderItem(item, index, featureCatgId)}
+
                     keyExtractor={keyExtractor}
                     numColumns={3}
                     scrollEnabled={false}
@@ -111,39 +113,47 @@ const FeaturedCategory = (props) => {
     }
 
     return (
-        <View style={styles.mainContainer}>
-            {/* <Image
-                source={{ uri: Data?.featuredCategoryByProduct?.thumbnail_image }}
-                style={styles.bannerImg}
-            /> */}
-            <ImageRenderer height={hp(37.56)} width={wp(86.67)} style={styles.bannerImg} uri={Data?.featuredCategoryByProduct?.thumbnail_image} />
-            <View style={styles.container}>
-                <View style={styles.headingContainer}>
-                    <Text style={styles.title} numberOfLines={2}>{selectedLanguageItem?.language_id === 0 ? Data?.tittle : translate('common.foundontiktok')}</Text>
-                    <TouchableOpacity
-                        style={styles.seeAllBtn}
-                        onPress={() => navigation.navigate('ProductListWithFilters', { category_id: Data?.featuredCategoryByProduct?.category_id, headerTitle: selectedLanguageItem?.language_id === 0 ? Data?.tittle : translate('common.foundontiktok') })}
-                    >
-                        <Text style={styles.seeAllBtnText}>{translate('common.seeall')}</Text>
-                    </TouchableOpacity>
-                </View>
-                {
-                    Data?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts?.length > 0 &&
 
-                    <Carousels
-                        Data={sliceIntoChunks((Data?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts).slice(0, 9), 3)}
-                        renderItem={renderCarousal}
-                        dotsLength={sliceIntoChunks((Data?.featuredCategoryByProduct?.ManagementCategory?.ManagementProducts).slice(0, 9), 3).length}
-                        loop={true}
-                        autoplay={true}
-                        sliderWidth={wp(86.93)}
-                        itemWidth={wp(86.93)}
-                        containerStyle={{ paddingVertical: '5%' }}
-                        enablePagination
-                    />
-                }
-            </View>
-        </View>
+        Data?.featuredCategoryByProductArr?.map((item, index) => {
+            const featureCategoryItem = item
+
+            return (
+                <>
+                    <View style={styles.mainContainer}>
+                        <ImageRenderer height={hp(37.56)} width={wp(86.67)} style={styles.bannerImg} uri={item?.img_url} />
+
+                        <View style={styles.container}>
+                            <View style={styles.headingContainer}>
+                                <Text style={styles.title} numberOfLines={2}>{item?.heading}</Text>
+                                <TouchableOpacity
+                                    style={styles.seeAllBtn}
+                                    onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.category_id, headerTitle: item?.heading })}
+                                >
+                                    <Text style={styles.seeAllBtnText}>{translate('common.seeall')}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            {
+                                item?.ManagementCategory?.ManagementProducts?.length > 0 &&
+
+                                <Carousels
+                                    Data={sliceIntoChunks((item?.ManagementCategory?.ManagementProducts)?.slice(0, 9), 3)}
+                                    // renderItem={renderCarousal}
+                                    renderItem={({ item, index }) => renderCarousal(item, index, featureCategoryItem?.id)}
+
+                                    dotsLength={sliceIntoChunks((item?.ManagementCategory?.ManagementProducts)?.slice(0, 9), 3)?.length}
+                                    loop={true}
+                                    autoplay={true}
+                                    sliderWidth={wp(86.93)}
+                                    itemWidth={wp(86.93)}
+                                    containerStyle={{ paddingVertical: '5%' }}
+                                    enablePagination
+                                />
+                            }
+                        </View>
+                    </View>
+                </>
+            )
+        })
     )
 }
 

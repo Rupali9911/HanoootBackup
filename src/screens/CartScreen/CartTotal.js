@@ -13,10 +13,10 @@ const CartTotal = (props) => {
                 <Text style={styles.Text}>{translate('common.subtotal')}({props.total_Item} {translate('common.itemCap')})</Text>
                 <Text style={[styles.Text, { fontWeight: 'bold' }]}>{`${formattedPrice(props?.total_cost)} ${translate('common.currency_iqd')}`}</Text>
             </View>
-            <View style={styles.container}>
+            {/* <View style={styles.container}>
                 <Text style={styles.Text}>{translate('common.hanoootdiscount')}</Text>
                 <Text style={[styles.Text, { fontWeight: 'bold' }]}>{`${formattedPrice(props?.total_hanooot_discount)} ${translate('common.currency_iqd')}`}</Text>
-            </View>
+            </View> */}
             <View style={styles.container}>
                 <Text style={styles.Text}>{translate('common.coupondiscount')}</Text>
                 <Text style={[styles.Text, { fontWeight: 'bold', color: Colors.GREEN }]}>{`0 ${translate('common.currency_iqd')}`}</Text>

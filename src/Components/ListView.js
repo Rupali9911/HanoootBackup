@@ -16,7 +16,7 @@ import { translate } from '../utility'
 import { formattedPrice, getFonts } from '../screens/utils'
 import ImageRenderer from './universal/ImageRender'
 import { removeWishlistProduct, updateWishlistProduct } from '../screens/Store/actions/productListAction'
-
+import { updateNewArrivalLike, removeNewArrivalLike, updateSuggestedLike, removeSuggestedLike, updateRecentViewLike, removeRecentViewLike } from '../screens/Store/actions/HomeAction'
 
 const { HeartIconActive, HeartIcon, DiscountTag } = SVGS
 
@@ -44,7 +44,7 @@ const ListView = (props) => {
     // console.log('averageRating : ', averageRating,noOfReview)
 
 
-    console.log('CHECK Product items : ', item)
+    console.log('CHECK Product items : ', item, '------------', item?.isLike)
 
 
 
@@ -66,10 +66,10 @@ const ListView = (props) => {
 
     const flippedIconStyle = I18nManager.isRTL ? { transform: [{ scaleX: -1 }] } : {};
 
-
+    console.log('props.isHome', props.isHome)
     var total = 0
     const addToWishlistProduct = async (id) => {
-        console.log('addToWishlistProduct', id)
+        // console.log('addToWishlistProduct', id)
         if (userData) {
             try {
                 // await addToWishlistAPICall(detailId);    
@@ -80,7 +80,24 @@ const ListView = (props) => {
 
                     const infoMsg = selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic;
                     if (response?.message == 'product added successfully in wishlist') {
-                        dispatch(updateWishlistProduct(id))
+                        // props.isHome && setLiked(true)
+
+                        props.isHome && props?.isHomeType == 'NewArrival'
+                            ?
+                            dispatch(updateNewArrivalLike(id))
+                            :
+                            props.isHome && props?.isHomeType == 'Suggested'
+                                ?
+                                dispatch(updateSuggestedLike(id))
+                                :
+                                props.isHome && props?.isHomeType == 'RecentView'
+                                    ?
+                                    dispatch(updateRecentViewLike(id))
+                                    :
+                                    dispatch(updateWishlistProduct(id))
+
+
+
                         showInfoToast('SUCCESS', infoMsg)
 
 
@@ -90,7 +107,22 @@ const ListView = (props) => {
                         // }, 500);
                     }
                     else {
-                        dispatch(removeWishlistProduct(id))
+                        // props.isHome && setLiked(false)
+                        props.isHome && props?.isHomeType == 'NewArrival'
+                            ?
+                            dispatch(removeNewArrivalLike(id))
+                            :
+                            props.isHome && props?.isHomeType == 'Suggested'
+                                ?
+                                dispatch(removeSuggestedLike(id))
+                                :
+                                props.isHome && props?.isHomeType == 'RecentView'
+                                    ?
+                                    dispatch(removeRecentViewLike(id))
+                                    :
+                                    dispatch(removeWishlistProduct(id))
+
+
                         showInfoToast('REMOVE', infoMsg)
                         // setTimeout(() => {
                         //     setLiked(false)
@@ -134,6 +166,7 @@ const ListView = (props) => {
     };
 
 
+
     return (
         <View style={[props.mainContainer]}>
             <TouchableOpacity
@@ -151,9 +184,9 @@ const ListView = (props) => {
                         showLike
                             ?
                             <TouchableOpacity
-                                onPress={userData ? () => addToWishlistProduct(item?.id) : props.onWishlistPress}
+                                onPress={userData ? () => addToWishlistProduct(props.isHome && props?.isHomeType == 'RecentView' ? item?.product_id : item?.id) : props.onWishlistPress}
                             >
-                                {isLiked ? <HeartIconActive /> : <HeartIcon />}
+                                {item?.isLike ? <HeartIconActive /> : <HeartIcon />}
                             </TouchableOpacity>
                             : null
                     }

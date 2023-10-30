@@ -8,9 +8,10 @@ import Colors from '../../constant/Colors'
 import ImageRenderer from '../../Components/universal/ImageRender'
 
 const ProductImageCarousel = (props) => {
-    // console.log('props?.data.length : ', props?.data.length, props?.data)
+    console.log('props?.data.length : ', props?.data.length, props?.data)
 
     const renderItem = ({ item, index }) => {
+        console.log('her eis reder image : ', item)
         return (
             <View style={{ padding: 10 }} key={index}>
                 {/* <Image

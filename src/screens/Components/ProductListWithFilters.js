@@ -72,6 +72,7 @@ const ProductListWithFilters = (props) => {
                     detailId={item?.id}
                     ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), height: 273 }}
                     onWishlistPress={() => setModalVisible(true)}
+                // isHome={true}
                 />
                 :
                 DATA?.isNavigationSection === 'SuggestedProducts'
@@ -90,6 +91,8 @@ const ProductListWithFilters = (props) => {
                         ViewContStyle={{ width: wp('100%') / 2 - wp('5%') }}
                         onWishlistPress={() => setModalVisible(true)}
                         discount={item?.ManagementProductPricing?.discount_price_iqd}
+                    // isHome={true}
+
                     />
                     :
                     DATA?.isNavigationSection === 'RecentlyViewProduct'
@@ -107,6 +110,8 @@ const ProductListWithFilters = (props) => {
                             ViewContStyle={{ width: wp('100%') / 2 - wp('5%'), }}
                             onWishlistPress={() => setModalVisible(true)}
                             discount={item?.ManagementProductPricing?.discount_price_iqd}
+                        // isHome={true}
+
                         />
                         :
                         DATA?.isNavigationSection === 'Search'

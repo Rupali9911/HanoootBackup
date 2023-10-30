@@ -18,6 +18,7 @@ const SuggestedProducts = (props) => {
     const renderItem = ({ item, index }) => {
         return (
             <ListView
+                item={item}
                 centerImage={item?.product_image}
                 productName={selectedLanguageItem?.language_id === 0 ? item?.ManagementProductSeo?.product_name : item?.ManagementProductSeo?.product_name_arabic}
                 price={item?.ManagementProductPricing?.price_iqd}
@@ -29,7 +30,8 @@ const SuggestedProducts = (props) => {
                 onWishlistPress={props.onWishlistPress}
                 // TextViewStyle={{ height: 80 }}
                 ViewContStyle={{ height: 273 }}
-
+                isHome={true}
+                isHomeType={'Suggested'}
                 discount={item?.ManagementProductPricing?.discount_price_iqd}
             />
         );

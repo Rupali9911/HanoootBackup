@@ -89,7 +89,7 @@ axiosInstance.interceptors.response.use(
 
 
 
-          config.headers['x-amz-tagging'] = freshToken
+          // config.headers['x-amz-tagging'] = freshToken
           config.headers['Authorization'] = freshToken
         } else {
           config.headers['Authorization'] = freshToken;

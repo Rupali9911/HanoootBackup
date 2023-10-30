@@ -29,7 +29,12 @@ const ImageRenderer = (props) => {
             style={props.style}
             resizeMode={props.resizeMode} />;
     } else {
-        return <View />;
+        return <Image
+            source={{ uri: uri }}
+            height={props.height}
+            width={props.width}
+            style={props.style}
+            resizeMode={props.resizeMode} />;
     }
 }
 

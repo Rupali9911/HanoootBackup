@@ -17,6 +17,7 @@ import { hp, wp } from '../../constant/responsiveFunc'
 import { translate } from '../../utility'
 import SVGS from '../../constant/Svgs'
 import { getFonts } from '../utils'
+import { setTappedButtonName } from '../Store/actions/productListAction'
 
 const { EmptyCart } = SVGS;
 
@@ -82,7 +83,10 @@ const CartScreen = (props) => {
           cartItems?.length !== 0 && !isCartDataLoading &&
           <View style={styles.buttonContainer}>
             <AppButton label={translate('common.proceedcheckout')}
-              onPress={() => navigation.navigate('CheckoutScreen')}
+              onPress={() => {
+                dispatch(setTappedButtonName(false))
+                navigation.navigate('CheckoutScreen')
+              }}
             />
           </View>
         }

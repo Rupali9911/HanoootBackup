@@ -40,9 +40,17 @@ const ReviewOrder = (props) => {
 
 
 
-  const [quantity, setQuantity] = useState(productQtyIdInfo?.productQty)
+  const [quantity, setQuantity] = useState()
   const [shippingAmount, setShippingAmount] = useState()
   const [couponApplied, setCouponApplied] = useState(false)
+
+  console.log('coupon success', couponApplied)
+
+
+  let buyNowQty = productQtyIdInfo?.productQty;
+
+  console.log('quansdjfisdfskfisfsdifs: ', quantity)
+
 
   const isLoading = isBuyNowButton ? isProductLoading : isCartDataLoading;
   const data = isBuyNowButton ? ProductData : cartData;
@@ -62,7 +70,7 @@ const ReviewOrder = (props) => {
   console.log('costAfterApplyCpn', costAfterApplyCpn)
   useEffect(() => {
     if (isBuyNowButton) {
-      dispatch(getBuyNowData(productQtyIdInfo?.productId, productQtyIdInfo?.productQty))
+      dispatch(getBuyNowData(productQtyIdInfo?.productId, buyNowQty))
     }
     else {
       dispatch(getItemsFromCart(1));
@@ -102,10 +110,10 @@ const ReviewOrder = (props) => {
             <Text style={styles.priceLeftText}>{translate('common.subtotal')} ({listItems?.length} {translate('common.item')})</Text>
             <Text style={styles.price}>{`${formattedPrice(data?.total_cost)} ${translate('common.currency_iqd')}`}</Text>
           </View>
-          <View style={styles.rowCont}>
+          {/* <View style={styles.rowCont}>
             <Text style={styles.priceLeftText}>{translate('common.hanoootdiscount')}</Text>
             <Text style={styles.price}>{`${formattedPrice(data?.total_hanooot_discount)} ${translate('common.currency_iqd')}`}</Text>
-          </View>
+          </View> */}
           <View style={styles.rowCont}>
             <Text style={styles.priceLeftText}>{translate('common.shippingcost')}</Text>
             <Text style={styles.price}>{`${formattedPrice(shippingCost)} ${translate('common.currency_iqd')}`}</Text>
@@ -117,7 +125,7 @@ const ReviewOrder = (props) => {
           <Separator separatorStyle={{ width: wp(90) }} />
           <View style={styles.rowCont}>
             <Text style={styles.TotalPrice}>{translate('common.total')} </Text>
-            <Text style={styles.TotalPrice}>{`${formattedPrice(Number(data?.total_payable_cost) + Number(costAfterApplyCpn))} ${translate('common.currency_iqd')}`}</Text>
+            <Text style={styles.TotalPrice}>{`${formattedPrice((isBuyNowButton ? Number(data?.total_cost) : Number(data?.total_payable_cost)) + Number(costAfterApplyCpn))} ${translate('common.currency_iqd')}`}</Text>
           </View>
         </View>
       </>
@@ -184,15 +192,18 @@ const ReviewOrder = (props) => {
           onIncrement={(data) => {
             if (data?.success === true) {
               // dispatch(getItemsFromCart(1))
-
+              console.log('ReviewItemDetail', item?.product_id, quantity)
               if (isBuyNowButton) {
-                dispatch(getBuyNowData(productQtyIdInfo?.productId, quantity))
+                console.log('is buy now callled: ', item?.product_id, item?.quantity)
+                dispatch(getBuyNowData(item?.product_id, buyNowQty))
               }
               else {
                 dispatch(getItemsFromCart(1));
               }
             }
-          }} />
+          }}
+          getCounterValue={(qty) => { console.log('here is quianity and  set it: ', qty), setQuantity(Number(qty)), buyNowQty = qty }}
+        />
       </>
     );
   }
@@ -205,7 +216,7 @@ const ReviewOrder = (props) => {
           {
             address_id: props.AddressId,
             product_id: productQtyIdInfo?.productId,
-            quantity: quantity,
+            quantity: buyNowQty,
             payment_method: "COD",
             shipping_cost: Number(costAfterApplyCpn),
             promocode: couponSucess[0]?.code
@@ -217,9 +228,9 @@ const ReviewOrder = (props) => {
             shipping_cost: Number(costAfterApplyCpn),
             promocode: couponSucess[0]?.code
           }
-      console.log('data from order : ', data)
+      // console.log('data from order : ', data)
       const orderPlaced = await PlaceOrderAPICall(data);
-      console.log('orderPlaced', orderPlaced)
+      // console.log('orderPlaced', orderPlaced)
 
 
       if (orderPlaced?.success) {

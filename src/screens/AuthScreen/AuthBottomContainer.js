@@ -96,12 +96,15 @@ const AuthBottomContainer = (props) => {
             </View>
 
             <View style={styles.SocialIconContainer}>
-                <SocialIconSection
-                    onPress={onPressGoggle}
-                    Text={translate('common.google')}
-                >
-                    <Google />
-                </SocialIconSection>
+                {Platform.OS != 'ios' &&
+
+                    <SocialIconSection
+                        onPress={onPressGoggle}
+                        Text={translate('common.google')}
+                    >
+                        <Google />
+                    </SocialIconSection>
+                }
                 {/* <SocialIconSection
                     onPress={onPressFacebook}
                     Image={Images.FacebookIcon}

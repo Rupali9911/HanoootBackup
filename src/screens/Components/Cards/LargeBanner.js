@@ -1,33 +1,25 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Carousels from '../Carousel'
-import { hp, wp } from '../../../constant/responsiveFunc'
 import ImageRenderer from '../../../Components/universal/ImageRender'
+import { hp, wp } from '../../../constant/responsiveFunc'
 
 const LargeBanner = (props) => {
-    const Data = props.Data;
-
-    const renderItem = ({ item, index }) => {
-        return (
-            // <Image source={{ uri: item?.image_url }} style={{ width: wp(86.93), height: hp(11.26), alignSelf: 'center', borderRadius: 10 }} key={item?.id} />
-            <ImageRenderer height={hp(11.26)} width={wp(86.93)} style={{ alignSelf: 'center', borderRadius: 10 }} uri={item?.image_url} resizeMode={'cover'} key={item?.id} />
-        );
-    }
-
     return (
-        <View style={{ alignItems: 'center', marginTop: hp(3) }}>
-            <Carousels
-                Data={Data?.extraLargeBanner}
-                renderItem={renderItem}
-                dotsLength={Data?.extraLargeBanner.length}
-                loop={true}
-                autoplay={true}
-                sliderWidth={wp(86.93)}
-                itemWidth={wp(86.93)}
-                containerStyle={{ paddingVertical: '5%' }}
-                enablePagination
-            />
+        <View>
+            {
+                props?.Data?.map((data, index) => {
+                    return data?.map((item, idx) => {
+                        console.log('inside array', item?.image_url)
+                        return (
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: hp(3) }} key={idx}>
+                                <ImageRenderer height={hp(24.94)} width={wp(86.93)} style={{ marginBottom: '2%', borderRadius: 10 }} uri={item?.image_url} resizeMode={'cover'} />
+                            </View>
+                        )
+                    })
+                })
+            }
         </View>
+
     )
 }
 

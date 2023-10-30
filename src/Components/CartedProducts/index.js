@@ -23,7 +23,7 @@ const CartProductCards = (props) => {
     const { isBuyNowButton } = useSelector(state => state.productListReducer);
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
-    const data = isBuyNowButton ? ProductData : cartData;
+    const detailOfProducts = isBuyNowButton ? ProductData : cartData;
 
 
     const getVariations = (data) => {
@@ -41,13 +41,20 @@ const CartProductCards = (props) => {
     }
 
     const getTime = (val) => {
-        if (val.includes('-')) {
-            let newStr = val.replace(/-/g, "").trim();
-            const time = newStr.split(' ');
+        console.log('here is time value', val)
+        // if (val?.includes('-')) {
+        let newStr = val.replace(/-/g, "").trim();
+        const time = newStr.split(' ');
 
-            // return `${time[0]}hr ${time[1]}mins.`
-            return `${time[0]}${translate('common.hours')} ${time[1]}${translate('common.minutes')}`
-        }
+        // return `${time[0]}hr ${time[1]}mins.`
+        return `${time[0]}${translate('common.hours')} ${time[1]}${translate('common.minutes')}`
+        // }
+
+
+        // let newStr = val.replace(/-/g, "").trim();
+        // const time = newStr.split(' ');
+
+        // return `${time[0]}${translate('common.hours')} ${time[1]}${translate('common.minutes')}`
     }
 
     const getDeliveryInfo = () => {
@@ -56,11 +63,11 @@ const CartProductCards = (props) => {
                 <Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.estimateddeliveryon')} <Text style={{
                     color: Colors.BLACK,
                     fontFamily: getFonts.BOLD
-                }}>{estimatedDelivery(cartData?.deliveryDays?.delivery)}</Text></Text>
+                }}>{estimatedDelivery(detailOfProducts?.deliveryDays?.delivery)}</Text></Text>
                 < Text style={[styles.itemDetail, { color: Colors.PRICEGRAY }]}>{translate('common.orderwithin')}  <Text style={{
                     color: Colors.BLACK,
                     fontFamily: getFonts.BOLD
-                }}>{getTime(cartData?.deliveryDays?.time)}</Text></Text>
+                }}>{getTime(detailOfProducts?.deliveryDays?.time)}</Text></Text>
             </>
         )
     }
@@ -92,13 +99,13 @@ const CartProductCards = (props) => {
                     {/* <Text style={styles.itemName} >{item?.hanoootDiscount ? `${formattedPrice(item?.hanoootDiscount)} ${translate('common.currency_iqd')}` : null}</Text> */}
 
                     {
-                        item?.hanoootDiscount ?
+                        item?.ManagementProduct?.ManagementProductPricing?.discount_price_iqd ?
                             <>
-                                <Text style={styles.itemName} >{`${formattedPrice(item?.hanoootDiscount)} ${translate('common.currency_iqd')}`}</Text>
-                                <Text style={styles.productDiscountPrice} >{`${formattedPrice(item?.price)} ${translate('common.currency_iqd')}`}</Text>
+                                <Text style={styles.itemName} >{`${formattedPrice(Number(item?.ManagementProduct?.ManagementProductPricing?.discount_price_iqd) * Number(item?.quantity))} ${translate('common.currency_iqd')}`}</Text>
+                                <Text style={styles.productDiscountPrice} >{`${formattedPrice(Number(item?.ManagementProduct?.ManagementProductPricing?.price_iqd) * Number(item?.quantity))} ${translate('common.currency_iqd')}`}</Text>
                             </>
                             :
-                            <Text style={styles.itemName} >{`${formattedPrice(item?.price)} ${translate('common.currency_iqd')}`}</Text>
+                            <Text style={styles.itemName} >{`${formattedPrice(Number(item?.ManagementProduct?.ManagementProductPricing?.price_iqd) * Number(item?.quantity))} ${translate('common.currency_iqd')}`}</Text>
                     }
 
                     {/* {
@@ -119,7 +126,7 @@ const CartProductCards = (props) => {
                 onRemovePress={props.onRemovePress}
                 productId={item?.product_id}
                 onIncrement={props.onIncrement}
-                getCount={(val) => { console.log(val) }}
+                getCount={(val) => props.getCounterValue(val)}
                 quantity={item?.quantity}
                 isRemoveShow={props.isRemoveShow}
             />

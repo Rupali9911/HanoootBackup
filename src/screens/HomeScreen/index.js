@@ -12,7 +12,7 @@ import RecentlyViewProduct from '../Components/Cards/RecentlyViewProduct';
 import SuggestedProducts from '../Components/Cards/SuggestedProducts';
 import TopPicks from '../Components/Cards/TopPicks';
 import BannerCollage from '../Components/Cards/BannerCollage';
-import LargeBanner from '../Components/Cards/LargeBanner';
+import LargeBanner from '../Components/Cards/ExtraLargeBanner';
 import BrandList from '../Components/Cards/BrandList';
 import CategoryList from '../Components/Cards/CategoryList';
 import { getHomeCollection, homeDataLoadingStart, updateFeaturedCart, homeDataReset } from '../Store/actions/HomeAction';
@@ -52,33 +52,48 @@ export default function HomeScreen() {
       );
    }
 
-   const renderHomeData = (key, value) => {
-      console.log('render Data : ', key, value)
-      switch (key) {
-         case 'miniSliderJson':
-            return <MiniSlider Data={value} />
-         case 'featuredCategoryByProductJson':
-            return <FeaturedCategory Data={value} onFeatureCartPress={() => setModalVisible(true)} />
-         case 'brandsListJson':
-            return <BrandList Data={value} />
-         case 'newArrivalProductListJson':
-            return <NewArrivals Data={value} onWishlistPress={() => setModalVisible(true)} />
-         case 'bannerCollageJson':
-            return <BannerCollage Data={value} />
-         case 'topPicksJson':
-            return <TopPicks Data={value} onTopPicksCartPress={() => setModalVisible(true)} />
-         case 'largeBannerJson':
-            return <LargeBanner Data={value} />
-         case 'listOfRecentViewProductJson':
-            return <RecentlyViewProduct Data={value} onWishlistPress={() => setModalVisible(true)} />
-         case 'suggestedProductsJson':
-            return <SuggestedProducts Data={value} onWishlistPress={() => setModalVisible(true)} />
-         case 'categoryList':
-            return <CategoryList Data={value} />
-         default:
-            return null;
-      }
-   }
+   const renderHomeData = (data) => {
+      const renderOrder = [
+         'miniSlider',
+         'featuredCategoryByProductJson',
+         'brandsListJson',
+         'newArrivalProductListJson',
+         'bannerCollageJson',
+         'topPicksJson',
+         'listOfRecentViewProductJson',
+         'suggestedProductsJson',
+         'categoryList',
+      ];
+
+      return renderOrder.map((key) => {
+         const value = data[key];
+         // if (value) {
+         switch (key) {
+            case 'miniSlider':
+               return <MiniSlider Data={data?.bannerCollageJson} />;
+            case 'featuredCategoryByProductJson':
+               return <FeaturedCategory Data={value} onFeatureCartPress={() => setModalVisible(true)} />
+            case 'brandsListJson':
+               return <BrandList Data={value} />;
+            case 'newArrivalProductListJson':
+               return <NewArrivals Data={value} onWishlistPress={() => setModalVisible(true)} />;
+            case 'bannerCollageJson':
+               return <BannerCollage Data={value} />;
+            case 'topPicksJson':
+               return <TopPicks Data={value} onTopPicksCartPress={() => setModalVisible(true)} />;
+            case 'listOfRecentViewProductJson':
+               return <RecentlyViewProduct Data={value} onWishlistPress={() => setModalVisible(true)} />;
+            case 'suggestedProductsJson':
+               return <SuggestedProducts Data={value} onWishlistPress={() => setModalVisible(true)} />;
+            case 'categoryList':
+               return <CategoryList Data={value} />;
+            default:
+               return null;
+            // }
+         }
+         return null;
+      });
+   };
 
    const pullToRefreshFunction = () => {
       dispatch(homeDataReset())
@@ -104,19 +119,20 @@ export default function HomeScreen() {
                            onRefresh={pullToRefreshFunction}
                         />}
                   >
-
-                     {
+                     {renderHomeData(HomeCollection)}
+                     {/* {
                         Object.keys(HomeCollection).map((key, value) => {
                            return (
                               <>
                                  <View key={key}>
                                     {renderHomeData(key, HomeCollection[key])}
+                                    {renderHomeData(HomeCollection)}
                                  </View>
                               </>
                            )
 
                         })
-                     }
+                     } */}
                   </ScrollView>
                   :
                   renderNoDataFound()

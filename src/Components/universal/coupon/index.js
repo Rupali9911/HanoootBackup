@@ -46,16 +46,18 @@ const CouponDetail = (props) => {
 
     function areCharactersSameIgnoreCase(str1, str2) {
         // Convert both strings to lowercase and compare
-        return str1.toLowerCase() === str2.toLowerCase();
+        console.log('couon checkL: ', str1, str2)
+        return str1?.toLowerCase() === str2?.toLowerCase();
     }
 
 
 
     const handleSubmit = () => {
+        dispatch(getCoupon());
+
         var color;
         if (couponCode != '') {
             if (areCharactersSameIgnoreCase(couponCode, couponSucess[0]?.discountType) && btnText != translate('common.change')) {
-                dispatch(getCoupon());
 
                 props.couponEnable(true)
                 // setCouponEnable(true)

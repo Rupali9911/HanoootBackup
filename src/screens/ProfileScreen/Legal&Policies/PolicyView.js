@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import AppBackground from '../../Components/AppBackground'
 import AppHeader from '../../Components/AppHeader'
-// import { WebView } from 'react-native-webview';
+import { WebView } from 'react-native-webview';
 import Colors from '../../../constant/Colors';
 
 const PolicyView = (props) => {
@@ -30,15 +30,15 @@ const PolicyView = (props) => {
             />
 
             <View style={styles.container}>
-                {/* <WebView
+                <WebView
                     style={{ flex: 1 }}
                     source={{ uri: uri }}
-                    javaScriptEnabled={true}                  
+                    javaScriptEnabled={true}
                     domStorageEnabled={true}
                     onLoadStart={() => setVisible(true)}
                     onLoad={() => setVisible(false)}
                 />
-                {visible ? <IndicatorLoadingView /> : null} */}
+                {visible ? <IndicatorLoadingView /> : null}
             </View>
         </AppBackground>
 

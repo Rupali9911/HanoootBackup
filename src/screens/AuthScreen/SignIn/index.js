@@ -191,7 +191,7 @@ const Login = (props) => {
                                     error={error['emailErr']}
                                 />
                                 <AppInput
-                                    label={translate('common.enteryouremailaddress')}
+                                    label={translate('common.password')}
                                     placeholder={translate('common.enteryourpassword')}
                                     required
                                     rightComponent

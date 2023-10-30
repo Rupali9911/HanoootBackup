@@ -1,4 +1,11 @@
-import { CATEGORY_LIST_LOADING, CATEGORY_LIST_SUCCESS, CATEGORY_LIST_FAIL, CATEGORY_LIST_RESET, CATEGORY_PAGE_CHANGE, SUB_CATEGORY_LIST } from "../types";
+import {
+    CATEGORY_LIST_LOADING, CATEGORY_LIST_SUCCESS, CATEGORY_LIST_FAIL, CATEGORY_LIST_RESET, CATEGORY_PAGE_CHANGE, SUB_CATEGORY_LIST,
+    SUB_CATEGORY_LIST_LOADING,
+    SUB_CATEGORY_LIST_SUCCESS,
+    SUB_CATEGORY_LIST_FAIL,
+    SUB_CATEGORY_LIST_RESET,
+    SUB_CATEGORY_PAGE_CHANGE
+} from "../types";
 
 const initialState = {
 
@@ -6,8 +13,16 @@ const initialState = {
     categoryList: [],
     categoryFailed: '',
     categoryPageNum: 1,
+    // subCategoryList: {},
+    categoryTotalCounts: 0,
+
+
+    subCatgListLoading: false,
     subCategoryList: {},
-    categoryTotalCounts: 0
+    subCategoryFailed: '',
+    subCategoryPageNum: 1,
+    subCatgTotalCounts: 0,
+
 
 }
 
@@ -40,13 +55,43 @@ const categoryReducer = (state = initialState, action) => {
         case CATEGORY_PAGE_CHANGE:
             return (state = { ...state, categoryPageNum: action.payload });
 
-        case SUB_CATEGORY_LIST:
+
+
+        case SUB_CATEGORY_LIST_LOADING:
+            return { ...state, subCatgListLoading: true };
+
+        case SUB_CATEGORY_LIST_SUCCESS:
             return {
                 ...state,
                 subCategoryList: {
                     ...action.payload,
                 },
+                subCatgTotalCounts: action.payload.count,
+                subCatgListLoading: false,
+                subCategoryFailed: ''
             };
+
+        case SUB_CATEGORY_LIST_FAIL:
+            return {
+                ...state,
+                subCategoryFailed: action.payload,
+                subCatgListLoading: false,
+            };
+
+        case SUB_CATEGORY_LIST_RESET:
+            return (state = { ...state, subCategoryList: {} });
+
+        case SUB_CATEGORY_PAGE_CHANGE:
+            return (state = { ...state, subCategoryPageNum: action.payload });
+
+
+        // case SUB_CATEGORY_LIST:
+        //     return {
+        //         ...state,
+        //         subCategoryList: {
+        //             ...action.payload,
+        //         },
+        //     };
 
         default:
             return state;
