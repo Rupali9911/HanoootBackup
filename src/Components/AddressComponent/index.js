@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontFamily: getFonts.SEMI_BOLD,
+
         fontWeight: 600,
         color: Colors.themeColor
     },
