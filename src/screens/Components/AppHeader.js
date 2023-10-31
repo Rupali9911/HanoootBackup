@@ -25,8 +25,6 @@ export default function AppHeader(props) {
   const userData = useSelector((state) => state.userReducer.userData);
   const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
-
-
   const RightSideIcon = (props) => {
     return (
       <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
@@ -37,19 +35,13 @@ export default function AppHeader(props) {
           ]}
           onPress={props.onPress}>
           {props.children}
-          {/* <Image source={props.image} style={styles.rightIcon} /> */}
         </TouchableOpacity>
       </View>
     );
   }
 
-  const renderToastMsg = () => {
-    // showErrorToast(translate('common.shoppingNeedsText'), translate('common.pleaseloginfirst'))
-  }
-
   return (
 
-    // <View style={[styles.container(isSearch), props.mainContainerStyle]}>
     <View style={[styles.container, props.mainContainerStyle]}>
       <View style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
         {props.showBackButton ? (
@@ -73,17 +65,11 @@ export default function AppHeader(props) {
 
       <View style={[styles.mainTitleStyle, props.titleComponentStyle]}>
         {props.placeholderText ? (
-          // <View style={{}}>
           <View style={{ flex: 1, width: '100%', justifyContent: 'center', zIndex: 999 }}>
             <AppSearch placeholderText={props.placeholderText} onChangeText={(val) => setSearch(val)} onCrossPress={props.onCrossPress} />
           </View>
         ) :
           props.Logo ?
-            // <Image source={Images.HanoootLogo} style={{
-            //   width: 90,
-            //   height: 60,
-            //   resizeMode: 'contain'
-            // }} />
             <HanoootLogo />
             :
             (
@@ -102,31 +88,22 @@ export default function AppHeader(props) {
             )}
       </View>
 
-
-
-
-
-
       <View style={{ alignItems: 'flex-end', justifyContent: 'center', height: '100%' }}>
         <View style={{ flexDirection: 'row' }}>
           {
             props.showLikeIcon &&
             <RightSideIcon
-              // onPress={props.onLikePress}
               onPress={props.onWishlistPress}
-            // image={Images.Wishlist}
 
             >
               <HeartIconBlack width={SIZE(20)} height={SIZE(20)} />
             </RightSideIcon>
-
           }
 
           {
             props.showSearchIcon &&
             <RightSideIcon
               onPress={props.onSearchPress}
-            // image={Images.searchIcon}
             >
               <SearchIcon width={SIZE(20)} height={SIZE(20)} />
             </RightSideIcon>
@@ -136,7 +113,6 @@ export default function AppHeader(props) {
             props.showCartIcon &&
             <RightSideIcon
               onPress={props.onCartPress}
-            // image={Images.cart}
             >
               <CartBlackIcon width={SIZE(20)} height={SIZE(20)} />
             </RightSideIcon>
@@ -154,50 +130,6 @@ export default function AppHeader(props) {
           </TouchableOpacity>
         )}
       </View>
-
-
-
-
-
-
-      {/* 
-      {props.Search &&
-        <View style={{ width: props.showBackButton && !isSearch ? wp(90) : wp(100) }}>
-          <AppSearch placeholderText={props.placeholderText} onChangeText={(val) => setSearch(val)} />
-        </View>
-      }
-
-      {
-        props.title &&
-        <View style={[styles.titleContainer, props.titleContainerStyle   ,{ justifyContent: props.showRightComponent ? 'space-between' : 'center', width: props.showBackButton && props.showRightComponent ? wp(90) : wp(100), }]}>
-          <Text style={[styles.title, props.titleStyle]} numberOfLines={1}>{props.title}</Text>
-          {props.showRightComponent &&
-            <TouchableOpacity
-              onPress={props.onPressRight}
-              style={{marginRight: '5%'}}
-              >
-                
-              {
-                props.isWishlist ?
-                  <Image
-                    style={[
-                      styles.likeIcon,
-                    ]}
-                    source={Images.Wishlist}
-                  />
-                  :
-                  <Text
-                    style={[styles.title, { color: Colors.themeColor }]}
-                  >Cancel</Text>
-              }
-            </TouchableOpacity>
-          }
-        </View>
-      } */}
-
-
-
-
     </View >
 
 
@@ -300,6 +232,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // backgroundColor: 'blue'
     // width: '100%',
-
   }
 })

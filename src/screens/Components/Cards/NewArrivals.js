@@ -13,7 +13,6 @@ const NewArrivals = (props) => {
     const navigation = useNavigation();
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
-
     const renderItem = ({ item, index }) => {
         return (
             <ListView

@@ -7,10 +7,6 @@ import Images from '../../../constant/Images';
 import Carousel from 'react-native-snap-carousel';
 import { useSelector } from 'react-redux';
 import ImageRenderer from '../../../Components/universal/ImageRender';
-import { useNavigation } from '@react-navigation/native';
-
-
-
 
 const MiniSlider = (props) => {
     const BannerData = props?.Data;

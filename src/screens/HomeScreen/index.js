@@ -5,22 +5,19 @@ import AppBackground from '../Components/AppBackground';
 import MiniSlider from '../Components/Cards/MiniSlider';
 import Colors from '../../constant/Colors';
 import { hp, wp } from '../../constant/responsiveFunc';
-import fonts from '../../constant/fonts';
 import FeaturedCategory from '../Components/Cards/FeaturedCategory';
 import NewArrivals from '../Components/Cards/NewArrivals';
 import RecentlyViewProduct from '../Components/Cards/RecentlyViewProduct';
 import SuggestedProducts from '../Components/Cards/SuggestedProducts';
 import TopPicks from '../Components/Cards/TopPicks';
 import BannerCollage from '../Components/Cards/BannerCollage';
-import LargeBanner from '../Components/Cards/ExtraLargeBanner';
 import BrandList from '../Components/Cards/BrandList';
 import CategoryList from '../Components/Cards/CategoryList';
-import { getHomeCollection, homeDataLoadingStart, updateFeaturedCart, homeDataReset } from '../Store/actions/HomeAction';
+import { getHomeCollection, homeDataLoadingStart, homeDataReset } from '../Store/actions/HomeAction';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../constant/Loader';
 import { useIsFocused } from '@react-navigation/native';
 import { translate } from '../../utility';
-import Images from '../../constant/Images';
 import AppModal from '../../Components/universal/Modal';
 import ModalContentWithoutLogin from '../../Components/universal/Modal/ModalContentWithoutLogin';
 import { formattedPrice, getFonts } from '../utils';
@@ -64,7 +61,6 @@ export default function HomeScreen() {
          'suggestedProductsJson',
          'categoryList',
       ];
-
       return renderOrder.map((key) => {
          const value = data[key];
          // if (value) {
@@ -91,7 +87,7 @@ export default function HomeScreen() {
                return null;
             // }
          }
-         return null;
+         // return null;
       });
    };
 

@@ -119,30 +119,19 @@ const ProductDetail = (props) => {
 
                     dispatch(updateCartButton(productDetail?.id))
                     showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
-                    // dispatch(productDetailLoading())
-                    // const resp1 = dispatch(getProductDetail(productDetail?.id, userData))
-                    // if (resp1) {
-                    //     setTimeout(() => {
-                    //         showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
-                    //     }, 1000);
-                    // }
                 }
                 else {
                     showErrorToast()
                     setButtonLoading(false)
-
                 }
             }
             else if (isCartedItem) {
                 setButtonLoading(false)
-
                 navigation.navigate('CartScreen', { screen: true })
             }
-
         }
         catch (error) {
             setButtonLoading(false)
-
             console.log('Error from onAddtoCartPress api ', error)
         }
     }

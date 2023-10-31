@@ -24,16 +24,11 @@ const { HeartIconActive, HeartIcon, ShareIcon } = SVGS
 const ProductDetailCard = (props) => {
     const dispatch = useDispatch();
 
-    // const [isLike, setLike] = useState(false)
-
     const { carouselData, title, avgRating, noOfReview, price, categoryName, productLink, discount } = props;
 
-
-    console.log('check props data : ', carouselData, title, avgRating, noOfReview, price, categoryName, productLink, discount)
     const userData = useSelector((state) => state.userReducer.userData);
     const { productDetail } = useSelector(state => state.productListReducer);
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
-
 
 
     const addToWishlistProduct = async () => {
@@ -41,7 +36,6 @@ const ProductDetailCard = (props) => {
             try {
                 const response = await addToWishlistAPICall(props.productId);
                 if (response?.success) {
-                    // dispatch(getProductDetail(props.productId))
                     const resp1 = dispatch(getProductDetail(props.productId, userData))
                     if (resp1) {
                         const typeCheck = response?.message == 'product added successfully in wishlist' ? 'SUCCESS' : 'REMOVE'
@@ -50,23 +44,16 @@ const ProductDetailCard = (props) => {
                             showInfoToast(typeCheck, selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
                         }, 1000);
                     }
-                    // setLike(!isLike)
                 }
                 else {
-                    // setLike(false)
                 }
 
             }
             catch (error) {
-                // setLike(false)
                 console.log('Error from add to wishlist API api ', error)
                 showErrorToast()
             }
         }
-        // else {
-        //     // showErrorToast(translate('common.shoppingNeedsText'), translate('common.pleaseloginfirst'))
-        //     props
-        // }
     }
 
     const onShare = async () => {
@@ -104,59 +91,6 @@ const ProductDetailCard = (props) => {
         } catch (error) {
             console.log('createShareLinkApiCall err: ', error)
         }
-
-
-        // // dispatch(globalSearchAPICall(searchTxt))
-        // //     .then(response => {
-        // //         console.log('search result  :', response)
-        // //         setloading(false);
-        // //         if (
-        // //             response?.data?.rows.length > 0
-        // //         ) {
-        // //             console.log('if')
-        // //             setSearchData(response?.data?.rows);
-        // //             // searchTxt ? props.onChangeText(true) : props.onChangeText(false)
-        // //             // props.onChangeText(true)
-        // //         } else {
-        // //             console.log('else')
-        // //             setSearchData([]);
-        // //             // props.onChangeText(false)
-        // //         }
-        // //     })
-        // //     .catch(err => {
-        // //         setloading(false);
-        // //         setSearchData([]);
-        // //     });
-
-
-
-
-
-
-
-        // let productName = title
-        // // let productUrl = productLink
-        // let productUrl = `https://api.hanooot.com/api/v1/user/deeplink`
-        // console.log('this is product url : ', productUrl)
-        // try {
-        //     const result = await Share.share({
-        //         title: translate('common.productdetail'),
-        //         url: productUrl,
-        //         // message: productName + ' ' + productUrl,
-        //         message: productUrl,
-        //     });
-        //     if (result.action === Share.sharedAction) {
-        //         if (result.activityType) {
-        //             // shared with activity type of result.activityType
-        //         } else {
-        //             // shared
-        //         }
-        //     } else if (result.action === Share.dismissedAction) {
-        //         // dismissed
-        //     }
-        // } catch (error) {
-        //     console.log('Share error', error)
-        // }
     };
 
 
@@ -186,27 +120,6 @@ const ProductDetailCard = (props) => {
 
 
     const RatingAndReview = useCallback(() => {
-        // const starRating = 2.5; // 3.5-star rating
-        // const stars = [];
-        // for (let i = 0; i < 5; i++) {
-        //     if (i < avgRating) {
-        //         stars.push(
-        //             <Image
-        //                 key={i}
-        //                 style={{ width: 10, height: 10, resizeMode: 'contain' }}
-        //                 source={Images.star}
-        //             />
-        //         );
-        //     } else {
-        //         stars.push(
-        //             <Image
-        //                 key={i}
-        //                 style={{ width: 10, height: 10, resizeMode: 'contain', tintColor: Colors.GRAY }}
-        //                 source={Images.star}
-        //             />
-        //         );
-        //     }
-        // }
 
         return (
             avgRating ?
@@ -238,7 +151,6 @@ const ProductDetailCard = (props) => {
         }
         return val;
     }
-
 
     return (
         <View style={styles.mainContainer}>
@@ -279,20 +191,15 @@ const ProductDetailCard = (props) => {
                 <View style={styles.firstLineView}>
 
                     <View style={styles.textView}>
-                        {/* <Text style={styles.totalPrice}>{`${price ? formattedPrice(price) : 0} ${translate('common.currency_iqd')}`}</Text> */}
                         {
                             discount ?
                                 <Text style={styles.discountPercent}>{`${formattedPrice(discount)} ${translate('common.currency_iqd')}`}</Text>
                                 : price ? <Text style={styles.totalPrice}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text> : null
                         }
-                        {/* <Text style={styles.totalPrice}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text> */}
-                        {/* <Text style={styles.inclusiveTax}>{`(${translate('common.inclusiveofvat')})`}</Text> */}
                     </View>
                     <ExpressView title={props.isExpress} />
                 </View>
                 <View style={styles.textView}>
-                    {/* <Text style={styles.discountPrice}>{price}</Text>
-                    <Text style={styles.discountPercent}>{props.PricePercentOff}</Text> */}
                     {
                         price && discount ?
                             <View style={{ flexDirection: 'row' }}>
@@ -301,7 +208,6 @@ const ProductDetailCard = (props) => {
                             : null
                     }
                 </View>
-                {/* <Text style={styles.discountPercent}>{translate('common.freeshipping')}</Text> */}
             </View>
 
         </View>

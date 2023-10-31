@@ -28,13 +28,6 @@ const ProductListWithFilters = (props) => {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-
-
-
-    // console.log('searchsearchsearch : ', DATA.searchText)
-
-
-
     useEffect(() => {
         dispatch(productListReset())
         dispatch(productListLoadingStart());
@@ -49,9 +42,6 @@ const ProductListWithFilters = (props) => {
     const { isListLoading, productList, productListPage, productTotalCount } = useSelector(state => state.productListReducer);
     const userData = useSelector((state) => state.userReducer.userData);
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
-
-
-    console.log('productList: ', productList)
 
     const renderItem = ({ item, index }) => {
         return (
@@ -163,7 +153,6 @@ const ProductListWithFilters = (props) => {
 
 
     const handleFlatListEndReached = () => {
-        console.log('onendreachecdd called', isListLoading, productList.length, productTotalCount)
         if (
             !isListLoading &&
             productList.length !== productTotalCount

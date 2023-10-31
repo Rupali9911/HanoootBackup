@@ -157,11 +157,6 @@ const ViewMoreCategories = (props) => {
 
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
-
-
-
-    // console.log('ViewMoreCategories : ', ITEMS);
-
     const renderItem = ({ item, index }) => {
         const imageUrl = item?.thumbnail_image ? item?.thumbnail_image : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png';
         const extension = imageUrl.split('.').pop().toLowerCase();
@@ -170,19 +165,6 @@ const ViewMoreCategories = (props) => {
             <TouchableOpacity style={styles.itemContainer}
                 onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: SECTION == 1 ? item?.ManagementBrand?.name : item?.name })}
             >
-                {/* {
-                    extension === 'svg' ?
-                        <SvgUri
-                            width={wp(13)}
-                            height={hp(6)}
-                            uri={imageUrl}
-                        />
-                        :
-                        <Image
-                            source={{ uri: imageUrl }}
-                            style={styles.image}
-                        />
-                } */}
                 <ImageRenderer height={hp(6)} width={wp(13)} style={styles.image} uri={SECTION == 1 ? item?.ManagementBrand?.thumbnail_image : item?.thumbnail_image} />
                 {
                     // item?.ManagementBrand?.name &&

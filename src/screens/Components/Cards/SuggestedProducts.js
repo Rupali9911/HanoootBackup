@@ -58,7 +58,6 @@ const SuggestedProducts = (props) => {
                         />
                     </>)
                     : null
-
             }
 
         </>

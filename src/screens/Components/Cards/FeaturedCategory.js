@@ -20,15 +20,12 @@ const FeaturedCategory = (props) => {
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
 
-
     const userData = useSelector((state) => state.userReducer.userData);
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
-
 
     const onAddtoCartPress = async (isCartedItem, productId, featureCatgId) => {
         try {
             if (!isCartedItem) {
-
                 const response = await AddtoCartAPICall(productId, 1)
                 if (response?.success) {
                     setTimeout(() => {
@@ -102,7 +99,6 @@ const FeaturedCategory = (props) => {
                     data={item}
                     // renderItem={renderItem}
                     renderItem={({ item, index }) => renderItem(item, index, featureCatgId)}
-
                     keyExtractor={keyExtractor}
                     numColumns={3}
                     scrollEnabled={false}

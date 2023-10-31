@@ -20,8 +20,6 @@ import { updateNewArrivalLike, removeNewArrivalLike, updateSuggestedLike, remove
 
 const { HeartIconActive, HeartIcon, DiscountTag } = SVGS
 
-
-
 const ListView = (props) => {
     const {
         centerImage,
@@ -41,13 +39,6 @@ const ListView = (props) => {
         item
     } = props;
 
-    // console.log('averageRating : ', averageRating,noOfReview)
-
-
-    console.log('CHECK Product items : ', item, '------------', item?.isLike)
-
-
-
     const [isLiked, setLiked] = useState(isItemLiked);
     const [checkedItems, setCheckedItems] = useState([]);
     const [arr, setArr] = useState([]);
@@ -56,31 +47,19 @@ const ListView = (props) => {
     const [checkboxCount, setCheckboxCount] = useState(0);
     const [checked, setChecked] = useState([]);
 
-
     const dispatch = useDispatch();
-
-    // const { item } = props;
     const navigation = useNavigation();
+
     const userData = useSelector((state) => state.userReducer.userData);
     const { selectedLanguageItem } = useSelector((state) => state.languageReducer);
 
-    const flippedIconStyle = I18nManager.isRTL ? { transform: [{ scaleX: -1 }] } : {};
-
-    console.log('props.isHome', props.isHome)
-    var total = 0
     const addToWishlistProduct = async (id) => {
-        // console.log('addToWishlistProduct', id)
         if (userData) {
             try {
-                // await addToWishlistAPICall(detailId);    
-                console.log('check liked  :', isLiked)
                 const response = await addToWishlistAPICall(detailId);
                 if (response?.success) {
-                    // console.log('response : ', reponse)
-
                     const infoMsg = selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic;
                     if (response?.message == 'product added successfully in wishlist') {
-                        // props.isHome && setLiked(true)
 
                         props.isHome && props?.isHomeType == 'NewArrival'
                             ?
@@ -96,18 +75,9 @@ const ListView = (props) => {
                                     :
                                     dispatch(updateWishlistProduct(id))
 
-
-
                         showInfoToast('SUCCESS', infoMsg)
-
-
-                        // setTimeout(() => {
-                        //     setLiked(true)
-                        //     showInfoToast('SUCCESS', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
-                        // }, 500);
                     }
                     else {
-                        // props.isHome && setLiked(false)
                         props.isHome && props?.isHomeType == 'NewArrival'
                             ?
                             dispatch(removeNewArrivalLike(id))
@@ -124,33 +94,16 @@ const ListView = (props) => {
 
 
                         showInfoToast('REMOVE', infoMsg)
-                        // setTimeout(() => {
-                        //     setLiked(false)
-                        //     showInfoToast('REMOVE', selectedLanguageItem?.language_id === 0 ? response?.message : response?.message_arabic)
-                        // }, 500);
                     }
                 }
-                else {
-                    setLiked(false)
-                }
-                // setLiked(!isLiked);
             }
             catch (error) {
                 console.log('Error from add to wishlist API api ', error)
-                // setLiked(false);
             }
         }
-        // else {
-        //     // showErrorToast(translate('common.shoppingNeedsText'), translate('common.pleaseloginfirst'))
-        //     // setModalVisible(true)
-        //     props.onWishlistPress
-        // }
-
     }
 
-
     const handleCheckboxChange = (id, price) => {
-
         let itemIndex = getIds.indexOf(id);
 
         if (checkedItems.includes(id)) {
@@ -159,24 +112,18 @@ const ListView = (props) => {
         } else {
             setCheckedItems([...checkedItems, id]);
             getIds.push(id);
-
         }
 
         props.productPriceTotal(getIds)
     };
 
-
-
     return (
         <View style={[props.mainContainer]}>
             <TouchableOpacity
                 style={[styles.ProductListContainer, props.ViewContStyle]}
-                // onPress={() => navigation.navigate('ProductDetail', { id: detailId })}
                 onPress={() => navigation.push('ProductDetail', { id: detailId })}
             >
-
                 <View style={styles.topLine}>
-
                     {
                         isExpress ? <ExpressView title={isExpress} /> : null
                     }
@@ -206,25 +153,11 @@ const ListView = (props) => {
                 </View>
 
                 <View style={[styles.imageContainer, props.imgContStyle]}>
-                    {/* <Image
-                        source={{ uri: centerImage ? centerImage : 'https://digitalfactoryalliance.eu/wp-content/plugins/all-in-one-video-gallery/public/assets/images/placeholder-image.png' }}
-                        style={[styles.productImg, props.imgStyle]}
-                    /> */}
                     <ImageRenderer height={SIZE(100)} width={SIZE(100)} style={[styles.productImg, props.imgStyle]} uri={centerImage} />
                 </View>
 
                 <View style={[styles.textView, props.TextViewStyle]}>
-                    {/* {
-                        props.isPriceButton &&
-
-                        <View style={styles.priceBtnView}>
-                            <Text style={styles.priceBtnText}>{'50% Off'}</Text>
-                        </View>
-
-                    } */}
                     <Text style={styles.productName} numberOfLines={2}>{productName}</Text>
-
-
                     {
                         discount ?
                             <Text style={[styles.price, props.TotalPriceStyle]}>{`${formattedPrice(discount)} ${translate('common.currency_iqd')}`}</Text>
@@ -237,19 +170,6 @@ const ListView = (props) => {
                             </View>
                             : price ? <Text style={[styles.price, props.TotalPriceStyle]}>{`${formattedPrice(price)} ${translate('common.currency_iqd')}`}</Text> : null
                     }
-
-                    {/* {
-                        discount &&
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={[styles.productDiscountPrice, props.DisCountPriceStyle]}>{discount} </Text>
-                            {props.isDiscountPercent && <Text style={styles.ProductDiscPercent} numberOfLines={1}>{discount}</Text>}
-                        </View>
-                    } */}
-
-                    {/* {
-                        props.PriceInGreen && <Text style={[styles.price, { color: Colors.PRICEGREEN }]}>{item.price}</Text>
-                    } */}
-
                     {
                         averageRating &&
 
@@ -259,28 +179,9 @@ const ListView = (props) => {
                             <Text style={styles.noOfReview}>{`(${noOfReview})`}</Text>
                         </View>
                     }
-
                 </View>
 
             </TouchableOpacity>
-            {/* {props.isDiscountTag &&
-                <>
-                    <View style={{
-                        position: 'absolute', bottom: 10, right: 0, marginVertical: wp('2'),
-                        marginHorizontal: wp('1.5'), justifyContent: 'center', alignItems: 'center'
-                    }}>
-                        <DiscountTag />
-
-                    </View>
-                    View style={{}}> <Text>1</Text></View> 
-                </>
-            } */}
-            {/* <ImageBackground source={Images.DiscountTag} style={{
-                // height: hp(4.43), width: wp(5.87), resizeMode: 'contain',
-                height: hp(7), width: wp(10)
-            }}>
-                {/* <DiscountTag /> */}
-            {/* </ImageBackground> * /} */}
         </View >
     )
 }

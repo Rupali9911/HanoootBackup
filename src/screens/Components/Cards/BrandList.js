@@ -16,9 +16,7 @@ const BrandList = (props) => {
                 style={styles.brandContainer} key={index}
                 // onPress={() => navigation.navigate('ProductListWithFilters', { category_id: item?.id, headerTitle: item?.name })}
                 onPress={() => { Linking.openURL('https://www.hanooot.com') }}
-
             >
-
                 <ImageRenderer height={hp(9.85)} width={wp(21.33)} style={styles.brandImage} uri={item?.brand_image} />
             </TouchableOpacity>
         );
