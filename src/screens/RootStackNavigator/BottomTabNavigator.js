@@ -75,6 +75,7 @@ export default function TabComponent() {
         return (
             <View style={styles.iconContainer}>
                 {focused ? <CartActive /> : <CartIcon />}
+                
 
                 {count > 0 && (
                     // <View style={styles.countContainer}>
